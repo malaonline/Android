@@ -4,4 +4,16 @@
 *.swp
 *.log
 .idea
-celerybeat-schedule
+
+.gradle
+gradle
+gradle.properties
+local.properties
+.idea
+.DS_Store
+build
+captures
+gradle-app.setting
+*.iml
+logs/
+app/src/main/assets/ShareSDK.xml
