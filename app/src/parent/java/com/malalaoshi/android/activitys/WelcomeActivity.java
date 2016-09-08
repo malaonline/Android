@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 import com.malalaoshi.android.MainActivity;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseActivity;
+import com.malalaoshi.android.core.usercenter.UserManager;
+import com.malalaoshi.android.core.utils.EmptyUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -33,8 +35,13 @@ public class WelcomeActivity extends BaseActivity {
         public void run() {
             Activity activity = activitys.get();
             if (activity!=null){
-                Intent intent = new Intent(activity,MainActivity.class);
-                activity.startActivity(intent);
+                UserManager userManager = UserManager.getInstance();
+                if (userManager.getCityId()>0&&userManager.getSchoolId()>0){
+                    Intent intent = new Intent(activity,MainActivity.class);
+                    activity.startActivity(intent);
+                }else{
+                    CityPickerActivity.openForInit(activity);
+                }
                 activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 activity.finish();
             }

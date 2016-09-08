@@ -37,4 +37,9 @@ public class SchoolListApi extends BaseApi {
         String subUrl = "?teacher=" + teacherId;
         return httpGet(getPath()+subUrl, SchoolListResult.class);
     }
+
+    public SchoolListResult getSchoolsByCityId(long cityId) throws Exception {
+        String subUrl = "?region=" + cityId;
+        return httpGet(getPath()+subUrl, SchoolListResult.class);
+    }
 }

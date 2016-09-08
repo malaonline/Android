@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.malalaoshi.android.activitys.CityPickerActivity;
 import com.malalaoshi.android.activitys.OrderListActivity;
+import com.malalaoshi.android.activitys.SchoolPickerActivity;
 import com.malalaoshi.android.adapter.FragmentGroupAdapter;
 import com.malalaoshi.android.api.NoticeMessageApi;
 import com.malalaoshi.android.core.base.BaseActivity;
@@ -21,15 +21,14 @@ import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.usercenter.UserManager;
-import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.dialogs.PromptDialog;
 import com.malalaoshi.android.entity.City;
 import com.malalaoshi.android.entity.NoticeMessage;
+import com.malalaoshi.android.entity.School;
 import com.malalaoshi.android.events.EventType;
 import com.malalaoshi.android.events.NoticeEvent;
 import com.malalaoshi.android.fragments.ScheduleFragment;
 import com.malalaoshi.android.fragments.MemberServiceFragment;
-import com.malalaoshi.android.fragments.SimpleAlertDialogFragment;
 import com.malalaoshi.android.fragments.MainFragment;
 import com.malalaoshi.android.fragments.UserFragment;
 import com.malalaoshi.android.receiver.NetworkStateReceiver;
@@ -58,8 +57,10 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     private int pageIndex = PAGE_INDEX_TEACHERS;
 
-    protected TextView tvTitleLocation;
-    protected TextView tvTitleTady;
+    protected TextView tvChooseSchool;
+
+    protected TextView tvTitleText;
+
 
     private ViewPagerIndicator indicatorTabs;
 
@@ -114,8 +115,9 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         //获取待显示页索引
         pageIndex = getIntent().getIntExtra(EXTRAS_PAGE_INDEX, 0);
 
-        tvTitleLocation = (TextView) findViewById(R.id.tv_title_location);
-        tvTitleTady = (TextView) findViewById(R.id.tv_title_tady);
+        tvChooseSchool = (TextView) findViewById(R.id.tv_choose_school);
+
+        tvTitleText = (TextView) findViewById(R.id.tv_title_text);
 
         indicatorTabs = (ViewPagerIndicator) findViewById(R.id.indicator_tabs);
         vpHome = (ViewPager) findViewById(R.id.viewpage);
@@ -125,7 +127,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     }
 
     private void setEvent() {
-        tvTitleLocation.setOnClickListener(this);
+        tvChooseSchool.setOnClickListener(this);
         indicatorTabs.setViewPager(vpHome);
         indicatorTabs.setPageChangeListener(this);
         EventBus.getDefault().register(this);
@@ -133,11 +135,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     private void initViews() {
         setCurrentPager(pageIndex);
-        if (EmptyUtils.isEmpty(UserManager.getInstance().getCity())){
-            tvTitleLocation.setText("郑州市");
-        }else{
-            tvTitleLocation.setText(UserManager.getInstance().getCity());
-        }
+        tvChooseSchool.setText("校区:"+UserManager.getInstance().getSchool());
     }
 
     //初始化定位
@@ -214,7 +212,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_title_location:
+            case R.id.tv_choose_school:
                 onClickBarBtnLocation();
                 StatReporter.ClickCityLocation();
                 break;
@@ -224,22 +222,26 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     private void setCurrentPager(int i) {
         switch (i) {
             case PAGE_INDEX_TEACHERS:
-                tvTitleLocation.setVisibility(View.VISIBLE);
+                tvChooseSchool.setVisibility(View.VISIBLE);
+                tvTitleText.setVisibility(View.GONE);
                 StatReporter.teacherListPage();
                 break;
             case PAGE_INDEX_COURSES:
                 EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_BACKGROUND_LOAD_TIMETABLE_DATA));
-                tvTitleLocation.setVisibility(View.GONE);
+                tvChooseSchool.setVisibility(View.GONE);
+                tvTitleText.setVisibility(View.VISIBLE);
                 StatReporter.coursePage();
                 break;
             case PAGE_INDEX_MEMBER_SERVICE:
                 EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_BACKGROUND_LOAD_REPORT_DATA));
-                tvTitleLocation.setVisibility(View.GONE);
+                tvChooseSchool.setVisibility(View.GONE);
+                tvTitleText.setVisibility(View.VISIBLE);
                 StatReporter.memberServicePage();
                 break;
             case PAGE_INDEX_USER:
                 EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_BACKGROUND_LOAD_USERCENTER_DATA));
-                tvTitleLocation.setVisibility(View.GONE);
+                tvChooseSchool.setVisibility(View.GONE);
+                tvTitleText.setVisibility(View.VISIBLE);
                 StatReporter.myPage();
                 break;
         }
@@ -260,16 +262,23 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     }
 
     protected void onClickBarBtnLocation() {
-        CityPickerActivity.openForResult(this,CityPickerActivity.RESULT_CODE_CITY);
+        UserManager userManager = UserManager.getInstance();
+        City city = new City();
+        city.setId(userManager.getCityId());
+        city.setName(userManager.getCity());
+        School school = new School();
+        school.setName(userManager.getSchool());
+        school.setId(userManager.getSchoolId());
+        SchoolPickerActivity.openForResult(this,school,city);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (CityPickerActivity.RESULT_CODE_CITY==resultCode&&data!=null){
+        if (SchoolPickerActivity.RESULT_CODE_SCHOOL_CITY==resultCode&&data!=null){
             //更新老师列表数据
             EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_TEACHERLIST_DATA));
-            tvTitleLocation.setText(UserManager.getInstance().getCity());
+            tvChooseSchool.setText("校区:"+UserManager.getInstance().getSchool());
         }
     }
 

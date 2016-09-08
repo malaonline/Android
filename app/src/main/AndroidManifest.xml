@@ -97,6 +97,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+
+        <activity
+            android:name=".activitys.SchoolPickerActivity"
+            android:label="校区选择"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name="com.malalaoshi.android.activitys.GalleryActivity"
             android:screenOrientation="portrait"

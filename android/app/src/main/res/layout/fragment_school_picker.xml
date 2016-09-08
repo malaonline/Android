@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/color_white_f6f6f6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/ll_city"
+            android:background="@color/color_white_ffffff"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="66dp">
+                <TextView
+                    android:id="@+id/tv_city"
+                    tools:text="北京"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:gravity="center" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_more_info" />
+        </RelativeLayout>
+        <com.malalaoshi.android.view.ScrollListView
+            android:id="@+id/gv_all_schools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:cacheColorHint="@android:color/transparent"
+            android:listSelector="@android:color/transparent"
+            android:divider="@color/color_white_f6f6f6"
+            android:dividerHeight="0.5dp"
+            android:numColumns="1"
+            android:horizontalSpacing="12dp"
+            android:verticalSpacing="12dp"
+            android:scrollbars="none"/>
+</LinearLayout>
