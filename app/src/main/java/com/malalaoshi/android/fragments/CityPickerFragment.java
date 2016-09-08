@@ -15,12 +15,11 @@ import com.malalaoshi.android.api.CityListApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
-import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.entity.City;
 import com.malalaoshi.android.result.CityListResult;
 import com.malalaoshi.android.util.MiscUtil;
-import com.malalaoshi.android.view.ScrollGridView;
 import com.malalaoshi.android.view.ScrollListView;
+import com.malalaoshi.android.view.SideBar;
 
 import java.util.List;
 
@@ -30,21 +29,27 @@ import butterknife.ButterKnife;
 /**
  * Created by kang on 16/8/16.
  */
-public class CityPickerFragment extends BaseFragment implements AdapterView.OnItemClickListener, View.OnClickListener {
-    public static String ARGS_CITY = "city";
-
-    @Bind(R.id.tv_current_city)
-    protected TextView tvCurrentCity;
+public class CityPickerFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     @Bind(R.id.gv_all_cities)
     protected ScrollListView gvAllCities;
 
+    @Bind(R.id.vt_tip_dialog)
+    protected TextView vtTipDialog;
+
+    @Bind(R.id.sidebar)
+    protected SideBar sidebar;
+
     protected CityPickerAdapter cityPickerAdapter;
 
-    private City currentCity;
     private List<City> cities;
 
     private OnCityClick onCityClick;
+
+    public static CityPickerFragment newInstance() {
+        CityPickerFragment cityPickerFragment = new CityPickerFragment();
+        return cityPickerFragment;
+    }
 
     @Nullable
     @Override
@@ -58,23 +63,13 @@ public class CityPickerFragment extends BaseFragment implements AdapterView.OnIt
     }
 
     private void initView() {
-        if (currentCity.getId()!=null&&currentCity.getId()>0){
-            tvCurrentCity.setText(currentCity.getName());
-        }else{
-            tvCurrentCity.setText("郑州市");
-        }
     }
 
     private void setEvent() {
         gvAllCities.setOnItemClickListener(this);
-        tvCurrentCity.setOnClickListener(this);
     }
 
     private void initData() {
-        UserManager userManager = UserManager.getInstance();
-        currentCity = new City();
-        currentCity.setName(userManager.getCity());
-        currentCity.setId(userManager.getCityId());
         cityPickerAdapter = new CityPickerAdapter(getContext());
         gvAllCities.setAdapter(cityPickerAdapter);
         loadData();
@@ -92,13 +87,6 @@ public class CityPickerFragment extends BaseFragment implements AdapterView.OnIt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (onCityClick!=null){
             onCityClick.onCityClick(cities.get(position));
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (onCityClick!=null){
-            onCityClick.onCityClick(currentCity);
         }
     }
 

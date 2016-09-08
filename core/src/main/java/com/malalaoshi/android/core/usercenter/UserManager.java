@@ -38,6 +38,7 @@ public class UserManager {
     private String stuName;
     private String avatorUrl;
     private String school;
+    private Long schoolId;
     private String gradeId;
     private String city;
     private Long cityId;
@@ -54,6 +55,7 @@ public class UserManager {
         stuName = userInfo.getString("studname", "");
         avatorUrl = userInfo.getString("avatorUrl", "");
         school = userInfo.getString("school", "");
+        schoolId = userInfo.getLong("schoolId", -1);
         gradeId = userInfo.getString("gradeId", "");
         city = userInfo.getString("city", "");
         cityId = userInfo.getLong("cityId", -1);
@@ -157,6 +159,16 @@ public class UserManager {
         this.school = school;
     }
 
+    public Long getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(Long schoolId) {
+        SharedPreferences userInfo = MalaContext.getContext().getSharedPreferences("userInfo", 0);
+        userInfo.edit().putLong("schoolId", schoolId).apply();
+        this.schoolId = schoolId;
+    }
+
     public String getGradeId() {
         return gradeId;
     }
@@ -206,8 +218,6 @@ public class UserManager {
         userInfo.edit().putString("studname", "").apply();
         avatorUrl = "";
         userInfo.edit().putString("avatorUrl", "").apply();
-        school = "";
-        userInfo.edit().putString("school", "").apply();
         gradeId = "";
         userInfo.edit().putString("gradeId", "").apply();
         //city = "";

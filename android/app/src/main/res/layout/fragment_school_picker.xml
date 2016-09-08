@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/color_white_f6f6f6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/ll_city"
+            android:layout_marginTop="@dimen/page_padding_small"
+            android:background="@drawable/bg_white_item"
+            style="@style/mala.widget.school.item">
+                <TextView
+                    android:id="@+id/tv_city"
+                    tools:text="北京"
+                    style="@style/mala.widget.school.item.text" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/layout_margin_top"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_more_info" />
+        </RelativeLayout>
+        <com.malalaoshi.android.view.ScrollListView
+            android:id="@+id/gv_all_schools"
+            android:layout_marginTop="@dimen/page_padding_small"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:divider="@color/color_white_f6f6f6"
+            android:dividerHeight="0.5dp"
+            android:scrollbars="none"/>
+</LinearLayout>

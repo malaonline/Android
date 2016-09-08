@@ -191,6 +191,22 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="mala.widget.school.item" parent="android:Widget.TextView">
+        <item name="android:background">@color/color_white_ffffff</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/toolbar_height</item>
+    </style>
+
+    <style name="mala.widget.school.item.text" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/color_black_333333</item>
+        <item name="android:textSize">@dimen/text_size_normal_high</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/layout_margin_top</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/title_bar_height</item>
+    </style>
+
     <!-- 用户中心 -->
     <style name="mala.widget.usercenter.item.text" parent="android:Widget.TextView">
         <item name="android:textColor">@color/color_black_636363</item>
