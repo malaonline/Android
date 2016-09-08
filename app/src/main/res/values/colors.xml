@@ -78,6 +78,7 @@
     <!--白色white-->
     <color name="color_white_f5f5f5">#f5f5f5</color>
     <color name="color_white_ffffff_88">#88ffffff</color>
+    <color name="color_white_ffffff_0f">#0fffffff</color>
     <color name="color_white_ffffff_dc">#dcffffff</color>
     <color name="color_white_f6f6f6">#F6F6F6</color>
     <color name="color_white_f7f7f7">#f7f7f7</color>

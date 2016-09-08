@@ -6,16 +6,12 @@
     android:layout_height="match_parent">
         <com.malalaoshi.android.view.ScrollListView
             android:id="@+id/gv_all_cities"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:cacheColorHint="@android:color/transparent"
-            android:listSelector="@android:color/transparent"
             android:divider="@color/color_white_f6f6f6"
             android:dividerHeight="0.5dp"
-            android:numColumns="1"
-            android:horizontalSpacing="12dp"
-            android:verticalSpacing="12dp"
             android:scrollbars="none"/>
         <TextView
             android:id="@+id/vt_tip_dialog"

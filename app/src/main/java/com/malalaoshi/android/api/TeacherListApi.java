@@ -1,5 +1,7 @@
 package com.malalaoshi.android.api;
 
+import android.util.Log;
+
 import com.malalaoshi.android.core.network.api.BaseApi;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.result.TeacherListResult;
@@ -25,8 +27,14 @@ public class TeacherListApi extends BaseApi {
         String subUrl = "";
         boolean hasParam = false;
         Long cityId = UserManager.getInstance().getCityId();
+        Long schoolId = UserManager.getInstance().getSchoolId();
         if (cityId!=null&&cityId>0){
             subUrl += "?region=" + cityId;
+            hasParam = true;
+        }
+        if (schoolId!=null&&schoolId>0) {
+            subUrl += hasParam ? "&school=" : "?school=";
+            subUrl += schoolId;
             hasParam = true;
         }
         if (gradeId!=null) {
@@ -48,7 +56,7 @@ public class TeacherListApi extends BaseApi {
                 }
             }
         }
-
+        Log.d("TeacherListApi","request url:"+getPath()+subUrl);
         return httpGet(getPath() + subUrl, TeacherListResult.class);
     }
 }

@@ -15,11 +15,9 @@ import com.malalaoshi.android.api.CityListApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
-import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.entity.City;
 import com.malalaoshi.android.result.CityListResult;
 import com.malalaoshi.android.util.MiscUtil;
-import com.malalaoshi.android.view.ScrollGridView;
 import com.malalaoshi.android.view.ScrollListView;
 import com.malalaoshi.android.view.SideBar;
 
