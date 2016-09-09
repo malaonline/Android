@@ -1,4 +1,4 @@
-package com.malalaoshi.android.dialog;
+package com.malalaoshi.android.dialogs;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

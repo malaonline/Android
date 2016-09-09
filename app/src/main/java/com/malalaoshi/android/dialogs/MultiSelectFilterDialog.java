@@ -1,4 +1,4 @@
-package com.malalaoshi.android.dialog;
+package com.malalaoshi.android.dialogs;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;

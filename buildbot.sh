@@ -9,5 +9,5 @@ javac -version
 gradle --version
 gradle clean
 # only build apk for parents. currently not build apk for teachers.
-gradle assembleParentDevrelease assembleParentStagerelease assembleParentPrdrelease
+gradle assembleDevrelease assemblePrdrelease assembleStagerelease
 gradle testParentDevreleaseUnitTest testParentStagereleaseUnitTest testParentPrdreleaseUnitTest

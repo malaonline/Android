@@ -11,7 +11,6 @@ package cn.sharesdk.onekeyshare.themes.classic;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
 import android.view.Gravity;
