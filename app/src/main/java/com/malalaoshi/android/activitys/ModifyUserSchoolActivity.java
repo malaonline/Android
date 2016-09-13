@@ -15,7 +15,7 @@ import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.core.view.TitleBarView;
-import com.malalaoshi.android.dialog.RadioDailog;
+import com.malalaoshi.android.dialogs.RadioDailog;
 import com.malalaoshi.android.entity.BaseEntity;
 import com.malalaoshi.android.entity.Grade;
 import com.malalaoshi.android.net.Constants;

@@ -61,7 +61,6 @@ import com.malalaoshi.android.view.RingProgressbar;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import java.util.ArrayList;
 import java.util.Arrays;

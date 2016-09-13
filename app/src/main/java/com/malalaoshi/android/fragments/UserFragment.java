@@ -47,7 +47,7 @@ import com.malalaoshi.android.core.usercenter.api.UserProfileApi;
 import com.malalaoshi.android.core.usercenter.entity.AddStudentName;
 import com.malalaoshi.android.core.usercenter.entity.UserProfile;
 import com.malalaoshi.android.core.utils.EmptyUtils;
-import com.malalaoshi.android.dialog.SingleChoiceDialog;
+import com.malalaoshi.android.dialogs.SingleChoiceDialog;
 import com.malalaoshi.android.dialogs.PromptDialog;
 import com.malalaoshi.android.dialogs.SingleEditDialog;
 import com.malalaoshi.android.entity.BaseEntity;

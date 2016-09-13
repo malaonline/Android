@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.view.TitleBarView;
-import com.malalaoshi.android.dialog.RadioFilterDialog;
+import com.malalaoshi.android.dialogs.RadioFilterDialog;
 import com.malalaoshi.android.entity.Grade;
 import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.entity.Tag;

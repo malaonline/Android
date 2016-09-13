@@ -1,38 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_experience_center"
+    android:paddingTop="@dimen/layout_margin_top"
+    android:paddingBottom="@dimen/layout_margin_top"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <ImageView
-               android:id="@+id/icon"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_vertical"
-               android:layout_marginTop="8dip"
-               android:layout_marginBottom="8dip"
-               android:scaleType="centerInside"
-               android:duplicateParentState="true"
-               android:minWidth="60dp"
-               android:maxWidth="60dp"/>
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:textAppearance="?attr/textAppearanceListItemSmall"
-        android:singleLine="true"
-        android:duplicateParentState="true"
-        android:ellipsize="marquee"
-        android:fadingEdge="horizontal"
-        android:text="test"
-        android:layout_marginLeft="70dp"/>
-    <CheckBox
-              android:id="@+id/checkbox"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_vertical|right"
-              android:focusable="false"
-              android:clickable="false"
-              android:duplicateParentState="true"/>
+    <com.malalaoshi.android.core.image.MalaImageView
+        android:id="@+id/iv_school_pic"
+        android:layout_width="@dimen/image_width"
+        android:layout_height="@dimen/image_height"
+        android:scaleType="centerCrop"
+         />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_school_name"
+            android:textColor="@color/color_black_636363"
+            android:textSize="@dimen/text_size_normal"
+            android:layout_marginTop="@dimen/school_margin_normal"
+            android:layout_marginLeft="@dimen/school_margin_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_school_address"
+            android:textColor="@color/color_black_939393"
+            android:textSize="@dimen/text_size_small"
+            android:layout_marginBottom="@dimen/school_margin_normal"
+            android:layout_marginLeft="@dimen/school_margin_normal"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_school_distance"
+            android:textColor="@color/color_black_939393"
+            android:textSize="@dimen/text_size_small"
+            android:layout_marginBottom="@dimen/school_margin_normal"
+            android:layout_marginRight="@dimen/school_margin_normal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.adapter.FilterAdapter;
-import com.malalaoshi.android.dialog.MultiSelectFilterDialog;
+import com.malalaoshi.android.dialogs.MultiSelectFilterDialog;
 import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.view.ExpandedHeightGridView;
 

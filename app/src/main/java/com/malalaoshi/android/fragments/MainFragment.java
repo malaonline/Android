@@ -1,9 +1,6 @@
 package com.malalaoshi.android.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +9,7 @@ import com.malalaoshi.android.R;
 import com.malalaoshi.android.TeacherFilterActivity;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.stat.StatReporter;
-import com.malalaoshi.android.dialog.MultiSelectFilterDialog;
+import com.malalaoshi.android.dialogs.MultiSelectFilterDialog;
 import com.malalaoshi.android.entity.Grade;
 import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.entity.Tag;

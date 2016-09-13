@@ -14,7 +14,7 @@ import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.image.MalaImageView;
 import com.malalaoshi.android.core.utils.DateUtils;
 import com.malalaoshi.android.core.utils.DialogUtils;
-import com.malalaoshi.android.dialog.CommentDialog;
+import com.malalaoshi.android.dialogs.CommentDialog;
 import com.malalaoshi.android.entity.Comment;
 import com.malalaoshi.android.entity.Course;
 
