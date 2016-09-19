@@ -10,7 +10,6 @@ import com.malalaoshi.android.MainActivity;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.usercenter.UserManager;
-import com.malalaoshi.android.core.utils.EmptyUtils;
 
 import java.lang.ref.WeakReference;
 

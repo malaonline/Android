@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseActivity;
@@ -14,7 +13,7 @@ import com.malalaoshi.android.entity.CreateCourseOrderEntity;
 import com.malalaoshi.android.entity.Order;
 import com.malalaoshi.android.fragments.ConfirmOrderFragment;
 import com.malalaoshi.android.fragments.OrderDetailFragment;
-import com.malalaoshi.android.util.FragmentUtil;
+import com.malalaoshi.android.utils.FragmentUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -4,7 +4,7 @@
     android:background="@color/color_white_f6f6f6"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <com.malalaoshi.android.view.ScrollListView
+        <com.malalaoshi.android.ui.widgets.ScrollListView
             android:id="@+id/gv_all_cities"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:textSize="30.0dip"
             android:visibility="invisible" />
 
-        <com.malalaoshi.android.view.SideBar
+        <com.malalaoshi.android.ui.widgets.SideBar
             android:id="@+id/sidebar"
             android:layout_width="30.0dip"
             android:layout_height="match_parent"

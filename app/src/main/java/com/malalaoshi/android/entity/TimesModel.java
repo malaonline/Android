@@ -1,7 +1,7 @@
 package com.malalaoshi.android.entity;
 
-import com.malalaoshi.android.util.CalendarUtils;
-import com.malalaoshi.android.util.MiscUtil;
+import com.malalaoshi.android.utils.CalendarUtils;
+import com.malalaoshi.android.utils.MiscUtil;
 
 import java.util.ArrayList;
 import java.util.List;

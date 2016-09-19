@@ -13,14 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.adapter.FragmentGroupAdapter;
+import com.malalaoshi.android.adapters.FragmentGroupAdapter;
 import com.malalaoshi.android.entity.Grade;
 import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.entity.Tag;
 import com.malalaoshi.android.fragments.FilterGradeFragment;
 import com.malalaoshi.android.fragments.FilterSubjectFragment;
 import com.malalaoshi.android.fragments.FilterTagFragment;
-import com.malalaoshi.android.view.SlideViewPager;
+import com.malalaoshi.android.ui.widgets.SlideViewPager;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_white_f6f6f6"
     android:paddingBottom="12dp"
-    tools:context="com.malalaoshi.android.fragments.MainFragment">
+    tools:context=".fragments.MainFragment">
 
     <RelativeLayout
         android:id="@+id/rl_top"

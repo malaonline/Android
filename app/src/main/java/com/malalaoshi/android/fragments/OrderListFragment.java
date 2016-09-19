@@ -1,12 +1,12 @@
 package com.malalaoshi.android.fragments;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.adapter.OrderAdapter;
-import com.malalaoshi.android.api.MoreOrderListApi;
-import com.malalaoshi.android.api.OrderListApi;
+import com.malalaoshi.android.adapters.OrderAdapter;
+import com.malalaoshi.android.network.api.MoreOrderListApi;
+import com.malalaoshi.android.network.api.OrderListApi;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.base.BaseRefreshFragment;
-import com.malalaoshi.android.result.OrderListResult;
+import com.malalaoshi.android.network.result.OrderListResult;
 
 
 /**

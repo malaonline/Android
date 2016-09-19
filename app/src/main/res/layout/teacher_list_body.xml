@@ -23,7 +23,7 @@
             android:background="@color/color_gray_ece6e6"
             android:orientation="horizontal">
 
-            <com.malalaoshi.android.view.SquareImageView
+            <com.malalaoshi.android.ui.widgets.SquareImageView
                 android:id="@+id/teacher_list_item_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

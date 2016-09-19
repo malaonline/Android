@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseActivity;
-import com.malalaoshi.android.view.ZoomImageView;
+import com.malalaoshi.android.ui.widgets.ZoomImageView;
 
 
 /**

@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.malalaoshi.android.fragments.FindTeacherFragment">
+             tools:context=".fragments.FindTeacherFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 >
-                <com.malalaoshi.android.view.WheelView
+                <com.malalaoshi.android.ui.widgets.WheelView
                     android:id="@+id/find_teacher_subjects_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 >
-                <com.malalaoshi.android.view.WheelView
+                <com.malalaoshi.android.ui.widgets.WheelView
                     android:id="@+id/find_teacher_grades_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

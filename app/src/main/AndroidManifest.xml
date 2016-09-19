@@ -74,13 +74,13 @@
         </activity>
 
         <activity
-            android:name="com.malalaoshi.android.TeacherInfoActivity"
+            android:name=".activitys.TeacherInfoActivity"
             android:label="老师详情"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".TeacherFilterActivity"
+            android:name=".activitys.TeacherFilterActivity"
             android:label="老师筛选列表"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -105,90 +105,90 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name="com.malalaoshi.android.activitys.GalleryActivity"
+            android:name=".activitys.GalleryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.AnimationFullscreen"></activity>
 
         <activity
-            android:name="com.malalaoshi.android.activitys.GalleryPreviewActivity"
+            android:name=".activitys.GalleryPreviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".pay.coupon.CouponActivity"
+            android:name=".common.pay.coupon.CouponActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name="com.malalaoshi.android.activitys.ModifyUserNameActivity"
+            android:name=".activitys.ModifyUserNameActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name="com.malalaoshi.android.activitys.ModifyUserSchoolActivity"
+            android:name=".activitys.ModifyUserSchoolActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name="com.malalaoshi.android.activitys.SingleInfoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-
-        <activity
-            android:name="com.malalaoshi.android.activitys.MemberActivity"
+            android:name=".activitys.SingleInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
 
         <activity
-            android:name="com.malalaoshi.android.pay.PayActivity"
+            android:name=".activitys.MemberActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".common.pay.PayActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name="com.malalaoshi.android.pay.PayTestActivity"
+            android:name=".common.pay.PayTestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".course.CourseConfirmActivity"
+            android:name=".activitys.CourseConfirmActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".course.SettingRecordActivity"
+            android:name=".activitys.SettingRecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name="com.malalaoshi.android.activitys.AboutActivity"
+            android:name=".activitys.AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name="com.malalaoshi.android.activitys.OrderListActivity"
+            android:name=".activitys.OrderListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name="com.malalaoshi.android.activitys.OrderInfoActivity"
+            android:name=".activitys.OrderInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name="com.malalaoshi.android.activitys.ConfirmOrderActivity"
+            android:name=".activitys.ConfirmOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".comment.CommentActivity"
+            android:name=".activitys.CommentActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
 
         <receiver
-            android:name=".receiver.NetworkStateReceiver"
+            android:name=".receivers.NetworkStateReceiver"
             android:label="NetworkConnection">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -312,7 +312,7 @@
 
         <!-- User defined.  For test only  用户自定义的广播接收器-->
         <receiver
-            android:name=".push.MalaPushReceiver"
+            android:name=".common.push.MalaPushReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -350,7 +350,7 @@
         </activity>
         <!--微信分享回调 -->
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name=".activitys.wxapi.WXEntryActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"

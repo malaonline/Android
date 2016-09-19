@@ -7,7 +7,7 @@
     android:paddingLeft="12dp"
     android:paddingRight="12dp">
 
-    <com.malalaoshi.android.view.ScrollListView
+    <com.malalaoshi.android.ui.widgets.ScrollListView
         android:id="@+id/listview_school"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         android:dividerHeight="@dimen/list_divider"
         android:listSelector="@color/color_transparent_000000_00">
 
-    </com.malalaoshi.android.view.ScrollListView>
+    </com.malalaoshi.android.ui.widgets.ScrollListView>
 
     <LinearLayout
         android:id="@+id/ll_school_more"

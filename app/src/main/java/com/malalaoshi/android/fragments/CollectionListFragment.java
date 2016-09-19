@@ -1,12 +1,12 @@
 package com.malalaoshi.android.fragments;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.adapter.TeacherAdapter;
-import com.malalaoshi.android.api.CollectionListApi;
-import com.malalaoshi.android.api.MoreTeacherListApi;
+import com.malalaoshi.android.adapters.TeacherAdapter;
+import com.malalaoshi.android.network.api.CollectionListApi;
+import com.malalaoshi.android.network.api.MoreTeacherListApi;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.base.BaseRefreshFragment;
-import com.malalaoshi.android.result.TeacherListResult;
+import com.malalaoshi.android.network.result.TeacherListResult;
 
 /**
  * Created by kang on 16/8/3.

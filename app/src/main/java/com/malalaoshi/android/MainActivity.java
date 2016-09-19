@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.malalaoshi.android.activitys.OrderListActivity;
 import com.malalaoshi.android.activitys.SchoolPickerActivity;
-import com.malalaoshi.android.adapter.FragmentGroupAdapter;
-import com.malalaoshi.android.api.NoticeMessageApi;
+import com.malalaoshi.android.adapters.FragmentGroupAdapter;
+import com.malalaoshi.android.network.api.NoticeMessageApi;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
@@ -31,11 +31,11 @@ import com.malalaoshi.android.fragments.ScheduleFragment;
 import com.malalaoshi.android.fragments.MemberServiceFragment;
 import com.malalaoshi.android.fragments.MainFragment;
 import com.malalaoshi.android.fragments.UserFragment;
-import com.malalaoshi.android.receiver.NetworkStateReceiver;
-import com.malalaoshi.android.util.DialogUtil;
-import com.malalaoshi.android.util.LocManager;
-import com.malalaoshi.android.util.PermissionUtil;
-import com.malalaoshi.android.view.tabindicator.ViewPagerIndicator;
+import com.malalaoshi.android.receivers.NetworkStateReceiver;
+import com.malalaoshi.android.utils.DialogUtil;
+import com.malalaoshi.android.utils.LocManager;
+import com.malalaoshi.android.utils.PermissionUtil;
+import com.malalaoshi.android.ui.tabindicator.ViewPagerIndicator;
 
 import java.util.HashMap;
 import java.util.List;

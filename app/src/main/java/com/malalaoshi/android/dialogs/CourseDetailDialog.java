@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.adapter.FragmentGroupAdapter;
+import com.malalaoshi.android.adapters.FragmentGroupAdapter;
 
 import com.malalaoshi.android.entity.Course;
 import com.malalaoshi.android.entity.Teacher;

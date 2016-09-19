@@ -22,7 +22,7 @@
                     android:scaleType="center"
                     android:src="@drawable/ic_more_info" />
         </RelativeLayout>
-        <com.malalaoshi.android.view.ScrollListView
+        <com.malalaoshi.android.ui.widgets.ScrollListView
             android:id="@+id/gv_all_schools"
             android:layout_marginTop="@dimen/page_padding_small"
             android:layout_width="match_parent"

@@ -34,7 +34,7 @@
                 android:textSize="@dimen/text_size_small_high" />
         </LinearLayout>
 
-        <com.malalaoshi.android.view.ExpandedHeightGridView
+        <com.malalaoshi.android.ui.widgets.ExpandedHeightGridView
             android:id="@+id/filter_grages_list3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                 android:textSize="@dimen/text_size_small_high" />
         </LinearLayout>
 
-        <com.malalaoshi.android.view.ExpandedHeightGridView
+        <com.malalaoshi.android.ui.widgets.ExpandedHeightGridView
             android:id="@+id/filter_grages_list2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
         </LinearLayout>
 
 
-        <com.malalaoshi.android.view.ExpandedHeightGridView
+        <com.malalaoshi.android.ui.widgets.ExpandedHeightGridView
             android:id="@+id/filter_grages_list1"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"

@@ -10,16 +10,16 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.adapter.CityPickerAdapter;
-import com.malalaoshi.android.api.CityListApi;
+import com.malalaoshi.android.adapters.CityPickerAdapter;
+import com.malalaoshi.android.network.api.CityListApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.entity.City;
-import com.malalaoshi.android.result.CityListResult;
-import com.malalaoshi.android.util.MiscUtil;
-import com.malalaoshi.android.view.ScrollListView;
-import com.malalaoshi.android.view.SideBar;
+import com.malalaoshi.android.network.result.CityListResult;
+import com.malalaoshi.android.utils.MiscUtil;
+import com.malalaoshi.android.ui.widgets.ScrollListView;
+import com.malalaoshi.android.ui.widgets.SideBar;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
 
-    <com.malalaoshi.android.course.BorderTextView
+    <com.malalaoshi.android.ui.widgets.BorderTextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/course_date_height"

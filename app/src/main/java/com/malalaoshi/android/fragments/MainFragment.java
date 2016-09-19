@@ -6,14 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.TeacherFilterActivity;
+import com.malalaoshi.android.activitys.TeacherFilterActivity;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.dialogs.MultiSelectFilterDialog;
 import com.malalaoshi.android.entity.Grade;
 import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.entity.Tag;
-import com.malalaoshi.android.util.FragmentUtil;
+import com.malalaoshi.android.utils.FragmentUtil;
 
 import java.util.ArrayList;
 

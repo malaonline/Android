@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.adapter.SingleChoiceAdapter;
+import com.malalaoshi.android.adapters.SingleChoiceAdapter;
 import com.malalaoshi.android.entity.BaseEntity;
 
 import java.util.ArrayList;

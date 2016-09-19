@@ -6,7 +6,7 @@ import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.view.TitleBarView;
 import com.malalaoshi.android.fragments.OrderListFragment;
-import com.malalaoshi.android.util.FragmentUtil;
+import com.malalaoshi.android.utils.FragmentUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

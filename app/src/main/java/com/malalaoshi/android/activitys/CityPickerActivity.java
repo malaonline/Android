@@ -1,15 +1,11 @@
 package com.malalaoshi.android.activitys;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import com.malalaoshi.android.core.base.BaseTitleActivity;
-import com.malalaoshi.android.core.usercenter.UserManager;
-import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.entity.City;
 import com.malalaoshi.android.fragments.CityPickerFragment;
 

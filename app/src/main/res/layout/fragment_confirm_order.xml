@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/color_gray_e0e0e0" />
-            <com.malalaoshi.android.view.ScrollListView
+            <com.malalaoshi.android.ui.widgets.ScrollListView
                 android:id="@+id/lv_show_times"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

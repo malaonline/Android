@@ -6,7 +6,7 @@ import android.util.Log;
 import com.malalaoshi.android.core.BaseApplication;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.exception.CrashHandler;
-import com.malalaoshi.android.push.MalaPushClient;
+import com.malalaoshi.android.common.push.MalaPushClient;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.hawk.LogLevel;
