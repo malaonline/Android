@@ -92,7 +92,7 @@
     </RelativeLayout>
 
 
-    <com.malalaoshi.android.view.calendar.DayPickerView
+    <com.malalaoshi.android.ui.calendar.DayPickerView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

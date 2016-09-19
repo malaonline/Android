@@ -24,7 +24,7 @@
                 android:textColor="@color/color_black_333333"
                 android:textSize="15sp" />
 
-            <com.malalaoshi.android.course.GridViewForScrollView
+            <com.malalaoshi.android.ui.widgets.GridViewForScrollView
                 android:id="@+id/gv_course"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 android:textColor="@color/color_black_333333"
                 android:textSize="15sp" />
 
-            <com.malalaoshi.android.view.ScrollListView
+            <com.malalaoshi.android.ui.widgets.ScrollListView
                 android:id="@+id/ll_place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                     android:textColor="@color/color_black_333333"
                     android:textSize="15sp" />
 
-                <com.malalaoshi.android.course.CourseDateChoiceView
+                <com.malalaoshi.android.ui.widgets.CourseDateChoiceView
                     android:id="@+id/choice_time_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -186,7 +186,7 @@
                         android:src="@drawable/ic_down" />
                 </LinearLayout>
 
-                <com.malalaoshi.android.view.ScrollListView
+                <com.malalaoshi.android.ui.widgets.ScrollListView
                     android:id="@+id/lv_show_times"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -199,7 +199,7 @@
             </RelativeLayout>
 
 
-            <com.malalaoshi.android.view.ScrollListView
+            <com.malalaoshi.android.ui.widgets.ScrollListView
                 android:id="@+id/list_choice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

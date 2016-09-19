@@ -7,14 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.malalaoshi.android.adapter.TeacherAdapter;
+import com.malalaoshi.android.adapters.TeacherAdapter;
 import com.malalaoshi.android.core.MalaContext;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.base.BaseRefreshFragment;
-import com.malalaoshi.android.api.MoreTeacherListApi;
-import com.malalaoshi.android.api.TeacherListApi;
+import com.malalaoshi.android.network.api.MoreTeacherListApi;
+import com.malalaoshi.android.network.api.TeacherListApi;
 import com.malalaoshi.android.core.event.BusEvent;
-import com.malalaoshi.android.result.TeacherListResult;
+import com.malalaoshi.android.network.result.TeacherListResult;
 
 import de.greenrobot.event.EventBus;
 

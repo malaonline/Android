@@ -34,13 +34,13 @@
         android:orientation="vertical"
         android:overScrollMode="never"
         android:scrollbars="vertical">
-        <com.malalaoshi.android.view.ExpandedHeightGridView
+        <com.malalaoshi.android.ui.widgets.ExpandedHeightGridView
             android:id="@+id/listview_dialog"
             android:listSelector="@android:color/transparent"
             android:numColumns="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </com.malalaoshi.android.view.ExpandedHeightGridView>
+        </com.malalaoshi.android.ui.widgets.ExpandedHeightGridView>
     </ScrollView>
     <LinearLayout
         android:id="@+id/ll_ok"

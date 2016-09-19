@@ -13,16 +13,16 @@ import android.widget.TextView;
 
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.activitys.CityPickerActivity;
-import com.malalaoshi.android.adapter.SchoolPickerAdapter;
-import com.malalaoshi.android.api.SchoolListApi;
+import com.malalaoshi.android.adapters.SchoolPickerAdapter;
+import com.malalaoshi.android.network.api.SchoolListApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.entity.City;
 import com.malalaoshi.android.entity.School;
-import com.malalaoshi.android.result.SchoolListResult;
-import com.malalaoshi.android.util.MiscUtil;
-import com.malalaoshi.android.view.ScrollListView;
+import com.malalaoshi.android.network.result.SchoolListResult;
+import com.malalaoshi.android.utils.MiscUtil;
+import com.malalaoshi.android.ui.widgets.ScrollListView;
 
 import java.util.List;
 

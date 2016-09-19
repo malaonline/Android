@@ -16,7 +16,7 @@ import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.core.usercenter.api.AddStudentNameApi;
 import com.malalaoshi.android.core.usercenter.entity.AddStudentName;
 import com.malalaoshi.android.core.view.TitleBarView;
-import com.malalaoshi.android.util.MiscUtil;
+import com.malalaoshi.android.utils.MiscUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

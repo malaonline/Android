@@ -4,17 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.core.view.TitleBarView;
-import com.malalaoshi.android.entity.CreateCourseOrderEntity;
-import com.malalaoshi.android.entity.Order;
 import com.malalaoshi.android.fragments.OrderDetailFragment;
-import com.malalaoshi.android.util.DialogUtil;
-import com.malalaoshi.android.util.FragmentUtil;
+import com.malalaoshi.android.utils.FragmentUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

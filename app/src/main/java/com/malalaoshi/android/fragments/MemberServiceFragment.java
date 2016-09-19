@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.activitys.MemberActivity;
-import com.malalaoshi.android.api.LearningReportApi;
+import com.malalaoshi.android.network.api.LearningReportApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
@@ -25,8 +25,8 @@ import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.entity.Report;
 import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.report.ReportActivity;
-import com.malalaoshi.android.result.ReportListResult;
-import com.malalaoshi.android.util.AuthUtils;
+import com.malalaoshi.android.network.result.ReportListResult;
+import com.malalaoshi.android.utils.AuthUtils;
 
 import java.util.List;
 

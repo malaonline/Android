@@ -13,14 +13,14 @@
 
         <include layout="@layout/dialog_filter_title" />
 
-        <com.malalaoshi.android.view.SlideViewPager
+        <com.malalaoshi.android.ui.widgets.SlideViewPager
             android:id="@+id/filter_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp">
-        </com.malalaoshi.android.view.SlideViewPager>
+        </com.malalaoshi.android.ui.widgets.SlideViewPager>
 
     </LinearLayout>
 

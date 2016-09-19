@@ -27,11 +27,11 @@
         android:layout_height="match_parent" />
 
 
-    <com.malalaoshi.android.view.FlowLayout
+    <com.malalaoshi.android.ui.widgets.FlowLayout
         android:id="@+id/fl_time"
         android:layout_toRightOf="@id/iv_time_market"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.malalaoshi.android.view.FlowLayout>
+        android:layout_height="wrap_content"></com.malalaoshi.android.ui.widgets.FlowLayout>
 </RelativeLayout>

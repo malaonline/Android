@@ -10,9 +10,9 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.adapter.RadioAdapter;
+import com.malalaoshi.android.adapters.RadioAdapter;
 import com.malalaoshi.android.entity.BaseEntity;
-import com.malalaoshi.android.view.ExpandedHeightGridView;
+import com.malalaoshi.android.ui.widgets.ExpandedHeightGridView;
 
 import java.util.ArrayList;
 

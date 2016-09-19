@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.adapter.FilterAdapter;
+import com.malalaoshi.android.adapters.FilterAdapter;
 import com.malalaoshi.android.entity.Grade;
-import com.malalaoshi.android.view.ExpandedHeightGridView;
+import com.malalaoshi.android.ui.widgets.ExpandedHeightGridView;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -18,7 +18,7 @@
             android:layout_weight="4"
             android:orientation="vertical">
 
-            <com.malalaoshi.android.course.BorderTextView
+            <com.malalaoshi.android.ui.widgets.BorderTextView
                 style="@style/mala.widget.course.title.attr"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/course_date_height"
@@ -29,7 +29,7 @@
                 app:RightBorder="1dp"
                 app:TopBorder="1dp" />
 
-            <com.malalaoshi.android.course.BorderTextView
+            <com.malalaoshi.android.ui.widgets.BorderTextView
                 android:id="@+id/tv_section1"
                 style="@style/mala.widget.title.text.smallest"
                 android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 app:LeftBorder="1dp"
                 app:RightBorder="1dp" />
 
-            <com.malalaoshi.android.course.BorderTextView
+            <com.malalaoshi.android.ui.widgets.BorderTextView
                 android:id="@+id/tv_section2"
                 style="@style/mala.widget.title.text.smallest"
                 android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                 app:LeftBorder="1dp"
                 app:RightBorder="1dp" />
 
-            <com.malalaoshi.android.course.BorderTextView
+            <com.malalaoshi.android.ui.widgets.BorderTextView
                 android:id="@+id/tv_section3"
                 style="@style/mala.widget.title.text.smallest"
                 android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                 app:LeftBorder="1dp"
                 app:RightBorder="1dp" />
 
-            <com.malalaoshi.android.course.BorderTextView
+            <com.malalaoshi.android.ui.widgets.BorderTextView
                 android:id="@+id/tv_section4"
                 style="@style/mala.widget.title.text.smallest"
                 android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                 app:LeftBorder="1dp"
                 app:RightBorder="1dp" />
 
-            <com.malalaoshi.android.course.BorderTextView
+            <com.malalaoshi.android.ui.widgets.BorderTextView
                 android:id="@+id/tv_section5"
                 style="@style/mala.widget.title.text.smallest"
                 android:layout_width="match_parent"
@@ -96,7 +96,7 @@
 
         </LinearLayout>
 
-        <com.malalaoshi.android.course.GridViewForScrollView
+        <com.malalaoshi.android.ui.widgets.GridViewForScrollView
             android:id="@+id/grid_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

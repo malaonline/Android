@@ -49,7 +49,7 @@
 
 #entity和result
 -keep class com.malalaoshi.android.entity.** {*;}
--keep class com.malalaoshi.android.result.** {*;}
+-keep class com.malalaoshi.android.network.result.** {*;}
 
 -dontwarn com.pingplusplus.**
 -keep class com.pingplusplus.** {*;}
@@ -100,7 +100,7 @@
 
 #entity和result
 -keep class com.malalaoshi.android.entity.** {*;}
--keep class com.malalaoshi.android.result.** {*;}
+-keep class com.malalaoshi.android.network.result.** {*;}
 
 # 保持UI类不被混淆
 -keep class android.** {*; }

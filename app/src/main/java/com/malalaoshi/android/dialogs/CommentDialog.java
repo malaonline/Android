@@ -21,15 +21,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.api.CommentApi;
-import com.malalaoshi.android.api.PostCommentApi;
+import com.malalaoshi.android.network.api.CommentApi;
+import com.malalaoshi.android.network.api.PostCommentApi;
 import com.malalaoshi.android.core.image.MalaImageView;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.entity.Comment;
-import com.malalaoshi.android.net.Constants;
-import com.malalaoshi.android.util.MiscUtil;
+import com.malalaoshi.android.network.Constants;
+import com.malalaoshi.android.utils.MiscUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;

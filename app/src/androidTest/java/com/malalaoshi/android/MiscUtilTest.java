@@ -1,6 +1,6 @@
 package com.malalaoshi.android;
 
-import com.malalaoshi.android.util.MiscUtil;
+import com.malalaoshi.android.utils.MiscUtil;
 
 import junit.framework.TestCase;
 

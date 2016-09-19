@@ -110,7 +110,7 @@
             android:layout_marginRight="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <com.malalaoshi.android.view.RingProgressbar
+            <com.malalaoshi.android.ui.widgets.RingProgressbar
                 android:id="@+id/view_teacher_seniority"
                 app:progress_color="@color/color_red_fa7a7a"
                 app:progress_backgroud_color="@color/color_white_f6f6f6"
@@ -160,7 +160,7 @@
             android:layout_marginRight="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <com.malalaoshi.android.view.RingProgressbar
+            <com.malalaoshi.android.ui.widgets.RingProgressbar
                 android:id="@+id/view_teacher_level"
                 app:progress_color="@color/color_orange_fddc55"
                 app:progress_backgroud_color="@color/color_white_f6f6f6"
@@ -237,13 +237,13 @@
                 android:layout_marginTop="6dp"
                 android:layout_width="21dp"
                 android:layout_height="21dp" />
-            <com.malalaoshi.android.view.FlowLayout
+            <com.malalaoshi.android.ui.widgets.FlowLayout
                 android:id="@+id/fl_teach_primary"
                 android:layout_toRightOf="@id/tv_teacher_primary_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-            </com.malalaoshi.android.view.FlowLayout>
+            </com.malalaoshi.android.ui.widgets.FlowLayout>
         </RelativeLayout>
         <View
             android:id="@+id/view_primary_line"
@@ -263,13 +263,13 @@
                 android:layout_marginTop="6dp"
                 android:layout_width="21dp"
                 android:layout_height="21dp" />
-            <com.malalaoshi.android.view.FlowLayout
+            <com.malalaoshi.android.ui.widgets.FlowLayout
                 android:id="@+id/fl_teach_junior"
                 android:layout_toRightOf="@id/tv_teacher_junior_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-            </com.malalaoshi.android.view.FlowLayout>
+            </com.malalaoshi.android.ui.widgets.FlowLayout>
         </RelativeLayout>
         <View
             android:id="@+id/view_junior_line"
@@ -290,14 +290,14 @@
                 android:layout_marginTop="6dp"
                 android:layout_width="21dp"
                 android:layout_height="21dp" />
-            <com.malalaoshi.android.view.FlowLayout
+            <com.malalaoshi.android.ui.widgets.FlowLayout
                 android:id="@+id/fl_teach_senior"
                 android:layout_toRightOf="@id/tv_teacher_senior_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
 
-            </com.malalaoshi.android.view.FlowLayout>
+            </com.malalaoshi.android.ui.widgets.FlowLayout>
         </RelativeLayout>
     </LinearLayout>
 
@@ -329,7 +329,7 @@
             android:layout_marginTop="6dp"
             android:layout_width="21dp"
             android:layout_height="21dp" />
-        <com.malalaoshi.android.view.FlowLayout
+        <com.malalaoshi.android.ui.widgets.FlowLayout
             android:id="@+id/parent_teacher_detail_tag_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -356,12 +356,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.malalaoshi.android.view.ScrollListView
+        <com.malalaoshi.android.ui.widgets.ScrollListView
             android:id="@+id/parent_teacher_detail_highscore_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@color/color_gray_e5e5e5"
-            android:listSelector="@color/color_transparent_000000_00"></com.malalaoshi.android.view.ScrollListView>
+            android:listSelector="@color/color_transparent_000000_00"></com.malalaoshi.android.ui.widgets.ScrollListView>
 
     </LinearLayout>
 
@@ -433,7 +433,7 @@
         android:textColor="@color/color_black_939393"
         android:textSize="@dimen/text_size_normal_high"  />
 
-    <com.malalaoshi.android.view.FlowLayout
+    <com.malalaoshi.android.ui.widgets.FlowLayout
         android:id="@+id/parent_teacher_detail_achievement_fl"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -442,7 +442,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
-    </com.malalaoshi.android.view.FlowLayout>
+    </com.malalaoshi.android.ui.widgets.FlowLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

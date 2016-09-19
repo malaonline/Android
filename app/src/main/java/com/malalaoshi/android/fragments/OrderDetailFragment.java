@@ -10,26 +10,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.api.FetchOrderApi;
+import com.malalaoshi.android.network.api.FetchOrderApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.image.MalaImageView;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.utils.EmptyUtils;
-import com.malalaoshi.android.course.CourseConfirmActivity;
-import com.malalaoshi.android.course.CourseHelper;
-import com.malalaoshi.android.course.adapter.CourseTimeAdapter;
-import com.malalaoshi.android.course.model.CourseTimeModel;
+import com.malalaoshi.android.activitys.CourseConfirmActivity;
+import com.malalaoshi.android.utils.CourseHelper;
+import com.malalaoshi.android.adapters.CourseTimeAdapter;
+import com.malalaoshi.android.entity.CourseTimeModel;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
 import com.malalaoshi.android.entity.Order;
 import com.malalaoshi.android.entity.Subject;
-import com.malalaoshi.android.pay.PayActivity;
-import com.malalaoshi.android.pay.api.DeleteOrderApi;
-import com.malalaoshi.android.result.OkResult;
-import com.malalaoshi.android.util.CalendarUtils;
-import com.malalaoshi.android.util.ConversionUtils;
-import com.malalaoshi.android.util.MiscUtil;
-import com.malalaoshi.android.view.ScrollListView;
+import com.malalaoshi.android.common.pay.PayActivity;
+import com.malalaoshi.android.common.pay.api.DeleteOrderApi;
+import com.malalaoshi.android.network.result.OkResult;
+import com.malalaoshi.android.utils.CalendarUtils;
+import com.malalaoshi.android.utils.ConversionUtils;
+import com.malalaoshi.android.utils.MiscUtil;
+import com.malalaoshi.android.ui.widgets.ScrollListView;
 
 import java.util.List;
 

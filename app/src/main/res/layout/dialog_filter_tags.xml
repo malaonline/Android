@@ -56,13 +56,13 @@
         android:overScrollMode="never"
         android:scrollbars="vertical">
 
-        <com.malalaoshi.android.view.FlowLayout
+        <com.malalaoshi.android.ui.widgets.FlowLayout
             android:id="@+id/flowlayout_tags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="7dp"
             android:paddingRight="7dp">
 
-        </com.malalaoshi.android.view.FlowLayout>
+        </com.malalaoshi.android.ui.widgets.FlowLayout>
     </ScrollView>
 </FrameLayout>

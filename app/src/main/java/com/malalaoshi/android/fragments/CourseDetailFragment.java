@@ -11,12 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.adapter.SimpleMonthAdapter;
+import com.malalaoshi.android.adapters.SimpleMonthAdapter;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
-import com.malalaoshi.android.course.api.CourseInfoApi;
+import com.malalaoshi.android.network.api.CourseInfoApi;
 import com.malalaoshi.android.entity.Course;
-import com.malalaoshi.android.util.CalendarUtils;
+import com.malalaoshi.android.utils.CalendarUtils;
 
 import java.util.Calendar;
 
