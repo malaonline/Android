@@ -87,6 +87,7 @@ public class CityPickerFragment extends BaseFragment implements AdapterView.OnIt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (onCityClick!=null){
             onCityClick.onCityClick(cities.get(position));
+            getActivity().finish();
         }
     }
 
