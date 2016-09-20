@@ -1,4 +1,4 @@
-package com.malalaoshi.android.dialogs;
+package com.malalaoshi.android.ui.dialogs;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;

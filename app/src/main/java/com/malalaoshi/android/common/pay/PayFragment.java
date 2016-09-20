@@ -24,7 +24,7 @@ import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.activitys.CourseConfirmActivity;
-import com.malalaoshi.android.dialogs.PromptDialog;
+import com.malalaoshi.android.ui.dialogs.PromptDialog;
 import com.malalaoshi.android.entity.ChargeOrder;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
 import com.malalaoshi.android.entity.OrderStatusModel;

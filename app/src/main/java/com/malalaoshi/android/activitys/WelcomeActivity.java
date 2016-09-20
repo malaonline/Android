@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.malalaoshi.android.MainActivity;
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.activitys.schoolpicker.CityPickerActivity;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.usercenter.UserManager;
 

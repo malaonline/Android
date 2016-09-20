@@ -1,4 +1,4 @@
-package com.malalaoshi.android.fragments;
+package com.malalaoshi.android.fragments.filterteacher;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

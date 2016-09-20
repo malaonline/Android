@@ -1,4 +1,4 @@
-package com.malalaoshi.android.fragments;
+package com.malalaoshi.android.fragments.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

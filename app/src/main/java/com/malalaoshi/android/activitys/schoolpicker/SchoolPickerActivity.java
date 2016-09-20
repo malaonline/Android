@@ -1,4 +1,4 @@
-package com.malalaoshi.android.activitys;
+package com.malalaoshi.android.activitys.schoolpicker;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,7 @@ import com.malalaoshi.android.core.base.BaseTitleActivity;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.entity.City;
 import com.malalaoshi.android.entity.School;
-import com.malalaoshi.android.fragments.SchoolPickerFragment;
+import com.malalaoshi.android.fragments.schoolpicker.SchoolPickerFragment;
 
 
 /**
@@ -68,6 +68,7 @@ public class SchoolPickerActivity extends BaseTitleActivity implements SchoolPic
         UserManager userManager = UserManager.getInstance();
         if (isInitSchool){
             Intent intent = new Intent(this,MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             this.startActivity(intent);
         }else{
             setResult(city,school);

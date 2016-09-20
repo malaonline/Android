@@ -1,4 +1,4 @@
-package com.malalaoshi.android.fragments;
+package com.malalaoshi.android.fragments.filterteacher;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.malalaoshi.android.fragments;
+package com.malalaoshi.android.fragments.schoolpicker;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -87,7 +87,6 @@ public class CityPickerFragment extends BaseFragment implements AdapterView.OnIt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (onCityClick!=null){
             onCityClick.onCityClick(cities.get(position));
-            getActivity().finish();
         }
     }
 

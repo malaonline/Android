@@ -3,18 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/color_white_f6f6f6"
+    android:paddingTop="@dimen/page_padding_small"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <RelativeLayout
             android:id="@+id/ll_city"
-            android:layout_marginTop="@dimen/page_padding_small"
             android:background="@drawable/bg_white_item"
             style="@style/mala.widget.school.item">
                 <TextView
+                    android:text="@string/current_city"
+                    style="@style/mala.widget.school.item.text" />
+                <TextView
                     android:id="@+id/tv_city"
                     tools:text="北京"
-                    style="@style/mala.widget.school.item.text" />
+                    style="@style/mala.widget.school.item.text"
+                    android:textColor="@color/color_blue_71b3e3"
+                    android:layout_marginRight="@dimen/school_margin_normal"
+                    android:layout_toLeftOf="@+id/iv_picker_city"/>
                 <ImageView
+                    android:id="@+id/iv_picker_city"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -22,9 +29,19 @@
                     android:scaleType="center"
                     android:src="@drawable/ic_more_info" />
         </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_picker_tiptext"
+            android:text="@string/picker_school"
+            android:textColor="@color/color_black_6c6c6c"
+            android:textSize="@dimen/text_size_small_high"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/layout_margin_top"
+            android:paddingTop="@dimen/page_padding_small"
+            android:paddingBottom="@dimen/page_padding_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <com.malalaoshi.android.ui.widgets.ScrollListView
             android:id="@+id/gv_all_schools"
-            android:layout_marginTop="@dimen/page_padding_small"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"

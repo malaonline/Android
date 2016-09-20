@@ -1,4 +1,4 @@
-package com.malalaoshi.android.dialogs;
+package com.malalaoshi.android.ui.dialogs;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,8 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.malalaoshi.android.MalaApplication;
@@ -23,35 +22,27 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by kang on 16/4/12.
+ * Created by kang on 16/6/2.
  */
-public class PromptDialog extends DialogFragment implements View.OnClickListener  {
-    private static String ARGS_DIALOG_TYPE_KET = "dialog type";
+public class SingleEditDialog extends DialogFragment implements View.OnClickListener  {
     private static String ARGS_MESSAGE_TEXT_KET = "message";
     private static String ARGS_LEFT_TEXT_KET = "left text";
     private static String ARGS_RIGHT_TEXT_KET = "right text";
-    private static String ARGS_DRAWABLE_ID_KET = "drawable id";
-    private static String ARGS_CANCEL_TEXT_KET = "cancel text";
     private static String ARGS_CANCANCEL_KET = "cancelable";
     private static String ARGS_CANBACK_KET = "back";
-    private static int ONE_BUTTON = 0;
-    private static int TWO_BUTTON = 1;
 
     public interface OnCloseListener {
-        void onLeftClick();
+        void onLeftClick(EditText editText);
 
-        void onRightClick();
+        void onRightClick(EditText editText);
     }
 
     public interface OnDismissListener {
         void onDismiss();
     }
 
-    @Bind(R.id.icon_view)
-    protected ImageView iconView;
-
-    @Bind(R.id.tv_message)
-    protected TextView tvMeaasge;
+    @Bind(R.id.et_text)
+    protected EditText editText;
 
     @Bind(R.id.btn_left)
     protected TextView leftView;
@@ -59,39 +50,18 @@ public class PromptDialog extends DialogFragment implements View.OnClickListener
     @Bind(R.id.btn_right)
     protected TextView rightView;
 
-    @Bind(R.id.btn_close)
-    protected TextView btnClose;
-
-    @Bind(R.id.ll_close)
-    LinearLayout llClose;
-
     private OnCloseListener listener;
 
     private OnDismissListener onDismissListener;
 
     private boolean canBack = false;
 
-    public static PromptDialog newInstance(int drawableId, String message, String leftText, String rightText, boolean cancelable, boolean backable) {
-        PromptDialog f = new PromptDialog();
+    public static SingleEditDialog newInstance(String message, String leftText, String rightText, boolean cancelable, boolean backable) {
+        SingleEditDialog f = new SingleEditDialog();
         Bundle args = new Bundle();
-        args.putInt(ARGS_DIALOG_TYPE_KET, TWO_BUTTON);
-        args.putInt(ARGS_DRAWABLE_ID_KET, drawableId);
         args.putString(ARGS_MESSAGE_TEXT_KET,message);
         args.putString(ARGS_LEFT_TEXT_KET,leftText);
         args.putString(ARGS_RIGHT_TEXT_KET,rightText);
-        args.putBoolean(ARGS_CANCANCEL_KET,cancelable);
-        args.putBoolean(ARGS_CANBACK_KET,backable);
-        f.setArguments(args);
-        return f;
-    }
-
-    public static PromptDialog newInstance(int drawableId, String message, String btnText, boolean cancelable, boolean backable) {
-        PromptDialog f = new PromptDialog();
-        Bundle args = new Bundle();
-        args.putInt(ARGS_DIALOG_TYPE_KET, ONE_BUTTON);
-        args.putInt(ARGS_DRAWABLE_ID_KET, drawableId);
-        args.putString(ARGS_MESSAGE_TEXT_KET,message);
-        args.putString(ARGS_CANCEL_TEXT_KET,btnText);
         args.putBoolean(ARGS_CANCANCEL_KET,cancelable);
         args.putBoolean(ARGS_CANBACK_KET,backable);
         f.setArguments(args);
@@ -177,26 +147,17 @@ public class PromptDialog extends DialogFragment implements View.OnClickListener
                 return false;
             }
         });
-        View view = inflater.inflate(R.layout.dialog_prompt, container, false);
+        View view = inflater.inflate(R.layout.dialog_single_eidt, container, false);
         ButterKnife.bind(this, view);
         Bundle args = getArguments();
         if (args!=null){
-            int type = args.getInt(ARGS_DIALOG_TYPE_KET);
-            iconView.setImageDrawable(getResources().getDrawable(args.getInt(ARGS_DRAWABLE_ID_KET,R.mipmap.ic_launcher)));
-            tvMeaasge.setText(args.getString(ARGS_MESSAGE_TEXT_KET,"message"));
-            if (type==TWO_BUTTON){
-                btnClose.setVisibility(View.GONE);
-                llClose.setVisibility(View.VISIBLE);
-                leftView.setText(args.getString(ARGS_LEFT_TEXT_KET,""));
-                rightView.setText(args.getString(ARGS_RIGHT_TEXT_KET,""));
-                leftView.setOnClickListener(this);
-                rightView.setOnClickListener(this);
-            }else{
-                llClose.setVisibility(View.GONE);
-                btnClose.setVisibility(View.VISIBLE);
-                btnClose.setText(args.getString(ARGS_CANCEL_TEXT_KET,""));
-                btnClose.setOnClickListener(this);
-            }
+            String name = args.getString(ARGS_MESSAGE_TEXT_KET,"");
+            editText.setText(name);
+            editText.setSelection(name.length());
+            leftView.setText(args.getString(ARGS_LEFT_TEXT_KET,""));
+            rightView.setText(args.getString(ARGS_RIGHT_TEXT_KET,""));
+            leftView.setOnClickListener(this);
+            rightView.setOnClickListener(this);
         }
         return view;
     }
@@ -208,7 +169,7 @@ public class PromptDialog extends DialogFragment implements View.OnClickListener
             {
                 dismiss();
                 if (listener != null) {
-                    listener.onLeftClick();
+                    listener.onLeftClick(editText);
                 }
             }
             break;
@@ -216,7 +177,7 @@ public class PromptDialog extends DialogFragment implements View.OnClickListener
             {
                 dismiss();
                 if (listener != null){
-                    listener.onRightClick();
+                    listener.onRightClick(editText);
                 }
             }
             break;

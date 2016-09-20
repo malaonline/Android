@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 
-import com.malalaoshi.android.dialogs.PromptDialog;
-import com.malalaoshi.android.dialogs.SingleEditDialog;
+import com.malalaoshi.android.ui.dialogs.PromptDialog;
+import com.malalaoshi.android.ui.dialogs.SingleEditDialog;
 
 /**
  * Created by kang on 16/3/22.

@@ -88,6 +88,9 @@
     <string name="coupon_not_use">未使用</string>
     <string name="pay">支付</string>
 
+    <string name="picker_school">点击切换校区</string>
+    <string name="current_city">当前城市</string>
+
     <string name="comment_succeed">评价成功!</string>
     <string name="comment_failed">评价失败!</string>
     <string name="load_user_info_failed">数据加载失败!</string>

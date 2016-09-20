@@ -1,4 +1,4 @@
-package com.malalaoshi.android.activitys;
+package com.malalaoshi.android.activitys.schoolpicker;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import com.malalaoshi.android.core.base.BaseTitleActivity;
 import com.malalaoshi.android.entity.City;
-import com.malalaoshi.android.fragments.CityPickerFragment;
+import com.malalaoshi.android.fragments.schoolpicker.CityPickerFragment;
 
 
 /**

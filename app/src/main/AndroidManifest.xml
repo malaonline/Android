@@ -92,14 +92,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".activitys.CityPickerActivity"
+            android:name=".activitys.schoolpicker.CityPickerActivity"
             android:label="城市选择"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
 
         <activity
-            android:name=".activitys.SchoolPickerActivity"
+            android:name=".activitys.schoolpicker.SchoolPickerActivity"
             android:label="校区选择"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

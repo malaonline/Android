@@ -10,7 +10,7 @@ import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.view.TitleBarView;
-import com.malalaoshi.android.dialogs.PromptDialog;
+import com.malalaoshi.android.ui.dialogs.PromptDialog;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
 import com.malalaoshi.android.common.pay.api.DeleteOrderApi;
 import com.malalaoshi.android.network.result.OkResult;

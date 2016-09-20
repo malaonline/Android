@@ -18,7 +18,7 @@ import com.malalaoshi.android.utils.CourseHelper;
 import com.malalaoshi.android.adapters.CourseTimeAdapter;
 import com.malalaoshi.android.network.api.CourseTimesApi;
 import com.malalaoshi.android.entity.CourseTimeModel;
-import com.malalaoshi.android.dialogs.PromptDialog;
+import com.malalaoshi.android.ui.dialogs.PromptDialog;
 import com.malalaoshi.android.entity.CreateCourseOrderEntity;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
 import com.malalaoshi.android.entity.Order;
