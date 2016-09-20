@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/color_white_f6f6f6"
+    android:paddingTop="@dimen/page_padding_small"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <RelativeLayout
             android:id="@+id/ll_city"
-            android:layout_marginTop="@dimen/page_padding_small"
             android:background="@drawable/bg_white_item"
             style="@style/mala.widget.school.item">
                 <TextView
@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"/>
         <com.malalaoshi.android.ui.widgets.ScrollListView
             android:id="@+id/gv_all_schools"
-            android:layout_marginTop="@dimen/page_padding_small"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
