@@ -1,8 +1,11 @@
 language: android          # 声明构建语言环境
 jdk: oraclejdk8            # 下载jdk8
+
 sudo: false                # 开启基于容器的Travis CI任务，让编译效率更高。
+
 android:
   components:              # 配置信息
+# - platform-tools
   - tools
   - build-tools-24.0.2
   - android-22
@@ -31,9 +34,9 @@ before_install:
 
 
 script:          # 编译任务
-- "./gradlew assembleDevrelease"
-- "./gradlew assemblePrdrelease"
-- "./gradlew assembleStagerelease"
+- ./gradlew assembleDevrelease
+- ./gradlew assemblePrdrelease
+- ./gradlew assembleStagerelease
 #script: ./buildbot.sh    # 运行编译脚本与上面的2选一
 
 before_deploy:    # 部署之前
@@ -43,7 +46,7 @@ before_deploy:    # 部署之前
 deploy:                                # 部署到GitHub Release
   provider: releases                   # 部署到GitHub Release，除此之外，Travis CI还支持发布到fir.im、AWS、Google App Engine等
   api_key:                             # 填写GitHub的token （Settings -> Personal access tokens -> Generate new token）
-    secure: "$GITHUB_TOKENS"
+    secure: $GITHUB_TOKENS
   file:
   - app/build/outputs/apk/app-parent-devrelease.apk       # 部署文件路径
   - app/build/outputs/apk/app-parent-prdrelease.apk
