@@ -68,6 +68,7 @@ public class SchoolPickerActivity extends BaseTitleActivity implements SchoolPic
         UserManager userManager = UserManager.getInstance();
         if (isInitSchool){
             Intent intent = new Intent(this,MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             this.startActivity(intent);
         }else{
             setResult(city,school);
