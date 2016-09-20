@@ -1,4 +1,4 @@
-package com.malalaoshi.android.fragments;
+package com.malalaoshi.android.fragments.main;
 
 import android.Manifest;
 import android.app.Activity;
@@ -47,9 +47,9 @@ import com.malalaoshi.android.core.usercenter.api.UserProfileApi;
 import com.malalaoshi.android.core.usercenter.entity.AddStudentName;
 import com.malalaoshi.android.core.usercenter.entity.UserProfile;
 import com.malalaoshi.android.core.utils.EmptyUtils;
-import com.malalaoshi.android.dialogs.SingleChoiceDialog;
-import com.malalaoshi.android.dialogs.PromptDialog;
-import com.malalaoshi.android.dialogs.SingleEditDialog;
+import com.malalaoshi.android.ui.dialogs.SingleChoiceDialog;
+import com.malalaoshi.android.ui.dialogs.PromptDialog;
+import com.malalaoshi.android.ui.dialogs.SingleEditDialog;
 import com.malalaoshi.android.entity.BaseEntity;
 import com.malalaoshi.android.entity.DoneModel;
 import com.malalaoshi.android.entity.User;

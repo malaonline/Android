@@ -1,4 +1,4 @@
-package com.malalaoshi.android.fragments;
+package com.malalaoshi.android.fragments.schoolpicker;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.activitys.CityPickerActivity;
+import com.malalaoshi.android.activitys.schoolpicker.CityPickerActivity;
 import com.malalaoshi.android.adapters.SchoolPickerAdapter;
 import com.malalaoshi.android.network.api.SchoolListApi;
 import com.malalaoshi.android.core.base.BaseFragment;
@@ -40,6 +40,9 @@ public class SchoolPickerFragment extends BaseFragment implements AdapterView.On
 
     @Bind(R.id.ll_city)
     protected RelativeLayout rlCity;
+
+    @Bind(R.id.tv_picker_tiptext)
+    protected TextView tvPickerTiptext;
 
     @Bind(R.id.tv_city)
     protected TextView tvCity;
@@ -89,6 +92,7 @@ public class SchoolPickerFragment extends BaseFragment implements AdapterView.On
     private void initView() {
         if (isInitSchool){
             rlCity.setVisibility(View.GONE);
+            tvPickerTiptext.setVisibility(View.GONE);
         }else{
             tvCity.setText(city.getName());
         }

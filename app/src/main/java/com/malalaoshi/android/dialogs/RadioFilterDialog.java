@@ -15,9 +15,9 @@ import com.malalaoshi.android.R;
 import com.malalaoshi.android.entity.Grade;
 import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.entity.Tag;
-import com.malalaoshi.android.fragments.FilterGradeFragment;
-import com.malalaoshi.android.fragments.FilterSubjectFragment;
-import com.malalaoshi.android.fragments.FilterTagFragment;
+import com.malalaoshi.android.fragments.filterteacher.FilterGradeFragment;
+import com.malalaoshi.android.fragments.filterteacher.FilterSubjectFragment;
+import com.malalaoshi.android.fragments.filterteacher.FilterTagFragment;
 import com.malalaoshi.android.utils.FragmentUtil;
 
 import java.util.ArrayList;

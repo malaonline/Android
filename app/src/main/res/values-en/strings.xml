@@ -56,6 +56,9 @@
 
     <string name="currency_unit">yuan</string>
 
+    <string name="picker_school">Switch school</string>
+    <string name="current_city">current city</string>
+
     <string name="user_protocol">Mala teacher user protocal</string>
     <string name="class_pricelist">Price List</string>
     <string name="member_services">Member service</string>

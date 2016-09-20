@@ -1,4 +1,4 @@
-package com.malalaoshi.android.fragments;
+package com.malalaoshi.android.fragments.schoolpicker;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
