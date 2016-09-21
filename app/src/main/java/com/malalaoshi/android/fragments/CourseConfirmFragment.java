@@ -86,7 +86,7 @@ public class CourseConfirmFragment extends BaseFragment
     private static final String ARG_TEACHER_NAME = "teacher name";
     private static final String ARG_TEACHER_AVATAR = "teacher avatar";
     private static final String ARG_SUBJECT = "subject";
-
+    private static final String ARG_SCHOOL_ID = "school id";
     public static CourseConfirmFragment newInstance(Object[] schools, Object[] prices, Object teacherId, Object subject,
                                                     String teacherAvatar, String teacherName) {
         CourseConfirmFragment fragment = new CourseConfirmFragment();
@@ -95,7 +95,7 @@ public class CourseConfirmFragment extends BaseFragment
     }
 
     public static CourseConfirmFragment newInstance(Long teacherId, String teacherName, String teacherAvatar,
-                                                    Subject subject) {
+                                                    Subject subject, Long schoolId) {
         if (teacherId == null || subject == null) {
             return null;
         }
@@ -105,6 +105,7 @@ public class CourseConfirmFragment extends BaseFragment
         args.putString(ARG_TEACHER_NAME, teacherName);
         args.putString(ARG_TEACHER_AVATAR, teacherAvatar);
         args.putParcelable(ARG_SUBJECT, subject);
+        args.putLong(ARG_SCHOOL_ID, schoolId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -184,6 +185,8 @@ public class CourseConfirmFragment extends BaseFragment
     private String teacherAvatar;
     //teacher name
     private String teacherName;
+    //school id
+    private Long currentSchoolId;
     //当前最小的小时数
     private int minHours;
     //当前选择的小时数
@@ -236,10 +239,9 @@ public class CourseConfirmFragment extends BaseFragment
             String teacherName = args.getString(ARG_TEACHER_NAME);
             String teacherAvatar = args.getString(ARG_TEACHER_AVATAR);
             Subject subject = args.getParcelable(ARG_SUBJECT);
-            init(teacherId, teacherName, teacherAvatar, subject);
+            Long schoolId = args.getLong(ARG_SCHOOL_ID);
+            init(teacherId, teacherName, teacherAvatar, subject, schoolId);
         }
-        //initGridView();
-        //initSchoolListView();
         initChoiceListView();
         initTimesListView();
         minHours = 2;
@@ -296,16 +298,18 @@ public class CourseConfirmFragment extends BaseFragment
         EventBus.getDefault().unregister(this);
     }
 
-    private void init(Long teacherId, String teacherName, String teacherAvatar, Subject subject) {
+    private void init(Long teacherId, String teacherName, String teacherAvatar, Subject subject, Long schoolId) {
         if (teacherId != null && subject != null) {
             this.teacher = teacherId;
             this.teacherAvatar = teacherAvatar;
             this.teacherName = teacherName;
             this.subject = subject;
+            this.currentSchoolId = schoolId;
         }
         startProcessDialog("正在加载数据···");
         fetchEvaluated();
-        fetchSchools();
+        //fetchSchools();
+        fetchWeekData();
         fetchCoursePrices();
     }
 
@@ -317,8 +321,7 @@ public class CourseConfirmFragment extends BaseFragment
             this.teacherAvatar = teacherAvator;
             this.teacherName = teacherName;
         }
-        //final String[] gradeList = MalaApplication.getInstance()
-        //        .getApplicationContext().getResources().getStringArray(R.array.grade_list);
+
         if (schools != null) {
             for (Object school : schools) {
                 SchoolUI schoolUI = new SchoolUI((School) school);
@@ -394,10 +397,10 @@ public class CourseConfirmFragment extends BaseFragment
     }
 
     private void fetchWeekData() {
-        if (teacher == null || currentSchool == null) {
+        if (teacher == null || currentSchoolId == null) {
             return;
         }
-        ApiExecutor.exec(new FetchWeekDataRequest(this, teacher, currentSchool.getSchool().getId()));
+        ApiExecutor.exec(new FetchWeekDataRequest(this, teacher, currentSchoolId));
     }
 
     public void onEventMainThread(BusEvent event) {
@@ -479,7 +482,7 @@ public class CourseConfirmFragment extends BaseFragment
             MiscUtil.toast("请选择上课年级");
             return;
         }
-        if (currentSchool == null) {
+        if (currentSchoolId == null) {
             MiscUtil.toast("请选择上课地点");
             return;
         }
@@ -494,7 +497,7 @@ public class CourseConfirmFragment extends BaseFragment
         }
         entity.setGrade(currentGrade.getPrice().getGrade().getId());
         entity.setHours(currentHours);
-        entity.setSchool(currentSchool.getSchool().getId());
+        entity.setSchool(currentSchoolId);
         if (subject != null) {
             entity.setSubject(subject.getId());
         } else {
@@ -519,7 +522,8 @@ public class CourseConfirmFragment extends BaseFragment
         order.setGrade(currentGrade.getPrice().getGrade().getName());
         order.setSubject(subject.getName());
         order.setTo_pay((double) calculateCost());
-        order.setSchool(currentSchool.getSchool().getName());
+        order.setSchool("缺少字段");
+        ///order.setSchool(currentSchool.getSchool().getName());
         boolean isEvaluated = true;
         if (evaluated != null && !evaluated.isEvaluated()) {
             isEvaluated = false;
@@ -838,6 +842,7 @@ public class CourseConfirmFragment extends BaseFragment
 
         @Override
         public void onApiFinished() {
+            get().stopProcessDialog();
         }
 
     }

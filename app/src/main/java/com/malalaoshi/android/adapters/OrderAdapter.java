@@ -180,7 +180,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
                 Subject subject = Subject.getSubjectIdByName(order.getSubject());
                 Long teacherId = Long.valueOf(order.getTeacher());
                 if (teacherId != null && subject != null) {
-                    CourseConfirmActivity.open(view.getContext(), teacherId, order.getTeacher_name(), order.getTeacher_avatar(), subject);
+                    CourseConfirmActivity.open(view.getContext(), teacherId, order.getTeacher_name(), order.getTeacher_avatar(), subject, order.getSchool_id());
                 }
             }
         }
