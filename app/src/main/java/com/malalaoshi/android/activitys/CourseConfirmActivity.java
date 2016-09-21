@@ -27,18 +27,20 @@ public class CourseConfirmActivity extends BaseActivity implements TitleBarView.
     public static final String EXTRA_TEACHER_ID = "extra_teacher_id";
     public static final String EXTRA_TEACHER_AVATOR = "extra_teacher_avator";
     public static final String EXTRA_TEACHER_NAME = "extra_teacher_name";
+    public static final String EXTRA_SCHOOL_ID = "extra_school_id";
     private static final String TAG = "CourseConfirmActivity";
     @Bind(R.id.title_view)
     protected TitleBarView titleBarView;
 
-    public static void open(Context context, Long teacherId, String teacherName, String teacherAvator, Subject subject){
-        if (teacherId != null&&subject != null) {
+    public static void open(Context context, Long teacherId, String teacherName, String teacherAvator, Subject subject, Long schoolId){
+        if (teacherId != null&&subject != null&&schoolId!=null) {
             Intent intent = new Intent(context, CourseConfirmActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(EXTRA_TEACHER_ID, teacherId);
             intent.putExtra(EXTRA_SUBJECT, subject);
             intent.putExtra(EXTRA_TEACHER_NAME, teacherName);
             intent.putExtra(EXTRA_TEACHER_AVATOR, teacherAvator);
+            intent.putExtra(EXTRA_SCHOOL_ID, schoolId);
             context.startActivity(intent);
         }
     }
@@ -49,19 +51,14 @@ public class CourseConfirmActivity extends BaseActivity implements TitleBarView.
         setContentView(R.layout.activity_course_confirm);
         ButterKnife.bind(this);
         Log.i(TAG, "");
-        /*Object[] schools = getIntent().getParcelableArrayExtra(EXTRA_SCHOOLS);
-        Object[] prices = getIntent().getParcelableArrayExtra(EXTRA_PRICES);
-        Object teacherId = getIntent().getLongExtra(EXTRA_TEACHER_ID, 0);
-        Object subject = getIntent().getStringExtra(EXTRA_SUBJECT);
-        String teacherAvator = getIntent().getStringExtra(EXTRA_TEACHER_AVATOR);
-        String teacherName = getIntent().getStringExtra(EXTRA_TEACHER_NAME);*/
         Intent intent = getIntent();
         Long teacherId = intent.getLongExtra(EXTRA_TEACHER_ID, 0);
         Subject subject = intent.getParcelableExtra(EXTRA_SUBJECT);
         String teacherName = intent.getStringExtra(EXTRA_TEACHER_NAME);
         String teacherAvator = intent.getStringExtra(EXTRA_TEACHER_AVATOR);
+        Long schoolId = intent.getLongExtra(EXTRA_SCHOOL_ID, 0);
         if (savedInstanceState==null){
-            CourseConfirmFragment fragment = CourseConfirmFragment.newInstance(teacherId, teacherName,teacherAvator, subject);
+            CourseConfirmFragment fragment = CourseConfirmFragment.newInstance(teacherId, teacherName,teacherAvator, subject, schoolId);
             FragmentUtil.openFragment(R.id.container, getSupportFragmentManager(), null
                     , fragment, CourseConfirmFragment.class.getName());
         }

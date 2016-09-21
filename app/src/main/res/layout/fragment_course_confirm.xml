@@ -38,11 +38,13 @@
 
 
             <View
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
                 android:background="@color/color_white_f6f6f6" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -52,6 +54,7 @@
                 android:textSize="15sp" />
 
             <com.malalaoshi.android.ui.widgets.ScrollListView
+                android:visibility="gone"
                 android:id="@+id/ll_place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

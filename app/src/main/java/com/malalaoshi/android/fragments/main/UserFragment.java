@@ -419,7 +419,8 @@ public class UserFragment extends BaseFragment {
     @OnClick(R.id.iv_my_collection)
     public void OnClickUserCollection(View view) {
         if (checkLogin() == false) return;
-        CollcetionListActivity.launch(getActivity());
+        MiscUtil.toast(R.string.coming_soon);
+        //CollcetionListActivity.launch(getActivity());
     }
 
     @OnClick(R.id.iv_my_orders)

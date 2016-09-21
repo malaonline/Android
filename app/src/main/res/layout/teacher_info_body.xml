@@ -444,6 +444,7 @@
         android:background="@color/white">
     </com.malalaoshi.android.ui.widgets.FlowLayout>
     <TextView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
@@ -453,7 +454,9 @@
         android:text="教学环境"
         android:textColor="@color/color_black_939393"
         android:textSize="@dimen/text_size_normal_high"  />
-    <include layout="@layout/school_environment"/>
+    <include
+        android:visibility="gone"
+        layout="@layout/school_environment"/>
 
     <View
         style="@style/AppWidget.ItemDivider"

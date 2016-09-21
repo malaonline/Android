@@ -42,8 +42,8 @@ android {
         applicationId "com.malalaoshi.android"
         minSdkVersion 19
         targetSdkVersion 24
-        versionCode 9
-        versionName "2.2.0"
+        versionCode 10
+        versionName "3.0.0"
     }
     buildTypes {
         debug {
