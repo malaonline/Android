@@ -6,31 +6,12 @@
     android:paddingTop="14dp">
 
     <TextView
-        android:id="@+id/tv_name"
-        style="@style/mala.widget.title.sub.text.mid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="远处; 距离，路程; 疏远; " />
-
-    <TextView
         android:id="@+id/tv_distance"
         style="@style/mala.widget.course.title.text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/iv_check"
         android:text="123" />
-
-    <TextView
-        android:id="@+id/tv_location"
-        style="@style/mala.widget.course.title.text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_name"
-        android:gravity="top|left"
-        android:layout_toLeftOf="@+id/iv_check"
-        android:layout_marginBottom="14dp"
-        android:text="远处; 距离，路程; 疏远;远处; 距离，路程; 疏远;远处; 距离，路程; 疏远;远处; 距离，路程; 疏远;" />
 
     <ImageView
         android:id="@+id/iv_check"
@@ -41,9 +22,30 @@
         android:layout_marginLeft="27dp"
         android:src="@drawable/ic_check" />
 
-<!--    <View
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/mala.widget.title.sub.text.mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="远处; 距离，路程; 疏远; "
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/tv_location"
+        style="@style/mala.widget.course.title.text"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/line_bg"
-        android:layout_below="@+id/tv_location" />-->
+        android:layout_height="wrap_content"
+        android:gravity="top|left"
+        android:text="远处; 距离，路程; 疏远;远处; 距离，路程; 疏远;远处; 距离，路程; 疏远;远处; 距离，路程; 疏远;"
+        android:layout_below="@+id/tv_distance"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <!--    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_bg"
+            android:layout_below="@+id/tv_location" />-->
 </RelativeLayout>
