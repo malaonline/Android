@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,12 @@ import android.widget.TextView;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.activitys.ConfirmOrderActivity;
 import com.malalaoshi.android.activitys.SettingRecordActivity;
+import com.malalaoshi.android.core.utils.JsonUtil;
+import com.malalaoshi.android.entity.Course;
+import com.malalaoshi.android.entity.Price;
+import com.malalaoshi.android.network.api.FetchCoursePriceApi;
+import com.malalaoshi.android.network.api.FetchSchoolApi;
 import com.malalaoshi.android.network.api.SchoolListApi;
-import com.malalaoshi.android.network.api.TeacherInfoApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.base.MalaBaseAdapter;
 import com.malalaoshi.android.core.event.BusEvent;
@@ -40,6 +45,7 @@ import com.malalaoshi.android.core.usercenter.api.EvaluatedApi;
 import com.malalaoshi.android.core.usercenter.entity.Evaluated;
 import com.malalaoshi.android.core.utils.DialogUtils;
 import com.malalaoshi.android.core.utils.EmptyUtils;
+import com.malalaoshi.android.network.result.CourseListResult;
 import com.malalaoshi.android.ui.widgets.CourseDateChoiceView;
 import com.malalaoshi.android.utils.CourseHelper;
 import com.malalaoshi.android.ui.widgets.NoteDialog;
@@ -55,7 +61,6 @@ import com.malalaoshi.android.entity.Order;
 import com.malalaoshi.android.entity.School;
 import com.malalaoshi.android.entity.SchoolUI;
 import com.malalaoshi.android.entity.Subject;
-import com.malalaoshi.android.entity.Teacher;
 import com.malalaoshi.android.common.pay.coupon.CouponActivity;
 import com.malalaoshi.android.receivers.WeakFragmentReceiver;
 import com.malalaoshi.android.network.result.CoursePriceListResult;
@@ -87,17 +92,12 @@ public class CourseConfirmFragment extends BaseFragment
     private static final String ARG_TEACHER_AVATAR = "teacher avatar";
     private static final String ARG_SUBJECT = "subject";
     private static final String ARG_SCHOOL_ID = "school id";
-    public static CourseConfirmFragment newInstance(Object[] schools, Object[] prices, Object teacherId, Object subject,
-                                                    String teacherAvatar, String teacherName) {
-        CourseConfirmFragment fragment = new CourseConfirmFragment();
-        fragment.init(schools, prices, teacherId, subject, teacherAvatar, teacherName);
-        return fragment;
-    }
+    private static final String ARG_IS_SHOW_ALLSCHOOLS = "is show all schools";
 
     public static CourseConfirmFragment newInstance(Long teacherId, String teacherName, String teacherAvatar,
-                                                    Subject subject, Long schoolId) {
-        if (teacherId == null || subject == null) {
-            return null;
+                                                    Subject subject, Long schoolId, boolean isShowAllSchools) {
+        if (teacherId == null || subject == null || schoolId == null) {
+            throw new NullPointerException("teacherId、subject or schoolId can not been null");
         }
         CourseConfirmFragment fragment = new CourseConfirmFragment();
         Bundle args = new Bundle();
@@ -106,6 +106,7 @@ public class CourseConfirmFragment extends BaseFragment
         args.putString(ARG_TEACHER_AVATAR, teacherAvatar);
         args.putParcelable(ARG_SUBJECT, subject);
         args.putLong(ARG_SCHOOL_ID, schoolId);
+        args.putBoolean(ARG_IS_SHOW_ALLSCHOOLS, isShowAllSchools);
         fragment.setArguments(args);
         return fragment;
     }
@@ -170,15 +171,11 @@ public class CourseConfirmFragment extends BaseFragment
 
     @Bind(R.id.tv_submit)
     protected View submitView;
-
-    private final List<CoursePriceUI> coursePrices;
-    private final List<SchoolUI> schoolList;
-    private SchoolUI currentSchool;
-    private GradeAdapter gradeAdapter;
-    private SchoolAdapter schoolAdapter;
-    private CourseTimeAdapter timesAdapter;
     //学校FootView
     private View footView;
+
+    //当前的课程名
+    private Subject subject;
     //teacher id
     private Long teacher;
     //teacher avatar
@@ -187,25 +184,37 @@ public class CourseConfirmFragment extends BaseFragment
     private String teacherName;
     //school id
     private Long currentSchoolId;
+
+
+    private final List<CoursePriceUI> coursePriceList;
+    private final List<SchoolUI> schoolList;
+    private List<CourseDateEntity> courseDateEntities;
+
+    private GradeAdapter gradeAdapter;
+    private SchoolAdapter schoolAdapter;
+    private CourseTimeAdapter timesAdapter;
+
+    private SchoolUI currentSchool;
+    //当前选择的上课年级
+    private CoursePriceUI currentGrade;
+    //当前选择的奖学金
+    private CouponEntity currentCoupon;
+    //选择的时间段
+    private List<CourseDateEntity> selectedTimeSlots;
+
     //当前最小的小时数
     private int minHours;
     //当前选择的小时数
     private int currentHours;
-    //选择的时间段
-    private List<CourseDateEntity> selectedTimeSlots;
+
     //是否要展示上课时间列表
     private boolean isShowingTimes;
-    //当前选择的上课年级
-    private CoursePriceUI currentGrade;
-    //当前选择的奖学金
-    private CouponEntity coupon;
-    //当前的课程名
-    private Subject subject;
+
+    //是否显示教师可以去上课的所有学校
+    private boolean isShowAllSchools;
+
     //标识是否是第一次购买
     private Evaluated evaluated;
-
-    //课程信息
-    private List<CourseDateEntity> courseDateEntities;
 
     private BroadcastReceiver receiver;
 
@@ -224,8 +233,23 @@ public class CourseConfirmFragment extends BaseFragment
     }
 
     public CourseConfirmFragment() {
-        coursePrices = new ArrayList<>();
+        coursePriceList = new ArrayList<>();
         schoolList = new ArrayList<>();
+        selectedTimeSlots = new ArrayList<>();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            this.teacher = args.getLong(ARG_TEACHER_ID);
+            this.teacherName = args.getString(ARG_TEACHER_NAME);
+            this.teacherAvatar = args.getString(ARG_TEACHER_AVATAR);
+            this.subject = args.getParcelable(ARG_SUBJECT);
+            this.currentSchoolId = args.getLong(ARG_SCHOOL_ID);
+            this.isShowAllSchools = args.getBoolean(ARG_IS_SHOW_ALLSCHOOLS,false);
+        }
     }
 
     @Nullable
@@ -233,49 +257,10 @@ public class CourseConfirmFragment extends BaseFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course_confirm, container, false);
         ButterKnife.bind(this, view);
-        Bundle args = getArguments();
-        if (args != null) {
-            Long teacherId = args.getLong(ARG_TEACHER_ID);
-            String teacherName = args.getString(ARG_TEACHER_NAME);
-            String teacherAvatar = args.getString(ARG_TEACHER_AVATAR);
-            Subject subject = args.getParcelable(ARG_SUBJECT);
-            Long schoolId = args.getLong(ARG_SCHOOL_ID);
-            init(teacherId, teacherName, teacherAvatar, subject, schoolId);
-        }
-        initChoiceListView();
-        initTimesListView();
-        minHours = 2;
-        setCurrentHours(2);
-        setHoursText();
-        isShowingTimes = true;
-        minusView.setOnClickListener(this);
-        addView.setOnClickListener(this);
-        showTimesLayout.setOnClickListener(this);
-        scholarshipLayout.setOnClickListener(this);
-        reviewLayout.setOnClickListener(this);
-        choiceView.setOnCourseDateChoiceListener(this);
-        choiceView.setOnCourseNoteClickListener(new CourseDateChoiceView.onCourseNoteClickListener() {
-            @Override
-            public void onClick() {
-                openCourseNoteDialog();
-            }
-        });
-        submitView.setOnClickListener(this);
-        cutReviewView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        EventBus.getDefault().register(this);
-        receiver = new Receiver(this);
-        if (!UserManager.getInstance().isLogin()) {
-            getActivity().finish();
-            UserManager.getInstance().startLoginActivity();
-        }
+        initView();
+        initData();
+        setEvent();
         return view;
-    }
-
-    private void openCourseNoteDialog() {
-        NoteDialog dialog = new NoteDialog();
-        dialog.setTitle("课程保留规则");
-        dialog.setContent(R.string.course_expire_reserve);
-        DialogUtils.showDialog(getFragmentManager(), dialog, "course_note");
     }
 
     @Override
@@ -284,6 +269,14 @@ public class CourseConfirmFragment extends BaseFragment
         IntentFilter filter = new IntentFilter();
         filter.addAction(UserManager.ACTION_LOGOUT);
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, filter);
+    }
+
+    public void onEventMainThread(BusEvent event) {
+        switch (event.getEventType()) {
+            case BusEvent.BUS_EVENT_RELOAD_FETCHEVALUATED:
+                fetchEvaluated();
+                break;
+        }
     }
 
     @Override
@@ -298,25 +291,61 @@ public class CourseConfirmFragment extends BaseFragment
         EventBus.getDefault().unregister(this);
     }
 
-    private void init(Long teacherId, String teacherName, String teacherAvatar, Subject subject, Long schoolId) {
-        if (teacherId != null && subject != null) {
-            this.teacher = teacherId;
-            this.teacherAvatar = teacherAvatar;
-            this.teacherName = teacherName;
-            this.subject = subject;
-            this.currentSchoolId = schoolId;
-        }
-        startProcessDialog("正在加载数据···");
-        fetchEvaluated();
-        //fetchSchools();
-        fetchWeekData();
-        fetchCoursePrices();
+    private void initView() {
+        initChoiceListView();
+        initTimesListView();
     }
 
+    private void initData() {
+        minHours = 2;
+        setCurrentHours(2);
+        setHoursText();
+        isShowingTimes = true;
+        cutReviewView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        loadData();
+    }
+
+    private void setEvent() {
+        minusView.setOnClickListener(this);
+        addView.setOnClickListener(this);
+        showTimesLayout.setOnClickListener(this);
+        scholarshipLayout.setOnClickListener(this);
+        reviewLayout.setOnClickListener(this);
+        choiceView.setOnCourseDateChoiceListener(this);
+        choiceView.setOnCourseNoteClickListener(new CourseDateChoiceView.onCourseNoteClickListener() {
+            @Override
+            public void onClick() {
+                openCourseNoteDialog();
+            }
+        });
+        submitView.setOnClickListener(this);
+
+        EventBus.getDefault().register(this);
+        receiver = new Receiver(this);
+    }
+
+    private void loadData() {
+        startProcessDialog("正在加载数据···");
+        fetchEvaluated();
+        fetchWeekData();
+        fetchCoursePrices();
+        if (isShowAllSchools){
+            fetchSchools();
+        }else{
+            fetchSchool();
+        }
+    }
+
+    private void openCourseNoteDialog() {
+        NoteDialog dialog = new NoteDialog();
+        dialog.setTitle("课程保留规则");
+        dialog.setContent(R.string.course_expire_reserve);
+        DialogUtils.showDialog(getFragmentManager(), dialog, "course_note");
+    }
 
     private void init(Object[] schools, Object[] prices, Object teacherId, Object subject, String teacherAvator,
                       String teacherName) {
-        if (teacherId != null) {
+   /*     if (teacherId != null) {
             this.teacher = (Long) teacherId;
             this.teacherAvatar = teacherAvator;
             this.teacherName = teacherName;
@@ -336,7 +365,7 @@ public class CourseConfirmFragment extends BaseFragment
                         .getName();//gradeList[priceUI.getPrice().getGrade().getId().intValue() - 1];
                 text += "  " + Number.subZeroAndDot(priceUI.getPrice().getPrice() * 0.01d) + "/小时";
                 priceUI.setGradePrice(text);
-                coursePrices.add(priceUI);
+                coursePriceList.add(priceUI);
             }
         }
         if (subject != null) {
@@ -344,77 +373,18 @@ public class CourseConfirmFragment extends BaseFragment
         } else {
             this.subject = null;
         }
-        fetchEvaluated();
+        fetchEvaluated();*/
+
     }
 
     private void initChoiceListView() {
         ChoiceAdapter choiceAdapter = new ChoiceAdapter(getActivity());
         choiceListView.setAdapter(choiceAdapter);
-        selectedTimeSlots = new ArrayList<>();
     }
 
     private void initTimesListView() {
         timesAdapter = new CourseTimeAdapter(getActivity());
         timesListView.setAdapter(timesAdapter);
-    }
-
-    private static final class FetchWeekDataRequest extends BaseApiContext<CourseConfirmFragment, String> {
-
-        private long teacherId;
-        private long schoolId;
-
-        public FetchWeekDataRequest(CourseConfirmFragment courseConfirmFragment, long teacherId, long schoolId) {
-            super(courseConfirmFragment);
-            this.teacherId = teacherId;
-            this.schoolId = schoolId;
-        }
-
-        @Override
-        public String request() throws Exception {
-            return new CourseWeekDataApi().get(teacherId, schoolId);
-        }
-
-        @Override
-        public void onApiSuccess(@NonNull String response) {
-            get().onFetchWeekDataSuccess(response);
-        }
-
-        @Override
-        public void onApiFailure(Exception exception) {
-            MiscUtil.toast("课表数据错误");
-        }
-    }
-
-    private void onFetchWeekDataSuccess(String response) {
-        try {
-            courseDateEntities = CourseDateEntity.format(response);
-            choiceView.setData(courseDateEntities);
-            weekContainer.setVisibility(View.VISIBLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-            MiscUtil.toast("课表数据错误");
-        }
-    }
-
-    private void fetchWeekData() {
-        if (teacher == null || currentSchoolId == null) {
-            return;
-        }
-        ApiExecutor.exec(new FetchWeekDataRequest(this, teacher, currentSchoolId));
-    }
-
-    public void onEventMainThread(BusEvent event) {
-        switch (event.getEventType()) {
-            case BusEvent.BUS_EVENT_RELOAD_FETCHEVALUATED:
-                fetchEvaluated();
-                break;
-        }
-    }
-
-    private void fetchEvaluated() {
-        if (subject != null) {
-            ApiExecutor.exec(new FetchEvaluatedRequest(this, subject.getId()));
-        }
     }
 
     @Override
@@ -482,7 +452,7 @@ public class CourseConfirmFragment extends BaseFragment
             MiscUtil.toast("请选择上课年级");
             return;
         }
-        if (currentSchoolId == null) {
+        if (currentSchool == null) {
             MiscUtil.toast("请选择上课地点");
             return;
         }
@@ -492,12 +462,12 @@ public class CourseConfirmFragment extends BaseFragment
         }
 
         CreateCourseOrderEntity entity = new CreateCourseOrderEntity();
-        if (coupon != null) {
-            entity.setCoupon(coupon.getId());
+        if (currentCoupon != null) {
+            entity.setCoupon(currentCoupon.getId());
         }
-        entity.setGrade(currentGrade.getPrice().getGrade().getId());
+        entity.setGrade(currentGrade.getPrice().getGrade());
         entity.setHours(currentHours);
-        entity.setSchool(currentSchoolId);
+        entity.setSchool(currentSchool.getSchool().getId());
         if (subject != null) {
             entity.setSubject(subject.getId());
         } else {
@@ -519,11 +489,10 @@ public class CourseConfirmFragment extends BaseFragment
         order.setTeacher_name(teacherName);
         order.setTeacher_avatar(teacherAvatar);
         order.setHours(currentHours);
-        order.setGrade(currentGrade.getPrice().getGrade().getName());
+        order.setGrade(currentGrade.getPrice().getGrade_name());
         order.setSubject(subject.getName());
         order.setTo_pay((double) calculateCost());
-        order.setSchool("缺少字段");
-        ///order.setSchool(currentSchool.getSchool().getName());
+        order.setSchool(currentSchool.getSchool().getName());
         boolean isEvaluated = true;
         if (evaluated != null && !evaluated.isEvaluated()) {
             isEvaluated = false;
@@ -533,7 +502,7 @@ public class CourseConfirmFragment extends BaseFragment
     }
 
     private void openScholarShipActivity() {
-        CouponActivity.launch(getActivity(), REQUEST_CODE_COUPON, coupon, noCouponSum);
+        CouponActivity.launch(getActivity(), REQUEST_CODE_COUPON, currentCoupon, noCouponSum);
     }
 
     @Override
@@ -549,12 +518,12 @@ public class CourseConfirmFragment extends BaseFragment
 
     private void refreshCoupon(CouponEntity coupon) {
         if (coupon != null && coupon.isCheck()) {
-            this.coupon = coupon;
+            this.currentCoupon = coupon;
             String sum = Number.subZeroAndDot(Double.valueOf(coupon.getAmount()) * 0.01d);
             scholarView.setText("-￥" + sum);
             calculateSum();
         } else {
-            this.coupon = null;
+            this.currentCoupon = null;
             calculateSum();
             scholarView.setText("未使用奖学金");
         }
@@ -582,18 +551,21 @@ public class CourseConfirmFragment extends BaseFragment
             schoolAdapter.clear();
             schoolAdapter.add(currentSchool);
             weekContainer.setVisibility(View.GONE);
+
             minHours = 2;
             setCurrentHours(2);
             setHoursText();
             calculateSum();
+
             selectedTimeSlots = new ArrayList<>();
             calculateCourseTimes();
+
             schoolAdapter.notifyDataSetChanged();
             fetchWeekData();
-        }
-        if (parent.getId() == gridView.getId()) {
+        } else if (parent.getId() == gridView.getId()) {
             gradeAdapter.setCurrentItem(position);
             currentGrade = (CoursePriceUI) gradeAdapter.getItem(position);
+            //计算金额
             calculateSum();
         }
     }
@@ -613,20 +585,32 @@ public class CourseConfirmFragment extends BaseFragment
         if (currentGrade == null) {
             return 0.0f;
         }
-        float sum = currentGrade.getPrice().getPrice() * currentHours;
+        Long currentPrice = getCoursePrice(currentHours);
+        float sum = currentPrice * currentHours;
         noCouponSum = (long) sum;
-        if (coupon != null) {
+        if (currentCoupon != null) {
             rlPrice.setVisibility(View.VISIBLE);
             float price = sum <= 0 ? 1 : sum;
             price = price / 100f;
             tvPrice.setText("¥ " + String.valueOf(price));
-            sum -= Integer.valueOf(coupon.getAmount());
+            sum -= Integer.valueOf(currentCoupon.getAmount());
         } else {
             rlPrice.setVisibility(View.GONE);
         }
         sum = sum <= 0 ? 1 : sum;
         sum = sum / 100f;
         return sum;
+    }
+
+    private Long getCoursePrice(int hours) {
+        List<Price> priceList = currentGrade.getPrice().getPrices();
+        for (Price price : priceList){
+            if (price.getMin_hours()<=hours&&hours<=price.getMax_hours()){
+                Log.d("price",price.getMin_hours()+"***"+price.getMax_hours()+" "+hours+" price:"+price.getPrice());
+                return price.getPrice();
+            }
+        }
+        return priceList.get(priceList.size()-1).getPrice();
     }
 
     /**
@@ -639,10 +623,10 @@ public class CourseConfirmFragment extends BaseFragment
 
     private void initGridView() {
         gradeAdapter = new GradeAdapter(getActivity());
-        gradeAdapter.addAll(coursePrices);
+        gradeAdapter.addAll(coursePriceList);
         gridView.setAdapter(gradeAdapter);
         gridView.setOnItemClickListener(this);
-        if (coursePrices.size() > 0) {
+        if (coursePriceList.size() > 0) {
             gradeAdapter.setCurrentItem(0);
             currentGrade = (CoursePriceUI) gradeAdapter.getItem(0);
         }
@@ -747,6 +731,10 @@ public class CourseConfirmFragment extends BaseFragment
                 holder.distanceView.setText("< " + LocationUtil.formatDistance(data.getSchool().getDistance()));
             }
             holder.checkView.setImageResource(data.isCheck() ? R.drawable.ic_check : R.drawable.ic_check_out);
+            //只有一个校区时不可选择
+            if (getCount()==1){
+                holder.checkView.setVisibility(View.INVISIBLE);
+            }
         }
 
         public class ViewHolder {
@@ -773,9 +761,117 @@ public class CourseConfirmFragment extends BaseFragment
         }
     }
 
-    @Override
-    public String getStatName() {
-        return "课程确认";
+    private void fetchWeekData() {
+        if (teacher == null || currentSchoolId == null) {
+            return;
+        }
+        ApiExecutor.exec(new FetchWeekDataRequest(this, teacher, currentSchoolId));
+    }
+
+    private void onFetchWeekDataSuccess(String response) {
+        try {
+            courseDateEntities = CourseDateEntity.format(response);
+            choiceView.setData(courseDateEntities);
+            weekContainer.setVisibility(View.VISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MiscUtil.toast("课表数据错误");
+        }
+    }
+
+    private void fetchEvaluated() {
+        if (subject != null) {
+            ApiExecutor.exec(new FetchEvaluatedRequest(this, subject.getId()));
+        }
+    }
+
+    private void fetchCoursePrices() {
+        if (teacher != null && currentSchoolId!=null) {
+            ApiExecutor.exec(new CoursePriceListRequest(this, teacher, currentSchoolId));
+        }
+    }
+
+    private void onLoadCoursePricesSuccess(CoursePriceListResult response) {
+        if (response == null || response.getResults() == null) {
+            return;
+        }
+        List<CoursePrice> prices = response.getResults();
+        if (prices != null) {
+            String text;
+            for (Object price : prices) {
+                CoursePriceUI priceUI = new CoursePriceUI((CoursePrice) price);
+                CoursePrice coursePrice = priceUI.getPrice();
+                text = coursePrice.getGrade_name();
+                ;//gradeList[priceUI.getPrice().getGrade().getId().intValue() - 1];
+                text += "  " + Number.subZeroAndDot(coursePrice.getPrices().get(0).getPrice() * 0.01d) + "/小时";
+                priceUI.setGradePrice(text);
+                coursePriceList.add(priceUI);
+            }
+        }
+        initGridView();
+    }
+
+    private void fetchSchool() {
+        if (currentSchoolId != null) {
+            ApiExecutor.exec(new LoadSchoolRequest(this, currentSchoolId));
+        }
+    }
+
+    private void fetchSchools() {
+        if (subject != null) {
+            ApiExecutor.exec(new LoadSchoolListRequest(this,teacher));
+        }
+    }
+
+    private void onLoadSchoolListSuccess(SchoolListResult response) {
+        //获取体验中心
+        List<School> schools = new ArrayList<>();
+        schools.addAll(response.getResults());
+
+        //获取位置
+        Location location = LocManager.getInstance().getLocation();
+        if (location != null) {
+            //根据位置排序
+            LocationUtil.sortByDistance(schools, location.getLatitude(), location.getLongitude());
+        }
+        for (Object school : schools) {
+            SchoolUI schoolUI = new SchoolUI((School) school);
+            schoolList.add(schoolUI);
+        }
+        initSchoolListView();
+    }
+
+
+    private void loadFailure(String message) {
+        MiscUtil.toast(message);
+    }
+
+    //获取教师上课时间
+    private static final class FetchWeekDataRequest extends BaseApiContext<CourseConfirmFragment, String> {
+
+        private long teacherId;
+        private long schoolId;
+
+        public FetchWeekDataRequest(CourseConfirmFragment courseConfirmFragment, long teacherId, long schoolId) {
+            super(courseConfirmFragment);
+            this.teacherId = teacherId;
+            this.schoolId = schoolId;
+        }
+
+        @Override
+        public String request() throws Exception {
+            return new CourseWeekDataApi().get(teacherId, schoolId);
+        }
+
+        @Override
+        public void onApiSuccess(@NonNull String response) {
+            get().onFetchWeekDataSuccess(response);
+        }
+
+        @Override
+        public void onApiFailure(Exception exception) {
+            MiscUtil.toast("课表数据错误");
+        }
     }
 
     //是否需要测评建档
@@ -803,32 +899,26 @@ public class CourseConfirmFragment extends BaseFragment
         }
     }
 
-
-    private void fetchCoursePrices() {
-        if (teacher != null) {
-            ApiExecutor.exec(new CoursePriceListRequest(this, teacher));
-        }
-    }
-
-    private static final class CoursePriceListRequest extends BaseApiContext<CourseConfirmFragment, Teacher> {
+    //获取教师价格列表
+    private static final class CoursePriceListRequest extends BaseApiContext<CourseConfirmFragment, CoursePriceListResult> {
         private Long teacherId;
-
-        public CoursePriceListRequest(CourseConfirmFragment courseConfirmFragment, Long teacherId) {
+        private Long schoolId;
+        public CoursePriceListRequest(CourseConfirmFragment courseConfirmFragment, Long teacherId, Long schoolId) {
             super(courseConfirmFragment);
             this.teacherId = teacherId;
+            this.schoolId = schoolId;
         }
 
         @Override
-        public Teacher request() throws Exception {
-            return new TeacherInfoApi().get(teacherId);
+        public CoursePriceListResult request() throws Exception {
+            return new FetchCoursePriceApi().get(teacherId,schoolId);
         }
 
         @Override
-        public void onApiSuccess(@NonNull Teacher response) {
-            if (response.getPrices() != null) {
-                CoursePriceListResult priceListResult = new CoursePriceListResult();
-                priceListResult.setResults(response.getPrices());
-                get().onLoadCoursePricesSuccess(priceListResult);
+        public void onApiSuccess(@NonNull CoursePriceListResult response) {
+            //response = JsonUtil.parseData(R.raw.pricelist,CoursePriceListResult.class,get().getContext());
+            if (response.getResults() != null) {
+                get().onLoadCoursePricesSuccess(response);
             } else {
                 get().loadFailure("价格信息下载失败!");
             }
@@ -847,33 +937,7 @@ public class CourseConfirmFragment extends BaseFragment
 
     }
 
-    private void onLoadCoursePricesSuccess(CoursePriceListResult response) {
-        if (response == null || response.getResults() == null) {
-            return;
-        }
-        List<CoursePrice> prices = response.getResults();
-        //final String[] gradeList = MalaApplication.getInstance()
-        //        .getApplicationContext().getResources().getStringArray(R.array.grade_list);
-        if (prices != null) {
-            String text;
-            for (Object price : prices) {
-                CoursePriceUI priceUI = new CoursePriceUI((CoursePrice) price);
-                text = ((CoursePrice) price).getGrade().getName();
-                ;//gradeList[priceUI.getPrice().getGrade().getId().intValue() - 1];
-                text += "  " + Number.subZeroAndDot(priceUI.getPrice().getPrice() * 0.01d) + "/小时";
-                priceUI.setGradePrice(text);
-                coursePrices.add(priceUI);
-            }
-        }
-        initGridView();
-    }
-
-    private void fetchSchools() {
-        if (subject != null) {
-            ApiExecutor.exec(new LoadSchoolListRequest(this,teacher));
-        }
-    }
-
+    //获取教师可上课校区
     private static final class LoadSchoolListRequest extends BaseApiContext<CourseConfirmFragment, SchoolListResult> {
         private long teacherId;
         public LoadSchoolListRequest(CourseConfirmFragment courseConfirmFragment,long teacherId) {
@@ -907,25 +971,48 @@ public class CourseConfirmFragment extends BaseFragment
 
     }
 
-    private void loadFailure(String message) {
-        MiscUtil.toast(message);
+    //获取校区信息
+    private static final class LoadSchoolRequest extends BaseApiContext<CourseConfirmFragment, School> {
+        private long schoolId;
+        public LoadSchoolRequest(CourseConfirmFragment courseConfirmFragment,long schoolId) {
+            super(courseConfirmFragment);
+            this.schoolId = schoolId;
+        }
+
+        @Override
+        public School request() throws Exception {
+            return new FetchSchoolApi().get(schoolId);
+        }
+
+        @Override
+        public void onApiSuccess(@NonNull School response) {
+            if (response != null) {
+                SchoolListResult schoolListResult = new SchoolListResult();
+                List<School> schoolList = new ArrayList<>();
+                schoolList.add(response);
+                schoolListResult.setResults(schoolList);
+                get().onLoadSchoolListSuccess(schoolListResult);
+            } else {
+                get().loadFailure("学校信息加载失败!");
+            }
+        }
+
+        @Override
+        public void onApiFailure(Exception exception) {
+            super.onApiFailure(exception);
+        }
+
+        @Override
+        public void onApiFinished() {
+            get().stopProcessDialog();
+        }
+
     }
 
-    private void onLoadSchoolListSuccess(SchoolListResult response) {
-        //获取体验中心
-        List<School> schools = new ArrayList<>();
-        schools.addAll(response.getResults());
-
-        //获取位置
-        Location location = LocManager.getInstance().getLocation();
-        if (location != null) {
-            //根据位置排序
-            LocationUtil.sortByDistance(schools, location.getLatitude(), location.getLongitude());
-        }
-        for (Object school : schools) {
-            SchoolUI schoolUI = new SchoolUI((School) school);
-            schoolList.add(schoolUI);
-        }
-        initSchoolListView();
+    @Override
+    public String getStatName() {
+        return "课程确认";
     }
+
+
 }

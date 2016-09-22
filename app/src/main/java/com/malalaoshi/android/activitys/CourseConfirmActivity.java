@@ -58,7 +58,7 @@ public class CourseConfirmActivity extends BaseActivity implements TitleBarView.
         String teacherAvator = intent.getStringExtra(EXTRA_TEACHER_AVATOR);
         Long schoolId = intent.getLongExtra(EXTRA_SCHOOL_ID, 0);
         if (savedInstanceState==null){
-            CourseConfirmFragment fragment = CourseConfirmFragment.newInstance(teacherId, teacherName,teacherAvator, subject, schoolId);
+            CourseConfirmFragment fragment = CourseConfirmFragment.newInstance(teacherId, teacherName,teacherAvator, subject, schoolId, false);
             FragmentUtil.openFragment(R.id.container, getSupportFragmentManager(), null
                     , fragment, CourseConfirmFragment.class.getName());
         }

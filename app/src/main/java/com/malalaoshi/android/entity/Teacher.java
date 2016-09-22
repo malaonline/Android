@@ -28,17 +28,12 @@ public class Teacher extends BaseEntity {
     private String[] photo_set;
     private List<Achievement> achievement_set;
     private List<HighScore> highscore_set;
-    private List<CoursePrice> prices;
     public List<Achievement> getAchievement_set() {
         return achievement_set;
     }
 
     private boolean published;
     private boolean favorite;
-
-    public void setAchievement_set(List<Achievement> achievement_set) {
-        this.achievement_set = achievement_set;
-    }
 
     public String getAvatar() {
         return avatar;
@@ -70,6 +65,22 @@ public class Teacher extends BaseEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Double getMin_price() {
+        return min_price;
+    }
+
+    public void setMin_price(Double min_price) {
+        this.min_price = min_price;
+    }
+
+    public Double getMax_price() {
+        return max_price;
+    }
+
+    public void setMax_price(Double max_price) {
+        this.max_price = max_price;
     }
 
     public Integer getTeaching_age() {
@@ -128,44 +139,16 @@ public class Teacher extends BaseEntity {
         this.photo_set = photo_set;
     }
 
+    public void setAchievement_set(List<Achievement> achievement_set) {
+        this.achievement_set = achievement_set;
+    }
+
     public List<HighScore> getHighscore_set() {
         return highscore_set;
     }
 
     public void setHighscore_set(List<HighScore> highscore_set) {
         this.highscore_set = highscore_set;
-    }
-
-    public List<CoursePrice> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(List<CoursePrice> prices) {
-        this.prices = prices;
-    }
-
-    public Double getMin_price() {
-        return min_price;
-    }
-
-    public void setMin_price(Double minPrice) {
-        if (Double.isNaN(minPrice)) {
-            this.min_price = null;
-        } else {
-            this.min_price = minPrice;
-        }
-    }
-
-    public Double getMax_price() {
-        return max_price;
-    }
-
-    public void setMax_price(Double maxPrice) {
-        if (Double.isNaN(maxPrice)) {
-            this.max_price = null;
-        } else {
-            this.max_price = maxPrice;
-        }
     }
 
     public boolean isPublished() {
@@ -208,7 +191,6 @@ public class Teacher extends BaseEntity {
         dest.writeStringArray(this.photo_set);
         dest.writeTypedList(this.achievement_set);
         dest.writeList(this.highscore_set);
-        dest.writeTypedList(this.prices);
         dest.writeByte(this.published ? (byte) 1 : (byte) 0);
         dest.writeByte(this.favorite ? (byte) 1 : (byte) 0);
     }
@@ -234,7 +216,6 @@ public class Teacher extends BaseEntity {
         this.achievement_set = in.createTypedArrayList(Achievement.CREATOR);
         this.highscore_set = new ArrayList<HighScore>();
         in.readList(this.highscore_set, HighScore.class.getClassLoader());
-        this.prices = in.createTypedArrayList(CoursePrice.CREATOR);
         this.published = in.readByte() != 0;
         this.favorite = in.readByte() != 0;
     }
@@ -269,7 +250,6 @@ public class Teacher extends BaseEntity {
                 ", photo_set=" + Arrays.toString(photo_set) +
                 ", achievement_set=" + achievement_set +
                 ", highscore_set=" + highscore_set +
-                ", prices=" + prices +
                 ", published=" + published +
                 ", favorite=" + favorite +
                 '}';
