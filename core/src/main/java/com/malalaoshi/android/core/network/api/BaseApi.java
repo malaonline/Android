@@ -1,5 +1,7 @@
 package com.malalaoshi.android.core.network.api;
 
+import android.util.Log;
+
 import com.malalaoshi.android.core.MalaContext;
 import com.malalaoshi.android.core.R;
 import com.malalaoshi.android.core.network.Constants;
@@ -87,6 +89,7 @@ public abstract class BaseApi {
         addHeaders(builder);
         okhttp3.Response response = getHttpClient().newCall(builder.build()).execute();
         String back = response.body().string();
+        Log.d("response",back);
         checkAuthError(response, back);
         //String类型直接返回
         if (cls.isAssignableFrom(String.class)) {
@@ -97,6 +100,7 @@ public abstract class BaseApi {
 
     protected <T> T httpGet(String url, final Class<T> cls) throws Exception {
         final Request.Builder builder = new Request.Builder().url(getUrl(url));
+        Log.d("request","request url:"+url);
         return http(builder, cls);
     }
 
