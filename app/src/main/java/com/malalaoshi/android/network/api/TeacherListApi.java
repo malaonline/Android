@@ -56,7 +56,7 @@ public class TeacherListApi extends BaseApi {
                 }
             }
         }
-        Log.d("TeacherListApi","request url:"+getPath()+subUrl);
+
         return httpGet(getPath() + subUrl, TeacherListResult.class);
     }
 }

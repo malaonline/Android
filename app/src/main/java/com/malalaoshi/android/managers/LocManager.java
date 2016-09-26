@@ -1,4 +1,4 @@
-package com.malalaoshi.android.utils;
+package com.malalaoshi.android.managers;
 
 import android.Manifest;
 import android.content.Context;
