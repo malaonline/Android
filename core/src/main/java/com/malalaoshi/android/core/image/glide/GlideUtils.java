@@ -48,6 +48,12 @@ public class GlideUtils {
         Log.i("MALA", url + " ");
         final String finalRequestUrl = url;
         if (TextUtils.isEmpty(finalRequestUrl)) {
+            //如果地址为空,设置默认换位图
+            Glide.with(context)
+                    .load("")
+                    .placeholder(data.getDefImage())
+                    .error(data.getErrImage())
+                    .into(data.getImageView());
             return;
         }
         DrawableRequestBuilder<String> builder = Glide.with(context)
@@ -86,16 +92,19 @@ public class GlideUtils {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .crossFade()
                     .placeholder(data.getDefImage())
+                    .error(data.getErrImage())
                     .into(data.getImageView());
         } else if (data.getType() == IMG_BLUR) {
             builder.bitmapTransform(new BlurTransformation(data.getContext()))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.core__teacher_banner)
+                    .placeholder(data.getDefImage())
+                    .error(data.getErrImage())
                     .centerCrop()
                     .crossFade()
                     .into(data.getImageView());
         } else {
             builder.placeholder(data.getDefImage())
+                    .error(data.getErrImage())
                     .crossFade()
                     .into(data.getImageView());
         }
@@ -117,23 +126,26 @@ public class GlideUtils {
     public static void loadImage(Context context, String url, ImageView imageView, int defImage) {
         RequestModel model = new RequestModel(context, url, imageView, IMG_NORMAL);
         model.setDefImage(defImage);
+        model.setErrImage(defImage);
         load(model);
     }
 
     public static void loadCircleImage(Context context, String url, ImageView imageView, int defaultImg) {
         RequestModel model = new RequestModel(context, url, imageView, IMG_CIRCLE);
         model.setDefImage(defaultImg);
+        model.setErrImage(defaultImg);
         load(model);
     }
 
     public static void loadBlurImage(Context context, String url, ImageView imageView, int defaultImg) {
         RequestModel model = new RequestModel(context, url, imageView, IMG_BLUR);
         model.setDefImage(defaultImg);
+        model.setErrImage(defaultImg);
         load(model);
     }
 
     public static void loadBitmapImage(Context context, String url, ImageView imageView, int defImage, int errImage) {
-        // cacheKey是去掉了参数的url
+        /*// cacheKey是去掉了参数的url
         final String cacheKey = getCacheUrl(url);
         String requestUrl = "";
         //检查缓存
@@ -147,7 +159,11 @@ public class GlideUtils {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(defImage)
                 .error(errImage)
-                .into(imageView);
+                .into(imageView);*/
+        RequestModel model = new RequestModel(context, url, imageView, IMG_NORMAL);
+        model.setDefImage(defImage);
+        model.setErrImage(errImage);
+        load(model);
     }
 
     private static final class RequestModel {

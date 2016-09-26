@@ -90,7 +90,6 @@ public class TeacherAdapter extends BaseRecycleAdapter<TeacherAdapter.ViewHolder
                 tags.setText(tagStr);
             }
             String imgUrl = teacher.getAvatar();
-            avatar.loadImage(imgUrl);
             avatar.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
 
             String priceRange = "价格异常";

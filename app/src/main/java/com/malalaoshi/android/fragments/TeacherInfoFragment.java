@@ -57,7 +57,7 @@ import com.malalaoshi.android.ui.widget.like.OnLikeListener;
 import com.malalaoshi.android.ui.widgets.FlowLayout;
 import com.malalaoshi.android.ui.widgets.ObservableScrollView;
 import com.malalaoshi.android.ui.widgets.RingProgressbar;
-import com.malalaoshi.android.utils.LocManager;
+import com.malalaoshi.android.managers.LocManager;
 import com.malalaoshi.android.utils.LocationUtil;
 import com.malalaoshi.android.utils.MiscUtil;
 import com.malalaoshi.android.utils.Number;

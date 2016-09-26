@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true">
+
     <com.malalaoshi.android.core.view.TitleBarView
         android:id="@+id/title_view"
         app:cusTitleTextSize="@dimen/text_size_large"
@@ -16,6 +17,7 @@
         app:cusLeftBackgroud="@drawable/core__back_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"

@@ -33,7 +33,7 @@ import com.malalaoshi.android.fragments.main.MainFragment;
 import com.malalaoshi.android.fragments.main.UserFragment;
 import com.malalaoshi.android.receivers.NetworkStateReceiver;
 import com.malalaoshi.android.utils.DialogUtil;
-import com.malalaoshi.android.utils.LocManager;
+import com.malalaoshi.android.managers.LocManager;
 import com.malalaoshi.android.utils.PermissionUtil;
 import com.malalaoshi.android.ui.tabindicator.ViewPagerIndicator;
 
