@@ -1,6 +1,7 @@
 package com.malalaoshi.android.entity;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,6 +22,7 @@ public class CourseDateEntity implements Comparable<CourseDateEntity> {
     //结束时间
     private String end;
     private boolean available;
+    private boolean reserved;
     // the day of week. 周一到周日：1~7
     private int day;
     //是否选中
@@ -66,6 +68,14 @@ public class CourseDateEntity implements Comparable<CourseDateEntity> {
         this.available = available;
     }
 
+    public boolean isReserved() {
+        return reserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
+    }
+
     public int getDay() {
         return day;
     }
@@ -108,10 +118,8 @@ public class CourseDateEntity implements Comparable<CourseDateEntity> {
                 JSONObject section = sections.getJSONObject(j);
                 CourseDateEntity item = new CourseDateEntity();
                 item.setAvailable(section.optBoolean("available"));
+                item.setReserved(section.optBoolean("reserved"));
                 item.setLast_occupied_end(section.optLong("last_occupied_end", 0) * 1000);
-                if (item.isAvailable() && item.getLast_occupied_end() > 0) {
-                    item.setBought(true);
-                }
                 item.setEnd(section.optString("end"));
                 item.setStart(section.optString("start"));
                 item.setId(section.optLong("id"));
@@ -136,13 +144,5 @@ public class CourseDateEntity implements Comparable<CourseDateEntity> {
 
     public void setLast_occupied_end(long last_occupied_end) {
         this.last_occupied_end = last_occupied_end;
-    }
-
-    public boolean isBought() {
-        return bought;
-    }
-
-    public void setBought(boolean bought) {
-        this.bought = bought;
     }
 }

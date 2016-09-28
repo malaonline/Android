@@ -146,7 +146,7 @@ public class CourseDateChoiceView extends LinearLayout {
             } else {
                 convertView.setBackgroundColor(Color.parseColor("#ededed"));
             }
-            holder.boughtView.setVisibility(data.isBought() ? VISIBLE : INVISIBLE);
+            holder.boughtView.setVisibility(data.isReserved() ? VISIBLE : INVISIBLE);
             convertView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
