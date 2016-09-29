@@ -1,10 +1,12 @@
 package com.malalaoshi.android.core.image.glide;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -51,6 +53,7 @@ public class GlideUtils {
             //如果地址为空,设置默认换位图
             Glide.with(context)
                     .load("")
+                    .asBitmap()
                     .placeholder(data.getDefImage())
                     .error(data.getErrImage())
                     .into(data.getImageView());
@@ -144,26 +147,60 @@ public class GlideUtils {
         load(model);
     }
 
-    public static void loadBitmapImage(Context context, String url, ImageView imageView, int defImage, int errImage) {
-        /*// cacheKey是去掉了参数的url
-        final String cacheKey = getCacheUrl(url);
-        String requestUrl = "";
+    public static void loadBitmapImage(final Context context,final String url,final ImageView imageView,final int defImage,final int errImage) {
+        String urlStr = url;
+        // cacheKey是去掉了参数的url
+        final String cacheKey = getCacheUrl(urlStr);
         //检查缓存
         if (!TextUtils.isEmpty(cacheKey)) {
             String cacheUrl = Hawk.get(cacheKey);
-            requestUrl = TextUtils.isEmpty(cacheUrl) ? url : cacheUrl;
+            if (!TextUtils.isEmpty(cacheUrl)) {
+                urlStr = cacheUrl;
+            }
         }
-        Glide.with(context)
-                .load(requestUrl)
+        Log.i("MALA", url + " ");
+        final String finalRequestUrl = urlStr;
+        if (TextUtils.isEmpty(finalRequestUrl)) {
+            //如果地址为空,设置默认换位图
+            Glide.with(context)
+                    .load("")
+                    .asBitmap()
+                    .placeholder(defImage)
+                    .error(errImage)
+                    .into(imageView);
+            return;
+        }
+
+        BitmapRequestBuilder<String,Bitmap> builder = Glide.with(context)
+                .load(finalRequestUrl)
                 .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .listener(new RequestListener<String, Bitmap>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        if (!finalRequestUrl.equals(url)) {
+                            //缓存加载失败了，再请求一次
+                            Log.d("MALA", "load cache image failed");
+                            Hawk.remove(cacheKey);
+                            loadBitmapImage(context,url,imageView,defImage,errImage);
+                        }
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        //加载成功，写入缓存表
+                        if (finalRequestUrl.equals(url)) {
+                            Hawk.put(cacheKey, finalRequestUrl);
+                        } else {
+                            Log.d("MALA", "load cache image success");
+                        }
+                        return false;
+                    }
+                });
+        builder.diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(defImage)
                 .error(errImage)
-                .into(imageView);*/
-        RequestModel model = new RequestModel(context, url, imageView, IMG_NORMAL);
-        model.setDefImage(defImage);
-        model.setErrImage(errImage);
-        load(model);
+                .into(imageView);
     }
 
     private static final class RequestModel {
