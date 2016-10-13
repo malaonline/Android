@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
@@ -48,9 +49,10 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     public static String EXTRAS_PAGE_INDEX = "page index";
     public static final int PAGE_INDEX_TEACHERS = 0;
-    public static final int PAGE_INDEX_COURSES = 1;
-    public static final int PAGE_INDEX_MEMBER_SERVICE = 2;
-    public static final int PAGE_INDEX_USER = 3;
+    public static final int PAGE_INDEX_LIVE_CLASS = 1;
+    public static final int PAGE_INDEX_COURSES = 2;
+    public static final int PAGE_INDEX_MEMBER_SERVICE = 3;
+    public static final int PAGE_INDEX_USER = 4;
 
     //位置相关权限
     private static final int PERMISSIONS_REQUEST_LOCATION = 0x07;
@@ -107,11 +109,27 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         isResume = true;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isResume = false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mNetworkStateReceiver != null) {
+            unregisterReceiver(mNetworkStateReceiver);
+        }
+        EventBus.getDefault().unregister(this);
+    }
+
     private void init() {
         mNetworkStateReceiver = new NetworkStateReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mNetworkStateReceiver, filter);
+
         //获取待显示页索引
         pageIndex = getIntent().getIntExtra(EXTRAS_PAGE_INDEX, 0);
 
@@ -192,11 +210,11 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     }
 
     private void initData() {
-        indicatorTabs.setTitles(new String[]{"找老师","课表","会员专享","我的"});
+        indicatorTabs.setTitles(new String[]{"一对一","双师直播","课表","会员专享","我的"});
 
         FragmentGroupAdapter homeFragmentAdapter = new FragmentGroupAdapter(this, getSupportFragmentManager(), this);
         vpHome.setAdapter(homeFragmentAdapter);
-        vpHome.setOffscreenPageLimit(3);//缓存页面
+        vpHome.setOffscreenPageLimit(4);//缓存页面
         vpHome.setCurrentItem(pageIndex);
     }
 
@@ -213,15 +231,43 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_choose_school:
-                onClickBarBtnLocation();
+                schoolPicker();
                 StatReporter.ClickCityLocation();
                 break;
+        }
+    }
+
+    //选择校区
+    protected void schoolPicker() {
+        UserManager userManager = UserManager.getInstance();
+        City city = new City();
+        city.setId(userManager.getCityId());
+        city.setName(userManager.getCity());
+        School school = new School();
+        school.setName(userManager.getSchool());
+        school.setId(userManager.getSchoolId());
+        SchoolPickerActivity.openForResult(this,school,city);
+    }
+
+    //选择校区完成后重新加载教师数据和双师课程数据
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (SchoolPickerActivity.RESULT_CODE_SCHOOL_CITY==resultCode&&data!=null){
+            //更新老师列表数据
+            EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_TEACHERLIST_DATA));
+            tvChooseSchool.setText("校区:"+UserManager.getInstance().getSchool());
         }
     }
 
     private void setCurrentPager(int i) {
         switch (i) {
             case PAGE_INDEX_TEACHERS:
+                tvChooseSchool.setVisibility(View.VISIBLE);
+                tvTitleText.setVisibility(View.GONE);
+                StatReporter.teacherListPage();
+                break;
+            case PAGE_INDEX_LIVE_CLASS:
                 tvChooseSchool.setVisibility(View.VISIBLE);
                 tvTitleText.setVisibility(View.GONE);
                 StatReporter.teacherListPage();
@@ -261,24 +307,45 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     }
 
-    protected void onClickBarBtnLocation() {
-        UserManager userManager = UserManager.getInstance();
-        City city = new City();
-        city.setId(userManager.getCityId());
-        city.setName(userManager.getCity());
-        School school = new School();
-        school.setName(userManager.getSchool());
-        school.setId(userManager.getSchoolId());
-        SchoolPickerActivity.openForResult(this,school,city);
+    @Override
+    public Fragment createFragment(int position) {
+        Fragment fragment = fragments.get(position);
+        if (fragment == null) {
+            switch (position) {
+                case PAGE_INDEX_TEACHERS:
+                    fragment = new MainFragment();
+                    break;
+                case PAGE_INDEX_LIVE_CLASS:
+                    fragment = new ListFragment();
+                    break;
+                case PAGE_INDEX_COURSES:
+                    fragment = new ScheduleFragment();
+                    ((ScheduleFragment)fragment).setOnClickEmptyCourse(this);
+                    break;
+                case PAGE_INDEX_MEMBER_SERVICE:
+                    fragment = new MemberServiceFragment();
+                    break;
+                case PAGE_INDEX_USER:
+                    fragment = new UserFragment();
+                    break;
+            }
+        }
+        return fragment;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (SchoolPickerActivity.RESULT_CODE_SCHOOL_CITY==resultCode&&data!=null){
-            //更新老师列表数据
-            EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_TEACHERLIST_DATA));
-            tvChooseSchool.setText("校区:"+UserManager.getInstance().getSchool());
+    public int getFragmentCount() {
+        return 5;
+    }
+
+    public void loadNoticeMessage() {
+        if (UserManager.getInstance().isLogin()) {
+            ApiExecutor.exec(new LoadNoticeRequest(this));
+        }else{
+            NoticeEvent noticeEvent = new NoticeEvent(EventType.BUS_EVENT_NOTICE_MESSAGE);
+            noticeEvent.setUnpayCount(0L);
+            noticeEvent.setUncommentCount(0L);
+            EventBus.getDefault().post(noticeEvent);
         }
     }
 
@@ -286,14 +353,14 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         switch (event.getEventType()) {
             case EventType.BUS_EVENT_NOTICE_MESSAGE:
                 if (event.getUnpayCount()>0){
-                    indicatorTabs.setTabIndicatorVisibility(3,View.VISIBLE);
+                    indicatorTabs.setTabIndicatorVisibility(PAGE_INDEX_USER,View.VISIBLE);
                     if (MalaApplication.getInstance().isFirstStartApp&&isResume){
                         showUnpaidOrderTipDialog();
                         MalaApplication.getInstance().isFirstStartApp = false;
                     }
                 } else {
                     MalaApplication.getInstance().isFirstStartApp = false;
-                    indicatorTabs.setTabIndicatorVisibility(3,View.INVISIBLE);
+                    indicatorTabs.setTabIndicatorVisibility(PAGE_INDEX_USER,View.INVISIBLE);
                 }
                 break;
         }
@@ -320,61 +387,6 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                         startActivity(intent);
                     }
                 }, true, true);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        isResume = false;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mNetworkStateReceiver != null) {
-            unregisterReceiver(mNetworkStateReceiver);
-        }
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public Fragment createFragment(int position) {
-        Fragment fragment = fragments.get(position);
-        if (fragment == null) {
-            switch (position) {
-                case 0:
-                    fragment = new MainFragment();
-                    break;
-                case 1:
-                    fragment = new ScheduleFragment();
-                    ((ScheduleFragment)fragment).setOnClickEmptyCourse(this);
-                    break;
-                case 2:
-                    fragment = new MemberServiceFragment();
-                    break;
-                case 3:
-                    fragment = new UserFragment();
-                    break;
-            }
-        }
-        return fragment;
-    }
-
-    @Override
-    public int getFragmentCount() {
-        return 4;
-    }
-
-
-    public void loadNoticeMessage() {
-        if (UserManager.getInstance().isLogin()) {
-            ApiExecutor.exec(new LoadNoticeRequest(this));
-        }else{
-            NoticeEvent noticeEvent = new NoticeEvent(EventType.BUS_EVENT_NOTICE_MESSAGE);
-            noticeEvent.setUnpayCount(0L);
-            noticeEvent.setUncommentCount(0L);
-            EventBus.getDefault().post(noticeEvent);
-        }
     }
 
     @Override
