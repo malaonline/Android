@@ -146,6 +146,7 @@ public class TeacherListFragment extends BaseRefreshFragment<TeacherListResult> 
     public void onEventMainThread(BusEvent event) {
         switch (event.getEventType()) {
             case BusEvent.BUS_EVENT_RELOAD_TEACHERLIST_DATA:
+            case BusEvent.BUS_EVENT_UPDATE_SCHOOL_SUCCESS:
                 refresh();
                 Log.d("TeacherListFragment","start loadDataBackground");
                 break;

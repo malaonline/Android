@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.malalaoshi.android.activitys.OrderListActivity;
 import com.malalaoshi.android.activitys.schoolpicker.SchoolPickerActivity;
 import com.malalaoshi.android.adapters.FragmentGroupAdapter;
+import com.malalaoshi.android.fragments.main.LiveClassFragment;
 import com.malalaoshi.android.network.api.NoticeMessageApi;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.event.BusEvent;
@@ -255,7 +256,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         super.onActivityResult(requestCode, resultCode, data);
         if (SchoolPickerActivity.RESULT_CODE_SCHOOL_CITY==resultCode&&data!=null){
             //更新老师列表数据
-            EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_TEACHERLIST_DATA));
+            EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_UPDATE_SCHOOL_SUCCESS));
             tvChooseSchool.setText("校区:"+UserManager.getInstance().getSchool());
         }
     }
@@ -316,7 +317,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                     fragment = new MainFragment();
                     break;
                 case PAGE_INDEX_LIVE_CLASS:
-                    fragment = new ListFragment();
+                    fragment = new LiveClassFragment();
                     break;
                 case PAGE_INDEX_COURSES:
                     fragment = new ScheduleFragment();

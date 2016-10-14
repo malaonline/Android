@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="@dimen/item_divider_height"
+    android:orientation="vertical"
+    android:background="@color/color_gray_ededed"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:background="@color/color_blue_63B2EE"
+        android:layout_marginRight="@dimen/item_margin_normal"
+        android:layout_marginLeft="@dimen/item_margin_normal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_live_class_up_height">
+
+        <com.malalaoshi.android.core.image.MalaImageView
+            android:id="@+id/iv_lecturer_avator"
+            android:src="@drawable/ic_default_teacher_avatar"
+            android:layout_width="@dimen/lecturer_avator_height"
+            android:layout_height="@dimen/lecturer_avator_height"
+            android:layout_marginTop="@dimen/item_margin_normal"
+            android:layout_marginLeft="@dimen/layout_margin_left_normal"
+            android:padding="@dimen/avatar_border_width"
+            android:background="@drawable/bg_all_circle_white_light"/>
+
+        <ImageView
+            android:src="@drawable/ic_live"
+            android:layout_marginTop="@dimen/layout_margin_top_normal"
+            android:layout_marginLeft="@dimen/layout_margin_left_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_line_up"
+            android:layout_toRightOf="@id/iv_lecturer_avator"
+            android:layout_toLeftOf="@+id/iv_assist_avator"
+            android:layout_marginTop="@dimen/layout_margin_top_xlarge"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginRight="@dimen/layout_margin_right"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height" />
+        <TextView
+            android:layout_below="@+id/tv_line_up"
+            android:layout_toRightOf="@id/iv_lecturer_avator"
+            android:layout_toLeftOf="@+id/iv_assist_avator"
+            android:layout_marginLeft="@dimen/layout_margin_right"
+            android:layout_marginRight="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/layout_margin_top_small"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height" />
+
+        <com.malalaoshi.android.core.image.MalaImageView
+            android:id="@+id/iv_assist_avator"
+            android:src="@drawable/ic_default_teacher_avatar"
+            android:layout_width="@dimen/assist_avator_height"
+            android:layout_height="@dimen/assist_avator_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/layout_margin_top_normal"
+            android:layout_marginRight="@dimen/layout_margin_right_large"
+            android:padding="@dimen/avatar_border_width"
+            android:background="@drawable/bg_all_circle_white_light"/>
+        <TextView
+            android:id="@+id/tv_class_type"
+            android:text="20人小班"
+            android:textSize="@dimen/text_size_cell"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/teacher_list_card_diver"
+            android:layout_marginRight="@dimen/layout_margin_right_offset"
+            android:layout_width="@dimen/icon_layout_width"
+            android:rotation="45"
+            android:gravity="center"
+            android:layout_height="@dimen/icon_layout_height" />
+        <TextView
+            tools:text="顾思远"
+            android:id="@+id/tv_lecturer_name"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_normal_high"
+            android:textColor="@color/color_white_ffffff"
+            android:layout_marginTop="@dimen/teacher_list_card_corner_radius"
+            android:layout_width="@dimen/leature_avator_height"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_lecturer_avator"
+            />
+        <TextView
+            android:id="@+id/tv_lecture_honorary"
+            tools:text="CCTV英语节目主持人特级教师"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/color_white_ffffff_8e"
+            android:layout_marginTop="@dimen/teacher_body_margin_button"
+            android:layout_marginLeft="@dimen/item_margin_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_lecturer_name"/>
+        <TextView
+            tools:text="助教：刘思明"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/color_white_ffffff"
+            android:layout_width="@dimen/layout_height_large"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_lecturer_avator"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/tv_assist_name" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@color/color_white_ffffff"
+        android:layout_marginRight="@dimen/item_margin_normal"
+        android:layout_marginLeft="@dimen/item_margin_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_live_class"
+            tools:text="新概念英语初级周末班"
+            android:textSize="@dimen/text_size_normal_high"
+            android:textColor="@color/color_black_636363"
+            android:layout_marginTop="@dimen/layout_margin_top_normal"
+            android:layout_marginLeft="@dimen/teacher_list_top_diver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_class_time"
+            tools:text="1月3日-2月20日"
+            android:drawableLeft="@drawable/ic_time_icon"
+            android:drawablePadding="@dimen/flow_textview_top_padding"
+            android:textSize="@dimen/text_size_cell_high"
+            android:textColor="@color/color_black_7783a4"
+            android:layout_marginTop="@dimen/teacher_list_top_diver"
+            android:layout_marginLeft="@dimen/item_margin_normal"
+            android:layout_marginBottom="@dimen/layout_margin_top_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_live_class"
+            />
+
+        <TextView
+            android:id="@+id/tv_grade"
+            tools:text="小学四—六年级"
+            android:textSize="@dimen/text_size_cell_high"
+            android:textColor="@color/color_blue_8dbede"
+            android:background="@drawable/bg_blue_border_tv_normal"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/home_margin_xxlarge"
+            android:layout_marginRight="@dimen/calendar_circle_radius"
+            android:paddingTop="@dimen/teacher_list_card_corner_radius"
+            android:paddingBottom="@dimen/teacher_list_card_corner_radius"
+            android:paddingRight="@dimen/flow_textview_left_padding"
+            android:paddingLeft="@dimen/flow_textview_left_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_total_price"
+            tools:text="￥480/16次"
+            android:textSize="@dimen/text_size_xlarge"
+            android:textColor="@color/color_red_e26254"
+            android:layout_below="@+id/tv_grade"
+            android:layout_marginRight="@dimen/calendar_circle_radius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/teacher_list_top_diver"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+</LinearLayout>

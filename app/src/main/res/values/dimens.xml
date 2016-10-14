@@ -1,5 +1,7 @@
 <resources>
     <!-- 字体大小 -->
+    <dimen name="text_size_cell">8sp</dimen>
+    <dimen name="text_size_cell_high">9sp</dimen>
     <dimen name="text_size_tiny">10sp</dimen>
     <dimen name="text_size_tiny_high">11sp</dimen>
     <dimen name="text_size_small">12sp</dimen>
@@ -89,12 +91,35 @@
 
     <dimen name="item_divider_height">8dp</dimen>
 
+    <dimen name="item_live_class_up_height">125dp</dimen>
+
     <dimen name="item_padding_height_small">8dp</dimen>
 
     <dimen name="gallery_height_small">72dp</dimen>
     <dimen name="gallery_divider_small">5dp</dimen>
 
     <dimen name="item_margin_normal">12dp</dimen>
+    <dimen name="layout_height_large">163dp</dimen>
+
+    <dimen name="live_class_down_height">68dp</dimen>
+
+    <dimen name="leature_avator_height">170dp</dimen>
+    <dimen name="icon_layout_width">100dp</dimen>
+    <dimen name="icon_layout_height">16dp</dimen>
+    <dimen name="layout_margin_right_offset">-34dp</dimen>
+    <dimen name="layout_margin_left_normal">55dp</dimen>
+    <dimen name="layout_margin_left_big">105dp</dimen>
+    <dimen name="layout_margin_left">10dp</dimen>
+    <dimen name="layout_margin_right">28dp</dimen>
+
+    <dimen name="layout_margin_top_small">5dp</dimen>
+    <dimen name="layout_margin_top_normal">18dp</dimen>
+    <dimen name="layout_margin_top_xlarge">41dp</dimen>
+
+    <dimen name="layout_margin_right_large">58dp</dimen>
+
+    <dimen name="assist_avator_height">47dp</dimen>
+    <dimen name="line_height">1dp</dimen>
 
     <dimen name="teacher_name_margin_left">87dp</dimen>
 
@@ -103,6 +128,8 @@
     <dimen name="avatar_width">75dp</dimen>
     <dimen name="avatar_height">98dp</dimen>
     <dimen name="avatar_top_padding">23dp</dimen>
+
+    <dimen name="lecturer_avator_height">60dp</dimen>
 
     <dimen name="image_width">110dp</dimen>
     <dimen name="image_height">79dp</dimen>

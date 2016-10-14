@@ -268,5 +268,15 @@
         <item name="android:layout_height">10dp</item>
     </style>
 
+    <style name="LiveclassPriceStyle">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+        <item name="android:textColor">@color/color_red_e26254</item>
+    </style>
+
+    <style name="LiveclassStuNum">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/color_red_e26254</item>
+    </style>
+
     <style name="Widget.GifMoviewView" parent="@android:style/Widget"></style>
 </resources>
