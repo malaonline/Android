@@ -116,6 +116,10 @@
     <string name="course_expire_reserve">您在该时间段有课程未上完，直到您在该时间段课程全部结束后的12小时，我们都为您保留老师时间，方便您继续购买。</string>
 
 
+    <string name="live_course_registered">已报：</string>
+    <string name="live_course_disc">课程介绍</string>
+    <string name="live_course_lecture">直播名师</string>
+    <string name="live_course_buy">立即购买</string>
 
     <!--待删除-->
     <string name="pref_header_general" translatable="false">General</string>

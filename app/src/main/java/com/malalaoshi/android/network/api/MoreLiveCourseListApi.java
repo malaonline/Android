@@ -1,14 +1,13 @@
 package com.malalaoshi.android.network.api;
 
 import com.malalaoshi.android.core.network.api.BaseApi;
-import com.malalaoshi.android.network.result.LiveClassResult;
-import com.malalaoshi.android.network.result.TeacherListResult;
+import com.malalaoshi.android.network.result.LiveCourseResult;
 
 /**
  * More teacher list api
  * Created by tianwei on 4/17/16.
  */
-public class MoreLiveClassListApi extends BaseApi {
+public class MoreLiveCourseListApi extends BaseApi {
 
     @Override
     protected String getPath() {
@@ -25,7 +24,7 @@ public class MoreLiveClassListApi extends BaseApi {
         return false;
     }
 
-    public LiveClassResult getLiveClassList(String nextUrl) throws Exception {
-        return httpGet(nextUrl, LiveClassResult.class);
+    public LiveCourseResult getLiveClassList(String nextUrl) throws Exception {
+        return httpGet(nextUrl, LiveCourseResult.class);
     }
 }

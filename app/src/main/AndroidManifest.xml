@@ -80,6 +80,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".activitys.LiveCourseInfoActivity"
+            android:label="课程页"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".activitys.TeacherFilterActivity"
             android:label="老师筛选列表"
             android:screenOrientation="portrait"
@@ -96,7 +102,6 @@
             android:label="城市选择"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
 
         <activity
             android:name=".activitys.schoolpicker.SchoolPickerActivity"

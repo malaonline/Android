@@ -8,18 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.malalaoshi.android.adapters.LiveClassAdapter;
+import com.malalaoshi.android.adapters.LiveCourseAdapter;
 import com.malalaoshi.android.core.MalaContext;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.base.BaseRefreshFragment;
 import com.malalaoshi.android.core.event.BusEvent;
-import com.malalaoshi.android.entity.LiveClass;
-import com.malalaoshi.android.network.api.LiveClassListApi;
-import com.malalaoshi.android.network.api.MoreLiveClassListApi;
-import com.malalaoshi.android.network.result.LiveClassResult;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.malalaoshi.android.network.api.LiveCourseListApi;
+import com.malalaoshi.android.network.api.MoreLiveCourseListApi;
+import com.malalaoshi.android.network.result.LiveCourseResult;
 
 import de.greenrobot.event.EventBus;
 
@@ -27,13 +23,13 @@ import de.greenrobot.event.EventBus;
  * Created by kang on 16/10/13.
  */
 
-public class LiveClassFragment extends BaseRefreshFragment<LiveClassResult> {
+public class LiveCourseFragment extends BaseRefreshFragment<LiveCourseResult> {
     private String nextUrl;
 
-    private LiveClassAdapter adapter;
+    private LiveCourseAdapter adapter;
 
-    public static LiveClassFragment newInstance() {
-        LiveClassFragment fragment = new LiveClassFragment();
+    public static LiveCourseFragment newInstance() {
+        LiveCourseFragment fragment = new LiveCourseFragment();
         return fragment;
     }
 
@@ -48,18 +44,18 @@ public class LiveClassFragment extends BaseRefreshFragment<LiveClassResult> {
 
     @Override
     protected BaseRecycleAdapter createAdapter() {
-        adapter = new LiveClassAdapter(getContext());
+        adapter = new LiveCourseAdapter(getContext());
         return adapter;
     }
 
     @Override
-    protected LiveClassResult refreshRequest() throws Exception {
-        return new LiveClassListApi().getLiveClassList();
+    protected LiveCourseResult refreshRequest() throws Exception {
+        return new LiveCourseListApi().getLiveClassList();
     }
 
     @Override
-    protected LiveClassResult loadMoreRequest() throws Exception {
-        return new MoreLiveClassListApi().getLiveClassList(nextUrl);
+    protected LiveCourseResult loadMoreRequest() throws Exception {
+        return new MoreLiveCourseListApi().getLiveClassList(nextUrl);
     }
 
     @Override
@@ -68,7 +64,7 @@ public class LiveClassFragment extends BaseRefreshFragment<LiveClassResult> {
     }
 
     @Override
-    protected void refreshFinish(LiveClassResult response) {
+    protected void refreshFinish(LiveCourseResult response) {
         super.refreshFinish(response);
         if (response != null) {
             nextUrl = response.getNext();
@@ -76,7 +72,7 @@ public class LiveClassFragment extends BaseRefreshFragment<LiveClassResult> {
     }
 
     @Override
-    protected void loadMoreFinish(LiveClassResult response) {
+    protected void loadMoreFinish(LiveCourseResult response) {
         super.loadMoreFinish(response);
         if (response != null) {
             nextUrl = response.getNext();
@@ -100,7 +96,7 @@ public class LiveClassFragment extends BaseRefreshFragment<LiveClassResult> {
         switch (event.getEventType()) {
             case BusEvent.BUS_EVENT_UPDATE_SCHOOL_SUCCESS:
                 refresh();
-                Log.d("LiveClassFragment","start loadDataBackground");
+                Log.d("LiveCourseFragment","start loadDataBackground");
                 break;
         }
     }

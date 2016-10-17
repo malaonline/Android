@@ -268,15 +268,53 @@
         <item name="android:layout_height">10dp</item>
     </style>
 
-    <style name="LiveclassPriceStyle">
+    <style name="LiveCoursePriceStyle">
         <item name="android:textSize">@dimen/text_size_xlarge</item>
         <item name="android:textColor">@color/color_red_e26254</item>
     </style>
 
-    <style name="LiveclassStuNum">
+    <style name="LiveCourseStuNum">
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textColor">@color/color_red_e26254</item>
     </style>
 
     <style name="Widget.GifMoviewView" parent="@android:style/Widget"></style>
+
+    <style name="LiveCourse">
+        <item name="android:padding">12dp</item>
+        <item name="android:background">@color/color_gray_ededed</item>
+    </style>
+
+    <style name="LiveCourse.Card">
+        <item name="android:background">@color/color_white_ffffff</item>
+    </style>
+
+    <style name="LiveCourse_Card_title">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">#9bc3e1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+    <style name="LiveCourse_Card_line">
+        <item name="android:layout_marginRight">-6dp</item>
+        <item name="android:layout_marginLeft">-6dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/color_gray_dadada</item>
+    </style>
+    <style name="LiveCourse_Card_content">
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginBottom">12dp</item>
+    </style>
+
+    <style name="LiveCourse_button">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
 </resources>

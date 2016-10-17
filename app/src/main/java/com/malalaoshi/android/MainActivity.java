@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 import com.malalaoshi.android.activitys.OrderListActivity;
 import com.malalaoshi.android.activitys.schoolpicker.SchoolPickerActivity;
 import com.malalaoshi.android.adapters.FragmentGroupAdapter;
-import com.malalaoshi.android.fragments.main.LiveClassFragment;
+import com.malalaoshi.android.fragments.main.LiveCourseFragment;
 import com.malalaoshi.android.network.api.NoticeMessageApi;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.event.BusEvent;
@@ -50,7 +49,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     public static String EXTRAS_PAGE_INDEX = "page index";
     public static final int PAGE_INDEX_TEACHERS = 0;
-    public static final int PAGE_INDEX_LIVE_CLASS = 1;
+    public static final int PAGE_INDEX_LIVE_COURSE = 1;
     public static final int PAGE_INDEX_COURSES = 2;
     public static final int PAGE_INDEX_MEMBER_SERVICE = 3;
     public static final int PAGE_INDEX_USER = 4;
@@ -268,7 +267,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                 tvTitleText.setVisibility(View.GONE);
                 StatReporter.teacherListPage();
                 break;
-            case PAGE_INDEX_LIVE_CLASS:
+            case PAGE_INDEX_LIVE_COURSE:
                 tvChooseSchool.setVisibility(View.VISIBLE);
                 tvTitleText.setVisibility(View.GONE);
                 StatReporter.teacherListPage();
@@ -316,8 +315,8 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                 case PAGE_INDEX_TEACHERS:
                     fragment = new MainFragment();
                     break;
-                case PAGE_INDEX_LIVE_CLASS:
-                    fragment = new LiveClassFragment();
+                case PAGE_INDEX_LIVE_COURSE:
+                    fragment = new LiveCourseFragment();
                     break;
                 case PAGE_INDEX_COURSES:
                     fragment = new ScheduleFragment();

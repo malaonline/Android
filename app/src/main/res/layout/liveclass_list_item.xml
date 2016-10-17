@@ -13,7 +13,7 @@
         android:layout_marginRight="@dimen/item_margin_normal"
         android:layout_marginLeft="@dimen/item_margin_normal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_live_class_up_height">
+        android:layout_height="@dimen/item_live_course_up_height">
 
         <com.malalaoshi.android.core.image.MalaImageView
             android:id="@+id/iv_lecturer_avator"
@@ -115,7 +115,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/tv_live_class"
+            android:id="@+id/tv_live_course"
             tools:text="新概念英语初级周末班"
             android:textSize="@dimen/text_size_normal_high"
             android:textColor="@color/color_black_636363"
@@ -135,7 +135,7 @@
             android:layout_marginBottom="@dimen/layout_margin_top_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_live_class"
+            android:layout_below="@+id/tv_live_course"
             />
 
         <TextView

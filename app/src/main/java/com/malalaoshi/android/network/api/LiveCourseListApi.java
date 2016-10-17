@@ -2,14 +2,13 @@ package com.malalaoshi.android.network.api;
 
 import com.malalaoshi.android.core.network.api.BaseApi;
 import com.malalaoshi.android.core.usercenter.UserManager;
-import com.malalaoshi.android.network.result.LiveClassResult;
-import com.malalaoshi.android.network.result.TeacherListResult;
+import com.malalaoshi.android.network.result.LiveCourseResult;
 
 /**
  * 老师列表页
  * Created by tianwei on 4/17/16.
  */
-public class LiveClassListApi extends BaseApi {
+public class LiveCourseListApi extends BaseApi {
 
     @Override
     protected String getPath() {
@@ -21,7 +20,7 @@ public class LiveClassListApi extends BaseApi {
         return false;
     }
 
-    public LiveClassResult getLiveClassList()
+    public LiveCourseResult getLiveClassList()
             throws Exception {
         String subUrl = "";
         boolean hasParam = false;
@@ -37,6 +36,6 @@ public class LiveClassListApi extends BaseApi {
             hasParam = true;
         }
 
-        return httpGet(getPath() + subUrl, LiveClassResult.class);
+        return httpGet(getPath() + subUrl, LiveCourseResult.class);
     }
 }

@@ -113,6 +113,10 @@ public class StatReporter {
         sendClickEvent("马上报名");
     }
 
+    public static void buyCourse() {
+        sendClickEvent("马上报名");
+    }
+
     public static void evaluatePage(String statName) {
         sendBrowseEvent(statName + "-测评建档服务页面");
     }

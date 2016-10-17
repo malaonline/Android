@@ -46,6 +46,8 @@
 
     <dimen name="item_content_padding">5dp</dimen>
 
+    <dimen name="item_live_margin">9dp</dimen>
+
     <dimen name="title_left_size">16sp</dimen>
     <dimen name="title_size">18sp</dimen>
     <dimen name="dialog_width">280dp</dimen>
@@ -91,7 +93,7 @@
 
     <dimen name="item_divider_height">8dp</dimen>
 
-    <dimen name="item_live_class_up_height">125dp</dimen>
+    <dimen name="item_live_course_up_height">125dp</dimen>
 
     <dimen name="item_padding_height_small">8dp</dimen>
 
@@ -101,7 +103,10 @@
     <dimen name="item_margin_normal">12dp</dimen>
     <dimen name="layout_height_large">163dp</dimen>
 
-    <dimen name="live_class_down_height">68dp</dimen>
+    <dimen name="item_margin_big">20dp</dimen>
+    <dimen name="item_live_height">21dp</dimen>
+
+    <dimen name="live_course_down_height">68dp</dimen>
 
     <dimen name="leature_avator_height">170dp</dimen>
     <dimen name="icon_layout_width">100dp</dimen>
