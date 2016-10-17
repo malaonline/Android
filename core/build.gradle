@@ -33,8 +33,9 @@ dependencies {
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
     compile 'com.chanven.lib:cptr:1.1.0'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-    androidTestCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     compile 'com.github.orhanobut:hawk:1.23'
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }

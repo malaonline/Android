@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,7 +20,6 @@ public class ViewPagerIndicator extends ViewGroup {
     private ViewPager mViewPager;
     private OnTabClickListener mTabClickListener;
     private OnPageChangeListener pageChangeListener;
-    private int tabVisiableCount = 4;
 
     private int tabTextSize;
     private int tabTextColor;
@@ -43,7 +43,6 @@ public class ViewPagerIndicator extends ViewGroup {
             tabTextColor = typedArray.getColor(R.styleable.ViewPagerIndicator_vpTabTextColor, resources.getColor(R.color.color_black_6c6c6c));
             tabTextFocusColor = typedArray.getColor(R.styleable.ViewPagerIndicator_vpTabTextFocusColor, resources.getColor(R.color.color_blue_82b4d9));
             tabFocusPos = typedArray.getInt(R.styleable.ViewPagerIndicator_vpTabFocusPos, 0);
-            tabVisiableCount = typedArray.getInt(R.styleable.ViewPagerIndicator_vpTabVisiableCount, 4);
             typedArray.recycle();
         }
     }
@@ -60,15 +59,6 @@ public class ViewPagerIndicator extends ViewGroup {
                 ((TabView)childView).setTabTextColor(tabTextColor);
                 ((TabView)childView).setTabTextFocusColor(tabTextFocusColor);
             }
-            MarginLayoutParams lp = (MarginLayoutParams) childView
-                    .getLayoutParams();
-            if (lp.width== LayoutParams.MATCH_PARENT){
-                lp.width = LayoutParams.WRAP_CONTENT;
-            }
-            if (lp.height== LayoutParams.MATCH_PARENT){
-                lp.height = LayoutParams.WRAP_CONTENT;
-            }
-            childView.setLayoutParams(lp);
         }
         setFocusPosition(tabFocusPos);
         setClickTabEvent();
@@ -81,13 +71,7 @@ public class ViewPagerIndicator extends ViewGroup {
         this.removeAllViews();
         for (int i=0;i<titles.length;i++){
             View view = null;
-            if (i==0){
-                view = GenerateFirstTab(titles[i]);
-            }else if (i==titles.length-1){
-                view = GenerateLastTab(titles[i]);
-            }else{
-                view = GenerateMidTab(titles[i]);
-            }
+            view = GenerateTab(titles[i]);
             if (view instanceof TabView){
                 ((TabView)view).setTabTextSize(tabTextSize);
                 ((TabView)view).setTabTextColor(tabTextColor);
@@ -103,23 +87,7 @@ public class ViewPagerIndicator extends ViewGroup {
         setTitles(titles, tabFocusPos);
     }
 
-    private TabView GenerateFirstTab(String title){
-        TabView tab = new TabView(getContext(),null);
-        MarginLayoutParams params = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        tab.setTabTitle(title);
-        tab.setLayoutParams(params);
-        return tab;
-    }
-
-    private TabView GenerateLastTab(String title){
-        TabView tab = new TabView(getContext(),null);
-        MarginLayoutParams params = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        tab.setTabTitle(title);
-        tab.setLayoutParams(params);
-        return tab;
-    }
-
-    private TabView GenerateMidTab(String title){
+    private TabView GenerateTab(String title){
         TabView tab = new TabView(getContext(),null);
         MarginLayoutParams params = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         tab.setTabTitle(title);
@@ -304,16 +272,14 @@ public class ViewPagerIndicator extends ViewGroup {
         int childCount = getChildCount();
         for (int i=0;i<childCount;i++){
             View child = getChildAt(i);
-            MarginLayoutParams lp = (MarginLayoutParams) child
-                    .getLayoutParams();
             int childWidth = child.getMeasuredWidth();
-            tabsWidth += childWidth + lp.leftMargin + lp.rightMargin;
+            tabsWidth += childWidth;
         }
         int tabSpacing = 0;
-        if (tabVisiableCount<=1){
-            tabSpacing = (width - tabsWidth);
+        if (childCount<=1){
+            tabSpacing = (width - tabsWidth- getPaddingLeft() - getPaddingRight());
         }else{
-            tabSpacing = (width - tabsWidth)/(tabVisiableCount-1);
+            tabSpacing = (width - tabsWidth- getPaddingLeft() - getPaddingRight())/(childCount-1);
         }
 
         // 设置子View的位置
@@ -323,24 +289,13 @@ public class ViewPagerIndicator extends ViewGroup {
         for (int i = 0; i < childCount; i++)
         {
             View child = getChildAt(i);
-            // 判断child的状态
-            if (child.getVisibility() == View.GONE)
-            {
-                continue;
-            }
-
-            MarginLayoutParams lp = (MarginLayoutParams) child
-                    .getLayoutParams();
-
-            int lc = left + lp.leftMargin;
-            int tc = top + lp.topMargin;
+            int lc = left;
+            int tc = top;
             int rc = lc + child.getMeasuredWidth();
             int bc = tc + child.getMeasuredHeight();
-
             // 为子View进行布局int l, int t, int r, int b
             child.layout(lc, tc, rc, bc);
-            left += child.getMeasuredWidth() + lp.leftMargin
-                    + lp.rightMargin + tabSpacing;
+            left += child.getMeasuredWidth() + tabSpacing;
         }
     }
 
@@ -353,4 +308,7 @@ public class ViewPagerIndicator extends ViewGroup {
         return new MarginLayoutParams(getContext(), attrs);
     }
 
+    public TabView getTab(int position){
+        return (TabView) getChildAt(position);
+    }
 }

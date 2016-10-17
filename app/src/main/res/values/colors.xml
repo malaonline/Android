@@ -5,6 +5,7 @@
     <!--蓝色blue-->
     <color name="color_blue_2aaadd">#2AAADD</color>
     <color name="color_blue_4da3d9">#4da3d9</color>
+    <color name="color_blue_63B2EE">#63B2EE</color>
     <color name="color_blue_8dbede">#8dbede</color>
     <color name="color_blue_82b4d9_f2">#f282b4d9</color>
     <color name="color_blue_a5b2e4">#a5b2e4</color>
@@ -50,6 +51,7 @@
     <color name="color_black_939393">#939393</color>
     <color name="color_black_999999">#999999</color>
     <color name="color_black_9c9c9c">#9c9c9c</color>
+    <color name="color_black_7783a4">#7783a4</color>
 
     <!--灰色Gray-->
     <color name="color_gray_bebebe">#bebebe</color>
@@ -78,9 +80,11 @@
     <color name="color_gray_eeeeee">#eeeeee</color>
     <!--白色white-->
     <color name="color_white_f5f5f5">#f5f5f5</color>
+    <color name="color_white_a8d0ff">#a8d0ff</color>
     <color name="color_white_ffffff_88">#88ffffff</color>
     <color name="color_white_ffffff_0f">#0fffffff</color>
     <color name="color_white_ffffff_dc">#dcffffff</color>
+    <color name="color_white_ffffff_8e">#8effffff</color>
     <color name="color_white_f6f6f6">#F6F6F6</color>
     <color name="color_white_f7f7f7">#f7f7f7</color>
     <color name="color_white_ffffff_b3">#b3ffffff</color>

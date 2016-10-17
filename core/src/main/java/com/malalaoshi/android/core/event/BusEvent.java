@@ -16,7 +16,7 @@ public class BusEvent {
     public static final int BUS_EVENT_RELOAD_FETCHEVALUATED = 0x08;
     public static final int BUS_EVENT_BACKGROUND_LOAD_REPORT_DATA = 0x09;
     public static final int BUS_EVENT_RELOAD_TEACHERLIST_DATA = 0x0A;
-
+    public static final int BUS_EVENT_UPDATE_SCHOOL_SUCCESS = 0x0B;
 
     private int eventType = -1;
 

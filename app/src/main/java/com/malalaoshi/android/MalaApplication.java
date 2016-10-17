@@ -49,6 +49,12 @@ public class MalaApplication extends BaseApplication {
         //启动应用后设置用户初始化并设置用户别名
         MalaPushClient.getInstance().init();
         MalaPushClient.getInstance().setAliasAndTags(UserManager.getInstance().getUserId(), null);
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        //LeakCanary.install(this);
         refWatcher = LeakCanary.install(this);
         CrashHandler.getInstance().init(this);//初始化全局异常管理
     }
