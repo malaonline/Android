@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 
 import com.malalaoshi.android.core.base.BaseTitleActivity;
 import com.malalaoshi.android.core.utils.EmptyUtils;
+import com.malalaoshi.android.entity.LiveCourse;
 import com.malalaoshi.android.fragments.LiveCourseInfoFragment;
 
 /**
@@ -15,12 +16,19 @@ import com.malalaoshi.android.fragments.LiveCourseInfoFragment;
  */
 
 public class LiveCourseInfoActivity extends BaseTitleActivity {
-    private static String EXTRA_COURSE_ID = "order_id";
 
     public static void open(Context context, String courseId) {
         if (!EmptyUtils.isEmpty(courseId)) {
             Intent intent = new Intent(context, LiveCourseInfoActivity.class);
-            intent.putExtra(EXTRA_COURSE_ID, courseId);
+            intent.putExtra(LiveCourseInfoFragment.ARGS_COURSE_ID, courseId);
+            context.startActivity(intent);
+        }
+    }
+
+    public static void open(Context context, LiveCourse liveCourse) {
+        if (liveCourse!=null) {
+            Intent intent = new Intent(context, LiveCourseInfoActivity.class);
+            intent.putExtra(LiveCourseInfoFragment.ARGS_COURSE, liveCourse);
             context.startActivity(intent);
         }
     }

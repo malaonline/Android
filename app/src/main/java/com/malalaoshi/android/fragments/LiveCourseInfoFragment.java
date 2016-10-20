@@ -17,6 +17,7 @@ import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.usercenter.LoginActivity;
 import com.malalaoshi.android.core.usercenter.UserManager;
+import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.entity.LiveCourse;
 import com.malalaoshi.android.network.api.LiveCourseInfoApi;
 import com.malalaoshi.android.utils.CalendarUtils;
@@ -32,7 +33,8 @@ import butterknife.ButterKnife;
  */
 
 public class LiveCourseInfoFragment extends BaseFragment implements View.OnClickListener {
-    private static String ARGS_FRAGEMENT_COURSE_ID = "order_id";
+    public static String ARGS_COURSE_ID = "order_id";
+    public static String ARGS_COURSE = "order info";
     private static int REQUEST_CODE_LOGIN = 1000;
 
     @Bind(R.id.tv_live_course)
@@ -79,7 +81,12 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            courseId = getArguments().getString(ARGS_FRAGEMENT_COURSE_ID);
+            liveCourse = getArguments().getParcelable(ARGS_COURSE);
+            if (liveCourse!=null){
+                courseId = String.valueOf(liveCourse.getId());
+            }else{
+                courseId = getArguments().getString(ARGS_COURSE_ID);
+            }
         }
     }
 
@@ -99,7 +106,9 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     }
 
     private void initViews() {
-
+        if (liveCourse!=null){
+            updateUI();
+        }
     }
 
     private void setEvent() {
@@ -166,11 +175,21 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
             tvCourseType.setText(liveCourse.getRoom_capacity()+"人班");
             tvGradeCourse.setText(liveCourse.getCourse_grade());
             tvCourseDate.setText(CalendarUtils.formatDate(liveCourse.getCourse_start())+"—"+CalendarUtils.formatDate(liveCourse.getCourse_end()));
-            tvCourseTime.setText(liveCourse.getCourse_period());
+            String oldPeriod = liveCourse.getCourse_period();
+            String newPeriod = "";
+            if (!EmptyUtils.isEmpty(oldPeriod)){
+                newPeriod = oldPeriod.replace(';','\n');
+            }
+            tvCourseTime.setText(newPeriod);
             tvStuCount.setText(liveCourse.getStudents_count()+"");
             tvCourseDisc.setText(liveCourse.getCourse_description());
             tvLecturer.setText(liveCourse.getLecturer_name());
-            tvLectureHonorary.setText(liveCourse.getLecturer_bio());
+            String oldBio = liveCourse.getLecturer_bio();
+            String newBio = "";
+            if (!EmptyUtils.isEmpty(oldBio)){
+                newBio = oldBio.replace(';','\n');
+            }
+            tvLectureHonorary.setText(newBio);
             icLeatureAvatar.loadCircleImage(liveCourse.getLecturer_avatar(),R.drawable.ic_default_teacher_avatar);
 
             if (liveCourse.getCourse_fee() != null) {

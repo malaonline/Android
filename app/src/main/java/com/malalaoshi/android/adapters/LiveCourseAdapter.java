@@ -112,7 +112,9 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
 
         @Override
         public void onClick(View v) {
-            LiveCourseInfoActivity.open(this.view.getContext(), liveClass.getId() != null ? String.valueOf(liveClass.getId()) : null);
+            if (liveClass!=null&&liveClass.getId()!=null) {
+                LiveCourseInfoActivity.open(this.view.getContext(), liveClass);
+            }
         }
     }
 }
