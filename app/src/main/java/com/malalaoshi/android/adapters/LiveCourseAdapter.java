@@ -15,6 +15,9 @@ import com.malalaoshi.android.activitys.LiveCourseInfoActivity;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.image.MalaImageView;
 import com.malalaoshi.android.entity.LiveCourse;
+import com.malalaoshi.android.utils.CalendarUtils;
+import com.malalaoshi.android.utils.Number;
+import com.malalaoshi.android.utils.StringUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,10 +41,13 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
 
     @Override
     public void onBindViewHolder(LiveCourseAdapter.ViewHolder holder, int position) {
-        holder.update(getItem(position));
+        holder.update(getItem(position), position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private int[][] colors = new int[][]{{R.color.color_orange_fbef64, R.color.color_orange_f5a623, R.color.color_green_7ed321, R.color.color_purple_a560ff},
+                {R.color.color_red_e26254,R.color.color_white_ffffff,R.color.color_white_ffffff,R.color.color_white_ffffff}};
         @Bind(R.id.iv_lecturer_avator)
         protected MalaImageView ivLecturerAvator;
         @Bind(R.id.iv_assist_avator)
@@ -72,17 +78,36 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
             this.view = itemView;
         }
 
-        protected void update(LiveCourse liveClass) {
+        protected void update(LiveCourse liveClass, int position) {
             view.setOnClickListener(this);
             this.liveClass = liveClass;
+            String imgUrl = liveClass.getLecturer_avatar();
+            ivLecturerAvator.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
+            imgUrl = liveClass.getAssistant_avatar();
+            ivAssistAvator.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
+            setClassType(tvClassType, liveClass.getRoom_capacity()+"人班",position);
+
+            tvLecturerName.setText(liveClass.getLecturer_name());
+            tvLectureHonorary.setText(liveClass.getLecturer_title());
+            tvAssistName.setText("助教:"+liveClass.getAssistant_name());
+            tvLiveClass.setText(liveClass.getCourse_name());
+
+            tvClassTime.setText(CalendarUtils.formatMonthAndDay(liveClass.getCourse_start())+"—"+CalendarUtils.formatMonthAndDay(liveClass.getCourse_end()));
+            tvGrade.setText(liveClass.getCourse_grade());
+
+            if (liveClass.getCourse_fee() != null) {
+                String str1 = String.format("￥%s",Number.subZeroAndDot(liveClass.getCourse_fee().doubleValue() * 0.01d));
+                String str2 = String.format("%d次",liveClass.getCourse_lessons());
+                StringUtil.setHumpText(tvTotalPrice.getContext(),tvTotalPrice,str1,R.style.LiveCoursePriceStyle,str2,R.style.LiveCourseStuNum);
+            }
         }
 
-        private void setTotalPrice(Long money, Long count){
-            String text = String.format("￥%d\\%d次",money,count);
-            SpannableString styledText = new SpannableString(text);
-            styledText.setSpan(new TextAppearanceSpan(tvTotalPrice.getContext(), R.style.LiveCoursePriceStyle), 0, text.indexOf("\\")+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            styledText.setSpan(new TextAppearanceSpan(tvTotalPrice.getContext(), R.style.LiveCourseStuNum), text.indexOf("\\")+1, text.length() , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            tvTotalPrice.setText(styledText, TextView.BufferType.SPANNABLE);
+        private void setClassType(TextView tvClassType, String s, int position) {
+            int bgcolor = tvClassType.getResources().getColor(colors[0][position%colors[0].length]);
+            int textColor = tvClassType.getResources().getColor(colors[1][position%colors[1].length]);
+            tvClassType.setTextColor(textColor);
+            tvClassType.setBackgroundColor(bgcolor);
+            tvClassType.setText(s);
         }
 
         @Override

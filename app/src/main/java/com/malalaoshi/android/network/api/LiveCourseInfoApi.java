@@ -11,11 +11,11 @@ import com.malalaoshi.android.entity.Teacher;
 public class LiveCourseInfoApi extends BaseApi {
 
 
-    private static final String URL_COURSE_ID = "/api/v1/teachers/%s";
+    private static final String URL_LIVE_COURSE_INFO = "/api/v1/liveclasses/%s";
 
     @Override
     protected String getPath() {
-        return URL_COURSE_ID;
+        return URL_LIVE_COURSE_INFO;
     }
 
     @Override

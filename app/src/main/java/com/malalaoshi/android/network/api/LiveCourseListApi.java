@@ -9,10 +9,10 @@ import com.malalaoshi.android.network.result.LiveCourseResult;
  * Created by tianwei on 4/17/16.
  */
 public class LiveCourseListApi extends BaseApi {
-
+    private static final String URL_LIVE_COURSES = "/api/v1/liveclasses";
     @Override
     protected String getPath() {
-        return "/api/v1/teachers";
+        return URL_LIVE_COURSES;
     }
 
     @Override

@@ -19,7 +19,10 @@ import com.malalaoshi.android.core.usercenter.LoginActivity;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.entity.LiveCourse;
 import com.malalaoshi.android.network.api.LiveCourseInfoApi;
+import com.malalaoshi.android.utils.CalendarUtils;
 import com.malalaoshi.android.utils.MiscUtil;
+import com.malalaoshi.android.utils.Number;
+import com.malalaoshi.android.utils.StringUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -96,17 +99,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     }
 
     private void initViews() {
-        /*tvLiveCourseName;
-        tvCourseType;
-        tvGradeCourse;
-        tvCourseDate;
-        tvCourseTime;
-        tvStuCount;
-        tvCourseDisc;
-        tvLecturer;
-        tvLectureHonorary;
-        icLeatureAvatar;
-        tvCoursePrice;*/
+
     }
 
     private void setEvent() {
@@ -126,7 +119,6 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
         if (liveCourse!=null){
             buyCourse();
         }
-
     }
 
     private void buyCourse() {
@@ -169,8 +161,24 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     }
 
     private void updateUI() {
+        if (liveCourse!=null){
+            tvLiveCourseName.setText(liveCourse.getCourse_name());
+            tvCourseType.setText(liveCourse.getRoom_capacity()+"人班");
+            tvGradeCourse.setText(liveCourse.getCourse_grade());
+            tvCourseDate.setText(CalendarUtils.formatDate(liveCourse.getCourse_start())+"—"+CalendarUtils.formatDate(liveCourse.getCourse_end()));
+            tvCourseTime.setText(liveCourse.getCourse_period());
+            tvStuCount.setText(liveCourse.getStudents_count()+"");
+            tvCourseDisc.setText(liveCourse.getCourse_description());
+            tvLecturer.setText(liveCourse.getLecturer_name());
+            tvLectureHonorary.setText(liveCourse.getLecturer_bio());
+            icLeatureAvatar.loadCircleImage(liveCourse.getLecturer_avatar(),R.drawable.ic_default_teacher_avatar);
 
-
+            if (liveCourse.getCourse_fee() != null) {
+                String str1 = String.format("￥%s",Number.subZeroAndDot(liveCourse.getCourse_fee().doubleValue() * 0.01d));
+                String str2 = String.format("%d次",liveCourse.getCourse_lessons());
+                StringUtil.setHumpText(tvCoursePrice.getContext(),tvCoursePrice,str1,R.style.LiveCoursePriceStyle,str2,R.style.LiveCourseStuNum);
+            }
+        }
     }
 
     private void onLoadError() {

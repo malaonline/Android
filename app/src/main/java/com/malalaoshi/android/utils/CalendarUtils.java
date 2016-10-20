@@ -135,6 +135,21 @@ public class CalendarUtils {
         return date;
     }
 
+    public static String formatMonthAndDay(Long timestamp){
+        if (timestamp==null) return "";
+        Calendar calendar = timestampToCalendar(timestamp);
+        String time = String.format("%d月%d日",calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH));
+        return time;
+    }
+
+    public static String formatDate(Long timestamp){
+        if (timestamp==null) return "";
+        Calendar calendar = timestampToCalendar(timestamp);
+        String time = String.format("%d/%d/%d",calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH));
+        return time;
+    }
+
+
     public static Calendar getCurrentTime(){
         Calendar cal=Calendar.getInstance();
         return cal;
