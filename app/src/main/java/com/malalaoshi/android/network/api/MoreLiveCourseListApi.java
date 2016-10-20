@@ -21,7 +21,7 @@ public class MoreLiveCourseListApi extends BaseApi {
 
     @Override
     protected boolean addAuthHeader() {
-        return false;
+        return true;
     }
 
     public LiveCourseResult getLiveClassList(String nextUrl) throws Exception {

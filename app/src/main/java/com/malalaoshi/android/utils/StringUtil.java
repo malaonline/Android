@@ -1,5 +1,12 @@
 package com.malalaoshi.android.utils;
 
+import android.content.Context;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.TextAppearanceSpan;
+import android.widget.TextView;
+
+import com.malalaoshi.android.R;
 import com.malalaoshi.android.entity.BaseEntity;
 
 import java.util.List;
@@ -63,5 +70,13 @@ public class StringUtil {
             }
         }
         return res;
+    }
+
+    public static void setHumpText(Context context, TextView textView, String str1, int style1Id, String str2, int style2Id){
+        String text = String.format("%s / %s",str1,str2);
+        SpannableString styledText = new SpannableString(text);
+        styledText.setSpan(new TextAppearanceSpan(context, style1Id), 0, text.indexOf("/")+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        styledText.setSpan(new TextAppearanceSpan(context, style2Id), text.indexOf("/")+1, text.length() , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(styledText, TextView.BufferType.SPANNABLE);
     }
 }

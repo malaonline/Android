@@ -4,6 +4,32 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/teacher_body_margin_bottom"
+        android:paddingTop="1px"
+        android:gravity="center_vertical"
+        android:background="@color/color_gray_dadada"
+        >
+        <TextView
+            android:id="@+id/tv_course_price"
+            tools:text="￥480/16次"
+            style="@style/LiveCourse_button"
+            android:textSize="@dimen/text_size_xxlarge"
+            android:textColor="@color/color_red_e26254"
+            android:background="@color/color_white_ffffff"/>
+
+        <TextView
+            android:id="@+id/tv_buy_course"
+            android:text="@string/live_course_buy"
+            style="@style/LiveCourse_button"
+            android:textSize="@dimen/text_size_large_high"
+            android:textColor="@color/color_white_ffffff"
+            android:background="@drawable/bg_blue_rectangle_btn"/>
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +95,6 @@
                     tools:text="2016/06/16-2016/08/16"
                     style="@style/LiveCourse_Card_content"
                     android:textColor="@color/color_black_636363"
-                    android:textSize="@dimen/text_size_small_high"
                     android:drawableLeft="@drawable/ic_clock"
                     android:drawablePadding="@dimen/item_text_padding"
                     android:layout_width="match_parent"
@@ -80,6 +105,9 @@
                     tools:text="每周六10：30~12：30\n每周六10：30~12：30\n每周六10：30~12：30"
                     style="@style/LiveCourse_Card_content"
                     android:layout_marginLeft="@dimen/item_margin_big"
+                    android:layout_marginRight="@dimen/item_margin_big"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
                     android:lineSpacingExtra="@dimen/item_text_padding"
                     android:textColor="@color/color_black_939393"
                     android:textSize="@dimen/text_size_small_high"
@@ -97,7 +125,7 @@
                         android:drawableLeft="@drawable/ic_registered"
                         android:drawablePadding="@dimen/item_text_padding"
                         android:textColor="@color/color_black_636363"
-                        android:textSize="@dimen/text_size_small_high"
+                        android:textSize="@dimen/text_size_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -105,7 +133,7 @@
                         android:id="@+id/tv_stu_count"
                         tools:text="14人"
                         android:textColor="@color/color_red_e26254"
-                        android:textSize="@dimen/text_size_small_high"
+                        android:textSize="@dimen/text_size_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -131,7 +159,7 @@
                     android:id="@+id/tv_course_disc"
                     tools:text="课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍"
                     style="@style/LiveCourse_Card_content"
-                    android:textSize="@dimen/text_size_small_high"
+                    android:textSize="@dimen/text_size_normal"
                     android:textColor="@color/color_black_939393"
                     android:lineSpacingExtra="@dimen/item_text_padding"
                     android:layout_width="match_parent"
@@ -152,6 +180,8 @@
                     android:layout_height="wrap_content" />
 
                 <View
+                    android:id="@+id/view_line"
+                    android:layout_below="@+id/tv_live"
                     style="@style/LiveCourse_Card_line" />
 
                 <TextView
@@ -159,11 +189,10 @@
                     android:id="@+id/tv_lecturer_name"
                     style="@style/LiveCourse_Card_content"
                     android:textColor="#9bc3e1"
-                    android:textSize="@dimen/text_size_small_high"
                     android:drawableLeft="@drawable/ic_avatar_icon"
                     android:drawablePadding="@dimen/item_text_padding"
                     android:layout_marginBottom="@dimen/item_text_left_padding"
-                    android:layout_below="@+id/tv_live"
+                    android:layout_below="@+id/view_line"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -172,8 +201,9 @@
                     tools:text="直播名师直播名师直播名师直播名师直播名师直播名师直播名师直播名师直播名师直播名师直播名师直播名师"
                     style="@style/LiveCourse_Card_content"
                     android:textColor="@color/color_black_939393"
-                    android:textSize="@dimen/text_size_small_high"
                     android:lineSpacingExtra="@dimen/item_text_left_padding"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
                     android:layout_marginLeft="@dimen/item_margin_big"
                     android:paddingRight="@dimen/layout_margin_left"
                     android:layout_toLeftOf="@+id/iv_leature_avatar"
@@ -187,36 +217,10 @@
                     android:layout_below="@+id/tv_lecturer_name"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_default_teacher_avatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/course_time_height"
+                    android:layout_height="@dimen/course_time_height"
                     />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/teacher_body_margin_bottom"
-        android:paddingTop="1px"
-        android:gravity="center_vertical"
-        android:background="@color/color_gray_dadada"
-        >
-        <TextView
-            android:id="@+id/tv_course_price"
-            tools:text="￥480/16次"
-            style="@style/LiveCourse_button"
-            android:textSize="@dimen/text_size_xlarge"
-            android:textColor="@color/color_red_e26254"
-            android:background="@color/color_white_ffffff"/>
-
-        <TextView
-            android:id="@+id/tv_buy_course"
-            android:text="@string/live_course_buy"
-            style="@style/LiveCourse_button"
-            android:textSize="@dimen/text_size_normal_high"
-            android:textColor="@color/color_white_ffffff"
-            android:background="@drawable/bg_blue_rectangle_btn"/>
-    </LinearLayout>
 </FrameLayout>

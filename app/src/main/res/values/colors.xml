@@ -107,14 +107,17 @@
     <color name="color_green_83b84f">#83B84f</color>
     <color name="color_green_81c784">#81C784</color>
     <color name="color_green_4caf50">#4CAF50</color>
+    <color name="color_green_7ed321">#7ed321</color>
     <color name="color_green_259746">#259746</color>
     <color name="color_green_2e7d32">#2E7D32</color>
     <!--橙色Orange-->
+    <color name="color_orange_fbef64">#FBEF64</color>
     <color name="color_orange_fcdfb7">#fcdfb7</color>
     <color name="color_orange_fddc55">#FDDC55</color>
     <color name="color_orange_ffbb33_ff">#ffffbb33</color>
     <color name="color_orange_f4bb5b">#f4bb5b</color>
     <color name="color_orange_f6a666">#f6a666</color>
+    <color name="color_orange_f5a623">#f5a623</color>
     <!--红色red-->
     <color name="color_red_ef8f1d">#Ef8f1d</color>
     <color name="color_red_f58f8f">#f58f8f</color>
@@ -134,5 +137,5 @@
     <color name="color_pink_f9b7b7">#f9b7b7</color>
     <!--紫色Purple-->
     <color name="color_purple_ac7bd8">#ac7bd8</color>
-
+    <color name="color_purple_a560ff">#a560ff</color>
 </resources>
