@@ -16,9 +16,10 @@ public class Course implements Parcelable, Comparable<Course> {
     private boolean is_commented;
     private String school;
     private Teacher teacher;
+    private Teacher lecturer;
     private Comment comment;
     private boolean is_expired;
-
+    private boolean is_live;
     public Course() {
     }
 
@@ -110,6 +111,27 @@ public class Course implements Parcelable, Comparable<Course> {
         this.is_expired = is_expired;
     }
 
+    public Teacher getLecturer() {
+        return lecturer;
+    }
+
+    public void setLecturer(Teacher lecturer) {
+        this.lecturer = lecturer;
+    }
+
+    public boolean is_live() {
+        return is_live;
+    }
+
+    public void setIs_live(boolean is_live) {
+        this.is_live = is_live;
+    }
+
+    @Override
+    public int compareTo(Course another) {
+        return this.start.compareTo(another.start);
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -118,18 +140,23 @@ public class Course implements Parcelable, Comparable<Course> {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(this.id);
+        dest.writeString(this.grade);
         dest.writeString(this.subject);
-        dest.writeByte(is_passed ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.is_passed ? (byte) 1 : (byte) 0);
         dest.writeValue(this.start);
         dest.writeValue(this.end);
-        dest.writeByte(is_commented ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.is_commented ? (byte) 1 : (byte) 0);
         dest.writeString(this.school);
-        dest.writeParcelable(this.teacher, 0);
+        dest.writeParcelable(this.teacher, flags);
+        dest.writeParcelable(this.lecturer, flags);
         dest.writeParcelable(this.comment, flags);
+        dest.writeByte(this.is_expired ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.is_live ? (byte) 1 : (byte) 0);
     }
 
     protected Course(Parcel in) {
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.grade = in.readString();
         this.subject = in.readString();
         this.is_passed = in.readByte() != 0;
         this.start = (Long) in.readValue(Long.class.getClassLoader());
@@ -137,21 +164,21 @@ public class Course implements Parcelable, Comparable<Course> {
         this.is_commented = in.readByte() != 0;
         this.school = in.readString();
         this.teacher = in.readParcelable(Teacher.class.getClassLoader());
+        this.lecturer = in.readParcelable(Teacher.class.getClassLoader());
         this.comment = in.readParcelable(Comment.class.getClassLoader());
+        this.is_expired = in.readByte() != 0;
+        this.is_live = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<Course> CREATOR = new Parcelable.Creator<Course>() {
+    public static final Creator<Course> CREATOR = new Creator<Course>() {
+        @Override
         public Course createFromParcel(Parcel source) {
             return new Course(source);
         }
 
+        @Override
         public Course[] newArray(int size) {
             return new Course[size];
         }
     };
-
-    @Override
-    public int compareTo(Course another) {
-        return this.start.compareTo(another.start);
-    }
 }
