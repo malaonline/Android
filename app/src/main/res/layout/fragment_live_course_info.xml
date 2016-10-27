@@ -4,32 +4,6 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/teacher_body_margin_bottom"
-        android:paddingTop="1px"
-        android:gravity="center_vertical"
-        android:background="@color/color_gray_dadada"
-        >
-        <TextView
-            android:id="@+id/tv_course_price"
-            tools:text="￥480/16次"
-            style="@style/LiveCourse_button"
-            android:textSize="@dimen/text_size_xxlarge"
-            android:textColor="@color/color_red_e26254"
-            android:background="@color/color_white_ffffff"/>
-
-        <TextView
-            android:id="@+id/tv_buy_course"
-            android:text="@string/live_course_buy"
-            style="@style/LiveCourse_button"
-            android:textSize="@dimen/text_size_large_high"
-            android:textColor="@color/color_white_ffffff"
-            android:background="@drawable/bg_blue_rectangle_btn"/>
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -223,4 +197,29 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/teacher_body_margin_bottom"
+        android:paddingTop="1px"
+        android:gravity="center_vertical"
+        android:background="@color/color_gray_dadada"
+        >
+        <TextView
+            android:id="@+id/tv_course_price"
+            tools:text="￥480/16次"
+            style="@style/LiveCourse_button"
+            android:textSize="@dimen/text_size_xxlarge"
+            android:textColor="@color/color_red_e26254"
+            android:background="@color/color_white_ffffff"/>
+
+        <TextView
+            android:id="@+id/tv_buy_course"
+            android:text="@string/live_course_buy"
+            style="@style/LiveCourse_button"
+            android:textSize="@dimen/text_size_large_high"
+            android:textColor="@color/color_white_ffffff"
+            android:background="@drawable/bg_blue_rectangle_btn"/>
+    </LinearLayout>
 </FrameLayout>
