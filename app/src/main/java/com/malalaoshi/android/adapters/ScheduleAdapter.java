@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -90,6 +91,10 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
         TextView tvGradeCourse;
         @Bind(R.id.tv_teacher_name)
         TextView tvTeacherName;
+        @Bind(R.id.tv_teacher_assist)
+        TextView tvTeacherAssist;
+        @Bind(R.id.iv_live_course_icon)
+        ImageView ivLiveCourseIcon;
         @Bind(R.id.tv_class_time)
         TextView tvClassTime;
         @Bind(R.id.tv_class_position)
@@ -123,7 +128,6 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
 
             }
             tvGradeCourse.setText(data.getGrade()+" "+data.getSubject());
-            tvTeacherName.setText(data.getTeacher().getName());
             tvClassPosition.setText(data.getSchool());
             if (start!=null&&end!=null){
                 if (((ScheduleCourse)scheduleItem).isFirstCourseOfDay()){
@@ -138,6 +142,16 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
                 tvDay.setText("");
                 tvWeek.setText("");
                 tvClassTime.setText("");
+            }
+
+            if (data.is_live()){
+                tvTeacherName.setText(data.getLecturer().getName());
+                tvTeacherAssist.setText("助教:"+data.getTeacher().getName());
+                ivLiveCourseIcon.setVisibility(View.VISIBLE);
+            }else{
+                tvTeacherName.setText(data.getTeacher().getName());
+                tvTeacherAssist.setText("");
+                ivLiveCourseIcon.setVisibility(View.VISIBLE);
             }
         }
     }
