@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_bg_left"
+        android:src="@drawable/bg_ring"
+        android:layout_width="44dp"
+        android:layout_height="match_parent"
+        android:padding="1dp" />
+    <ImageView
+        android:id="@+id/iv_bg_right"
+        android:src="@drawable/bg_ring"
+        android:layout_width="44dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:padding="1dp" />
+
+    <com.malalaoshi.android.core.image.MalaImageView
+        android:id="@+id/iv_left_avator"
+        android:src="@drawable/ic_default_teacher_avatar"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"/>
+
+    <com.malalaoshi.android.core.image.MalaImageView
+        android:id="@+id/iv_right_avator"
+        android:src="@drawable/ic_default_teacher_avatar"
+        android:background="@null"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

@@ -2,9 +2,7 @@ package com.malalaoshi.android.common.push;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.malalaoshi.android.core.MalaContext;
-
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
@@ -15,19 +13,21 @@ import cn.jpush.android.api.TagAliasCallback;
  */
 public class MalaPushClient {
     public static String TAG = "MalaPushClient";
-    private static MalaPushClient malaPushClient = null;
+    private static MalaPushClient malaPushClient = new MalaPushClient();
     public void init(){
         JPushInterface.requestPermission(MalaContext.getContext());   // 请求权限
-        JPushInterface.setDebugMode(true);                            // 设置开启日志,发布时请关闭日志
+        JPushInterface.setDebugMode(MalaContext.isDebug());           // debug下设置开启日志,发布时请关闭日志
         JPushInterface.init(MalaContext.getContext());                // 初始化 JPush
     }
 
     public static MalaPushClient getInstance()
     {
-        if ( malaPushClient==null )
-        {
-            malaPushClient = new MalaPushClient();
-            //malaPushClient.init();
+        if (malaPushClient==null){
+            synchronized (MalaPushClient.class){
+                if (malaPushClient==null){
+                    malaPushClient = new MalaPushClient();
+                }
+            }
         }
         return malaPushClient;
     }

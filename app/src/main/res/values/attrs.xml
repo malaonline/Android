@@ -107,5 +107,10 @@
         <attr name="progress_max_value" format="float"/>
     </declare-styleable>
 
+    <declare-styleable name="DoubleAvatarView">
+        <attr name="avatar_padding" format="dimension" />
+        <attr name="is_show_ring" format="boolean" />
+    </declare-styleable>
+
 
 </resources>

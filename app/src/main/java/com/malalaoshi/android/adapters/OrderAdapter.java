@@ -22,6 +22,7 @@ import com.malalaoshi.android.entity.Order;
 import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.common.pay.api.DeleteOrderApi;
 import com.malalaoshi.android.network.result.OkResult;
+import com.malalaoshi.android.ui.widgets.DoubleAvatarView;
 import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.MiscUtil;
 
@@ -83,6 +84,8 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
         @Bind(R.id.tv_teacher_status)
         protected TextView tvTeacherStatus;
 
+        @Bind(R.id.iv_live_course_avator)
+        protected DoubleAvatarView ivLiveCourseAvator;
 
         protected Order order;
 
