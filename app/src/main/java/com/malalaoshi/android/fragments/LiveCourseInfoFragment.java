@@ -21,6 +21,7 @@ import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.usercenter.LoginActivity;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.core.utils.EmptyUtils;
+import com.malalaoshi.android.entity.CourseDateEntity;
 import com.malalaoshi.android.entity.CreateCourseOrderEntity;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
 import com.malalaoshi.android.entity.LiveCourse;
@@ -31,6 +32,9 @@ import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.MiscUtil;
 import com.malalaoshi.android.utils.Number;
 import com.malalaoshi.android.utils.StringUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -210,7 +214,11 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
     private void createOrder() {
         //跳转至支付页
-        ApiExecutor.exec(new CreateOrderRequest(this, new CreateCourseOrderResultEntity()));
+        if (liveCourse==null) return;
+
+        CreateCourseOrderEntity entity = new CreateCourseOrderEntity();
+        entity.setLive_class(liveCourse.getId());
+        ApiExecutor.exec(new CreateOrderRequest(this, entity));
     }
 
     private void onLoadSuccess(LiveCourse response) {
