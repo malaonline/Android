@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.common.pay.PayActivity;
+import com.malalaoshi.android.common.pay.PayManager;
 import com.malalaoshi.android.core.base.BaseFragment;
+import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.core.image.MalaImageView;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
@@ -18,15 +21,25 @@ import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.usercenter.LoginActivity;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.core.utils.EmptyUtils;
+import com.malalaoshi.android.entity.CourseDateEntity;
+import com.malalaoshi.android.entity.CreateCourseOrderEntity;
+import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
+import com.malalaoshi.android.entity.CreateLiveCourseOrderEntity;
 import com.malalaoshi.android.entity.LiveCourse;
 import com.malalaoshi.android.network.api.LiveCourseInfoApi;
+import com.malalaoshi.android.ui.dialogs.PromptDialog;
 import com.malalaoshi.android.utils.CalendarUtils;
+import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.MiscUtil;
 import com.malalaoshi.android.utils.Number;
 import com.malalaoshi.android.utils.StringUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by kang on 16/10/14.
@@ -135,15 +148,51 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
         //判断是否登录
         if (UserManager.getInstance().isLogin()) {
             //跳转至支付页
-            startBuyLiveCourseActivity();
+            createOrder();
         } else {
             //跳转登录页
             startSmsActivityRes();
         }
     }
 
-    private void startBuyLiveCourseActivity() {
-        MiscUtil.toast("敬请期待!");
+
+
+    private void onPayOrder(CreateCourseOrderResultEntity entity) {
+
+        if (!entity.isOk() && entity.getCode() == -1) {
+            DialogUtil.showPromptDialog(
+                    getFragmentManager(), R.drawable.ic_timeallocate,
+                    "该老师部分时段已被占用，请重新选择上课时间!", "知道了", new PromptDialog.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            //更新上课列表
+                            EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_FETCHEVALUATED));
+                        }
+                    }, false, false);
+        } else if (!entity.isOk() && entity.getCode() == -2) {
+            DialogUtil.showPromptDialog(
+                    getFragmentManager(), R.drawable.ic_timeallocate,
+                    "奖学金使用失败，请重新选择奖学金!", "知道了", new PromptDialog.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                        }
+                    }, false, false);
+        } else if (!entity.isOk() && entity.getCode() == -3) {
+            DialogUtil.showPromptDialog(
+                    getFragmentManager(), R.drawable.ic_timeallocate,
+                    "报名人数已满，请重新选择直播班级!", "知道了", new PromptDialog.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                        }
+                    }, false, false);
+        } else {
+            openPayActivity(entity);
+        }
+    }
+
+    private void openPayActivity(CreateCourseOrderResultEntity entity) {
+        if (entity == null) return;
+        PayActivity.startPayActivity(entity, getActivity(), true);
     }
 
     //启动登录页
@@ -159,9 +208,18 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
         if (requestCode == REQUEST_CODE_LOGIN) {
             if (resultCode == LoginActivity.RESULT_CODE_LOGIN_SUCCESS) {
                 //跳转到课程购买页
-                startBuyLiveCourseActivity();
+                createOrder();
             }
         }
+    }
+
+    private void createOrder() {
+        //跳转至支付页
+        if (liveCourse==null) return;
+
+        CreateLiveCourseOrderEntity entity = new CreateLiveCourseOrderEntity();
+        entity.setLive_class(liveCourse.getId());
+        ApiExecutor.exec(new CreateOrderRequest(this, entity));
     }
 
     private void onLoadSuccess(LiveCourse response) {
@@ -233,6 +291,45 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
             get().onLoadError();
         }
     }
+
+    //创建订单
+    private static final class CreateOrderRequest extends
+            BaseApiContext<LiveCourseInfoFragment, CreateCourseOrderResultEntity> {
+
+        private CreateLiveCourseOrderEntity entity;
+
+        public CreateOrderRequest(LiveCourseInfoFragment liveCourseInfoFragment,
+                                  CreateLiveCourseOrderEntity entity) {
+            super(liveCourseInfoFragment);
+            this.entity = entity;
+        }
+
+        @Override
+        public CreateCourseOrderResultEntity request() throws Exception {
+            return PayManager.getInstance().createOrder(entity);
+        }
+
+        @Override
+        public void onApiSuccess(@NonNull CreateCourseOrderResultEntity response) {
+            get().onPayOrder(response);
+        }
+
+        @Override
+        public void onApiStarted() {
+            get().tvBuyCourse.setOnClickListener(null);
+        }
+
+        @Override
+        public void onApiFinished() {
+            get().tvBuyCourse.setOnClickListener(get());
+        }
+
+        @Override
+        public void onApiFailure(Exception exception) {
+            MiscUtil.toast("创建订单失败");
+        }
+    }
+
 
     @Override
     public String getStatName() {

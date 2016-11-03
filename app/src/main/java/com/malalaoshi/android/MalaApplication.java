@@ -1,6 +1,7 @@
 package com.malalaoshi.android;
 
 import android.content.Context;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.malalaoshi.android.core.BaseApplication;
@@ -28,6 +29,12 @@ public class MalaApplication extends BaseApplication {
     public boolean isFirstStartApp = true;
 
     private RefWatcher refWatcher;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        MultiDex.install(base);
+        super.attachBaseContext(base);
+    }
 
     @Override
     protected void initOnMainProcess() {

@@ -1,6 +1,7 @@
 package com.malalaoshi.android.common.pay;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,7 +43,7 @@ public class PayActivity extends BaseActivity implements TitleBarView.OnTitleBar
      * @param context
      * @param isEvaluated   true:已经完成测评   false:没有进行测评
      */
-    public static void startPayActivity(CreateCourseOrderResultEntity entity, Activity context, boolean isEvaluated) {
+    public static void startPayActivity(CreateCourseOrderResultEntity entity, Context context, boolean isEvaluated) {
         if (entity!=null){
             Intent intent = new Intent(context, PayActivity.class);
             intent.putExtra(EXTRA_ORDER_ID, entity);

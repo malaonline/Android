@@ -327,4 +327,89 @@
     <style name="schedule_icontext_style" parent="schedule_text_style">
         <item name="android:drawablePadding">5dp</item>
     </style>
+
+
+    <!--文本style  父类-->
+    <style name="mala_text_style_large_black_darker">
+        <item name="android:textColor">@color/color_black_333333</item>
+        <item name="android:textSize">@dimen/text_size_normal_high</item>
+    </style>
+
+    <style name="mala_text_style_large_black">
+        <item name="android:textColor">@color/color_black_636363</item>
+        <item name="android:textSize">@dimen/text_size_normal_high</item>
+    </style>
+
+    <style name="mala_text_style_large_black_light">
+        <item name="android:textColor">@color/color_black_939393</item>
+        <item name="android:textSize">@dimen/text_size_normal_high</item>
+    </style>
+
+    <style name="mala_text_style_normal_black_darker">
+        <item name="android:textColor">@color/color_black_333333</item>
+        <item name="android:textSize">@dimen/text_size_small_high</item>
+    </style>
+
+    <style name="mala_text_style_normal_black">
+        <item name="android:textColor">@color/color_black_636363</item>
+        <item name="android:textSize">@dimen/text_size_small_high</item>
+    </style>
+
+    <style name="mala_text_style_normal_black_light">
+        <item name="android:textColor">@color/color_black_939393</item>
+        <item name="android:textSize">@dimen/text_size_small_high</item>
+    </style>
+
+
+    <style name="order_detail_button" >
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_white_ffffff</item>
+        <item name="android:textSize">@dimen/text_size_normal_high</item>
+    </style>
+
+
+    <style name="order_detail_card">
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:background">@color/color_white_ffffff</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <style name="order_detail_card_title" parent="mala_text_style_large_black_darker">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+    </style>
+
+    <style name="order_detail_card_item">
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="order_detail_card_text_black_dark" parent="mala_text_style_normal_black_darker">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="order_detail_card_text_black" parent="mala_text_style_normal_black">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="order_detail_card_text_black_light" parent="mala_text_style_normal_black_light">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>

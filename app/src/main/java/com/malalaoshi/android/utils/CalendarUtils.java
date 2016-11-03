@@ -87,6 +87,15 @@ public class CalendarUtils {
         return d;
     }
 
+    public static int compareWidthNow(Long timestamp) {
+        Calendar now = Calendar.getInstance();
+        // 初始化 (重置) Calendar 对象
+        Calendar calendar = Calendar.getInstance();
+        // 或者用 Date 来初始化 Calendar 对象
+        calendar.setTime(new Date(timestamp));
+        return now.compareTo(calendar);
+    }
+
     /**
      * Format
      *

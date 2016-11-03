@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Created by tianwei on 2/27/16.
  */
 public class CreateCourseOrderResultEntity extends CreateCourseOrderEntity {
+    private long live_class;
     private String order_id;
     private String parent;
     private String id;
@@ -17,6 +18,14 @@ public class CreateCourseOrderResultEntity extends CreateCourseOrderEntity {
 
     private boolean ok;
     private int code;
+
+    public long getLive_class() {
+        return live_class;
+    }
+
+    public void setLive_class(long live_class) {
+        this.live_class = live_class;
+    }
 
     public String getOrder_id() {
         return order_id;

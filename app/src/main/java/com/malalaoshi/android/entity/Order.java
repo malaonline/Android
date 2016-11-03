@@ -29,6 +29,8 @@ public class Order implements Parcelable {
     private boolean is_timeslot_allocated;
     private boolean is_teacher_published;
     List<String[]> timeslots;
+    private LiveCourse live_class;
+    private boolean is_live;
 
     public Long getId() {
         return id;
@@ -182,7 +184,21 @@ public class Order implements Parcelable {
         this.is_teacher_published = is_teacher_published;
     }
 
+    public LiveCourse getLive_class() {
+        return live_class;
+    }
 
+    public void setLive_class(LiveCourse live_class) {
+        this.live_class = live_class;
+    }
+
+    public boolean is_live() {
+        return is_live;
+    }
+
+    public void setIs_live(boolean is_live) {
+        this.is_live = is_live;
+    }
 
     public Order() {
     }
@@ -214,6 +230,8 @@ public class Order implements Parcelable {
         dest.writeByte(this.is_timeslot_allocated ? (byte) 1 : (byte) 0);
         dest.writeByte(this.is_teacher_published ? (byte) 1 : (byte) 0);
         dest.writeList(this.timeslots);
+        dest.writeParcelable(this.live_class, flags);
+        dest.writeByte(this.is_live ? (byte) 1 : (byte) 0);
     }
 
     protected Order(Parcel in) {
@@ -237,6 +255,8 @@ public class Order implements Parcelable {
         this.is_teacher_published = in.readByte() != 0;
         this.timeslots = new ArrayList<String[]>();
         in.readList(this.timeslots, String[].class.getClassLoader());
+        this.live_class = in.readParcelable(LiveCourse.class.getClassLoader());
+        this.is_live = in.readByte() != 0;
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {

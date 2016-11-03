@@ -1,5 +1,6 @@
 package com.malalaoshi.android.fragments;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.entity.LiveCourse;
 import com.malalaoshi.android.network.api.FetchOrderApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.image.MalaImageView;
@@ -17,6 +19,7 @@ import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.activitys.CourseConfirmActivity;
+import com.malalaoshi.android.ui.widgets.DoubleAvatarView;
 import com.malalaoshi.android.utils.CourseHelper;
 import com.malalaoshi.android.adapters.CourseTimeAdapter;
 import com.malalaoshi.android.entity.CourseTimeModel;
@@ -42,7 +45,12 @@ public class OrderDetailFragment extends BaseFragment {
 
     private static String TAG = "OrderDetailFragment";
     private static final String ARG_ORDER_ID = "order id";
+    private static final String ARG_ORDER_TYPE = "order type";
+
+    public static final int ORDER_TYPE_ONE = 0;
+    public static final int ORDER_TYPE_LIVE = 1;
     private String orderId;
+    private int orderType;
 
     @Bind(R.id.tv_order_status)
     protected TextView tvOrderStatus;
@@ -50,8 +58,17 @@ public class OrderDetailFragment extends BaseFragment {
     @Bind(R.id.tv_teacher_name)
     protected TextView tvTeacherName;
 
+    @Bind(R.id.tv_assist_name)
+    protected TextView tvAssistName;
+
     @Bind(R.id.tv_course_name)
     protected TextView tvCourseName;
+
+    @Bind(R.id.tv_course_type)
+    protected TextView tvCourseType;
+
+    @Bind(R.id.tv_course_times)
+    protected TextView tvCourseTimes;
 
     @Bind(R.id.tv_school)
     protected TextView tvSchool;
@@ -59,8 +76,17 @@ public class OrderDetailFragment extends BaseFragment {
     @Bind(R.id.iv_teacher_avator)
     protected MalaImageView ivTeacherAvator;
 
+    @Bind(R.id.iv_live_course_avator)
+    protected DoubleAvatarView ivLiveCourseAvator;
+
     @Bind(R.id.tv_total_hours)
     protected TextView tvTotalHours;
+
+    @Bind(R.id.tv_total_class_lefttext)
+    protected TextView tvTotalClassLefttext;
+
+    @Bind(R.id.tv_total_class_righttext)
+    protected TextView tvTotalClassRighttext;
 
     @Bind(R.id.lv_show_times)
     protected ScrollListView lvShowTimes;
@@ -71,8 +97,8 @@ public class OrderDetailFragment extends BaseFragment {
     @Bind(R.id.tv_pay_way)
     protected TextView tvPayWay;
 
-    @Bind(R.id.rl_order_time)
-    protected RelativeLayout rlOrderTime;
+    @Bind(R.id.ll_order_time)
+    protected LinearLayout llOrderTime;
 
     @Bind(R.id.tv_order_id)
     protected TextView tvOrderId;
@@ -86,33 +112,28 @@ public class OrderDetailFragment extends BaseFragment {
     @Bind(R.id.tv_pay_order_time)
     protected TextView tvPayOrderTime;
 
-    @Bind(R.id.rl_operation)
-    protected RelativeLayout rlOperation;
-
     @Bind(R.id.tv_mount)
     protected TextView tvMount;
 
-    @Bind(R.id.tv_cancel_order)
-    protected TextView tvCancelOrder;
+    @Bind(R.id.tv_left)
+    protected TextView tvOperationLeft;
 
-    @Bind(R.id.tv_submit)
-    protected TextView tvSubmit;
-
-    @Bind(R.id.tv_teacher_status)
-    protected TextView tvTeacherStatus;
+    @Bind(R.id.tv_right)
+    protected TextView tvOperationRight;
 
 
     private CourseTimeAdapter timesAdapter;
 
     private Order order;
 
-    public static OrderDetailFragment newInstance(String orderId) {
+    public static OrderDetailFragment newInstance(String orderId, int orderType) {
         if (EmptyUtils.isEmpty(orderId)) {
             return null;
         }
         OrderDetailFragment fragment = new OrderDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_ORDER_ID, orderId);
+        args.putInt(ARG_ORDER_TYPE, orderType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -126,6 +147,7 @@ public class OrderDetailFragment extends BaseFragment {
             throw new IllegalArgumentException("arguments can not been null");
         }
         orderId = args.getString(ARG_ORDER_ID);
+        orderType = args.getInt(ARG_ORDER_TYPE);
     }
 
     @Override
@@ -144,6 +166,19 @@ public class OrderDetailFragment extends BaseFragment {
     }
 
     private void initViews() {
+        if (orderType==ORDER_TYPE_ONE){
+            tvCourseType.setVisibility(View.GONE);
+            tvCourseTimes.setVisibility(View.GONE);
+            ivLiveCourseAvator.setVisibility(View.GONE);
+            ivTeacherAvator.setVisibility(View.VISIBLE);
+        }else{
+            tvCourseType.setVisibility(View.VISIBLE);
+            tvCourseTimes.setVisibility(View.VISIBLE);
+            ivLiveCourseAvator.setVisibility(View.VISIBLE);
+            ivTeacherAvator.setVisibility(View.GONE);
+            tvTotalClassLefttext.setVisibility(View.GONE);
+            tvTotalClassRighttext.setVisibility(View.GONE);
+        }
         timesAdapter = new CourseTimeAdapter(getActivity());
         lvShowTimes.setAdapter(timesAdapter);
     }
@@ -152,13 +187,31 @@ public class OrderDetailFragment extends BaseFragment {
         ApiExecutor.exec(new FetchOrderRequest(this, orderId));
     }
 
-    @OnClick(R.id.tv_submit)
-    public void onClickSubmit(View view) {
+    @OnClick(R.id.tv_right)
+    public void onClickRight(View view) {
         if (order != null && order.getStatus() != null) {
-            if ("u".equals(order.getStatus())) {
-                openPayActivity();
-            } else {
-                startCourseConfirmActivity();
+
+            if (orderType==ORDER_TYPE_ONE){
+                if ("u".equals(order.getStatus())) {
+                    openPayActivity();
+                } else if ("p".equals(order.getStatus())) {
+                    startCourseConfirmActivity();
+                } else if ("d".equals(order.getStatus())) {
+                    startCourseConfirmActivity();
+                }
+            }else{
+                if ("u".equals(order.getStatus())) {
+                    openPayActivity();
+                } else if ("p".equals(order.getStatus())) {
+                    LiveCourse liveCourse = order.getLive_class();
+                    Long end = -1L;
+                    if (liveCourse!=null){
+                        end = liveCourse.getCourse_end();
+                    }
+                    if (CalendarUtils.compareWidthNow(end)>=0){
+                        MiscUtil.toast("敬请期待");
+                    }
+                }
             }
         }
     }
@@ -174,15 +227,14 @@ public class OrderDetailFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.tv_cancel_order)
-    public void onClickCancel(View view) {
+    @OnClick(R.id.tv_left)
+    public void onClickLeft(View view) {
         //取消订单
         if (order != null && order.getId() != null && order.getTo_pay() != null) {
             startProcessDialog("正在取消订单...");
             ApiExecutor.exec(new CancelCourseOrderRequest(this, order.getId() + ""));
         }
     }
-
 
     private void openPayActivity() {
         if (order == null || order.getId() == null || EmptyUtils.isEmpty(order.getOrder_id()) || order.getTo_pay() == null)
@@ -204,82 +256,34 @@ public class OrderDetailFragment extends BaseFragment {
             return;
         } else {
             order = response;
-            updateOrderInfoUI();
+            setOrderData();
         }
     }
 
-    public void updateOrderInfoUI() {
+    private void setOrderData() {
+        if (orderType==ORDER_TYPE_ONE){
+            setCourseData();
+        }else{
+            setLiveCourseData();
+        }
+    }
+
+    private void setCourseData() {
         if (order == null) return;
         tvTeacherName.setText(order.getTeacher_name());
         tvCourseName.setText(order.getGrade() + " " + order.getSubject());
         tvSchool.setText(order.getSchool());
+        String imgUrl = order.getTeacher_avatar();
+        ivTeacherAvator.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
         tvTotalHours.setText(order.getHours().toString());
+
         String strTopay = "金额异常";
         Double toPay = order.getTo_pay();
         if (toPay != null) {
             strTopay = String.format("%.2f", toPay * 0.01d);
         }
-        ;
+
         tvMount.setText(strTopay);
-
-        if ("u".equals(order.getStatus())) {
-            tvOrderStatus.setText("订单待支付");
-            rlPayWay.setVisibility(View.GONE);
-            tvOrderId.setText(order.getOrder_id());
-            tvCreateOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getCreated_at())));
-            llPayOrderTime.setVisibility(View.GONE);
-            tvCancelOrder.setVisibility(View.VISIBLE);
-            tvSubmit.setVisibility(View.VISIBLE);
-            tvSubmit.setText("立即支付");
-            rlOperation.setVisibility(View.VISIBLE);
-        } else if ("p".equals(order.getStatus())) {
-            tvOrderStatus.setText("支付成功");
-            rlPayWay.setVisibility(View.VISIBLE);
-            tvPayWay.setText(order.getCharge_channel());
-            ;
-            tvOrderId.setText(order.getOrder_id());
-            tvCreateOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getCreated_at())));
-            llPayOrderTime.setVisibility(View.VISIBLE);
-            tvPayOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getPaid_at())));
-            tvCancelOrder.setVisibility(View.GONE);
-            tvSubmit.setVisibility(View.VISIBLE);
-            tvSubmit.setText("再次购买");
-            rlOperation.setVisibility(View.VISIBLE);
-        } else if ("d".equals(order.getStatus())) {
-            tvOrderStatus.setText("订单已关闭");
-            rlPayWay.setVisibility(View.GONE);
-            tvPayWay.setText(order.getCharge_channel());
-            ;
-            tvOrderId.setText(order.getOrder_id());
-            tvCreateOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getCreated_at())));
-            llPayOrderTime.setVisibility(View.GONE);
-            rlOperation.setVisibility(View.VISIBLE);
-            tvCancelOrder.setVisibility(View.GONE);
-            tvSubmit.setVisibility(View.VISIBLE);
-            tvSubmit.setText("再次购买");
-        } else {
-            tvOrderStatus.setText("退款成功");
-            rlPayWay.setVisibility(View.VISIBLE);
-            tvPayWay.setText(order.getCharge_channel());
-            ;
-            tvOrderId.setText(order.getOrder_id());
-            tvCreateOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getCreated_at())));
-            llPayOrderTime.setVisibility(View.VISIBLE);
-            tvPayOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getPaid_at())));
-            tvCancelOrder.setVisibility(View.GONE);
-            tvSubmit.setVisibility(View.GONE);
-            rlOperation.setVisibility(View.GONE);
-        }
-        if (!order.is_teacher_published()) {
-            tvCancelOrder.setVisibility(View.GONE);
-            tvSubmit.setVisibility(View.GONE);
-            tvTeacherStatus.setVisibility(View.VISIBLE);
-        } else {
-            tvTeacherStatus.setVisibility(View.GONE);
-        }
-        String imgUrl = order.getTeacher_avatar();
-        ivTeacherAvator.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
-
         //上课时间
         List<String[]> timeslots = order.getTimeslots();
 
@@ -288,7 +292,150 @@ public class OrderDetailFragment extends BaseFragment {
             timesAdapter.addAll(times);
             timesAdapter.notifyDataSetChanged();
         }
+
+        tvOrderId.setText(order.getOrder_id());
+        tvCreateOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getCreated_at())));
+
+        Resources res = getResources();
+        if ("u".equals(order.getStatus())) {
+            tvOrderStatus.setTextColor(res.getColor(R.color.color_red_e36a5d));
+            tvOrderStatus.setText("待支付");
+            rlPayWay.setVisibility(View.GONE);
+            llPayOrderTime.setVisibility(View.GONE);
+            tvOperationLeft.setVisibility(View.VISIBLE);
+            tvOperationRight.setVisibility(View.VISIBLE);
+            tvOperationRight.setTextColor(res.getColor(R.color.color_white_ffffff));
+            tvOperationRight.setBackgroundColor(getResources().getColor(R.color.color_blue_8fbcdd));
+            tvOperationRight.setText("去支付");
+        } else if ("p".equals(order.getStatus())) {
+            tvOrderStatus.setTextColor(res.getColor(R.color.color_blue_9bc3e1));
+            tvOrderStatus.setText("支付成功");
+            rlPayWay.setVisibility(View.VISIBLE);
+            tvPayWay.setText(order.getCharge_channel());
+            llPayOrderTime.setVisibility(View.VISIBLE);
+            tvPayOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getPaid_at())));
+            tvOperationLeft.setVisibility(View.GONE);
+            tvOperationRight.setVisibility(View.VISIBLE);
+            tvOperationRight.setTextColor(res.getColor(R.color.color_white_ffffff));
+            tvOperationRight.setBackgroundColor(getResources().getColor(R.color.color_blue_8fbcdd));
+            tvOperationRight.setText("再次购买");
+        } else if ("d".equals(order.getStatus())) {
+            tvOrderStatus.setTextColor(res.getColor(R.color.color_gray_cfcfcf));
+            tvOrderStatus.setText("已关闭");
+            rlPayWay.setVisibility(View.GONE);
+            llPayOrderTime.setVisibility(View.GONE);
+            tvOperationLeft.setVisibility(View.GONE);
+            tvOperationRight.setVisibility(View.VISIBLE);
+            tvOperationRight.setTextColor(res.getColor(R.color.color_white_ffffff));
+            tvOperationRight.setBackgroundColor(getResources().getColor(R.color.color_blue_8fbcdd));
+            tvOperationRight.setText("重新购买");
+        } else if ("r".equals(order.getStatus())){
+            tvOrderStatus.setTextColor(res.getColor(R.color.color_green_9ec379));
+            tvOrderStatus.setText("已退费");
+            rlPayWay.setVisibility(View.VISIBLE);
+            tvPayWay.setText(order.getCharge_channel());
+            llPayOrderTime.setVisibility(View.VISIBLE);
+            tvPayOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getPaid_at())));
+            tvOperationLeft.setVisibility(View.GONE);
+            tvOperationRight.setVisibility(View.VISIBLE);
+            tvOperationRight.setTextColor(res.getColor(R.color.color_white_ffffff_99));
+            tvOperationRight.setBackgroundColor(res.getColor(R.color.color_green_9ec379));
+            tvOperationRight.setText("已退费");
+        }
+        if (!order.is_teacher_published()) {
+            tvOperationLeft.setVisibility(View.GONE);
+            tvOperationRight.setVisibility(View.GONE);
+        }
+
     }
+
+    private void setLiveCourseData() {
+        if (order == null) return;
+        LiveCourse liveCourse = order.getLive_class();
+        if (liveCourse!=null){
+            tvTeacherName.setText(liveCourse.getLecturer_name());
+            tvAssistName.setText(liveCourse.getAssistant_name());
+            tvCourseName.setText(liveCourse.getCourse_name());
+            tvCourseType.setText(liveCourse.getRoom_capacity()+"人");
+            tvCourseTimes.setText(liveCourse.getCourse_lessons()+"");
+            tvSchool.setText(order.getSchool());
+            ivLiveCourseAvator.setLeftCircleImage(liveCourse.getLecturer_avatar(),R.drawable.ic_default_teacher_avatar);
+            ivLiveCourseAvator.setRightCircleImage(liveCourse.getAssistant_avatar(),R.drawable.ic_default_teacher_avatar);
+        }
+
+        String strTopay = "金额异常";
+        Double toPay = order.getTo_pay();
+        if (toPay != null) {
+            strTopay = String.format("%.2f", toPay * 0.01d);
+        }
+
+        tvMount.setText(strTopay);
+        //上课时间
+        List<String[]> timeslots = order.getTimeslots();
+
+        if (timeslots != null) {
+            List<CourseTimeModel> times = CourseHelper.courseTimes(timeslots);
+            timesAdapter.addAll(times);
+            timesAdapter.notifyDataSetChanged();
+        }
+
+        tvOrderId.setText(order.getOrder_id());
+        tvCreateOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getCreated_at())));
+        Resources res = getResources();
+        if ("u".equals(order.getStatus())) {
+            tvOrderStatus.setTextColor(res.getColor(R.color.color_red_e36a5d));
+            tvOrderStatus.setText("待支付");
+            rlPayWay.setVisibility(View.GONE);
+            llPayOrderTime.setVisibility(View.GONE);
+            tvOperationLeft.setVisibility(View.VISIBLE);
+            tvOperationRight.setVisibility(View.VISIBLE);
+            tvOperationRight.setTextColor(res.getColor(R.color.color_white_ffffff));
+            tvOperationRight.setBackgroundColor(res.getColor(R.color.color_blue_9bc3e1));
+            tvOperationRight.setText("去支付");
+        } else if ("p".equals(order.getStatus())) {
+            tvOrderStatus.setTextColor(res.getColor(R.color.color_blue_9bc3e1));
+            tvOrderStatus.setText("支付成功");
+            rlPayWay.setVisibility(View.VISIBLE);
+            tvPayWay.setText(order.getCharge_channel());
+            llPayOrderTime.setVisibility(View.VISIBLE);
+            tvPayOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getPaid_at())));
+            tvOperationLeft.setVisibility(View.GONE);
+            tvOperationRight.setVisibility(View.VISIBLE);
+            Long end = liveCourse.getCourse_end();
+            if (CalendarUtils.compareWidthNow(end)>=0){
+                tvOperationRight.setTextColor(res.getColor(R.color.color_white_ffffff));
+                tvOperationRight.setBackgroundColor(res.getColor(R.color.color_green_9ec379));
+                tvOperationRight.setText("申请退费");
+            }else{
+                tvOperationRight.setTextColor(res.getColor(R.color.color_white_ffffff));
+                tvOperationRight.setBackgroundColor(res.getColor(R.color.color_gray_cfcfcf));
+                tvOperationRight.setText("已结束");
+            }
+        } else if ("d".equals(order.getStatus())) {
+            tvOrderStatus.setTextColor(res.getColor(R.color.color_gray_cfcfcf));
+            tvOrderStatus.setText("已关闭");
+            rlPayWay.setVisibility(View.GONE);
+            llPayOrderTime.setVisibility(View.GONE);
+            tvOperationLeft.setVisibility(View.GONE);
+            tvOperationRight.setVisibility(View.VISIBLE);
+            tvOperationRight.setTextColor(res.getColor(R.color.color_white_ffffff));
+            tvOperationRight.setBackgroundColor(res.getColor(R.color.color_gray_cfcfcf));
+            tvOperationRight.setText("已关闭");
+        } else if ("r".equals(order.getStatus())) {
+            tvOrderStatus.setTextColor(res.getColor(R.color.color_green_9ec379));
+            tvOrderStatus.setText("已退费");
+            rlPayWay.setVisibility(View.VISIBLE);
+            tvPayWay.setText(order.getCharge_channel());
+            llPayOrderTime.setVisibility(View.VISIBLE);
+            tvPayOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getPaid_at())));
+            tvOperationLeft.setVisibility(View.GONE);
+            tvOperationRight.setVisibility(View.VISIBLE);
+            tvOperationRight.setTextColor(res.getColor(R.color.color_white_ffffff));
+            tvOperationRight.setBackgroundColor(res.getColor(R.color.color_green_9ec379));
+            tvOperationRight.setText("已退费");
+        }
+    }
+
 
     private static final class FetchOrderRequest extends BaseApiContext<OrderDetailFragment, Order> {
 
@@ -344,6 +491,7 @@ public class OrderDetailFragment extends BaseFragment {
             get().getActivity().finish();
             if (response.isOk()) {
                 get().order.setStatus("d");
+                get().setOrderData();
                 MiscUtil.toast("订单已取消!");
             } else {
                 MiscUtil.toast("订单取消失败!");

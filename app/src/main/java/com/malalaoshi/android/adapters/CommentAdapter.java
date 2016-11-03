@@ -17,6 +17,8 @@ import com.malalaoshi.android.core.utils.DialogUtils;
 import com.malalaoshi.android.dialogs.CommentDialog;
 import com.malalaoshi.android.entity.Comment;
 import com.malalaoshi.android.entity.Course;
+import com.malalaoshi.android.entity.Teacher;
+import com.malalaoshi.android.ui.widgets.DoubleAvatarView;
 
 /**
  * 评论
@@ -39,12 +41,32 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
     @Override
     public void onBindViewHolder(final CommentViewHolder holder, int position) {
         final Course course = getItem(position);
-        if (course.getTeacher() != null) {
-            holder.teacherView.setText(course.getTeacher().getName() + "老师");
-            holder.iconView.loadCircleImage(course.getTeacher().getAvatar(), R.drawable.ic_default_teacher_avatar);
-        } else {
-            holder.teacherView.setText("匿名老师");
+        Teacher teacher = course.getTeacher();
+        Teacher lecturer = course.getLecturer();
+        if (course.is_live()){
+            holder.iconView.setVisibility(View.GONE);
+            holder.ivLiveCourseAvator.setVisibility(View.VISIBLE);
+            if (teacher!=null){
+                holder.teacherView.setText(teacher.getName());
+                holder.ivLiveCourseAvator.setRightCircleImage(teacher.getAvatar(), R.drawable.ic_default_teacher_avatar);
+                holder.ivLiveCourseAvator.setLeftCircleImage(lecturer.getAvatar(), R.drawable.ic_default_teacher_avatar);
+            }else{
+                holder.teacherView.setText("");
+                holder.ivLiveCourseAvator.setRightCircleImage("", R.drawable.ic_default_teacher_avatar);
+                holder.ivLiveCourseAvator.setLeftCircleImage("", R.drawable.ic_default_teacher_avatar);
+            }
+        }else{
+            holder.iconView.setVisibility(View.VISIBLE);
+            holder.ivLiveCourseAvator.setVisibility(View.GONE);
+            if (teacher!=null){
+                holder.teacherView.setText("");
+                holder.iconView.loadCircleImage(teacher.getAvatar(), R.drawable.ic_default_teacher_avatar);
+            }else{
+                holder.teacherView.setText(teacher.getName());
+                holder.iconView.loadCircleImage("", R.drawable.ic_default_teacher_avatar);
+            }
         }
+
         if (course.getComment() != null) {
             setCommentedUI(holder, course);
         } else if (course.is_expired()) {
@@ -147,7 +169,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
         private MalaImageView iconView;
         private TextView commentView;
         private RatingBar ratingbar;
-
+        private DoubleAvatarView ivLiveCourseAvator;
         public CommentViewHolder(View view) {
             super(view);
             teacherView = (TextView) view.findViewById(R.id.tv_teacher);
@@ -159,6 +181,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
             iconView = (MalaImageView) view.findViewById(R.id.iv_icon);
             commentView = (TextView) view.findViewById(R.id.tv_comment);
             ratingbar = (RatingBar) view.findViewById(R.id.ratingbar);
+            ivLiveCourseAvator = (DoubleAvatarView) view.findViewById(R.id.iv_live_course_avator);
         }
     }
 }
