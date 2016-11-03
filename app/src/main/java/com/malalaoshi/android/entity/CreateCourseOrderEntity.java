@@ -8,7 +8,6 @@ import java.util.List;
  * Created by tianwei on 2/27/16.
  */
 public class CreateCourseOrderEntity  extends JsonBodyBase implements Serializable {
-    private long live_class;
     private long teacher;
     private long school;
     private long grade;
@@ -16,14 +15,6 @@ public class CreateCourseOrderEntity  extends JsonBodyBase implements Serializab
     private Long coupon;
     private long hours;
     private List<Integer> weekly_time_slots;
-
-    public long getLive_class() {
-        return live_class;
-    }
-
-    public void setLive_class(long live_class) {
-        this.live_class = live_class;
-    }
 
     public long getTeacher() {
         return teacher;

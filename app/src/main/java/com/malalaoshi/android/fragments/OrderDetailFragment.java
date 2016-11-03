@@ -236,7 +236,6 @@ public class OrderDetailFragment extends BaseFragment {
         }
     }
 
-
     private void openPayActivity() {
         if (order == null || order.getId() == null || EmptyUtils.isEmpty(order.getOrder_id()) || order.getTo_pay() == null)
             return;
@@ -267,7 +266,6 @@ public class OrderDetailFragment extends BaseFragment {
         }else{
             setLiveCourseData();
         }
-
     }
 
     private void setCourseData() {
