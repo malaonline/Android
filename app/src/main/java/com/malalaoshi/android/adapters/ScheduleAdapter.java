@@ -151,7 +151,7 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
             }else{
                 tvTeacherName.setText(data.getTeacher().getName());
                 tvTeacherAssist.setText("");
-                ivLiveCourseIcon.setVisibility(View.VISIBLE);
+                ivLiveCourseIcon.setVisibility(View.GONE);
             }
         }
     }

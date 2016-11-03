@@ -24,6 +24,7 @@ import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.entity.CourseDateEntity;
 import com.malalaoshi.android.entity.CreateCourseOrderEntity;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
+import com.malalaoshi.android.entity.CreateLiveCourseOrderEntity;
 import com.malalaoshi.android.entity.LiveCourse;
 import com.malalaoshi.android.network.api.LiveCourseInfoApi;
 import com.malalaoshi.android.ui.dialogs.PromptDialog;
@@ -191,7 +192,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
     private void openPayActivity(CreateCourseOrderResultEntity entity) {
         if (entity == null) return;
-        PayActivity.startPayActivity(entity, getActivity(), false);
+        PayActivity.startPayActivity(entity, getActivity(), true);
     }
 
     //启动登录页
@@ -216,7 +217,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
         //跳转至支付页
         if (liveCourse==null) return;
 
-        CreateCourseOrderEntity entity = new CreateCourseOrderEntity();
+        CreateLiveCourseOrderEntity entity = new CreateLiveCourseOrderEntity();
         entity.setLive_class(liveCourse.getId());
         ApiExecutor.exec(new CreateOrderRequest(this, entity));
     }
@@ -295,10 +296,10 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     private static final class CreateOrderRequest extends
             BaseApiContext<LiveCourseInfoFragment, CreateCourseOrderResultEntity> {
 
-        private CreateCourseOrderEntity entity;
+        private CreateLiveCourseOrderEntity entity;
 
         public CreateOrderRequest(LiveCourseInfoFragment liveCourseInfoFragment,
-                                  CreateCourseOrderEntity entity) {
+                                  CreateLiveCourseOrderEntity entity) {
             super(liveCourseInfoFragment);
             this.entity = entity;
         }

@@ -167,7 +167,7 @@ public class CommentDialog extends DialogFragment {
                 lastY = location[1];
             }
         });
-        //tvSubmit.setEnabled(false);
+        //tvOperationRight.setEnabled(false);
         //initDatas();
         return view;
     }
@@ -297,7 +297,7 @@ public class CommentDialog extends DialogFragment {
         llLoading.setVisibility(View.GONE);
         llContent.setVisibility(View.VISIBLE);
         llLoadFail.setVisibility(View.GONE);
-        //tvSubmit.setEnabled(false);
+        //tvOperationRight.setEnabled(false);
         tvSubmit.setText("知道了");
     }
 

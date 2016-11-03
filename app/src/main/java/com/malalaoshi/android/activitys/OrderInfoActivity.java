@@ -20,13 +20,15 @@ import butterknife.ButterKnife;
  */
 public class OrderInfoActivity extends BaseActivity implements TitleBarView.OnTitleBarClickListener {
     private static String EXTRA_ORDER_ID = "order_id";
+    private static String EXTRA_ORDER_TYPE = "order_type";
     @Bind(R.id.title_view)
     protected TitleBarView titleView;
 
-    public static void open(Context context, String orderId) {
+    public static void open(Context context, String orderId, int orderType) {
         if (!EmptyUtils.isEmpty(orderId)) {
             Intent intent = new Intent(context, OrderInfoActivity.class);
             intent.putExtra(EXTRA_ORDER_ID, orderId);
+            intent.putExtra(EXTRA_ORDER_TYPE, orderType);
             context.startActivity(intent);
         }
     }
@@ -54,8 +56,9 @@ public class OrderInfoActivity extends BaseActivity implements TitleBarView.OnTi
         Intent intent = getIntent();
         titleView.setTitle("订单详情");
         String orderId = intent.getStringExtra(EXTRA_ORDER_ID);
+        int orderType = intent.getIntExtra(EXTRA_ORDER_TYPE,OrderDetailFragment.ORDER_TYPE_ONE);
         if (savedInstanceState==null){
-            OrderDetailFragment orderDetailFragment = OrderDetailFragment.newInstance(orderId);
+            OrderDetailFragment orderDetailFragment = OrderDetailFragment.newInstance(orderId,orderType);
             FragmentUtil.openFragment(R.id.order_fragment, getSupportFragmentManager(), null, orderDetailFragment, OrderDetailFragment.class.getName());
         }
     }

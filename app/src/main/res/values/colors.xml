@@ -4,7 +4,9 @@
     <!-- 颜色的定义尽可能的少，干净。 -->
     <!--蓝色blue-->
     <color name="color_blue_2aaadd">#2AAADD</color>
+    <color name="color_blue_9bc3e1">#9bc3e1</color>
     <color name="color_blue_4da3d9">#4da3d9</color>
+    <color name="color_blue_a8d0ff">#a8d0ff</color>
     <color name="color_blue_63B2EE">#63B2EE</color>
     <color name="color_blue_8dbede">#8dbede</color>
     <color name="color_blue_82b4d9_f2">#f282b4d9</color>
@@ -80,8 +82,8 @@
     <color name="color_gray_eeeeee">#eeeeee</color>
     <!--白色white-->
     <color name="color_white_f5f5f5">#f5f5f5</color>
-    <color name="color_white_a8d0ff">#a8d0ff</color>
     <color name="color_white_ffffff_88">#88ffffff</color>
+    <color name="color_white_ffffff_99">#99ffffff</color>
     <color name="color_white_ffffff_0f">#0fffffff</color>
     <color name="color_white_ffffff_dc">#dcffffff</color>
     <color name="color_white_ffffff_8e">#8effffff</color>
@@ -101,6 +103,7 @@
     <color name="color_cyan_67cfc8">#67cfc8</color>
     <color name="color_cyan_bfe7ca">#bfe7ca</color>
     <!--绿色green-->
+    <color name="color_green_9ec379">#9ec379</color>
     <color name="color_green_a4c87f">#a4c87f</color>
     <color name="color_green_99cc00_ff">#ff99cc00</color>
     <color name="color_green_80bd01_ff">#ff80bd01</color>

@@ -7,6 +7,8 @@ import android.util.Log;
 import com.malalaoshi.android.BuildConfig;
 import com.malalaoshi.android.entity.CreateCourseOrderEntity;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
+import com.malalaoshi.android.entity.CreateLiveCourseOrderEntity;
+import com.malalaoshi.android.entity.JsonBodyBase;
 import com.pingplusplus.android.PaymentActivity;
 import com.pingplusplus.android.PingppLog;
 import com.pingplusplus.libone.PingppOnePayment;
@@ -58,7 +60,15 @@ public class PayManager {
         payer = new PingppPayer();
     }
 
-    public CreateCourseOrderResultEntity createOrder(CreateCourseOrderEntity entity) throws Exception {
+/*    public CreateCourseOrderResultEntity createOrder(CreateCourseOrderEntity entity) throws Exception {
+        return payer.createOrder(entity);
+    }
+
+    public CreateCourseOrderResultEntity createOrder(CreateLiveCourseOrderEntity entity) throws Exception {
+        return payer.createOrder(entity);
+    }*/
+
+    public <T extends JsonBodyBase> CreateCourseOrderResultEntity createOrder(T entity) throws Exception {
         return payer.createOrder(entity);
     }
 
