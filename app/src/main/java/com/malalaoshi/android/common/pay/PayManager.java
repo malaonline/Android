@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.malalaoshi.android.BuildConfig;
-import com.malalaoshi.android.entity.CreateCourseOrderEntity;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
-import com.malalaoshi.android.entity.CreateLiveCourseOrderEntity;
 import com.malalaoshi.android.entity.JsonBodyBase;
 import com.pingplusplus.android.PaymentActivity;
 import com.pingplusplus.android.PingppLog;
-import com.pingplusplus.libone.PingppOnePayment;
+import com.pingplusplus.libone.PingppOne;
+//import com.pingplusplus.libone.PingppOnePayment;
 
 /**
  * PayManger
@@ -47,15 +46,15 @@ public class PayManager {
 
     private void init() {
         //设置需要使用的支付方式,true:显示该支付通道，默认为false
-        PingppOnePayment.SHOW_CHANNEL_WECHAT = true;
-        PingppOnePayment.SHOW_CHANNEL_ALIPAY = true;
+        PingppOne.SHOW_CHANNEL_WECHAT = true;
+        PingppOne.SHOW_CHANNEL_ALIPAY = true;
 
         //设置支付通道的排序,最小的排在最前
-        PingppOnePayment.CHANNEL_ALIPAY_INDEX = 1;
-        PingppOnePayment.CHANNEL_WECHAT_INDEX = 3;
+        PingppOne.CHANNEL_ALIPAY_INDEX = 1;
+        PingppOne.CHANNEL_WECHAT_INDEX = 3;
 
         //提交数据的格式，默认格式为json
-        PingppOnePayment.CONTENT_TYPE = "application/json";
+        PingppOne.CONTENT_TYPE = "application/json";
         PingppLog.DEBUG = BuildConfig.DEBUG;
         payer = new PingppPayer();
     }

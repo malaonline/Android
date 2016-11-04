@@ -290,7 +290,7 @@ public class ScheduleFragment extends BaseFragment {
         if (adapter.getItemCount()>0){
             if (EmptyUtils.isEmpty(hostPreviousUrl)){
                 refreshLayout.refreshComplete();
-                MiscUtil.toast("没有数据了!");
+                //MiscUtil.toast("没有数据了!");
             }else{
                 ApiExecutor.exec(new PullTimeTable(this,hostPreviousUrl));
             }
