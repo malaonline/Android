@@ -1,1 +1,1 @@
-include ':app', ':pingpp', ':pingpp_one', ':core', ':report', ':ui'
+include ':app', ':pingpp', ':pingpp_one', ':core', ':report', ':ui', ':qr'
