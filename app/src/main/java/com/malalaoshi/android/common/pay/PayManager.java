@@ -26,7 +26,11 @@ public class PayManager {
         /**
          * 微信支付渠道
          */
-        wx
+        wx,
+        /**
+         * 扫码支付
+         */
+        qr
     }
 
     private static final class Holder {

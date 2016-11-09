@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/color_gray_f2f2f2"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/indicator_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/color_white_ffffff"
+        app:tabPaddingStart="30dp"
+        app:tabPaddingEnd="30dp"
+        app:tabGravity="center"
+        app:tabTextAppearance="@style/qr_code_tab_text"
+        app:tabMode="fixed"
+        app:tabBackground="@color/color_white_ffffff"
+        app:tabIndicatorColor="#8db1c8"
+        app:tabSelectedTextColor="#8db1c8"
+        app:tabTextColor="#333333" >
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_gray_dadada" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/qr_code_pay_tip"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/tv_pay_result"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_blue_rectangle_btn"
+        android:gravity="center"
+        android:text="支付完成"
+        android:textColor="@color/color_white_ffffff"
+        android:textSize="@dimen/text_size_normal_high" />
+</LinearLayout>

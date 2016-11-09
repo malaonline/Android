@@ -34,6 +34,8 @@ import com.malalaoshi.android.utils.ConversionUtils;
 import com.malalaoshi.android.utils.MiscUtil;
 import com.malalaoshi.android.ui.widgets.ScrollListView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.Bind;
@@ -286,6 +288,14 @@ public class OrderDetailFragment extends BaseFragment {
         tvMount.setText(strTopay);
         //上课时间
         List<String[]> timeslots = order.getTimeslots();
+        Collections.sort(timeslots, new Comparator<String[]>() {
+            @Override
+            public int compare(String[] strings, String[] t1) {
+                if (strings.length<=0||t1.length<=0) return 0;
+                int res = Integer.valueOf(strings[0]) - Integer.valueOf(t1[0]);
+                return res;
+            }
+        });
 
         if (timeslots != null) {
             List<CourseTimeModel> times = CourseHelper.courseTimes(timeslots);

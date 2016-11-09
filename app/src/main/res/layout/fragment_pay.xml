@@ -154,6 +154,55 @@
             android:scaleType="center"
             android:src="@drawable/ic_check_out" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_qr"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/rl_wx"
+        android:background="@color/color_white_ffffff"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <ImageView
+            android:id="@+id/iv_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/ic_wx" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_qr"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/mala.widget.title.text.smaller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="家长代付" />
+
+            <TextView
+                style="@style/mala.widget.title.sub.text.smaller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="扫描二维码支付" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btn_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_check_out" />
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

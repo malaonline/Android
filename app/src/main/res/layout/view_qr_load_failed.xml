@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <ImageView
+        android:src="@drawable/ic_wx"
+        android:layout_marginTop="49dp"
+        android:layout_marginRight="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginBottom="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_failed_tip"
+        tools:text="暂未收到您的付款，请稍后再试哦"
+        android:textSize="@dimen/text_size_small_high"
+        android:textColor="@color/color_black_636363"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_reload"
+        tools:text="点击重试"
+        android:textSize="@dimen/text_size_small_high"
+        android:textColor="@color/color_blue_8fbcdd"
+        android:layout_marginTop="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
