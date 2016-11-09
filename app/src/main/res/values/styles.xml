@@ -412,4 +412,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="qr_code_tab_text" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_size_normal_high</item>
+    </style>
 </resources>

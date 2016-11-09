@@ -60,7 +60,7 @@ public class DoubleAvatarView extends RelativeLayout {
 
     }
 
-    @Override
+  /*  @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         //获取直径
@@ -104,7 +104,7 @@ public class DoubleAvatarView extends RelativeLayout {
         bgrightPara.width = diameter;
         bgrightPara.height = diameter;
         ivbgright.setLayoutParams(bgrightPara);
-    }
+    }*/
 
     public void setLeftCircleImage(String url, int defImage){
         ivleftavator.loadCircleImage(url, defImage);

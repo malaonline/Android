@@ -17,6 +17,7 @@ public class FragmentGroupAdapter extends FragmentPagerAdapter{
     private Context context;
     private IFragmentGroup fragment;
 
+    private IGetPageTitleListener listener;
     public FragmentGroupAdapter(Context context, FragmentManager fm, IFragmentGroup fragment) {
         super(fm);
         this.context = context;
@@ -29,6 +30,15 @@ public class FragmentGroupAdapter extends FragmentPagerAdapter{
     }
 
     @Override
+    public CharSequence getPageTitle(int position) {
+        if (listener!=null){
+            return listener.getPageTitle(position);
+        }else{
+            return super.getPageTitle(position);
+        }
+    }
+
+    @Override
     public int getCount() {
         return fragment.getFragmentCount();
     }
@@ -38,5 +48,11 @@ public class FragmentGroupAdapter extends FragmentPagerAdapter{
         int getFragmentCount();
     }
 
+    public interface IGetPageTitleListener{
+        public CharSequence getPageTitle(int position);
+    }
 
+    public void setGetPageTitleListener(IGetPageTitleListener listener) {
+        this.listener = listener;
+    }
 }

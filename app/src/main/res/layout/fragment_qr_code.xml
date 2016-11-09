@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="38dp"
+    android:paddingBottom="38dp"
+    android:paddingRight="24dp"
+    android:paddingLeft="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/view_loading"
+        android:id="@+id/view_loading"
+        android:visibility="visible" />
+
+    <include layout="@layout/view_qr_code"
+        android:id="@+id/view_qr_code"
+        android:visibility="gone"/>
+
+    <include layout="@layout/view_qr_load_failed"
+        android:id="@+id/view_qr_load_failed"
+        android:visibility="gone"/>
+
+</LinearLayout>

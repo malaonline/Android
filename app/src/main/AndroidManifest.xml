@@ -153,6 +153,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".common.pay.QrPayActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".common.pay.PayTestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>

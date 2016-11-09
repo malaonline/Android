@@ -47,10 +47,14 @@ public class PayFragment extends Fragment implements View.OnClickListener {
     protected ImageView alipayBtn;
     @Bind(R.id.btn_wx)
     protected ImageView wxpayBtn;
+    @Bind(R.id.btn_qr)
+    protected ImageView qrpayBtn;
     @Bind(R.id.rl_ali)
     protected View alipayLayout;
     @Bind(R.id.rl_wx)
     protected View wxpayLayout;
+    @Bind(R.id.rl_qr)
+    protected View qrpayLayout;
     @Bind(R.id.tv_total)
     protected TextView totalView;
 
@@ -87,6 +91,7 @@ public class PayFragment extends Fragment implements View.OnClickListener {
         setCurrentPay(PayManager.Pay.alipay);
         alipayLayout.setOnClickListener(this);
         wxpayLayout.setOnClickListener(this);
+        qrpayLayout.setOnClickListener(this);
         payView.setOnClickListener(this);
         if (resultEntity != null) {
             double value = Double.valueOf(resultEntity.getTo_pay()) * 0.01d;
@@ -117,6 +122,8 @@ public class PayFragment extends Fragment implements View.OnClickListener {
                 R.drawable.ic_check : R.drawable.ic_check_out);
         wxpayBtn.setImageResource(pay == PayManager.Pay.wx ?
                 R.drawable.ic_check : R.drawable.ic_check_out);
+        qrpayBtn.setImageResource(pay == PayManager.Pay.qr ?
+                R.drawable.ic_check : R.drawable.ic_check_out);
     }
 
     public void onClick(View view) {
@@ -125,19 +132,28 @@ public class PayFragment extends Fragment implements View.OnClickListener {
             setCurrentPay(PayManager.Pay.alipay);
         } else if (view.getId() == R.id.rl_wx) {
             setCurrentPay(PayManager.Pay.wx);
-        } else if (view.getId() == R.id.tv_pay) {
+        } else if (view.getId() == R.id.rl_qr){
+            setCurrentPay(PayManager.Pay.qr);
+        }else if (view.getId() == R.id.tv_pay) {
             StatReporter.pay();
             pay();
         }
     }
 
+    private void launchQrPayActivity() {
+        QrPayActivity.launch(getContext(),resultEntity);
+    }
 
 
     private void pay() {
         if (resultEntity == null || TextUtils.isEmpty(resultEntity.getOrder_id())) {
             return;
         }
-        ApiExecutor.exec(new FetchOrderInfoRequest(this, resultEntity.getId(), currentPay.name()));
+        if (currentPay==PayManager.Pay.qr){
+            launchQrPayActivity();
+        }else{
+            ApiExecutor.exec(new FetchOrderInfoRequest(this, resultEntity.getId(), currentPay.name()));
+        }
     }
 
     private void payInternal(final String charge) {
