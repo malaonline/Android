@@ -137,10 +137,10 @@ public class QrCodeFragment extends BaseFragment {
         String qrUrl = null;
         if (payChannel == PayManager.Pay.wx.name()) {
             drawableId = R.drawable.ic_wx;
-            qrUrl = "https://wx.tenpay.com/f2f?t=AQAAAN0Oltlv9V%2Bsj8c4JvlPzTk%3D";charge.getCredential().getWx_pub_qr();
+            qrUrl = charge.getCredential().getWx_pub_qr();
         } else {
             drawableId = R.drawable.ic_ali;
-            qrUrl = "https://d.alipay.com/i/index.htm?b=RECEIVE_AC&u=GmzCV2h0QzqNCtAj596uTD8bihlRnnnGQ4R0CNiPGxk=";//charge.getCredential().getAlipay_qr();
+            qrUrl = charge.getCredential().getAlipay_qr();
         }
         setQrCode(qrUrl,drawableId);
     }

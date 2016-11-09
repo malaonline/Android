@@ -160,7 +160,7 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
         @Override
         public void onApiFinished() {
             super.onApiFinished();
-            //get().stopProcessDialog();
+            get().stopProcessDialog();
         }
     }
 
