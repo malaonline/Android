@@ -17,7 +17,7 @@ public class BusEvent {
     public static final int BUS_EVENT_BACKGROUND_LOAD_REPORT_DATA = 0x09;
     public static final int BUS_EVENT_RELOAD_TEACHERLIST_DATA = 0x0A;
     public static final int BUS_EVENT_UPDATE_SCHOOL_SUCCESS = 0x0B;
-
+    public static final int BUS_EVENT_RELOAD_LIVECOURSELIST_DATA = 0x0A;
     private int eventType = -1;
 
     public BusEvent(int eventType) {

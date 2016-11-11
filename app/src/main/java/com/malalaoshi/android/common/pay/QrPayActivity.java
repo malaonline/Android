@@ -23,7 +23,7 @@ public class QrPayActivity extends BaseActivity implements TitleBarView.OnTitleB
 
     @Bind(R.id.title_view)
     protected TitleBarView titleBarView;
-
+    QrPayFragment qrPayFragment = null;
     public static void launch(Context context, CreateCourseOrderResultEntity entity){
         if (entity!=null){
             Intent intent = new Intent(context, QrPayActivity.class);
@@ -42,7 +42,7 @@ public class QrPayActivity extends BaseActivity implements TitleBarView.OnTitleB
         ButterKnife.bind(this);
         titleBarView.setOnTitleBarClickListener(this);
         if (savedInstanceState==null){
-            QrPayFragment qrPayFragment = QrPayFragment.newInstance((CreateCourseOrderResultEntity) getIntent().getSerializableExtra(QrPayFragment.ARG_ORDER_INFO));
+            qrPayFragment = QrPayFragment.newInstance((CreateCourseOrderResultEntity) getIntent().getSerializableExtra(QrPayFragment.ARG_ORDER_INFO));
             FragmentUtil.openFragment(R.id.container, getSupportFragmentManager(), null,
                     qrPayFragment, QrPayFragment.class.getName());
         }
@@ -55,7 +55,7 @@ public class QrPayActivity extends BaseActivity implements TitleBarView.OnTitleB
 
     @Override
     public void onTitleLeftClick() {
-        finish();
+        qrPayFragment.onBack();
     }
 
     @Override

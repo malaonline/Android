@@ -32,6 +32,6 @@ public class LiveCourseIntroduceActivity extends BaseTitleActivity {
 
     @Override
     protected String getStatName() {
-        return "双师介绍";
+        return "双师直播介绍";
     }
 }

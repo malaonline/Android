@@ -17,6 +17,15 @@ import com.malalaoshi.android.fragments.LiveCourseInfoFragment;
 
 public class LiveCourseInfoActivity extends BaseTitleActivity {
 
+    public static void launchClearTop(Context context, String courseId){
+        if (!EmptyUtils.isEmpty(courseId)) {
+            Intent intent = new Intent(context, LiveCourseInfoActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra(LiveCourseInfoFragment.ARGS_COURSE_ID, courseId);
+            context.startActivity(intent);
+        }
+    }
+
     public static void open(Context context, String courseId) {
         if (!EmptyUtils.isEmpty(courseId)) {
             Intent intent = new Intent(context, LiveCourseInfoActivity.class);

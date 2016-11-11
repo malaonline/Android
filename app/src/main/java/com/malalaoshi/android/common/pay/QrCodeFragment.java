@@ -21,6 +21,7 @@ import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
+import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.entity.Charge;
 import com.malalaoshi.android.entity.ChargeOrder;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
@@ -37,7 +38,7 @@ import static android.content.Context.WINDOW_SERVICE;
  * Created by kang on 16/11/8.
  */
 
-public class QrCodeFragment extends BaseFragment {
+public class QrCodeFragment extends BaseFragment implements View.OnClickListener {
 
     public static final String ARG_ORDER_INFO = "order info";
 
@@ -61,6 +62,9 @@ public class QrCodeFragment extends BaseFragment {
     @Bind(R.id.view_qr_load_failed)
     protected View viewQrLoadFailed;
 
+    @Bind(R.id.tv_failed_tip)
+    protected TextView tvFailedTip;
+
     @Bind(R.id.tv_reload)
     protected TextView tvReload;
 
@@ -68,13 +72,13 @@ public class QrCodeFragment extends BaseFragment {
 
     CreateCourseOrderResultEntity resultEntity;
 
-    public static QrCodeFragment newInstance(CreateCourseOrderResultEntity resultEntity, PayManager.Pay currentPay) {
-        if (resultEntity == null || currentPay == null) {
+    public static QrCodeFragment newInstance(CreateCourseOrderResultEntity resultEntity, String payChannel) {
+        if (resultEntity == null || EmptyUtils.isEmpty(payChannel)) {
             return null;
         }
         QrCodeFragment fragment = new QrCodeFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("paychannel", currentPay.name());
+        bundle.putString("paychannel", payChannel);
         bundle.putSerializable(ARG_ORDER_INFO, resultEntity);
         fragment.setArguments(bundle);
         return fragment;
@@ -97,7 +101,12 @@ public class QrCodeFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         init();
         initData();
+        setEvent();
         return view;
+    }
+
+    private void setEvent() {
+        tvReload.setOnClickListener(this);
     }
 
     public void init(){
@@ -117,8 +126,13 @@ public class QrCodeFragment extends BaseFragment {
             return;
         }
         setLoadingView();
-        ApiExecutor.exec(new QrCodeFragment.FetchOrderInfoRequest(this, resultEntity.getId(), payChannel));
+        ApiExecutor.exec(new FetchOrderInfoRequest(this, resultEntity.getId(), payChannel));
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        loadData();
     }
 
     void setLoadingView(){
@@ -135,13 +149,14 @@ public class QrCodeFragment extends BaseFragment {
         viewQrLoadFailed.setVisibility(View.GONE);
         int drawableId;
         String qrUrl = null;
-        if (payChannel == PayManager.Pay.wx.name()) {
+        if (PayManager.Pay.wx_pub_qr.name().equals(payChannel)) {
             drawableId = R.drawable.ic_wx;
             qrUrl = charge.getCredential().getWx_pub_qr();
         } else {
             drawableId = R.drawable.ic_ali;
             qrUrl = charge.getCredential().getAlipay_qr();
         }
+        Log.e("QRCODE", qrUrl);
         setQrCode(qrUrl,drawableId);
     }
 
@@ -170,6 +185,13 @@ public class QrCodeFragment extends BaseFragment {
         viewLoading.setVisibility(View.GONE);
         viewQrCode.setVisibility(View.GONE);
         viewQrLoadFailed.setVisibility(View.VISIBLE);
+
+        if(errCode==-2){
+            tvReload.setVisibility(View.GONE);
+            tvFailedTip.setText("该课程已经被占用，请重新选择！");
+        }else{
+            tvFailedTip.setText("支付码加载失败！");
+        }
     }
 
     private void onPayResult(String response) {
@@ -189,7 +211,10 @@ public class QrCodeFragment extends BaseFragment {
         setQrCodeView(charge);
 
         Log.e("QRCODE", response);
-        if (charge!=null&&charge.getCredential()!=null){
+        if (charge!=null
+                &&charge.getCredential()!=null
+                &&((PayManager.Pay.alipay_qr.name().equals(payChannel)&& !EmptyUtils.isEmpty(charge.getCredential().getAlipay_qr()))
+                 ||(PayManager.Pay.wx_pub_qr.name().equals(payChannel)&& !EmptyUtils.isEmpty(charge.getCredential().getWx_pub_qr())))){
             setQrCodeView(charge);
         }else{
             //加载失败
@@ -202,6 +227,7 @@ public class QrCodeFragment extends BaseFragment {
     private void onPayResultFailed(int errorCode) {
         setLoadErrorView(errorCode);
     }
+
 
     private static final class FetchOrderInfoRequest extends BaseApiContext<QrCodeFragment, String> {
 
@@ -227,7 +253,7 @@ public class QrCodeFragment extends BaseFragment {
         @Override
         public void onApiFailure(Exception exception) {
             get().onPayResultFailed(-1);
-            MiscUtil.toast("订单状态不正确");
+            MiscUtil.toast("支付码加载失败");
         }
 
         @Override

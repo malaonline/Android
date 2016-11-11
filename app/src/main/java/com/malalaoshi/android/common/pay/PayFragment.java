@@ -122,7 +122,7 @@ public class PayFragment extends Fragment implements View.OnClickListener {
                 R.drawable.ic_check : R.drawable.ic_check_out);
         wxpayBtn.setImageResource(pay == PayManager.Pay.wx ?
                 R.drawable.ic_check : R.drawable.ic_check_out);
-        qrpayBtn.setImageResource(pay == PayManager.Pay.qr ?
+        qrpayBtn.setImageResource((pay != PayManager.Pay.wx&&pay != PayManager.Pay.alipay) ?
                 R.drawable.ic_check : R.drawable.ic_check_out);
     }
 
@@ -133,7 +133,7 @@ public class PayFragment extends Fragment implements View.OnClickListener {
         } else if (view.getId() == R.id.rl_wx) {
             setCurrentPay(PayManager.Pay.wx);
         } else if (view.getId() == R.id.rl_qr){
-            setCurrentPay(PayManager.Pay.qr);
+            setCurrentPay(null);
         }else if (view.getId() == R.id.tv_pay) {
             StatReporter.pay();
             pay();
@@ -149,7 +149,7 @@ public class PayFragment extends Fragment implements View.OnClickListener {
         if (resultEntity == null || TextUtils.isEmpty(resultEntity.getOrder_id())) {
             return;
         }
-        if (currentPay==PayManager.Pay.qr){
+        if ((currentPay != PayManager.Pay.wx&&currentPay != PayManager.Pay.alipay)){
             launchQrPayActivity();
         }else{
             ApiExecutor.exec(new FetchOrderInfoRequest(this, resultEntity.getId(), currentPay.name()));
