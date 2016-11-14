@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.common.pay.utils.OrderDef;
 import com.malalaoshi.android.entity.LiveCourse;
 import com.malalaoshi.android.network.api.FetchOrderApi;
 import com.malalaoshi.android.core.base.BaseFragment;
@@ -46,11 +47,8 @@ import butterknife.OnClick;
 public class OrderDetailFragment extends BaseFragment {
 
     private static String TAG = "OrderDetailFragment";
-    private static final String ARG_ORDER_ID = "order id";
-    private static final String ARG_ORDER_TYPE = "order type";
-
-    public static final int ORDER_TYPE_ONE = 0;
-    public static final int ORDER_TYPE_LIVE = 1;
+    public static final String ARG_ORDER_ID = "order id";
+    public static final String ARG_ORDER_TYPE = "order type";
     private String orderId;
     private int orderType;
 
@@ -168,7 +166,7 @@ public class OrderDetailFragment extends BaseFragment {
     }
 
     private void initViews() {
-        if (orderType==ORDER_TYPE_ONE){
+        if (orderType==OrderDef.ORDER_TYPE_NORMAL){
             tvCourseType.setVisibility(View.GONE);
             tvCourseTimes.setVisibility(View.GONE);
             ivLiveCourseAvator.setVisibility(View.GONE);
@@ -193,9 +191,9 @@ public class OrderDetailFragment extends BaseFragment {
     public void onClickRight(View view) {
         if (order != null && order.getStatus() != null) {
 
-            if (orderType==ORDER_TYPE_ONE){
+            if (orderType==OrderDef.ORDER_TYPE_NORMAL){
                 if ("u".equals(order.getStatus())) {
-                    openPayActivity();
+                    launchPayActivity();
                 } else if ("p".equals(order.getStatus())) {
                     startCourseConfirmActivity();
                 } else if ("d".equals(order.getStatus())) {
@@ -203,7 +201,7 @@ public class OrderDetailFragment extends BaseFragment {
                 }
             }else{
                 if ("u".equals(order.getStatus())) {
-                    openPayActivity();
+                    launchPayActivity();
                 } else if ("p".equals(order.getStatus())) {
                     LiveCourse liveCourse = order.getLive_class();
                     Long end = -1L;
@@ -224,7 +222,7 @@ public class OrderDetailFragment extends BaseFragment {
             Subject subject = Subject.getSubjectIdByName(order.getSubject());
             Long teacherId = Long.valueOf(order.getTeacher());
             if (teacherId != null && subject != null) {
-                CourseConfirmActivity.open(getContext(), teacherId, order.getTeacher_name(), order.getTeacher_avatar(), subject, order.getSchool_id());
+                CourseConfirmActivity.launch(getContext(), teacherId, order.getTeacher_name(), order.getTeacher_avatar(), subject, order.getSchool_id());
             }
         }
     }
@@ -238,14 +236,19 @@ public class OrderDetailFragment extends BaseFragment {
         }
     }
 
-    private void openPayActivity() {
+    private void launchPayActivity() {
         if (order == null || order.getId() == null || EmptyUtils.isEmpty(order.getOrder_id()) || order.getTo_pay() == null)
             return;
         CreateCourseOrderResultEntity entity = new CreateCourseOrderResultEntity();
         entity.setId(order.getId() + "");
         entity.setOrder_id(order.getOrder_id());
         entity.setTo_pay((long) order.getTo_pay().doubleValue());
-        PayActivity.startPayActivity(entity, getActivity(), true);
+        if (order.is_live()){
+            entity.setOrderType(OrderDef.ORDER_TYPE_LIVE_COURSE);
+        }else{
+            entity.setOrderType(OrderDef.ORDER_TYPE_NORMAL);
+        }
+        PayActivity.launch(entity, getActivity(), true);
         getActivity().finish();
     }
 
@@ -263,10 +266,20 @@ public class OrderDetailFragment extends BaseFragment {
     }
 
     private void setOrderData() {
-        if (orderType==ORDER_TYPE_ONE){
-            setCourseData();
-        }else{
+        if (order!=null&&order.is_live()){
+            tvCourseType.setVisibility(View.VISIBLE);
+            tvCourseTimes.setVisibility(View.VISIBLE);
+            ivLiveCourseAvator.setVisibility(View.VISIBLE);
+            ivTeacherAvator.setVisibility(View.GONE);
+            tvTotalClassLefttext.setVisibility(View.GONE);
+            tvTotalClassRighttext.setVisibility(View.GONE);
             setLiveCourseData();
+        }else{
+            tvCourseType.setVisibility(View.GONE);
+            tvCourseTimes.setVisibility(View.GONE);
+            ivLiveCourseAvator.setVisibility(View.GONE);
+            ivTeacherAvator.setVisibility(View.VISIBLE);
+            setCourseData();
         }
     }
 

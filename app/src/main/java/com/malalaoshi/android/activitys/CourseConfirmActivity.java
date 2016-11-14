@@ -32,7 +32,7 @@ public class CourseConfirmActivity extends BaseActivity implements TitleBarView.
     @Bind(R.id.title_view)
     protected TitleBarView titleBarView;
 
-    public static void open(Context context, Long teacherId, String teacherName, String teacherAvator, Subject subject, Long schoolId){
+    public static void launch(Context context, Long teacherId, String teacherName, String teacherAvator, Subject subject, Long schoolId){
         if (teacherId != null&&subject != null&&schoolId!=null) {
             Intent intent = new Intent(context, CourseConfirmActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

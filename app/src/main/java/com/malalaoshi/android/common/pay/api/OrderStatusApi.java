@@ -20,4 +20,7 @@ public class OrderStatusApi extends BaseApi {
         String url = String.format(getPath(), orderId);
         return httpGet(url, OrderStatusModel.class);
     }
+
+
+
 }

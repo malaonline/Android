@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 import com.malalaoshi.android.MainActivity;
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.activitys.LiveCourseInfoActivity;
+import com.malalaoshi.android.common.pay.utils.OrderDef;
+import com.malalaoshi.android.common.pay.utils.OrderStatusUtils;
 import com.malalaoshi.android.core.MalaContext;
 import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
@@ -42,7 +45,8 @@ import de.greenrobot.event.EventBus;
  * Created by tianwei on 2/27/16.
  */
 public class PayFragment extends Fragment implements View.OnClickListener {
-
+    public static final String ARG_ORDER_ENTITY = "order_entity";
+    public static final String ARG_IS_EVALUATED = "is_evaluated";
     @Bind(R.id.btn_ali)
     protected ImageView alipayBtn;
     @Bind(R.id.btn_wx)
@@ -68,19 +72,27 @@ public class PayFragment extends Fragment implements View.OnClickListener {
     private CreateCourseOrderResultEntity resultEntity;
     private boolean isEvaluated = true;
 
-    private static final int STATUS_BEFORE_PAY_RES_NOALLOCATE  = 0; //付款前,检测上课时间被占用
-    private static final int STATUS_AFTER_PAY_RES_NOPUBLIC     = 1; //付款后,订单状态:教师已经下架
-    private static final int STATUS_AFTER_PAY_RES_ALLOCATED    = 2; //付款后,订单状态:购课成功
-    private static final int STATUS_AFTER_PAY_RES_NOALLOCATE   = 3; //付款后,订单状态:课程被占用
-    private static final int STATUS_AFTER_PAY_RES_TIMEOUT      = 4; //付款后,订单状态:支付超时
-    private static final int STATUS_AFTER_PAY_RES_FAILED       = 5; //付款后,订单失败
-    private static final int STATUS_AFTER_PAY_RES_NET_ERROR    = 6; //付款后,订单状态获取失败
-
     public static PayFragment newInstance(CreateCourseOrderResultEntity orderEntity, boolean isEvaluated) {
+        if (orderEntity==null||orderEntity.getOrderType()==null){
+            throw new RuntimeException("mala:order entity is empty");
+        }
         PayFragment fragment = new PayFragment();
-        fragment.setOrderEntity(orderEntity);
-        fragment.setEvaluated(isEvaluated);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ARG_ORDER_ENTITY,orderEntity);
+        bundle.putBoolean(ARG_IS_EVALUATED,isEvaluated);
+        fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            resultEntity = (CreateCourseOrderResultEntity) bundle.getSerializable(ARG_ORDER_ENTITY);
+            isEvaluated = bundle.getBoolean(ARG_IS_EVALUATED);
+        }
+
     }
 
     @Nullable
@@ -108,21 +120,13 @@ public class PayFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void setEvaluated(boolean evaluated) {
-        isEvaluated = evaluated;
-    }
-
-    private void setOrderEntity(CreateCourseOrderResultEntity entity) {
-        resultEntity = entity;
-    }
-
     private void setCurrentPay(PayManager.Pay pay) {
         currentPay = pay;
         alipayBtn.setImageResource(pay == PayManager.Pay.alipay ?
                 R.drawable.ic_check : R.drawable.ic_check_out);
         wxpayBtn.setImageResource(pay == PayManager.Pay.wx ?
                 R.drawable.ic_check : R.drawable.ic_check_out);
-        qrpayBtn.setImageResource(pay == PayManager.Pay.qr ?
+        qrpayBtn.setImageResource((pay != PayManager.Pay.wx&&pay != PayManager.Pay.alipay) ?
                 R.drawable.ic_check : R.drawable.ic_check_out);
     }
 
@@ -133,7 +137,7 @@ public class PayFragment extends Fragment implements View.OnClickListener {
         } else if (view.getId() == R.id.rl_wx) {
             setCurrentPay(PayManager.Pay.wx);
         } else if (view.getId() == R.id.rl_qr){
-            setCurrentPay(PayManager.Pay.qr);
+            setCurrentPay(null);
         }else if (view.getId() == R.id.tv_pay) {
             StatReporter.pay();
             pay();
@@ -149,7 +153,7 @@ public class PayFragment extends Fragment implements View.OnClickListener {
         if (resultEntity == null || TextUtils.isEmpty(resultEntity.getOrder_id())) {
             return;
         }
-        if (currentPay==PayManager.Pay.qr){
+        if ((currentPay != PayManager.Pay.wx&&currentPay != PayManager.Pay.alipay)){
             launchQrPayActivity();
         }else{
             ApiExecutor.exec(new FetchOrderInfoRequest(this, resultEntity.getId(), currentPay.name()));
@@ -162,7 +166,9 @@ public class PayFragment extends Fragment implements View.OnClickListener {
         }
         ChargeOrder chargeOrder = JsonUtil.parseStringData(charge,ChargeOrder.class);
         if (chargeOrder!=null&&chargeOrder.isOk()&&-1==chargeOrder.getCode()){
-            showPromptDialog(STATUS_BEFORE_PAY_RES_NOALLOCATE,R.drawable.ic_timeallocate,"部分课程时间已被占用，请重新选择上课时间!","确定");
+            if (resultEntity.getOrderType()==OrderDef.ORDER_TYPE_NORMAL){
+                showPayOrderTimeOccupiedDialog();
+            }
             return;
         }
         MalaContext.exec(new Runnable() {
@@ -190,39 +196,20 @@ public class PayFragment extends Fragment implements View.OnClickListener {
                 Log.i("MALA", "On activity result: " + result);
 
                 if (result == null) {
-                    showPromptDialog(STATUS_AFTER_PAY_RES_FAILED,R.drawable.ic_pay_failed,"支付失败，请重试！","知道了");
+                    showPromptDialog(R.drawable.ic_pay_failed, "支付失败，请重试！", "知道了",null);
                 } else if (result.equals("success")) {
                     EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_PAY_SUCCESS));
                     getOrderStatusFromOurServer();
                 } else if (result.equals("cancel")) {
-                    showPromptDialog(STATUS_AFTER_PAY_RES_FAILED,R.drawable.ic_pay_failed,"支付用户已取消！","知道了");
+                    showPromptDialog(R.drawable.ic_pay_failed, "用户取消支付！", "知道了",null);
                 } else if (result.equals("invalid")) {
-                    showPromptDialog(STATUS_AFTER_PAY_RES_FAILED,R.drawable.ic_pay_failed,"微信支付要先安装微信！","知道了");
+                    showPromptDialog(R.drawable.ic_pay_failed, "微信支付要先安装微信！", "知道了",null);
                 } else {
-                    showPromptDialog(STATUS_AFTER_PAY_RES_FAILED,R.drawable.ic_pay_failed,"支付失败，请重试！","知道了");
+                    showPromptDialog(R.drawable.ic_pay_failed, "支付失败，请重试！", "知道了",null);
                 }
 
             }
         }
-    }
-
-    private void goToSchedule() {
-        Intent i = new Intent(getContext(), MainActivity.class);
-        i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_COURSES);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        getContext().startActivity(i);
-    }
-
-    private void goToTeacherList() {
-        Intent i = new Intent(getContext(), MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        getContext().startActivity(i);
-    }
-
-    private void goToConfirmCourse() {
-        Intent i = new Intent(getContext(), CourseConfirmActivity.class);
-        i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        getContext().startActivity(i);
     }
 
     private void getOrderStatusFromOurServer() {
@@ -232,104 +219,100 @@ public class PayFragment extends Fragment implements View.OnClickListener {
         ApiExecutor.exec(new FetchOrderStatusRequest(this, resultEntity.getId()));
     }
 
-    private void getOrderStatusSuccess(@NonNull OrderStatusModel status) {
-
-        if (status.getIs_teacher_published()==null||!status.getIs_teacher_published()){
-            showPromptDialog(STATUS_AFTER_PAY_RES_NOPUBLIC, R.drawable.ic_pay_failed,"购课失败,该老师已经下架,稍后会自动退款！","知道了");
-            return;
+    private void onGetOrderStatusSuccess(OrderStatusModel response) {
+        if (response == null) {
+            MiscUtil.toast("订单状态请求失败");
         }
-        if (status.getStatus().equals("p")){
-            if (status.is_timeslot_allocated()) {
-                String message = "";
-                if (!isEvaluated){
-                    message = "恭喜您已支付成功！销售顾问会稍后跟您电话确认课前测评时间！";
-                }else{
-                    message = "恭喜您支付成功！您的课表已经安排好，快去查看吧！";
-                }
-                showPromptDialog(STATUS_AFTER_PAY_RES_ALLOCATED,R.drawable.ic_pay_success,message,"知道了");
-            } else {
-                //课程被占用
-                showDoubleButtonPromptDialog(STATUS_AFTER_PAY_RES_NOALLOCATE,R.drawable.ic_timeallocate,"课程被抢占，稍后会自动退款。请重新选择时间段！","返回首页", "查看其他时间");
-            }
-        }else if (status.getStatus().equals("d")){
-            //付款超时,订单被系统取消,稍后自动退款
-            showDoubleButtonPromptDialog(STATUS_AFTER_PAY_RES_TIMEOUT,R.drawable.ic_pay_failed,"付款超时,当前订单已被系统取消,稍后会自动退款！","返回首页", "查看其他时间");
-        }else{
-            //订单状态错误
-            showDoubleButtonPromptDialog(STATUS_AFTER_PAY_RES_FAILED,R.drawable.ic_pay_failed,"购买失败,稍后会自动退款！","返回首页", "查看其他时间");
-        }
-    }
-
-    //付款结果对话框
-    private void showDoubleButtonPromptDialog(final int status, int resId, String message, String leftText, String rightText) {
-        PromptDialog dialog = DialogUtil.createDoubleButtonPromptDialog( resId
-                , message,leftText, rightText,
-                new PromptDialog.OnCloseListener() {
-                    @Override
-                    public void onLeftClick() {
-                        if (STATUS_AFTER_PAY_RES_NOALLOCATE==status
-                                ||STATUS_AFTER_PAY_RES_TIMEOUT==status
-                                ||STATUS_AFTER_PAY_RES_FAILED==status){
-                            //返回首页
-                            goToSchedule();
-                        }
-                    }
-
-                    @Override
-                    public void onRightClick() {
-                        if (STATUS_AFTER_PAY_RES_NOALLOCATE==status
-                                ||STATUS_AFTER_PAY_RES_TIMEOUT==status
-                                ||STATUS_AFTER_PAY_RES_FAILED==status){
-                            //跳转到购课页面,重新拉取教师上课时间
-                            goToConfirmCourse();
-                            EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_FETCHEVALUATED));
-                        }
-                    }
-                },false,false);
-        if (isResumed()) {
-            showDialog(dialog);
+        int orderStatus;
+        if (resultEntity.getOrderType() == OrderDef.ORDER_TYPE_NORMAL) {
+            //一对一
+            orderStatus = OrderStatusUtils.getNormalOrderStatus(response);
+            dealNormalOrderResult(orderStatus);
         } else {
-            pendingDialog = dialog;
+            //双师
+            orderStatus = OrderStatusUtils.getLiveCourseOrderStatus(response);
+            dealLiveCourseOrderResult(orderStatus);
         }
     }
 
-    //付款结果对话框
-    private void showPromptDialog(final int status, int resId, String message, String btnText) {
-        PromptDialog dialog = DialogUtil.createPromptDialog(resId
-                , message, btnText,
-                new PromptDialog.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        if(STATUS_BEFORE_PAY_RES_NOALLOCATE==status){
-                            //付款前,部分课程已经被占,跳转到课程购买页,刷新教师上课时间
-                            goToConfirmCourse();
-                            EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_FETCHEVALUATED));
-                        }else if (STATUS_AFTER_PAY_RES_FAILED==status){
-                            //支付失败,什么也不做,关闭提示对话框
-                        }else if(STATUS_AFTER_PAY_RES_ALLOCATED==status){
-                            //支付成功,跳转到课表页,更新课表
-                            //需要刷新课表页
-                            goToSchedule();
-                            EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_TIMETABLE_DATA));
-                        }else if (STATUS_AFTER_PAY_RES_NOPUBLIC==status){
-                            //教师已经下架,跳转到教师列表页,需要添加刷新教师列表通知
-                            goToTeacherList();
-                            EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_TEACHERLIST_DATA));
-                        }else if(STATUS_AFTER_PAY_RES_NET_ERROR==status){
-                            goToTeacherList();
-                        }
-                    }
-                }
-                , false, false);
-        if (isResumed()) {
-            showDialog(dialog);
-        } else {
-            pendingDialog = dialog;
+    private void onGetOrderStatusFailed() {
+        showOrderStatusFailedDialog();
+    }
+
+    private void dealLiveCourseOrderResult(int orderStatus) {
+        switch (orderStatus){
+            case OrderDef.LIVE_ORDER_STATUS_UNPAY_WAIT_PAY:         //未付款，等待支付
+                showWaitPayDialog();
+                break;
+            case OrderDef.LIVE_ORDER_STATUS_UNPAY_ENROLLMENT_FULL:  //未付款，双师课程报名已满
+                showLivePayEnrollmentFullDialog();
+                break;
+            case OrderDef.LIVE_ORDER_STATUS_UNPAY_ORDER_CLOSE:      //未付款，支付超时，订单已关闭
+                showLivePayOrderCloseDialog();
+                break;
+            case OrderDef.LIVE_ORDER_STATUS_UNPAY_COURSE_OVER:      //未付款，课程已下架
+                showLivePayOrderUnpublicDialog();
+                break;
+            case OrderDef.LIVE_ORDER_STATUS_PAY_SUCCESS:            //已付款，购课成功
+                showPaySuccessDialog();
+                break;
+            case OrderDef.LIVE_ORDER_STATUS_PAY_ENROLLMENT_FULL:    //已付款，购课失败，双师课程报名已满
+                showLivePayEnrollmentFullDialog();
+                break;
+            case OrderDef.LIVE_ORDER_STATUS_PAY_COURSE_OVER:        //已付款，购课失败，课程已下架
+                showLivePayOrderUnpublicDialog();
+                break;
+            case OrderDef.LIVE_ORDER_STATUS_PAY_ORDER_CLOSE:        //已付款，但是支付时，订单已关闭
+                showLivePayOrderCloseDialog();
+                break;
+            case OrderDef.LIVE_ORDER_STATUS_PAY_REFUND_AUDIT:       //已付款，退款审核中
+                showLivePayOrderRefundAuditDialog();
+                break;
+            case OrderDef.LIVE_ORDER_STATUS_PAY_REFUND_SUCCESS:     //已付款，已退费
+                showLivePayOrderRefundSuccessDialog();
+                break;
+            case OrderDef.ORDER_STATUS_UNKNOWN_ERROR:               //订单状态未知
+                showOrderUnknownErrorDialog();
+                break;
         }
     }
 
-    private void getOrderStatusFailed() {
-        showPromptDialog(STATUS_AFTER_PAY_RES_NET_ERROR,R.drawable.ic_pay_failed,"订单状态获取失败,稍后请在订单列表中查看支付详情!","知道了");
+    private void dealNormalOrderResult(int orderStatus) {
+        switch (orderStatus){
+            case OrderDef.NORMAL_ORDER_STATUS_UNPAY_WAIT_PAY:         //未付款，等待支付
+                showWaitPayDialog();
+                break;
+            case OrderDef.NORMAL_ORDER_STATUS_UNPAY_TIME_OCCUPIED:    //未付款，上课时间被占用
+                showPayOrderTimeOccupiedDialog();
+                break;
+            case OrderDef.NORMAL_ORDER_STATUS_UNPAY_UNPUBLISH:        //未付款，教师已下架
+                showPayOrderUnpublicDialog();
+                break;
+            case OrderDef.NORMAL_ORDER_STATUS_UNPAY_ORDER_CLOSE:      //未付款，支付超时，订单关闭
+                showPayOrderCloseDialog();
+                break;
+            case OrderDef.NORMAL_ORDER_STATUS_PAY_SUCCESS:            //已付款，购课成功
+                showPaySuccessDialog();
+                break;
+            case OrderDef.NORMAL_ORDER_STATUS_PAY_TIME_OCCUPIED:      //已付款，购课失败，上课时间被占用
+                showPayOrderTimeOccupiedDialog();
+                break;
+            case OrderDef.NORMAL_ORDER_STATUS_PAY_ORDER_CLOSE:        //已付款，但是支付时，订单已关闭
+                showPayOrderCloseDialog();
+                break;
+            case OrderDef.NORMAL_ORDER_STATUS_PAY_UNPUBLISH:          //已付款，购课失败，教师已经下架
+                showPayOrderUnpublicDialog();
+                break;
+            case OrderDef.NORMAL_ORDER_STATUS_PAY_REFUND_AUDIT:       //已付款，退款审核中
+                showPayOrderRefundAuditDialog();
+                break;
+            case OrderDef.NORMAL_ORDER_STATUS_PAY_REFUND_SUCCESS:     //已付款，已退费
+                showPayOrderRefundSuccessDialog();
+                break;
+            case OrderDef.ORDER_STATUS_UNKNOWN_ERROR:                 //订单状态未知
+                showOrderUnknownErrorDialog();
+                break;
+        }
     }
 
     private void showDialog(DialogFragment fragment) {
@@ -345,6 +328,240 @@ public class PayFragment extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
         pendingDialog = null;
+    }
+
+    //未付款，等待支付，当前页不变
+    private void showWaitPayDialog() {
+        showPromptDialog(R.drawable.ic_pay_failed, "暂未收到您的付款，请稍后再试哦！", "知道了",null);
+    }
+
+    //已付款，购课成功，返回课表页
+    private void showPaySuccessDialog() {
+        showPromptDialog(R.drawable.ic_pay_success
+                , "恭喜您支付成功！您的课表已经安排好，快去查看吧！", "知道了",new PromptDialog.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        //支付成功,跳转到课表页,更新课表
+                        gotoSchedule();
+                    }
+                });
+    }
+
+    //订单状态未知
+    private void showOrderUnknownErrorDialog() {
+        showPromptDialog(R.drawable.ic_pay_failed, "错误的订单状态，请查看我的订单！", "知道了",new PromptDialog.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                gotoLiveUserCenter();
+            }
+        });
+    }
+
+    //获取订单状态失败
+    private void showOrderStatusFailedDialog() {
+        showPromptDialog(R.drawable.ic_pay_failed, "订单状态获取失败,稍后请在订单列表中查看支付详情!", "知道了",new PromptDialog.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                gotoLiveUserCenter();
+            }
+        });
+    }
+
+    //双师
+    //已付款/未付款，购课失败，双师课程报名已满
+    private void showLivePayEnrollmentFullDialog() {
+        showPromptDialog(R.drawable.ic_pay_failed, "购课失败，您所购买的课程已经报满啦，请选择其他课程吧，如有付款，稍后将自动返还！", "知道了",new PromptDialog.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                //返回至双师列表页
+                gotoLiveCourseList();
+            }
+        });
+    }
+
+    //已付款/未付款，购课失败，课程已下架
+    private void showLivePayOrderUnpublicDialog() {
+        showPromptDialog(R.drawable.ic_pay_failed, "购课失败，该课程已经下架，请选择其他课程吧，如有付款，稍后将自动返还！", "知道了",new PromptDialog.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                //返回至双师列表页
+                gotoLiveCourseList();
+            }
+        });
+    }
+
+    //已付款/未付款，但是订单已关闭
+    private void showLivePayOrderCloseDialog() {
+        showDoubleButtonPromptDialog(R.drawable.ic_pay_failed, "支付超时，系统已经将您的订单取消了，请重新下单，如有付款，稍后将自动返还！", "返回首页", "重新下单", new PromptDialog.OnCloseListener() {
+            @Override
+            public void onLeftClick() {
+                //返回双师列表页
+                gotoLiveCourseList();
+            }
+
+            @Override
+            public void onRightClick() {
+                //返回双师课程详情页
+                gotoLiveCourseInfo();
+            }
+        });
+    }
+
+    //已付款，退款审核中
+    private void showLivePayOrderRefundAuditDialog() {
+        showPromptDialog(R.drawable.ic_pay_failed, "本课程正在退款审核中，请重新选择课程！", "知道了",new PromptDialog.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                //返回至双师列表页
+                gotoLiveCourseList();
+            }
+        });
+    }
+
+    //已付款，已退费
+    private void showLivePayOrderRefundSuccessDialog() {
+        showPromptDialog(R.drawable.ic_pay_failed, "本课程已经退费，请重新选择课程！", "知道了",new PromptDialog.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                //返回至双师列表页
+                gotoLiveCourseList();
+            }
+        });
+    }
+
+    //一对一
+    //已付款/未付款，购课失败，上课时间被占用
+    private void showPayOrderTimeOccupiedDialog() {
+        showDoubleButtonPromptDialog(R.drawable.ic_timeallocate, "购课失败,课程被抢占，请重新选择时间段，如有付款，稍后会自动退款！", "返回首页", "选择其他时间", new PromptDialog.OnCloseListener() {
+            @Override
+            public void onLeftClick() {
+                //返回教师列表页
+                gotoTeacherList();
+            }
+
+            @Override
+            public void onRightClick() {
+                //返回课程确认页
+                gotoConfirmCourse();
+            }
+        });
+    }
+
+    //已付款/未付款，购课失败，教师已经下架
+    private void showPayOrderUnpublicDialog() {
+        showPromptDialog(R.drawable.ic_pay_failed, "购课失败,该老师已经下架,请选择其他教师，如有付款，稍后会自动退款！", "知道了",new PromptDialog.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                //返回至教师列表页
+                gotoTeacherList();
+            }
+        });
+    }
+
+    //已付款/未付款，但是订单已关闭
+    private void showPayOrderCloseDialog() {
+        showDoubleButtonPromptDialog(R.drawable.ic_pay_failed, "支付超时，系统已经将您的订单取消了,请重新下单，如有付款，稍后会自动退款！", "返回首页", "重新下单", new PromptDialog.OnCloseListener() {
+            @Override
+            public void onLeftClick() {
+                //返回教师列表页
+                gotoTeacherList();
+            }
+
+            @Override
+            public void onRightClick() {
+                //返回购买课程确认页
+                gotoConfirmCourse();
+            }
+        });
+    }
+
+    //已付款，退款审核中
+    private void showPayOrderRefundAuditDialog() {
+        showPromptDialog(R.drawable.ic_pay_failed, "购课失败，本课程正在退款审核中，请选择其他教师！", "知道了",new PromptDialog.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                //返回至教师列表页
+                gotoTeacherList();
+            }
+        });
+    }
+
+    //已付款，已退费
+    private void showPayOrderRefundSuccessDialog() {
+        showPromptDialog(R.drawable.ic_pay_failed, "购课失败，本课程已经退费，请重新选择教师！", "知道了",new PromptDialog.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                //返回至教师列表页
+                gotoTeacherList();
+            }
+        });
+    }
+
+    //双选对话框
+    private void showDoubleButtonPromptDialog(int resId, String message, String leftText, String rightText, PromptDialog.OnCloseListener listener) {
+        PromptDialog dialog = DialogUtil.createDoubleButtonPromptDialog( resId
+                , message,leftText, rightText,
+                listener,false,false);
+        if (isResumed()) {
+            showDialog(dialog);
+        } else {
+            pendingDialog = dialog;
+        }
+    }
+
+    //单选对话框
+    private void showPromptDialog(int resId, String message, String btnText, PromptDialog.OnDismissListener listener) {
+        PromptDialog dialog = DialogUtil.createPromptDialog(resId
+                , message, btnText,
+                listener
+                , false, false);
+        if (isResumed()) {
+            showDialog(dialog);
+        } else {
+            pendingDialog = dialog;
+        }
+    }
+
+    private void gotoSchedule() {  //跳转前重新加载课表页数据
+        EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_TIMETABLE_DATA));
+        Intent i = new Intent(getContext(), MainActivity.class);
+        i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_COURSES);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        getContext().startActivity(i);
+    }
+
+    private void gotoTeacherList() {
+        EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_TEACHERLIST_DATA));
+        Intent i = new Intent(getContext(), MainActivity.class);
+        i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_TEACHERS);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        getContext().startActivity(i);
+    }
+
+    private void gotoConfirmCourse() {
+        EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_FETCHEVALUATED));
+        Intent i = new Intent(getContext(), CourseConfirmActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        getContext().startActivity(i);
+    }
+
+    private void gotoLiveCourseList() {
+        EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_LIVECOURSELIST_DATA));
+        Intent i = new Intent(getContext(), MainActivity.class);
+        i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_LIVE_COURSE);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        getContext().startActivity(i);
+    }
+
+    private void gotoLiveCourseInfo() {
+        LiveCourseInfoActivity.launchClearTop(getContext());
+    }
+
+    private void gotoLiveUserCenter() {
+        Intent i = new Intent(getContext(), MainActivity.class);
+        i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_USER);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        getContext().startActivity(i);
     }
 
     private static final class FetchOrderInfoRequest extends BaseApiContext<PayFragment, String> {
@@ -390,12 +607,12 @@ public class PayFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onApiSuccess(@NonNull OrderStatusModel response) {
-            get().getOrderStatusSuccess(response);
+            get().onGetOrderStatusSuccess(response);
         }
 
         @Override
         public void onApiFailure(Exception exception) {
-            get().getOrderStatusFailed();
+            get().onGetOrderStatusFailed();
         }
     }
 

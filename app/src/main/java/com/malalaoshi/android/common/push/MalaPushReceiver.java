@@ -148,7 +148,7 @@ public class MalaPushReceiver extends BroadcastReceiver {
 
     //打开订单详情页
     private void openOrderDetail(Context context, Bundle bundle, String orderId) {
-        OrderInfoActivity.open(context,orderId,bundle);
+        OrderInfoActivity.launch(context,orderId,bundle);
     }
 
     //打开评价列表

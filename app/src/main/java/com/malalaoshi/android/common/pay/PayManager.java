@@ -20,7 +20,7 @@ public class PayManager {
 
     public enum Pay {
         /**
-         * 支付支付渠道
+         * 支付宝支付渠道
          */
         alipay,
         /**
@@ -28,9 +28,13 @@ public class PayManager {
          */
         wx,
         /**
-         * 扫码支付
+         * 支付宝当面付渠道
          */
-        qr
+        alipay_qr,
+        /**
+         * 微信扫码支付渠道
+         */
+        wx_pub_qr
     }
 
     private static final class Holder {
@@ -62,14 +66,6 @@ public class PayManager {
         PingppLog.DEBUG = BuildConfig.DEBUG;
         payer = new PingppPayer();
     }
-
-/*    public CreateCourseOrderResultEntity createOrder(CreateCourseOrderEntity entity) throws Exception {
-        return payer.createOrder(entity);
-    }
-
-    public CreateCourseOrderResultEntity createOrder(CreateLiveCourseOrderEntity entity) throws Exception {
-        return payer.createOrder(entity);
-    }*/
 
     public <T extends JsonBodyBase> CreateCourseOrderResultEntity createOrder(T entity) throws Exception {
         return payer.createOrder(entity);

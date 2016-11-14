@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.common.pay.PayActivity;
 import com.malalaoshi.android.common.pay.PayManager;
+import com.malalaoshi.android.common.pay.utils.OrderDef;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.core.image.MalaImageView;
@@ -21,8 +22,6 @@ import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.usercenter.LoginActivity;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.core.utils.EmptyUtils;
-import com.malalaoshi.android.entity.CourseDateEntity;
-import com.malalaoshi.android.entity.CreateCourseOrderEntity;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
 import com.malalaoshi.android.entity.CreateLiveCourseOrderEntity;
 import com.malalaoshi.android.entity.LiveCourse;
@@ -33,9 +32,6 @@ import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.MiscUtil;
 import com.malalaoshi.android.utils.Number;
 import com.malalaoshi.android.utils.StringUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -155,8 +151,6 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
         }
     }
 
-
-
     private void onPayOrder(CreateCourseOrderResultEntity entity) {
 
         if (!entity.isOk() && entity.getCode() == -1) {
@@ -186,13 +180,14 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                         }
                     }, false, false);
         } else {
-            openPayActivity(entity);
+            entity.setOrderType(OrderDef.ORDER_TYPE_LIVE_COURSE);
+            launchPayActivity(entity);
         }
     }
 
-    private void openPayActivity(CreateCourseOrderResultEntity entity) {
+    private void launchPayActivity(CreateCourseOrderResultEntity entity) {
         if (entity == null) return;
-        PayActivity.startPayActivity(entity, getActivity(), true);
+        PayActivity.launch(entity, getActivity(), true);
     }
 
     //启动登录页

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/color_gray_f2f2f2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:paddingTop="24dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="24dp"
+        android:background="@color/color_white_ffffff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:text="@string/live_course_introduce_title"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@color/color_black_333333"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            style="@style/mala.widget.item.line"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="30dp"/>
+        <TextView
+            android:text="@string/live_course_introduce_title1"
+            style="@style/live_course_introduce_title" />
+        <TextView
+            android:text="@string/live_course_introduce_content1"
+            style="@style/live_course_introduce_content" />
+        <TextView
+            android:text="@string/live_course_introduce_title2"
+            style="@style/live_course_introduce_sub_title" />
+        <ImageView
+            android:src="@drawable/ic_live_course_introduce_img1"
+            style="@style/live_course_introduce_img" />
+        <TextView
+            android:text="@string/live_course_introduce_content2"
+            style="@style/live_course_introduce_sub_content" />
+        <TextView
+            android:text="@string/live_course_introduce_title3"
+            style="@style/live_course_introduce_sub_title" />
+        <ImageView
+            android:src="@drawable/ic_live_course_introduce_img2"
+            style="@style/live_course_introduce_img" />
+        <TextView
+            android:text="@string/live_course_introduce_content3"
+           style="@style/live_course_introduce_sub_content" />
+
+    </LinearLayout>
+</ScrollView>

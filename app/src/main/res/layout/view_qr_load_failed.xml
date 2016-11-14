@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center">
     <ImageView
-        android:src="@drawable/ic_wx"
+        android:src="@drawable/ic_qr_pay_failed"
         android:layout_marginTop="49dp"
         android:layout_marginRight="72dp"
         android:layout_marginLeft="72dp"
@@ -22,9 +22,11 @@
         android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/tv_reload"
-        tools:text="点击重试"
+        android:text="点击重试"
         android:textSize="@dimen/text_size_small_high"
         android:textColor="@color/color_blue_8fbcdd"
+        android:drawableLeft="@drawable/ic_reload"
+        android:drawablePadding="4dp"
         android:layout_marginTop="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

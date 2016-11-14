@@ -70,7 +70,7 @@ public class PayTestActivity extends BaseActivity implements View.OnClickListene
      */
     private void pay() {
         if (resultEntity != null) {
-            PayActivity.startPayActivity(resultEntity, this, isEvaluated);
+            PayActivity.launch(resultEntity, this, isEvaluated);
         } else {
             messageView.setText("Order id is null");
         }
