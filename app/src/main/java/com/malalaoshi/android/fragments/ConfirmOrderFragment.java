@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.common.pay.utils.OrderDef;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.core.image.MalaImageView;
@@ -165,7 +166,7 @@ public class ConfirmOrderFragment extends BaseFragment implements View.OnClickLi
 
     private void openPayActivity(CreateCourseOrderResultEntity entity) {
         if (entity == null) return;
-        PayActivity.startPayActivity(entity, getActivity(), isEvaluated);
+        PayActivity.launch(entity, getActivity(), isEvaluated);
     }
 
     @Override
@@ -284,6 +285,7 @@ public class ConfirmOrderFragment extends BaseFragment implements View.OnClickLi
                         }
                     }, false, false);
         } else {
+            entity.setOrderType(OrderDef.ORDER_TYPE_NORMAL);
             openPayActivity(entity);
         }
     }

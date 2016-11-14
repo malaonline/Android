@@ -28,6 +28,7 @@ import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
 import com.malalaoshi.android.entity.OrderStatusModel;
+import com.malalaoshi.android.exception.MalaRuntimeException;
 import com.malalaoshi.android.ui.dialogs.PromptDialog;
 import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.MiscUtil;
@@ -46,14 +47,6 @@ import de.greenrobot.event.EventBus;
 public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.IFragmentGroup, View.OnClickListener, FragmentGroupAdapter.IGetPageTitleListener {
     public static final String ARG_ORDER_INFO = "order info";
 
-    private static final int STATUS_BEFORE_PAY_RES_NOALLOCATE  = 0; //付款前,检测上课时间被占用
-    private static final int STATUS_AFTER_PAY_RES_NOPUBLIC     = 1; //付款后,订单状态:教师已经下架
-    private static final int STATUS_AFTER_PAY_RES_ALLOCATED    = 2; //付款后,订单状态:购课成功
-    private static final int STATUS_AFTER_PAY_RES_NOALLOCATE   = 3; //付款后,订单状态:课程被占用
-    private static final int STATUS_AFTER_PAY_RES_TIMEOUT      = 4; //付款后,订单状态:支付超时
-    private static final int STATUS_AFTER_PAY_RES_FAILED       = 5; //付款后,订单失败
-    private static final int STATUS_AFTER_PAY_RES_NET_ERROR    = 6; //付款后,订单状态获取失败
-
     @Bind(R.id.indicator_tabs)
     protected TabLayout tabLayout;
 
@@ -64,8 +57,6 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
 
     @Bind(R.id.tv_pay_result)
     protected TextView tvPayResult;
-
-    private int orderType = OrderDef.ORDER_TYPE_NORMAL;
 
     private DialogFragment pendingDialog;
 
@@ -80,8 +71,8 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
     }
 
     public static QrPayFragment newInstance(CreateCourseOrderResultEntity resultEntity) {
-        if (resultEntity == null ) {
-            return null;
+        if (resultEntity == null || resultEntity.getOrderType()==null) {
+            throw new MalaRuntimeException(QrPayFragment.class,"order entity is null");
         }
         QrPayFragment fragment = new QrPayFragment();
         Bundle bundle = new Bundle();
@@ -218,7 +209,7 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
             MiscUtil.toast("订单状态请求失败");
         }
         int orderStatus;
-        if (orderType == OrderDef.ORDER_TYPE_NORMAL) {
+        if (resultEntity.getOrderType() == OrderDef.ORDER_TYPE_NORMAL) {
             //一对一
             orderStatus = OrderStatusUtils.getNormalOrderStatus(response);
             dealNormalOrderResult(orderStatus);
@@ -521,6 +512,7 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
     private void gotoTeacherList() {
         EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_TEACHERLIST_DATA));
         Intent i = new Intent(getContext(), MainActivity.class);
+        i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_TEACHERS);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         getContext().startActivity(i);
     }
@@ -528,7 +520,7 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
     private void gotoConfirmCourse() {
         EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_FETCHEVALUATED));
         Intent i = new Intent(getContext(), CourseConfirmActivity.class);
-        i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         getContext().startActivity(i);
     }
 
@@ -541,7 +533,7 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
     }
 
     private void gotoLiveCourseInfo() {
-        LiveCourseInfoActivity.launchClearTop(getContext(),resultEntity.getId());
+        LiveCourseInfoActivity.launchClearTop(getContext());
     }
 
 

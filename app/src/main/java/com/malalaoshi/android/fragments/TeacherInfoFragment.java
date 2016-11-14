@@ -837,7 +837,7 @@ public class TeacherInfoFragment extends BaseFragment  implements View.OnClickLi
         Subject subject = Subject.getSubjectIdByName(mTeacher.getSubject());
         if (mTeacher != null && mTeacher.getId() != null && subject != null) {
             Long schoolId = UserManager.getInstance().getSchoolId();
-            CourseConfirmActivity.open(getContext(), mTeacher.getId(), mTeacher.getName(), mTeacher.getAvatar(), subject,schoolId);
+            CourseConfirmActivity.launch(getContext(), mTeacher.getId(), mTeacher.getName(), mTeacher.getAvatar(), subject,schoolId);
         }
     }
 

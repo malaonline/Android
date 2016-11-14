@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.google.zxing.WriterException;
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.common.pay.utils.OrderDef;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
@@ -208,7 +209,6 @@ public class QrCodeFragment extends BaseFragment implements View.OnClickListener
         }
 
         Charge charge = JsonUtil.parseStringData(response, Charge.class);
-        setQrCodeView(charge);
 
         Log.e("QRCODE", response);
         if (charge!=null

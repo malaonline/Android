@@ -1,6 +1,5 @@
 package com.malalaoshi.android.common.pay;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,8 +28,7 @@ import butterknife.ButterKnife;
  */
 public class PayActivity extends BaseActivity implements TitleBarView.OnTitleBarClickListener {
 
-    private static final String EXTRA_ORDER_ID = "order_id";
-    private static final String EXTRA_IS_EVALUATED = "is_evaluated";
+
     @Bind(R.id.title_view)
     protected TitleBarView titleBarView;
 
@@ -43,11 +41,11 @@ public class PayActivity extends BaseActivity implements TitleBarView.OnTitleBar
      * @param context
      * @param isEvaluated   true:已经完成测评   false:没有进行测评
      */
-    public static void startPayActivity(CreateCourseOrderResultEntity entity, Context context, boolean isEvaluated) {
-        if (entity!=null){
+    public static void launch(CreateCourseOrderResultEntity entity, Context context, boolean isEvaluated) {
+        if (entity!=null&&entity.getOrderType()!=null){
             Intent intent = new Intent(context, PayActivity.class);
-            intent.putExtra(EXTRA_ORDER_ID, entity);
-            intent.putExtra(EXTRA_IS_EVALUATED,isEvaluated);
+            intent.putExtra(PayFragment.ARG_ORDER_ENTITY, entity);
+            intent.putExtra(PayFragment.ARG_IS_EVALUATED,isEvaluated);
             context.startActivity(intent);
         }else{
             MiscUtil.toast("订单信息不完整!");
@@ -60,11 +58,8 @@ public class PayActivity extends BaseActivity implements TitleBarView.OnTitleBar
         setContentView(R.layout.activity_pay);
         ButterKnife.bind(this);
         titleBarView.setOnTitleBarClickListener(this);
-        orderEntity = (CreateCourseOrderResultEntity) getIntent().getSerializableExtra(EXTRA_ORDER_ID);
-        isEvaluated = getIntent().getBooleanExtra(EXTRA_IS_EVALUATED,true);
-        if (orderEntity == null) {
-            finish();
-        }
+        orderEntity = (CreateCourseOrderResultEntity) getIntent().getSerializableExtra(PayFragment.ARG_ORDER_ENTITY);
+        isEvaluated = getIntent().getBooleanExtra(PayFragment.ARG_IS_EVALUATED,true);
         if (savedInstanceState==null){
             PayFragment payFragment = PayFragment.newInstance(orderEntity,isEvaluated);
             FragmentUtil.openFragment(R.id.container, getSupportFragmentManager(), null,

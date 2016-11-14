@@ -25,6 +25,8 @@
         android:text="点击重试"
         android:textSize="@dimen/text_size_small_high"
         android:textColor="@color/color_blue_8fbcdd"
+        android:drawableLeft="@drawable/ic_reload"
+        android:drawablePadding="4dp"
         android:layout_marginTop="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

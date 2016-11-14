@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.activitys.OrderInfoActivity;
 import com.malalaoshi.android.common.pay.PayActivity;
+import com.malalaoshi.android.common.pay.utils.OrderDef;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.image.MalaImageView;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
@@ -235,12 +236,12 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
             if (order.is_live()){
                 if ("u".equals(order.getStatus())) {
                     //付款页
-                    startPayActivity(this.view.getContext());
+                    launchPayActivity(this.view.getContext());
                 }
             }else{
                 if ("u".equals(order.getStatus())) {
                     //订单详情页
-                    OrderInfoActivity.open(this.view.getContext(), order.getId() + "",order.is_live()? OrderDetailFragment.ORDER_TYPE_LIVE:OrderDetailFragment.ORDER_TYPE_ONE);
+                    OrderInfoActivity.launch(this.view.getContext(), order.getId() + "",order.is_live()? OrderDef.ORDER_TYPE_LIVE_COURSE:OrderDef.ORDER_TYPE_NORMAL);
                 } else {
                     //确认课程页
                     startCourseConfirmActivity();
@@ -248,14 +249,19 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
             }
         }
 
-        private void startPayActivity(Context context) {
+        private void launchPayActivity(Context context) {
             if (order == null || order.getId() == null || EmptyUtils.isEmpty(order.getOrder_id()) || order.getTo_pay() == null)
                 return;
             CreateCourseOrderResultEntity entity = new CreateCourseOrderResultEntity();
             entity.setId(order.getId() + "");
             entity.setOrder_id(order.getOrder_id());
             entity.setTo_pay((long) order.getTo_pay().doubleValue());
-            PayActivity.startPayActivity(entity, context, true);
+            if (order.is_live()){
+                entity.setOrderType(OrderDef.ORDER_TYPE_LIVE_COURSE);
+            }else{
+                entity.setOrderType(OrderDef.ORDER_TYPE_LIVE_COURSE);
+            }
+            PayActivity.launch(entity, context, true);
         }
 
         //启动购买课程页
@@ -264,7 +270,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
                 Subject subject = Subject.getSubjectIdByName(order.getSubject());
                 Long teacherId = Long.valueOf(order.getTeacher());
                 if (teacherId != null && subject != null) {
-                    CourseConfirmActivity.open(view.getContext(), teacherId, order.getTeacher_name(), order.getTeacher_avatar(), subject, order.getSchool_id());
+                    CourseConfirmActivity.launch(view.getContext(), teacherId, order.getTeacher_name(), order.getTeacher_avatar(), subject, order.getSchool_id());
                 }
             }
         }
@@ -292,7 +298,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
         @Override
         public void onClick(View v) {
             //订单详情
-            OrderInfoActivity.open(this.view.getContext(), order.getId() + "",order.is_live()? OrderDetailFragment.ORDER_TYPE_LIVE:OrderDetailFragment.ORDER_TYPE_ONE);
+            OrderInfoActivity.launch(this.view.getContext(), order.getId() + "",order.is_live()? OrderDef.ORDER_TYPE_LIVE_COURSE:OrderDef.ORDER_TYPE_NORMAL);
         }
     }
 
