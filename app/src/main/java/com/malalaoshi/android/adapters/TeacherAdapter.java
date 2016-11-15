@@ -11,6 +11,7 @@ import com.malalaoshi.android.R;
 import com.malalaoshi.android.activitys.TeacherInfoActivity;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.image.MalaImageView;
+import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.entity.Teacher;
 import com.malalaoshi.android.utils.Number;
 import com.malalaoshi.android.utils.StringUtil;
@@ -86,7 +87,7 @@ public class TeacherAdapter extends BaseRecycleAdapter<TeacherAdapter.ViewHolder
                 }
             }
             String tagStr = StringUtil.join(teacher.getTags());
-            if (tagStr != null) {
+            if (!EmptyUtils.isEmpty(tagStr)) {
                 tags.setText(tagStr);
             }
             String imgUrl = teacher.getAvatar();

@@ -41,7 +41,7 @@ public class SingleChoiceAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         final BaseEntity data = list.get(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.single_choice_list_item, null);

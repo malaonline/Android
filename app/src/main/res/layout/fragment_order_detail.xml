@@ -196,9 +196,10 @@
                     style="@style/order_detail_card_title"
                     />
                 <TextView
-                    tools:text="支付宝"
+                    tools:text="微信"
                     android:id="@+id/tv_pay_way"
                     style="@style/order_detail_card_text_black"
+                    android:drawablePadding="3dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"/>
             </RelativeLayout>

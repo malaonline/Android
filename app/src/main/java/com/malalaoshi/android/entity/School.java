@@ -1,6 +1,7 @@
 package com.malalaoshi.android.entity;
 
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 
 /**
  * Created by kang on 16/1/5.
@@ -71,7 +72,7 @@ public class School extends BaseEntity implements Comparable<School>{
     }
 
     @Override
-    public int compareTo(School another) {
+    public int compareTo(@NonNull School another) {
         Double d = another.getDistance();
         return this.distance.compareTo(d);
     }

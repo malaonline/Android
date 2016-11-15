@@ -45,7 +45,7 @@ public class SchoolPickerActivity extends BaseTitleActivity implements SchoolPic
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
-        SchoolPickerFragment schoolPickerFragment = null;
+        SchoolPickerFragment schoolPickerFragment;
         if(savedInstanceState==null){
             //cityPickerFragment = (CityPickerFragment) Fragment.instantiate(this, CityPickerFragment.class.getName(), getIntent().getExtras());
             schoolPickerFragment = SchoolPickerFragment.newInstance(city,isInitSchool);

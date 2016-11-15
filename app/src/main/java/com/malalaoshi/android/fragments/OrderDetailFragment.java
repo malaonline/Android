@@ -1,6 +1,7 @@
 package com.malalaoshi.android.fragments;
 
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.common.pay.PayManager;
 import com.malalaoshi.android.common.pay.utils.OrderDef;
 import com.malalaoshi.android.entity.LiveCourse;
 import com.malalaoshi.android.network.api.FetchOrderApi;
@@ -334,7 +336,7 @@ public class OrderDetailFragment extends BaseFragment {
             tvOrderStatus.setTextColor(res.getColor(R.color.color_blue_9bc3e1));
             tvOrderStatus.setText("支付成功");
             rlPayWay.setVisibility(View.VISIBLE);
-            tvPayWay.setText(order.getCharge_channel());
+            setPayChannel();
             llPayOrderTime.setVisibility(View.VISIBLE);
             tvPayOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getPaid_at())));
             tvOperationLeft.setVisibility(View.GONE);
@@ -356,7 +358,7 @@ public class OrderDetailFragment extends BaseFragment {
             tvOrderStatus.setTextColor(res.getColor(R.color.color_green_9ec379));
             tvOrderStatus.setText("已退费");
             rlPayWay.setVisibility(View.VISIBLE);
-            tvPayWay.setText(order.getCharge_channel());
+            setPayChannel();
             llPayOrderTime.setVisibility(View.VISIBLE);
             tvPayOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getPaid_at())));
             tvOperationLeft.setVisibility(View.GONE);
@@ -370,6 +372,37 @@ public class OrderDetailFragment extends BaseFragment {
             tvOperationRight.setVisibility(View.GONE);
         }
 
+    }
+
+    private void setPayChannel() {
+        if (order==null){
+            return;
+        }
+        if (PayManager.Pay.alipay.name().equals(order.getCharge_channel())){
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_ali_pay);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                    drawable.getMinimumHeight());
+            tvPayWay.setCompoundDrawables(drawable,null,null,null);
+            tvPayWay.setText("支付宝");
+        }else if (PayManager.Pay.alipay_qr.name().equals(order.getCharge_channel())){
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_ali_pay);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                    drawable.getMinimumHeight());
+            tvPayWay.setCompoundDrawables(drawable,null,null,null);
+            tvPayWay.setText("支付宝扫码");
+        }else if (PayManager.Pay.wx.name().equals(order.getCharge_channel())){
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_wx_pay);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                    drawable.getMinimumHeight());
+            tvPayWay.setCompoundDrawables(drawable,null,null,null);
+            tvPayWay.setText("微信");
+        }else if (PayManager.Pay.wx_pub_qr.name().equals(order.getCharge_channel())){
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_wx_pay);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                    drawable.getMinimumHeight());
+            tvPayWay.setCompoundDrawables(drawable,null,null,null);
+            tvPayWay.setText("微信扫码");
+        }
     }
 
     private void setLiveCourseData() {
@@ -419,7 +452,7 @@ public class OrderDetailFragment extends BaseFragment {
             tvOrderStatus.setTextColor(res.getColor(R.color.color_blue_9bc3e1));
             tvOrderStatus.setText("支付成功");
             rlPayWay.setVisibility(View.VISIBLE);
-            tvPayWay.setText(order.getCharge_channel());
+            setPayChannel();
             llPayOrderTime.setVisibility(View.VISIBLE);
             tvPayOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getPaid_at())));
             tvOperationLeft.setVisibility(View.GONE);
@@ -448,7 +481,7 @@ public class OrderDetailFragment extends BaseFragment {
             tvOrderStatus.setTextColor(res.getColor(R.color.color_green_9ec379));
             tvOrderStatus.setText("已退费");
             rlPayWay.setVisibility(View.VISIBLE);
-            tvPayWay.setText(order.getCharge_channel());
+            setPayChannel();
             llPayOrderTime.setVisibility(View.VISIBLE);
             tvPayOrderTime.setText(CalendarUtils.timestampToTime(ConversionUtils.convertToLong(order.getPaid_at())));
             tvOperationLeft.setVisibility(View.GONE);
