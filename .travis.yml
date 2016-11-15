@@ -43,7 +43,7 @@ script:                   # 编译任务
 #script: ./buildbot.sh    # 运行编译脚本与上面的2选一
 
 
-before_deploy:       # 部署之前
+#before_deploy:       # 部署之前
   # 使用 mv 命令进行修改apk文件的名字
   #- mv app/build/outputs/apk/app-parent-devrelease.apk app/build/outputs/apk/devrelease.apk
 

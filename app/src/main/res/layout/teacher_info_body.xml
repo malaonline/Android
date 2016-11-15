@@ -361,7 +361,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@color/color_gray_e5e5e5"
-            android:listSelector="@color/color_transparent_000000_00"></com.malalaoshi.android.ui.widgets.ScrollListView>
+            android:listSelector="@color/color_transparent_000000_00"/>
 
     </LinearLayout>
 
@@ -417,7 +417,7 @@
                 android:columnWidth="85dp"
                 android:horizontalSpacing="2dp"
                 android:scrollbars="none"
-                ></GridView>
+                />
         </LinearLayout>
     </HorizontalScrollView>
     </RelativeLayout>

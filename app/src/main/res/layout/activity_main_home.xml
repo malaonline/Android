@@ -9,11 +9,11 @@
         layout="@layout/home_title_layout"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_alignParentTop="true"></include>
+        android:layout_alignParentTop="true"/>
     <View
         android:background="@color/color_gray_dadada"
         android:layout_width="match_parent"
-        android:layout_height="1px"></View>
+        android:layout_height="1px"/>
 
     <com.malalaoshi.android.ui.tabindicator.ViewPagerIndicator
         android:id="@+id/indicator_tabs"
@@ -34,7 +34,7 @@
         android:id="@+id/viewpage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"></android.support.v4.view.ViewPager>
+        android:layout_weight="1"/>
 
 </LinearLayout>
 

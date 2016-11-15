@@ -500,7 +500,7 @@ public class SimpleMonthView extends View {
         mOnDayClickListener = onDayClickListener;
     }
 
-    public static abstract interface OnDayClickListener {
-        public abstract void onDayClick(SimpleMonthView simpleMonthView, SimpleMonthAdapter.CalendarDay calendarDay, List<Course> courses);
+    public interface OnDayClickListener {
+        void onDayClick(SimpleMonthView simpleMonthView, SimpleMonthAdapter.CalendarDay calendarDay, List<Course> courses);
     }
 }

@@ -278,7 +278,7 @@
         <item name="android:textColor">@color/color_red_e26254</item>
     </style>
 
-    <style name="Widget.GifMoviewView" parent="@android:style/Widget"></style>
+    <style name="Widget.GifMoviewView" parent="@android:style/Widget"/>
 
     <style name="LiveCourse">
         <item name="android:padding">12dp</item>

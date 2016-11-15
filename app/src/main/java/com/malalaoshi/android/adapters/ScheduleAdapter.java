@@ -54,10 +54,10 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
         int type = getItemViewType(position);
          if (type==TYPE_ITEM_DATE){
             ScheduleDate scheduleDate = (ScheduleDate) getItem(position);
-            ((ItemDateViewHolder)holder).update(position,scheduleDate);
+            holder.update(position,scheduleDate);
         } else{
             ScheduleCourse scheduleCourse = (ScheduleCourse) getItem(position);
-            ((ItemViewHolder)holder).update(position,scheduleCourse);
+            holder.update(position,scheduleCourse);
         }
     }
 

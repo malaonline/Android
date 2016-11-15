@@ -217,7 +217,7 @@ public class DayPickerView extends RecyclerView{
     }
 
     public interface OnListScrollListener{
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy, Calendar calendar);
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState);
+        void onScrolled(RecyclerView recyclerView, int dx, int dy, Calendar calendar);
+        void onScrollStateChanged(RecyclerView recyclerView, int newState);
     }
 }

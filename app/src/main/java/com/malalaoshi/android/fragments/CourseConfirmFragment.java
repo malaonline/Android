@@ -799,7 +799,7 @@ public class CourseConfirmFragment extends BaseFragment
                 CoursePriceUI priceUI = new CoursePriceUI((CoursePrice) price);
                 CoursePrice coursePrice = priceUI.getPrice();
                 text = coursePrice.getGrade_name();
-                ;//gradeList[priceUI.getPrice().getGrade().getId().intValue() - 1];
+                //gradeList[priceUI.getPrice().getGrade().getId().intValue() - 1];
                 text += "  " + Number.subZeroAndDot(coursePrice.getPrices().get(0).getPrice() * 0.01d) + "/小时";
                 priceUI.setGradePrice(text);
                 coursePriceList.add(priceUI);

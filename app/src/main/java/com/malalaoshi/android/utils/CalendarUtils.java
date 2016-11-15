@@ -80,7 +80,6 @@ public class CalendarUtils {
 
     public static String timestampToTime(Long timestamp) {
         if (timestamp==null) return null;
-        Calendar calendar = null;
         //时间戳转化为Sting或Date
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String d = format.format(timestamp * 1000);
@@ -212,11 +211,10 @@ public class CalendarUtils {
      */
     public static int getWeekId(Long timestamp) {
         if (timestamp==null) return 0;
-        int week = 0;
         Calendar cd = timestampToCalendar(timestamp);
-        week = cd.get(Calendar.DAY_OF_WEEK);
+        return  cd.get(Calendar.DAY_OF_WEEK);
         // 获取指定日期转换成星期几
-        return week;
+        //return week;
     }
 
     private static String formatWeek(int dateOfWeek) {

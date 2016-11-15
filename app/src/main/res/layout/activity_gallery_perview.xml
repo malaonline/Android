@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:numColumns="3"
         android:horizontalSpacing="@dimen/grallery_preview_divider"
-        android:verticalSpacing="@dimen/grallery_preview_divider"></GridView>
+        android:verticalSpacing="@dimen/grallery_preview_divider"/>
 
 
 

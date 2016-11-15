@@ -20,7 +20,7 @@
             android:layout_below="@id/tv_dialog_title"
             android:background="@color/color_blue_8fbcdd"
             android:layout_width="match_parent"
-            android:layout_height="1dp"></View>
+            android:layout_height="1dp"/>
     </LinearLayout>
 
     <ScrollView
@@ -51,7 +51,7 @@
         <View
             android:background="@color/color_blue_8fbcdd"
             android:layout_width="match_parent"
-            android:layout_height="1dp"></View>
+            android:layout_height="1dp"/>
         <TextView
             android:id="@+id/tv_ok"
             android:text="确 认"

@@ -26,5 +26,5 @@
         android:id="@+id/order_fragment"
         android:background="@color/color_gray_f2f2f2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"/>
 </LinearLayout>

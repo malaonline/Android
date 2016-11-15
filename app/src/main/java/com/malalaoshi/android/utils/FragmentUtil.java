@@ -24,9 +24,9 @@ public final class FragmentUtil{
         }
     }
 
-    public static void opFragmentMainActivity(FragmentManager fragmentManager, Fragment pre, Fragment newFragment, String fragmentTag){
+   /* public static void opFragmentMainActivity(FragmentManager fragmentManager, Fragment pre, Fragment newFragment, String fragmentTag){
         FragmentUtil.openFragment(R.id.content_layout, fragmentManager, pre, newFragment, fragmentTag);
-    }
+    }*/
 
     public static void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
                                               @NonNull Fragment fragment, int frameId) {
