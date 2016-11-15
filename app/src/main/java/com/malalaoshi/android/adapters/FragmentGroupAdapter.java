@@ -49,7 +49,7 @@ public class FragmentGroupAdapter extends FragmentPagerAdapter{
     }
 
     public interface IGetPageTitleListener{
-        public CharSequence getPageTitle(int position);
+        CharSequence getPageTitle(int position);
     }
 
     public void setGetPageTitleListener(IGetPageTitleListener listener) {

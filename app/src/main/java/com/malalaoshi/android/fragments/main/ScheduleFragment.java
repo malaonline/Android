@@ -134,7 +134,7 @@ public class ScheduleFragment extends BaseFragment {
 
         emptyView.setOnBtnClickListener(new DefaultView.OnBtnClickListener() {
             @Override
-            public void OnBtnClickListener(View view) {
+            public void onBtnClickListener(View view) {
                 if (onClickEmptyCourse!=null){
                     onClickEmptyCourse.onClickEmptyCourse(view);
                 }
@@ -150,7 +150,7 @@ public class ScheduleFragment extends BaseFragment {
 
         unsignupView.setOnBtnClickListener(new DefaultView.OnBtnClickListener() {
             @Override
-            public void OnBtnClickListener(View view) {
+            public void onBtnClickListener(View view) {
                 AuthUtils.redirectLoginActivity(getContext());
             }
         });
@@ -465,7 +465,7 @@ public class ScheduleFragment extends BaseFragment {
     }
 
     public interface OnClickEmptyCourse{
-        public void onClickEmptyCourse(View v);
+        void onClickEmptyCourse(View v);
     }
 
     public void setOnClickEmptyCourse(OnClickEmptyCourse onClickEmptyCourse) {

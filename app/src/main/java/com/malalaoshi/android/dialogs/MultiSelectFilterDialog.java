@@ -121,7 +121,7 @@ public class MultiSelectFilterDialog  extends DialogFragment implements Fragment
 
         if (titleDrawable !=null){
             ivTitleIcon.setImageDrawable(titleDrawable);
-        };
+        }
 
         tvTitle.setText(titleText);
         ivLeft.setOnClickListener(this);

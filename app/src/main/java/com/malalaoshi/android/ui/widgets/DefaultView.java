@@ -19,7 +19,7 @@ public class DefaultView extends RelativeLayout implements View.OnClickListener 
     private OnBtnClickListener onBtnClickListener;
 
     public interface OnBtnClickListener{
-        public void OnBtnClickListener(View view);
+        void onBtnClickListener(View view);
     }
 
     public DefaultView(Context context) {
@@ -45,7 +45,7 @@ public class DefaultView extends RelativeLayout implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (onBtnClickListener!=null){
-            onBtnClickListener.OnBtnClickListener(v);
+            onBtnClickListener.onBtnClickListener(v);
         }
     }
 

@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -69,13 +68,13 @@ public class ViewPagerIndicator extends ViewGroup {
             return;
         }
         this.removeAllViews();
+        TabView view = null;
         for (int i=0;i<titles.length;i++){
-            View view = null;
             view = GenerateTab(titles[i]);
-            if (view instanceof TabView){
-                ((TabView)view).setTabTextSize(tabTextSize);
-                ((TabView)view).setTabTextColor(tabTextColor);
-                ((TabView)view).setTabTextFocusColor(tabTextFocusColor);
+            if (view!=null){
+                view.setTabTextSize(tabTextSize);
+                view.setTabTextColor(tabTextColor);
+                view.setTabTextFocusColor(tabTextFocusColor);
             }
             this.addView(view);
         }
@@ -142,7 +141,7 @@ public class ViewPagerIndicator extends ViewGroup {
                     if (mViewPager!=null){
                         mViewPager.setCurrentItem(finalI);
                         if (mTabClickListener!=null){
-                            mTabClickListener.OnTabClickListener((TabView) v, finalI);
+                            mTabClickListener.onTabClickListener((TabView) v, finalI);
                         }
                     }
                 }
@@ -186,16 +185,16 @@ public class ViewPagerIndicator extends ViewGroup {
     }
 
     interface OnTabClickListener{
-        void OnTabClickListener(TabView view, int position);
+        void onTabClickListener(TabView view, int position);
     }
 
     public interface OnPageChangeListener {
 
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+        void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
 
-        public void onPageSelected(int position);
+        void onPageSelected(int position);
 
-        public void onPageScrollStateChanged(int state);
+        void onPageScrollStateChanged(int state);
     }
 
 

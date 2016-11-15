@@ -176,7 +176,7 @@ public class SchoolPickerFragment extends BaseFragment implements AdapterView.On
     }
 
     public interface OnSchoolClick {
-        public void onSchoolClick(City city, School school);
+        void onSchoolClick(City city, School school);
     }
 
     @OnClick(R.id.ll_city)

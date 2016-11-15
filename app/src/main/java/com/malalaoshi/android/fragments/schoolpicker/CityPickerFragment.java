@@ -141,7 +141,7 @@ public class CityPickerFragment extends BaseFragment implements AdapterView.OnIt
     }
 
     public interface OnCityClick{
-        public void onCityClick(City city);
+        void onCityClick(City city);
     }
 
     @Override

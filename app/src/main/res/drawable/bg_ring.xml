@@ -6,7 +6,7 @@
     android:thickness="1px">
     <!--useLevel需要设置为false-->
 
-    <solid android:color="@color/color_black_939393"></solid>
+    <solid android:color="@color/color_black_939393"/>
 
 
 </shape>

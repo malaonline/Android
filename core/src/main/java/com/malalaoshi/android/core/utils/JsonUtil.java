@@ -33,7 +33,7 @@ public class JsonUtil {
         T t1 = null;
         try {
             Gson gson = new Gson();
-            String jsonStr = "";
+            String jsonStr;
             inputStream = context.getResources().openRawResource(id);
             isReader = new InputStreamReader(inputStream);
             reader = new BufferedReader(isReader);
@@ -92,8 +92,7 @@ public class JsonUtil {
     public static <T> T parseStringData(String strJson, Type typeOfT) {
         try {
             Gson gson = new Gson();
-            T t1 = (T) gson.fromJson(strJson, typeOfT);
-            return t1;
+            return gson.fromJson(strJson, typeOfT);
         } catch (Exception e) {
             //throw new HttpMessageNotReadableException("Could not read JSON: " + e.getMessage(), e);
         }

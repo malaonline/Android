@@ -30,7 +30,7 @@ public class JsonUtil {
         T t1 = null;
         try {
             Gson gson = new Gson();
-            String jsonStr = "";
+            String jsonStr;
             inputStream = context.getResources().openRawResource(id);
             isReader = new InputStreamReader(inputStream);
             reader = new BufferedReader(isReader);
@@ -38,7 +38,7 @@ public class JsonUtil {
             while ((jsonStr = reader.readLine()) != null) {
                 buffer.append(jsonStr);
             }
-            t1 =(T)gson.fromJson(buffer.toString(), t);
+            t1 =gson.fromJson(buffer.toString(), t);
         } catch (Exception e) {
             //throw new HttpMessageNotReadableException("Could not read JSON: " + e.getMessage(), e);
         }finally {
@@ -69,7 +69,7 @@ public class JsonUtil {
     public static <T> T parseStringData(String strJson, Class<T> t) {
         try {
             Gson gson = new Gson();
-            T t1 =(T)gson.fromJson(strJson, t);
+            T t1 =gson.fromJson(strJson, t);
             return t1;
         } catch (Exception e) {
             //throw new HttpMessageNotReadableException("Could not read JSON: " + e.getMessage(), e);
@@ -87,7 +87,7 @@ public class JsonUtil {
     public static <T> T parseStringData(String strJson, Type typeOfT) {
         try {
             Gson gson = new Gson();
-            T t1 =(T)gson.fromJson(strJson, typeOfT);
+            T t1 =gson.fromJson(strJson, typeOfT);
             return t1;
         } catch (Exception e) {
             //throw new HttpMessageNotReadableException("Could not read JSON: " + e.getMessage(), e);

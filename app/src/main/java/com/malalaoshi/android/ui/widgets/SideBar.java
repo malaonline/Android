@@ -40,6 +40,6 @@ public class SideBar extends View {
     }
 
     public interface OnTouchIndexChangedListener{
-        public void onTouchIndexChanged(String  index);
+        void onTouchIndexChanged(String  index);
     }
 }

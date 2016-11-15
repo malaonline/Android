@@ -29,9 +29,9 @@ import com.malalaoshi.android.entity.Course;
 import java.util.List;
 
 public interface DatePickerController {
-	public abstract int getMaxYear();
+	int getMaxYear();
 
-	public abstract void onDayOfMonthSelected(int year, int month, int day);
+	void onDayOfMonthSelected(int year, int month, int day);
 
-	public abstract void onDayClick(SimpleMonthView simpleMonthView, SimpleMonthAdapter.CalendarDay calendarDay, List<Course> courses);
+	void onDayClick(SimpleMonthView simpleMonthView, SimpleMonthAdapter.CalendarDay calendarDay, List<Course> courses);
 }

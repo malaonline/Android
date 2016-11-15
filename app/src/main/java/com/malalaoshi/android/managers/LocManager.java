@@ -198,7 +198,7 @@ public class LocManager {
     }
 
     public interface ReceiveLocationListener{
-        public void onReceiveLocation(Location location);
+        void onReceiveLocation(Location location);
     }
 
     public Location getLocation() {

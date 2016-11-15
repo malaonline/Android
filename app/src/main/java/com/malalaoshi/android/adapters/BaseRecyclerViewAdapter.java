@@ -32,13 +32,12 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View view = null;
 
         switch(viewType){
             case TYPE_LOAD_MORE:
                 return new LoadMoreViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.normal_refresh_footer, null));
             default:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_list_item, null);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_list_item, null);
                 return new NormalViewHolder(view);
         }
     }
