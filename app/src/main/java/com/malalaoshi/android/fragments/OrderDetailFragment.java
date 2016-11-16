@@ -410,10 +410,10 @@ public class OrderDetailFragment extends BaseFragment {
         LiveCourse liveCourse = order.getLive_class();
         if (liveCourse!=null){
             tvTeacherName.setText(liveCourse.getLecturer_name());
-            tvAssistName.setText(liveCourse.getAssistant_name());
+            tvAssistName.setText("(助教"+liveCourse.getAssistant_name()+")");
             tvCourseName.setText(liveCourse.getCourse_name());
-            tvCourseType.setText(liveCourse.getRoom_capacity()+"人");
-            tvCourseTimes.setText(liveCourse.getCourse_lessons()+"");
+            tvCourseType.setText(liveCourse.getRoom_capacity()+"人小班");
+            tvCourseTimes.setText(liveCourse.getCourse_lessons()+"次");
             tvSchool.setText(order.getSchool());
             ivLiveCourseAvator.setLeftCircleImage(liveCourse.getLecturer_avatar(),R.drawable.ic_default_teacher_avatar);
             ivLiveCourseAvator.setRightCircleImage(liveCourse.getAssistant_avatar(),R.drawable.ic_default_teacher_avatar);
