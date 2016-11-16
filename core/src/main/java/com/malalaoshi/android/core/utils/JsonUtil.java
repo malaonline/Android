@@ -41,7 +41,7 @@ public class JsonUtil {
             while ((jsonStr = reader.readLine()) != null) {
                 buffer.append(jsonStr);
             }
-            t1 = (T) gson.fromJson(buffer.toString(), t);
+            t1 =  gson.fromJson(buffer.toString(), t);
         } catch (Exception e) {
             //throw new HttpMessageNotReadableException("Could not read JSON: " + e.getMessage(), e);
         } finally {
@@ -73,8 +73,7 @@ public class JsonUtil {
     public static <T> T parseStringData(String strJson, Class<T> t) {
         try {
             Gson gson = new Gson();
-            T t1 = gson.fromJson(strJson, t);
-            return t1;
+            return gson.fromJson(strJson, t);
         } catch (Exception e) {
             Log.e("MALA", "parseStringData Error: " + e.getMessage());
         }
@@ -107,8 +106,7 @@ public class JsonUtil {
      */
     public static String SerialData(Object value) {
         Gson gson = new Gson();
-        String str = gson.toJson(value);
-        return str;
+        return gson.toJson(value);
     }
 
 }

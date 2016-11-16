@@ -1,6 +1,7 @@
 package com.malalaoshi.android.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -59,10 +60,10 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
             holder.iconView.setVisibility(View.VISIBLE);
             holder.ivLiveCourseAvator.setVisibility(View.GONE);
             if (teacher!=null){
-                holder.teacherView.setText("");
+                holder.teacherView.setText(teacher.getName());
                 holder.iconView.loadCircleImage(teacher.getAvatar(), R.drawable.ic_default_teacher_avatar);
             }else{
-                holder.teacherView.setText(teacher.getName());
+                holder.teacherView.setText("");
                 holder.iconView.loadCircleImage("", R.drawable.ic_default_teacher_avatar);
             }
         }
@@ -89,6 +90,11 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
     }
 
     private void setExpiredComment(final CommentViewHolder holder) {
+        holder.teacherView.setTextColor(getColor(R.color.color_black_939393));
+        Drawable drawable = holder.teacherView.getResources().getDrawable(R.drawable.ic_avatar_icon_black);
+        drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
+        holder.teacherView.setCompoundDrawables(drawable,null,null,null);
+
         holder.stateView.setText("过期");
         holder.stateView.setBackgroundResource(R.drawable.ic_comment_expired);
         holder.commentView.setBackground(null);
@@ -98,6 +104,11 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
     }
 
     private void setCommentedUI(final CommentViewHolder holder, final Course course) {
+        holder.teacherView.setTextColor(getColor(R.color.color_blue_8fbcdd));
+        Drawable drawable = holder.teacherView.getResources().getDrawable(R.drawable.ic_avatar_icon);
+        drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
+        holder.teacherView.setCompoundDrawables(drawable,null,null,null);
+
         holder.stateView.setText("已评");
         holder.stateView.setBackgroundResource(R.drawable.ic_commented);
         holder.commentView.setBackgroundResource(R.drawable.bg_comment_done_btn);
@@ -118,6 +129,11 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
     }
 
     private void setNoCommentUI(final CommentViewHolder holder, final Course course) {
+        holder.teacherView.setTextColor(getColor(R.color.color_blue_8fbcdd));
+        Drawable drawable = holder.teacherView.getResources().getDrawable(R.drawable.ic_avatar_icon);
+        drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
+        holder.teacherView.setCompoundDrawables(drawable,null,null,null);
+
         holder.stateView.setText("待评");
         holder.stateView.setBackgroundResource(R.drawable.ic_no_comment);
         holder.commentView.setText("去评价");

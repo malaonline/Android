@@ -70,7 +70,6 @@ public class PermissionUtil {
     }
 
     public static boolean permissionsResult(int[] grantResults){
-        List<String> failePermissions = new ArrayList<>();
         //如果请求被取消，那么 result 数组将为空
         boolean res = true;
         if (grantResults.length<=0){

@@ -470,19 +470,19 @@ public class SimpleMonthView extends View {
         if (currentNormalAlpha > NORMAL_ALPHA) {
             currentNormalAlpha = NORMAL_ALPHA;
         }
-        if (shouldShowMonthInfo) {
-           /* mMonthInfoPaint.setAlpha(currentNormalAlpha);
+        /*if (shouldShowMonthInfo) {
+           *//* mMonthInfoPaint.setAlpha(currentNormalAlpha);
             mMonthTitlePaint.setAlpha(DRAGING_ALPHA);
             mSelectedCirclePaint.setAlpha(DRAGING_ALPHA);
             mCurrentCirclePaint.setAlpha(DRAGING_ALPHA);
-            mMonthDayLabelPaint.setAlpha(DRAGING_ALPHA);*/
+            mMonthDayLabelPaint.setAlpha(DRAGING_ALPHA);*//*
         } else {
-            /*mMonthInfoPaint.setAlpha(currentDraggingAlpha);
+            *//*mMonthInfoPaint.setAlpha(currentDraggingAlpha);
             mMonthTitlePaint.setAlpha(NORMAL_ALPHA);
             mSelectedCirclePaint.setAlpha(NORMAL_ALPHA);
             mCurrentCirclePaint.setAlpha(NORMAL_ALPHA);
-            mMonthDayLabelPaint.setAlpha(NORMAL_ALPHA);*/
-        }
+            mMonthDayLabelPaint.setAlpha(NORMAL_ALPHA);*//*
+        }*/
 
         if (elapsedTime < ALPHA_DURATION) {
             this.postInvalidateDelayed(1000 / FRAMES_PER_SECOND);

@@ -104,13 +104,7 @@ public class FilterGradeFragment extends Fragment {
         mPrimaryGrages.clear();
         mMiddleGrages.clear();
         mSeniorGrages.clear();
-        // 小学
-        Grade primary = Grade.getGradeById(Grade.PRIMARY_ID);
         Map<String, Object> item = null;
-        // 初中
-        Grade middle = Grade.getGradeById(Grade.MIDDLE_ID);
-        // 高中
-        Grade senior = Grade.getGradeById(Grade.SENIOR_ID);
         // collect all grade
         for (Grade g: Grade.gradeList) {
             if (g.getSupersetId() == null) {

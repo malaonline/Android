@@ -2,6 +2,7 @@ package com.malalaoshi.android.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 /**
  * Created by kang on 16/2/17.
@@ -128,7 +129,7 @@ public class Course implements Parcelable, Comparable<Course> {
     }
 
     @Override
-    public int compareTo(Course another) {
+    public int compareTo(@NonNull Course another) {
         return this.start.compareTo(another.start);
     }
 

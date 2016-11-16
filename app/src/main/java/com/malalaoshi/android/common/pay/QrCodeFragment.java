@@ -151,10 +151,10 @@ public class QrCodeFragment extends BaseFragment implements View.OnClickListener
         int drawableId;
         String qrUrl = null;
         if (PayManager.Pay.wx_pub_qr.name().equals(payChannel)) {
-            drawableId = R.drawable.ic_wx;
+            drawableId = R.drawable.ic_wx_pay;
             qrUrl = charge.getCredential().getWx_pub_qr();
         } else {
-            drawableId = R.drawable.ic_ali;
+            drawableId = R.drawable.ic_ali_pay;
             qrUrl = charge.getCredential().getAlipay_qr();
         }
         Log.e("QRCODE", qrUrl);

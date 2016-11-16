@@ -336,7 +336,7 @@ public class UserFragment extends BaseFragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CAMERA: {
@@ -497,6 +497,10 @@ public class UserFragment extends BaseFragment {
 
             cursor = getContext().getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
+            if (cursor == null) {
+                MiscUtil.toast("照片选取失败!");
+                return;
+            }
             cursor.moveToFirst();
 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
