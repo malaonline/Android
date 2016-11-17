@@ -6,10 +6,13 @@ sudo: false              # 开启基于容器的Travis CI任务，让编译效�
 android:
   components:            # 配置信息
   # - platform-tools
-    - tools
+  # - tools
+  # The BuildTools version used by your project
     - build-tools-25.0.0
-    - android-22
+  # The SDK version used to compile your project
+  # - android-22
     - android-25
+  # Additional components
     - extra-google-google_play_services
     - extra-google-m2repository
     - addon-google_apis-google-21
