@@ -173,11 +173,14 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
 
     //查看学习报告
     private void openLearningReport() {
+        openSampleReport();
+        /*不再调用快乐学接口 只显示报告样本
         if (subject != null) {
             ReportActivity.launch(getActivity(), subject.getId());
         } else {
             openSampleReport();
         }
+        */
     }
 
     //查看学习报告样本

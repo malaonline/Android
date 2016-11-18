@@ -343,10 +343,8 @@ public class ScheduleFragment extends BaseFragment {
             refreshLayout.setLoadMoreEnable(true);
         }
 
-        if (response != null) {
-            hostNextUrl = response.getNext();
-            hostPreviousUrl = response.getPrevious();
-        }
+        hostNextUrl = response.getNext();
+        hostPreviousUrl = response.getPrevious();
     }
 
     /**
@@ -375,9 +373,7 @@ public class ScheduleFragment extends BaseFragment {
             return;
         }
         addItems(adapter,response);
-        if (response != null) {
-            hostPreviousUrl = response.getPrevious();
-        }
+        hostPreviousUrl = response.getPrevious();
     }
 
     private static final class PullTimeTable extends BaseApiContext<ScheduleFragment, CourseListResult> {

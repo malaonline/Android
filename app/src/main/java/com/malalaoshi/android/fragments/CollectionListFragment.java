@@ -13,7 +13,6 @@ import com.malalaoshi.android.network.result.TeacherListResult;
  */
 public class CollectionListFragment  extends BaseRefreshFragment<TeacherListResult> {
     private String nextUrl;
-    private TeacherAdapter adapter;
 
     @Override
     public String getStatName() {
@@ -22,8 +21,7 @@ public class CollectionListFragment  extends BaseRefreshFragment<TeacherListResu
 
     @Override
     protected BaseRecycleAdapter createAdapter() {
-        adapter = new TeacherAdapter(getContext());
-        return adapter;
+        return new TeacherAdapter(getContext());
     }
 
     @Override

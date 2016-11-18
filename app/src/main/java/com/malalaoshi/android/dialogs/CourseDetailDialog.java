@@ -128,7 +128,7 @@ public class CourseDetailDialog extends DialogFragment implements FragmentGroupA
             circleIndicator.setVisibility(View.GONE);
         }
 
-        Course cource = listShortCourse.get(listShortCourse.size()-0-1);
+        Course cource = listShortCourse.get(listShortCourse.size()-1);
         if (!cource.is_passed()){
             setUIType(Type.NOPASS);
         }else{

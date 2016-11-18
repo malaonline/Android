@@ -124,8 +124,13 @@ public class ReportFragment extends BaseFragment {
             }
         });
         if (getActivity() instanceof BaseTitleActivity) {
-            String title = UserManager.getInstance().getStuName() + "的";
-            title += Subject.getSubjectName(subjectId) + "报告";
+            String title;
+            if (subjectId!=-1){
+                title = UserManager.getInstance().getStuName() + "的";
+                title += Subject.getSubjectName(subjectId) + "报告";
+            }else{
+                title = "学习报告样本";
+            }
             ((BaseTitleActivity) getActivity()).setTitle(title);
         }
     }

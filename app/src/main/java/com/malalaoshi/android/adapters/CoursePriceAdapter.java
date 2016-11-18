@@ -65,7 +65,7 @@ public class CoursePriceAdapter extends BaseAdapter{
                 @Override
                 public void onClick(View v) {
                     if (onClickItem!=null){
-                        onClickItem.onClickItem(position, grade!=null?null:grade.getId());
+                        onClickItem.onClickItem(position, grade.getId());
                     }
                 }
             });
@@ -73,7 +73,7 @@ public class CoursePriceAdapter extends BaseAdapter{
         }else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
-        viewHolder.tvName.setText(grade!=null?grade.getName():"");
+        viewHolder.tvName.setText(grade.getName());
         viewHolder.tvPrice.setText(data.getPrices().get(0).getPrice()+"");
         viewHolder.tvRebate.setText("100");
         viewHolder.tvRebate.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线

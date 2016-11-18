@@ -460,7 +460,7 @@ public class SimpleMonthView extends View {
 
     private void calculateAlpha() {
         long elapsedTime = System.currentTimeMillis() - alphaStartTime;
-        int alphaChange = (int) ((NORMAL_ALPHA - 0) * elapsedTime / ALPHA_DURATION);
+        int alphaChange = (int) (NORMAL_ALPHA * elapsedTime / ALPHA_DURATION);
 
         currentDraggingAlpha = NORMAL_ALPHA - alphaChange;
         if (currentDraggingAlpha < 0 || alphaStartTime == -1) {

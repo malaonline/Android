@@ -64,7 +64,7 @@ public class ViewPagerIndicator extends ViewGroup {
     }
 
     public void setTitles(String[] titles, int focusPos){
-        if (titles==null&&titles.length<=0){
+        if (titles==null||titles.length<=0){
             return;
         }
         this.removeAllViews();

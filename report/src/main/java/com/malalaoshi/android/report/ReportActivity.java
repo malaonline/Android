@@ -31,7 +31,7 @@ public class ReportActivity extends BaseTitleActivity {
 
     @Override
     protected String getStatName() {
-        return "学生报告样本";
+        return "学习报告样本";
     }
 
     public static void launch(Activity activity, long subject) {

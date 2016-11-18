@@ -220,11 +220,9 @@ public class ConfirmOrderFragment extends BaseFragment implements View.OnClickLi
             int size = timesModel.getData().get(i).size();
             timeslots.add(timesModel.getData().get(i).toArray(new String[size]));
         }
-        if (timeslots != null) {
-            List<CourseTimeModel> times = CourseHelper.courseTimes(timeslots);
-            timesAdapter.addAll(times);
-            timesAdapter.notifyDataSetChanged();
-        }
+        List<CourseTimeModel> times = CourseHelper.courseTimes(timeslots);
+        timesAdapter.addAll(times);
+        timesAdapter.notifyDataSetChanged();
     }
 
     //创建订单
