@@ -33,7 +33,7 @@ public class SchoolPickerAdapter extends MalaBaseAdapter<School> {
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
 
         viewHolder.tvName.setText(data.getName());
-        viewHolder.tvAddress.setText("");
+        viewHolder.tvAddress.setText(data.getAddress());
     }
 
     class ViewHolder {
