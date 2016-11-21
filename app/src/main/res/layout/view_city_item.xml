@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mala.widget.schoollist.item"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/tv_name"
+        tools:text="北京"
+        style="@style/mala.widget.schoollist.name.text"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"/>
+</LinearLayout>

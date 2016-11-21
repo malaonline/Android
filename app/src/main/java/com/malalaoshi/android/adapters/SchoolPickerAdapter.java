@@ -20,9 +20,10 @@ public class SchoolPickerAdapter extends MalaBaseAdapter<School> {
 
     @Override
     protected View createView(int position, ViewGroup parent) {
-        View convertView = View.inflate(context, R.layout.item_city_gridview, null);
+        View convertView = View.inflate(context, R.layout.view_school_item, null);
         ViewHolder viewHolder = new ViewHolder();
-        viewHolder.tvCityName = (TextView) convertView.findViewById(R.id.tv_city_name);
+        viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
+        viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tv_address);
         convertView.setTag(viewHolder);
         return convertView;
     }
@@ -31,10 +32,12 @@ public class SchoolPickerAdapter extends MalaBaseAdapter<School> {
     protected void fillView(int position, View convertView, School data) {
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
 
-        viewHolder.tvCityName.setText(data.getName());
+        viewHolder.tvName.setText(data.getName());
+        viewHolder.tvAddress.setText("");
     }
 
     class ViewHolder {
-        public TextView tvCityName;
+        TextView tvName;
+        TextView tvAddress;
     }
 }

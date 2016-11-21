@@ -9,6 +9,8 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingRight="12dp"
+            android:paddingLeft="12dp"
             android:background="@color/white"
             android:divider="@color/color_white_f6f6f6"
             android:dividerHeight="0.5dp"

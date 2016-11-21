@@ -198,13 +198,30 @@
         <item name="android:layout_height">@dimen/toolbar_height</item>
     </style>
 
-    <style name="mala.widget.school.item.text" parent="android:Widget.TextView">
+    <style name="mala.widget.schoollist.item" parent="android:Widget.TextView">
+        <item name="android:background">@color/color_white_ffffff</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+    <style name="mala.widget.schoollist.name.text"  parent="android:Widget.TextView">
         <item name="android:textColor">@color/color_black_333333</item>
-        <item name="android:textSize">@dimen/text_size_normal_high</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:layout_marginLeft">@dimen/layout_margin_top</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/title_bar_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+    <style name="mala.widget.schoollist.address.text" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/color_black_636363</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
     </style>
 
     <!-- 用户中心 -->

@@ -20,9 +20,9 @@ public class CityPickerAdapter extends MalaBaseAdapter<City> {
 
     @Override
     protected View createView(int position, ViewGroup parent) {
-        View convertView = View.inflate(context, R.layout.item_city_gridview, null);
+        View convertView = View.inflate(context, R.layout.view_city_item, null);
         ViewHolder viewHolder = new ViewHolder();
-        viewHolder.tvCityName = (TextView) convertView.findViewById(R.id.tv_city_name);
+        viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
         convertView.setTag(viewHolder);
         return convertView;
     }
@@ -31,10 +31,10 @@ public class CityPickerAdapter extends MalaBaseAdapter<City> {
     protected void fillView(int position, View convertView, City data) {
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
 
-        viewHolder.tvCityName.setText(data.getName());
+        viewHolder.tvName.setText(data.getName());
     }
 
     class ViewHolder {
-        public TextView tvCityName;
+        public TextView tvName;
     }
 }
