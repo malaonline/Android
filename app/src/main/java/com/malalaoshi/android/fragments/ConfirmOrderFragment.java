@@ -119,7 +119,6 @@ public class ConfirmOrderFragment extends BaseFragment implements View.OnClickLi
         order = args.getParcelable(ARG_ORDER_INFO);
         isEvaluated = args.getBoolean(ARG_IS_EVALUATED, true);
         createCourseOrderEntity = (CreateCourseOrderEntity) args.getSerializable(ARG_CREATE_ORDER_INFO);
-
     }
 
     @Override
