@@ -1,6 +1,7 @@
 package com.malalaoshi.android.activitys.schoolpicker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,10 +22,10 @@ public class CityPickerActivity extends BaseTitleActivity implements CityPickerF
 
     public boolean isInitCity = true;
 
-    public static void openForInit(Activity activity) {
-        Intent intent = new Intent(activity, CityPickerActivity.class);
+    public static void openForInit(Context context) {
+        Intent intent = new Intent(context, CityPickerActivity.class);
         intent.putExtra(EXTRA_IS_INIT_CITY,true);
-        activity.startActivity(intent);
+        context.startActivity(intent);
     }
 
     public static void openForResult(Fragment fragment,int requestCode) {

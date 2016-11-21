@@ -8,6 +8,8 @@ import android.util.Log;
 import com.malalaoshi.android.MainActivity;
 import com.malalaoshi.android.activitys.OrderInfoActivity;
 import com.malalaoshi.android.activitys.CommentActivity;
+import com.malalaoshi.android.activitys.schoolpicker.CityPickerActivity;
+import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.entity.PushNotificationExtra;
 import com.malalaoshi.android.utils.JsonUtil;
@@ -28,37 +30,43 @@ public class MalaPushReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Bundle bundle = intent.getExtras();
-        Log.d(TAG, "[MalaPushReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
 
-        if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
+        String action = intent.getAction();
+        if (EmptyUtils.isEmpty(action)){
+            Log.w(TAG,"jpush action is null");
+            return;
+        }
+        Bundle bundle = intent.getExtras();
+        Log.d(TAG, "action:" + action + ", extras:" + printBundle(bundle));
+
+        if (JPushInterface.ACTION_REGISTRATION_ID.equals(action)) {
             String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-            Log.d(TAG, "[MalaPushReceiver] 接收Registration Id : " + regId);
+            Log.d(TAG, "JPush用户注册成功，Registration Id:" + regId);
             //send the Registration Id to your server...
-        } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-            Log.d(TAG, "[MalaPushReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+        } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(action)) {
+            Log.d(TAG, "接受到推送下来的自定义消息:" + bundle.getString(JPushInterface.EXTRA_MESSAGE));
             processCustomMessage(context, bundle);
 
-        } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-            Log.d(TAG, "[MalaPushReceiver] 接收到推送下来的通知");
+        } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(action)) {
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-            Log.d(TAG, "[MalaPushReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+            Log.d(TAG, "接收到推送下来的通知，ID:" + notifactionId);
             receivingNotification(context,bundle);
 
-        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-            Log.d(TAG, "[MalaPushReceiver] 用户点击打开了通知,通知Id:"+bundle.getString(JPushInterface.EXTRA_MSG_ID));
+        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(action)) {
+            Log.d(TAG, "用户点击打开了通知,通知Id:"+bundle.getString(JPushInterface.EXTRA_MSG_ID));
+
             MalaPushClient.getInstance().reportNotificationOpened(bundle.getString(JPushInterface.EXTRA_MSG_ID));
             processNotification(context, bundle);
 
-        } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
-            Log.d(TAG, "[MalaPushReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
+        } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(action)) {
+            Log.d(TAG, "user received rich push callback:" + bundle.getString(JPushInterface.EXTRA_EXTRA));
             //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
 
-        } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
+        } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(action)) {
             boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-            Log.w(TAG, "[MalaPushReceiver]" + intent.getAction() + " connected state change to " + connected);
+            Log.w(TAG, "connected state change to " + connected);
         } else {
-            Log.d(TAG, "[MalaPushReceiver] Unhandled intent - " + intent.getAction());
+            Log.d(TAG, "Unhandled intent - " + action);
         }
     }
 
@@ -72,26 +80,6 @@ public class MalaPushReceiver extends BroadcastReceiver {
     }
 
     private void processNotification(Context context, Bundle bundle) {
-        /* String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-        String myValue = "";
-        try {
-            JSONObject extrasJson = new JSONObject(extras);
-            myValue = extrasJson.optString("myKey");
-        } catch (Exception e) {
-            Logger.w(TAG, "Unexpected: extras is not a valid json", e);
-            return;
-        }
-        if (TYPE_THIS.equals(myValue)) {
-            Intent mIntent = new Intent(context, ThisActivity.class);
-            mIntent.putExtras(bundle);
-            mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(mIntent);
-        } else if (TYPE_ANOTHER.equals(myValue)){
-            Intent mIntent = new Intent(context, AnotherActivity.class);
-            mIntent.putExtras(bundle);
-            mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(mIntent);
-        }*/
 
         //获取通知消息类型
         PushNotificationExtra pushExtra = null;
@@ -108,37 +96,53 @@ public class MalaPushReceiver extends BroadcastReceiver {
 
         if (MalaPushDef.PUSH_NOTIFICATION_CLASS_STARTING.equals(pushExtra.getType())) {
             //上课通知
-            openUserSchedule(context, bundle);
+            lunchUserSchedule(context, bundle);
         } else if (MalaPushDef.PUSH_NOTIFICATION_REFUNDS_SUCCESS.equals(pushExtra.getType())) {
             //退费成功通知
             if (EmptyUtils.isEmpty(pushExtra.getCode())){
                 Log.e(TAG, "Get message extra order id is null!");
                 return;
             }
-            openOrderDetail(context, bundle, pushExtra.getCode());
+            lunchOrderDetail(context, bundle, pushExtra.getCode());
         } else if (MalaPushDef.PUSH_NOTIFICATION_CLASS_CHANGED.equals(pushExtra.getType())) {
             //课程变更通知
-            openUserSchedule(context, bundle);
+            lunchUserSchedule(context, bundle);
         } else if (MalaPushDef.PUSH_NOTIFICATION_CLASS_FINISHED.equals(pushExtra.getType())) {
             //课程结束,评价提醒
-            openCommentList(context, bundle);
+            lunchCommentList(context, bundle);
         } else if (MalaPushDef.PUSH_NOTIFICATION_COUPON_EXPIRED.equals(pushExtra.getType())) {
             //优惠价到期提醒
-            openMainPager(context, bundle);
-        } else{
+            lunchMainPager(context, bundle);
+        } else if (MalaPushDef.PUSH_NOTIFICATION_LIVE_COURSE_ACTIVITY.equals(pushExtra.getType())) {
+            lunchLiveCourseList(context, bundle);
+        } else {
             Log.e(TAG, "Undefined notification type!");
         }
     }
 
-    private void openMainPager(Context context, Bundle bundle) {
+    private void lunchLiveCourseList(Context context, Bundle bundle) {
+        UserManager userManager = UserManager.getInstance();
+        if (userManager.getCityId()>0&&userManager.getSchoolId()>0){
+            Intent i = new Intent(context, MainActivity.class);
+            i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_LIVE_COURSE);
+            i.putExtras(bundle);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            context.startActivity(i);
+        }else{
+            CityPickerActivity.openForInit(context);
+        }
+    }
+
+    private void lunchMainPager(Context context, Bundle bundle) {
         Intent i = new Intent(context, MainActivity.class);
+        i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_TEACHERS);
         i.putExtras(bundle);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(i);
     }
 
     //打开课程表
-    private void openUserSchedule(Context context, Bundle bundle) {
+    private void lunchUserSchedule(Context context, Bundle bundle) {
         Intent i = new Intent(context, MainActivity.class);
         i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_COURSES);
         i.putExtras(bundle);
@@ -147,12 +151,12 @@ public class MalaPushReceiver extends BroadcastReceiver {
     }
 
     //打开订单详情页
-    private void openOrderDetail(Context context, Bundle bundle, String orderId) {
+    private void lunchOrderDetail(Context context, Bundle bundle, String orderId) {
         OrderInfoActivity.launch(context,orderId,bundle);
     }
 
     //打开评价列表
-    private void openCommentList(Context context, Bundle bundle) {
+    private void lunchCommentList(Context context, Bundle bundle) {
         //打开评价列表
         Intent mIntent = new Intent(context, CommentActivity.class);
         mIntent.putExtras(bundle);
