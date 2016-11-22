@@ -64,6 +64,12 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     @Bind(R.id.tv_stu_count)
     protected TextView tvStuCount;
 
+    @Bind(R.id.tv_school)
+    protected TextView tvSchool;
+
+    @Bind(R.id.tv_address)
+    protected TextView tvAddress;
+
     @Bind(R.id.tv_course_disc)
     protected TextView tvCourseDisc;
 
@@ -234,7 +240,9 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                 newPeriod = oldPeriod.replace(';','\n');
             }
             tvCourseTime.setText(newPeriod);
-            tvStuCount.setText(liveCourse.getStudents_count()+"");
+            tvStuCount.setText(liveCourse.getStudents_count()+"人");
+            tvSchool.setText(liveCourse.getSchool_name());
+            tvAddress.setText(liveCourse.getSchool_address());
             tvCourseDisc.setText(liveCourse.getCourse_description());
             tvLecturer.setText(liveCourse.getLecturer_name());
             String oldBio = liveCourse.getLecturer_bio();

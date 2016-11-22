@@ -111,7 +111,30 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-
+                <TextView
+                    tools:text="什么什么学校"
+                    android:id="@+id/tv_school"
+                    style="@style/order_detail_card_text_black_light"
+                    android:textColor="@color/color_black_636363"
+                    android:textSize="@dimen/text_size_normal"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:layout_below="@+id/tv_course_times"
+                    android:drawableLeft="@drawable/ic_course_address_icon"
+                    android:layout_marginRight="61dp"
+                    android:drawablePadding="6dp"
+                    />
+                <TextView
+                    tools:text="洛阳市什么什么区洛阳市什么什么区"
+                    android:id="@+id/tv_address"
+                    style="@style/order_detail_card_text_black_light"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/color_black_939393"
+                    android:paddingBottom="6dp"
+                    android:layout_below="@+id/tv_school"
+                    android:layout_alignLeft="@+id/tv_school"
+                    android:layout_marginLeft="20dp"
+                    />
             </LinearLayout>
 
             <LinearLayout

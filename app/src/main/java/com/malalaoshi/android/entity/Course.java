@@ -15,6 +15,7 @@ public class Course implements Parcelable, Comparable<Course> {
     private Long start;
     private Long end;
     private boolean is_commented;
+    private String school_address;
     private String school;
     private Teacher teacher;
     private Teacher lecturer;
@@ -88,6 +89,14 @@ public class Course implements Parcelable, Comparable<Course> {
         this.school = school;
     }
 
+    public String getSchool_address() {
+        return school_address;
+    }
+
+    public void setSchool_address(String school_address) {
+        this.school_address = school_address;
+    }
+
     public Teacher getTeacher() {
         return teacher;
     }
@@ -133,6 +142,7 @@ public class Course implements Parcelable, Comparable<Course> {
         return this.start.compareTo(another.start);
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -147,6 +157,7 @@ public class Course implements Parcelable, Comparable<Course> {
         dest.writeValue(this.start);
         dest.writeValue(this.end);
         dest.writeByte(this.is_commented ? (byte) 1 : (byte) 0);
+        dest.writeString(this.school_address);
         dest.writeString(this.school);
         dest.writeParcelable(this.teacher, flags);
         dest.writeParcelable(this.lecturer, flags);
@@ -163,6 +174,7 @@ public class Course implements Parcelable, Comparable<Course> {
         this.start = (Long) in.readValue(Long.class.getClassLoader());
         this.end = (Long) in.readValue(Long.class.getClassLoader());
         this.is_commented = in.readByte() != 0;
+        this.school_address = in.readString();
         this.school = in.readString();
         this.teacher = in.readParcelable(Teacher.class.getClassLoader());
         this.lecturer = in.readParcelable(Teacher.class.getClassLoader());

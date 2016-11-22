@@ -15,6 +15,7 @@ public class Order implements Parcelable {
     private String teacher_name;
     private String teacher_avatar;
     private String school;
+    private String school_address;
     private Long school_id;
     private String grade;
     private String subject;
@@ -78,6 +79,14 @@ public class Order implements Parcelable {
 
     public void setSchool_id(Long school_id) {
         this.school_id = school_id;
+    }
+
+    public String getSchool_address() {
+        return school_address;
+    }
+
+    public void setSchool_address(String school_address) {
+        this.school_address = school_address;
     }
 
     public String getGrade() {
@@ -203,7 +212,6 @@ public class Order implements Parcelable {
     public Order() {
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -216,6 +224,7 @@ public class Order implements Parcelable {
         dest.writeString(this.teacher_name);
         dest.writeString(this.teacher_avatar);
         dest.writeString(this.school);
+        dest.writeString(this.school_address);
         dest.writeValue(this.school_id);
         dest.writeString(this.grade);
         dest.writeString(this.subject);
@@ -240,6 +249,7 @@ public class Order implements Parcelable {
         this.teacher_name = in.readString();
         this.teacher_avatar = in.readString();
         this.school = in.readString();
+        this.school_address = in.readString();
         this.school_id = (Long) in.readValue(Long.class.getClassLoader());
         this.grade = in.readString();
         this.subject = in.readString();
