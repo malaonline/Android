@@ -79,6 +79,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
         holder.dateView.setText(formatCourseDate(course.getStart()));
         holder.timeView.setText(formatCourseTime(course.getStart(), course.getEnd()));
         holder.locationView.setText(course.getSchool());
+        holder.tvAddress.setText(course.getSchool_address());
     }
 
     private String formatCourseDate(long ms) {
@@ -181,6 +182,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
         private TextView timeView;
         private TextView dateView;
         private TextView locationView;
+        private TextView tvAddress;
         private TextView stateView;
         private MalaImageView iconView;
         private TextView commentView;
@@ -193,6 +195,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
             timeView = (TextView) view.findViewById(R.id.tv_time);
             dateView = (TextView) view.findViewById(R.id.tv_date);
             locationView = (TextView) view.findViewById(R.id.tv_location);
+            tvAddress = (TextView) view.findViewById(R.id.tv_address);
             stateView = (TextView) view.findViewById(R.id.tv_status);
             iconView = (MalaImageView) view.findViewById(R.id.iv_icon);
             commentView = (TextView) view.findViewById(R.id.tv_comment);

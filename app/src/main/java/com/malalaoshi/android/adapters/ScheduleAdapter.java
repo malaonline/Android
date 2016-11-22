@@ -99,6 +99,9 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
         TextView tvClassTime;
         @Bind(R.id.tv_class_position)
         TextView tvClassPosition;
+        @Bind(R.id.tv_class_address)
+        TextView tvAdress;
+
         View mView;
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -129,6 +132,7 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
             }
             tvGradeCourse.setText(data.getGrade()+" "+data.getSubject());
             tvClassPosition.setText(data.getSchool());
+            tvAdress.setText(data.getSchool_address());
             if (start!=null&&end!=null){
                 if (((ScheduleCourse)scheduleItem).isFirstCourseOfDay()){
                     tvDay.setText(start.get(Calendar.DAY_OF_MONTH)+"");

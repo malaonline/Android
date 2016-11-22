@@ -59,6 +59,9 @@ public class ConfirmOrderFragment extends BaseFragment implements View.OnClickLi
     @Bind(R.id.tv_school)
     protected TextView tvSchool;
 
+    @Bind(R.id.tv_address)
+    protected TextView tvAddress;
+
     @Bind(R.id.iv_teacher_avator)
     protected MalaImageView ivTeacherAvator;
 
@@ -141,6 +144,7 @@ public class ConfirmOrderFragment extends BaseFragment implements View.OnClickLi
         tvTeacherName.setText(order.getTeacher_name());
         tvCourseName.setText(order.getGrade() + " " + order.getSubject());
         tvSchool.setText(order.getSchool());
+        tvAddress.setText(order.getSchool_address());
         tvTotalHours.setText(String.valueOf(order.getHours()));
         String strTopay = "金额异常";
         Double toPay = order.getTo_pay();

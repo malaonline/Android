@@ -23,6 +23,8 @@ public class LiveCourse extends BaseEntity{
     private String lecturer_avatar;
     private String assistant_name;
     private String assistant_avatar;
+    private String school_name;
+    private String school_address;
 
     public String getCourse_name() {
         return course_name;
@@ -152,6 +154,26 @@ public class LiveCourse extends BaseEntity{
         this.assistant_avatar = assistant_avatar;
     }
 
+    public String getSchool_name() {
+        return school_name;
+    }
+
+    public void setSchool_name(String school_name) {
+        this.school_name = school_name;
+    }
+
+    public String getSchool_address() {
+        return school_address;
+    }
+
+    public void setSchool_address(String school_address) {
+        this.school_address = school_address;
+    }
+
+
+    public LiveCourse() {
+    }
+
 
     @Override
     public int describeContents() {
@@ -177,9 +199,8 @@ public class LiveCourse extends BaseEntity{
         dest.writeString(this.lecturer_avatar);
         dest.writeString(this.assistant_name);
         dest.writeString(this.assistant_avatar);
-    }
-
-    public LiveCourse() {
+        dest.writeString(this.school_name);
+        dest.writeString(this.school_address);
     }
 
     protected LiveCourse(Parcel in) {
@@ -200,6 +221,8 @@ public class LiveCourse extends BaseEntity{
         this.lecturer_avatar = in.readString();
         this.assistant_name = in.readString();
         this.assistant_avatar = in.readString();
+        this.school_name = in.readString();
+        this.school_address = in.readString();
     }
 
     public static final Creator<LiveCourse> CREATOR = new Creator<LiveCourse>() {

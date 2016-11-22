@@ -340,7 +340,11 @@
         <item name="android:textSize">@dimen/text_size_small_high</item>
         <item name="android:textColor">@color/color_black_6c6c6c</item>
     </style>
-
+    <style name="schedule_text_style_light">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/color_black_939393</item>
+    </style>
     <style name="schedule_icontext_style" parent="schedule_text_style">
         <item name="android:drawablePadding">5dp</item>
     </style>

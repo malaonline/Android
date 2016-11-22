@@ -75,6 +75,9 @@ public class OrderDetailFragment extends BaseFragment {
     @Bind(R.id.tv_school)
     protected TextView tvSchool;
 
+    @Bind(R.id.tv_address)
+    protected TextView tvAddress;
+
     @Bind(R.id.iv_teacher_avator)
     protected MalaImageView ivTeacherAvator;
 
@@ -290,6 +293,7 @@ public class OrderDetailFragment extends BaseFragment {
         tvTeacherName.setText(order.getTeacher_name());
         tvCourseName.setText(order.getGrade() + " " + order.getSubject());
         tvSchool.setText(order.getSchool());
+        tvAddress.setText(order.getSchool_address());
         String imgUrl = order.getTeacher_avatar();
         ivTeacherAvator.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
         tvTotalHours.setText(order.getHours().toString());
@@ -415,6 +419,7 @@ public class OrderDetailFragment extends BaseFragment {
             tvCourseType.setText(liveCourse.getRoom_capacity()+"人小班");
             tvCourseTimes.setText(liveCourse.getCourse_lessons()+"次");
             tvSchool.setText(order.getSchool());
+            tvAddress.setText(order.getSchool_address());
             ivLiveCourseAvator.setLeftCircleImage(liveCourse.getLecturer_avatar(),R.drawable.ic_default_teacher_avatar);
             ivLiveCourseAvator.setRightCircleImage(liveCourse.getAssistant_avatar(),R.drawable.ic_default_teacher_avatar);
         }
