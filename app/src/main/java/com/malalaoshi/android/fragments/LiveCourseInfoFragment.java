@@ -1,6 +1,7 @@
 package com.malalaoshi.android.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -82,6 +83,12 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     @Bind(R.id.iv_leature_avatar)
     protected MalaImageView icLeatureAvatar;
 
+    @Bind(R.id.tv_assist_name)
+    protected TextView tvAssistName;
+
+    @Bind(R.id.iv_assist_avatar)
+    protected MalaImageView ivAssistAvatar;
+
     @Bind(R.id.tv_course_price)
     protected TextView tvCoursePrice;
 
@@ -128,6 +135,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
     private void setEvent() {
         tvBuyCourse.setOnClickListener(this);
+        ivAssistAvatar.setOnClickListener(this);
     }
 
     private void loadData() {
@@ -140,9 +148,34 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        if (liveCourse!=null){
-            buyCourse();
+        switch (v.getId()){
+            case R.id.tv_buy_course:
+                if (liveCourse!=null){
+                    buyCourse();
+                }
+                break;
+            case R.id.iv_assist_avatar:
+                if (liveCourse!=null){
+                    callAssistPhone();
+                }
         }
+
+    }
+
+    private void callAssistPhone() {
+        //liveCourse
+        String number = liveCourse.getAssistant_phone();
+        if (EmptyUtils.isEmpty(number)){
+            MiscUtil.toast("该老师暂时未提供手机号！");
+            return;
+        }
+        //用intent启动拨打电话
+        //Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+number));
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + number);
+        intent.setData(data);
+        startActivity(intent);
+
     }
 
     private void buyCourse() {
@@ -245,6 +278,8 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
             tvAddress.setText(liveCourse.getSchool_address());
             tvCourseDisc.setText(liveCourse.getCourse_description());
             tvLecturer.setText(liveCourse.getLecturer_name());
+            tvAssistName.setText("助教："+liveCourse.getAssistant_name());
+            ivAssistAvatar.loadCircleImage(liveCourse.getAssistant_avatar(),R.drawable.ic_default_teacher_avatar);
             String oldBio = liveCourse.getLecturer_bio();
             String newBio = "";
             if (!EmptyUtils.isEmpty(oldBio)){

@@ -314,10 +314,7 @@
         <item name="android:layout_marginBottom">6dp</item>
     </style>
     <style name="LiveCourse_Card_line">
-        <item name="android:layout_marginRight">-6dp</item>
-        <item name="android:layout_marginLeft">-6dp</item>
-        <item name="android:layout_marginTop">6dp</item>
-        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:layout_margin">6dp</item>
         <item name="android:layout_height">0.5dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/color_gray_dadada</item>
