@@ -352,14 +352,15 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     public void onEventMainThread(NoticeEvent event) {
         switch (event.getEventType()) {
             case EventType.BUS_EVENT_NOTICE_MESSAGE:
-                if (event.getUnpayCount()>0){
-                    indicatorTabs.setTabIndicatorVisibility(PAGE_INDEX_USER,View.VISIBLE);
-                    if (MalaApplication.getInstance().isFirstStartApp&&isResume){
-                        showUnpaidOrderTipDialog();
-                        MalaApplication.getInstance().isFirstStartApp = false;
-                    }
+                if (event.getUnpayCount()>0&&MalaApplication.getInstance().isFirstStartApp&&isResume){
+                    showUnpaidOrderTipDialog();
+                    MalaApplication.getInstance().isFirstStartApp = false;
                 } else {
                     MalaApplication.getInstance().isFirstStartApp = false;
+                }
+                if (event.getUnpayCount()>0||event.getUncommentCount()>0){
+                    indicatorTabs.setTabIndicatorVisibility(PAGE_INDEX_USER,View.VISIBLE);
+                }else{
                     indicatorTabs.setTabIndicatorVisibility(PAGE_INDEX_USER,View.INVISIBLE);
                 }
                 break;
