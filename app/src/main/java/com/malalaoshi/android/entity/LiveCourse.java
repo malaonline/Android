@@ -23,6 +23,7 @@ public class LiveCourse extends BaseEntity{
     private String lecturer_avatar;
     private String assistant_name;
     private String assistant_avatar;
+    private String assistant_phone;
     private String school_name;
     private String school_address;
 
@@ -154,6 +155,14 @@ public class LiveCourse extends BaseEntity{
         this.assistant_avatar = assistant_avatar;
     }
 
+    public String getAssistant_phone() {
+        return assistant_phone;
+    }
+
+    public void setAssistant_phone(String assistant_phone) {
+        this.assistant_phone = assistant_phone;
+    }
+
     public String getSchool_name() {
         return school_name;
     }
@@ -199,6 +208,7 @@ public class LiveCourse extends BaseEntity{
         dest.writeString(this.lecturer_avatar);
         dest.writeString(this.assistant_name);
         dest.writeString(this.assistant_avatar);
+        dest.writeString(this.assistant_phone);
         dest.writeString(this.school_name);
         dest.writeString(this.school_address);
     }
@@ -221,6 +231,7 @@ public class LiveCourse extends BaseEntity{
         this.lecturer_avatar = in.readString();
         this.assistant_name = in.readString();
         this.assistant_avatar = in.readString();
+        this.assistant_phone = in.readString();
         this.school_name = in.readString();
         this.school_address = in.readString();
     }
