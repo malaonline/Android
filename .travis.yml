@@ -40,9 +40,9 @@ before_install:    #解密私密文件签名文件等(这里主要解密keystore
 
 
 script:                   # 编译任务
-  - ./gradlew assembleDevrelease assemblePrdrelease assembleStagerelease
-#  - ./gradlew assemblePrdrelease
-#  - ./gradlew assembleStagerelease
+  - ./gradlew assembleDevrelease
+  - ./gradlew assemblePrdrelease
+  - ./gradlew assembleStagerelease
 #script: ./buildbot.sh    # 运行编译脚本与上面的2选一
 
 
