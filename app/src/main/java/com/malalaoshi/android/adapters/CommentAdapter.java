@@ -48,7 +48,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
             holder.iconView.setVisibility(View.GONE);
             holder.ivLiveCourseAvator.setVisibility(View.VISIBLE);
             if (teacher!=null){
-                holder.teacherView.setText(teacher.getName());
+                holder.teacherView.setText(lecturer.getName());
                 holder.ivLiveCourseAvator.setRightCircleImage(teacher.getAvatar(), R.drawable.ic_default_teacher_avatar);
                 holder.ivLiveCourseAvator.setLeftCircleImage(lecturer.getAvatar(), R.drawable.ic_default_teacher_avatar);
             }else{

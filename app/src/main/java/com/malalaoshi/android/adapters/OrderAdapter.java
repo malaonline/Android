@@ -113,7 +113,6 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
                 return;
             }
             tvOrderId.setText(order.getOrder_id());
-            tvTeacherName.setText(order.getTeacher_name());
             tvCourseName.setText(order.getGrade() + " " + order.getSubject());
             tvCourseAddress.setText(order.getSchool());
             String strTopay = "金额异常";
@@ -125,8 +124,15 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
 
             if (order.is_live()){
                 setLiveCourseOrder(order);
+                if (order.getLive_class()!=null){
+                    tvTeacherName.setText(order.getLive_class().getLecturer_name());
+                }else{
+                    tvTeacherName.setText("");
+                }
+
             }else{
                 setCourseOrder(order);
+                tvTeacherName.setText(order.getTeacher_name());
             }
         }
 

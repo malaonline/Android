@@ -41,4 +41,14 @@ public class OrderStatusModel {
     public void setIs_teacher_published(Boolean is_teacher_published) {
         this.is_teacher_published = is_teacher_published;
     }
+
+    @Override
+    public String toString() {
+        return "OrderStatusModel{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", is_timeslot_allocated=" + is_timeslot_allocated +
+                ", is_teacher_published=" + is_teacher_published +
+                '}';
+    }
 }
