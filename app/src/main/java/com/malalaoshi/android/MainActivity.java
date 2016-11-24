@@ -156,6 +156,12 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         tvChooseSchool.setText("校区:"+UserManager.getInstance().getSchool());
     }
 
+    void setCurrentPager(int index){
+        setCurrentPagerTitle(pageIndex);
+        vpHome.setCurrentItem(pageIndex);
+        indicatorTabs.setFocusPosition(pageIndex);
+    }
+
     //初始化定位
     private void initLocation() {
 
@@ -211,12 +217,9 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     private void initData() {
         indicatorTabs.setTitles(new String[]{"一对一","双师直播","课表","会员专享","我的"});
-
         FragmentGroupAdapter homeFragmentAdapter = new FragmentGroupAdapter(this, getSupportFragmentManager(), this);
         vpHome.setAdapter(homeFragmentAdapter);
         vpHome.setOffscreenPageLimit(4);//缓存页面
-        vpHome.setCurrentItem(pageIndex);
-        setCurrentPager(pageIndex);
     }
 
     @Override
@@ -225,7 +228,6 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         //获取待显示页索引
         pageIndex = intent.getIntExtra(EXTRAS_PAGE_INDEX, pageIndex);
         setCurrentPager(pageIndex);
-        vpHome.setCurrentItem(pageIndex);
     }
 
     @Override
@@ -261,7 +263,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         }
     }
 
-    private void setCurrentPager(int i) {
+    private void setCurrentPagerTitle(int i) {
         switch (i) {
             case PAGE_INDEX_TEACHERS:
                 tvChooseSchool.setVisibility(View.VISIBLE);
@@ -300,7 +302,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     @Override
     public void onPageSelected(int position) {
-        setCurrentPager(position);
+        setCurrentPagerTitle(position);
     }
 
     @Override
@@ -393,7 +395,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     @Override
     public void onClickEmptyCourse(View v) {
-        setCurrentPager(PAGE_INDEX_TEACHERS);
+        setCurrentPagerTitle(PAGE_INDEX_TEACHERS);
         vpHome.setCurrentItem(PAGE_INDEX_TEACHERS);
     }
 
