@@ -490,6 +490,7 @@ public class CourseConfirmFragment extends BaseFragment
         order.setSubject(subject.getName());
         order.setTo_pay((double) calculateCost());
         order.setSchool(currentSchool.getSchool().getName());
+        order.setSchool_address(currentSchool.getSchool().getAddress());
         boolean isEvaluated = true;
         if (evaluated != null && !evaluated.isEvaluated()) {
             isEvaluated = false;

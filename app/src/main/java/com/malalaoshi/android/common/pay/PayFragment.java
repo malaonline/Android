@@ -216,13 +216,19 @@ public class PayFragment extends Fragment implements View.OnClickListener {
         if (resultEntity == null) {
             return;
         }
-        ApiExecutor.exec(new FetchOrderStatusRequest(this, resultEntity.getId()));
+        MalaContext.postOnMainThread(new Runnable() {
+            @Override
+            public void run() {
+                ApiExecutor.exec(new FetchOrderStatusRequest(PayFragment.this, resultEntity.getId()));
+            }
+        });
     }
 
     private void onGetOrderStatusSuccess(OrderStatusModel response) {
         if (response == null) {
             MiscUtil.toast("订单状态请求失败");
         }
+        Log.e("order",response.toString());
         int orderStatus;
         if (resultEntity.getOrderType() == OrderDef.ORDER_TYPE_NORMAL) {
             //一对一
