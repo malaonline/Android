@@ -216,6 +216,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         vpHome.setAdapter(homeFragmentAdapter);
         vpHome.setOffscreenPageLimit(4);//缓存页面
         vpHome.setCurrentItem(pageIndex);
+        setCurrentPager(pageIndex);
     }
 
     @Override
