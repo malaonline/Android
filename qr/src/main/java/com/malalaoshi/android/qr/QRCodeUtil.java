@@ -69,7 +69,7 @@ public class QRCodeUtil {
      * 生成带logo的二维码，logo默认为二维码的1/5
      */
     public static Bitmap createQRCodeWithLogo(String contentsToEncode, int dimension, Bitmap logo) throws WriterException  {
-        int logoHeight = dimension / 12;
+        int logoHeight = dimension / 14;
         if (contentsToEncode == null) {
             return null;
         }
