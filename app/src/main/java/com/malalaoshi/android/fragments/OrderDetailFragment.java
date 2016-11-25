@@ -311,8 +311,7 @@ public class OrderDetailFragment extends BaseFragment {
             @Override
             public int compare(String[] strings, String[] t1) {
                 if (strings.length<=0||t1.length<=0) return 0;
-                int res = Integer.valueOf(strings[0]) - Integer.valueOf(t1[0]);
-                return res;
+                return Integer.valueOf(strings[0]) - Integer.valueOf(t1[0]);
             }
         });
 
@@ -433,7 +432,13 @@ public class OrderDetailFragment extends BaseFragment {
         tvMount.setText(strTopay);
         //上课时间
         List<String[]> timeslots = order.getTimeslots();
-
+        Collections.sort(timeslots, new Comparator<String[]>() {
+            @Override
+            public int compare(String[] strings, String[] t1) {
+                if (strings.length<=0||t1.length<=0) return 0;
+                return Integer.valueOf(strings[0]) - Integer.valueOf(t1[0]);
+            }
+        });
         if (timeslots != null) {
             List<CourseTimeModel> times = CourseHelper.courseTimes(timeslots);
             timesAdapter.addAll(times);
