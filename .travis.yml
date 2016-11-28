@@ -1,7 +1,8 @@
 language: android        # 声明构建语言环境
 jdk: oraclejdk8          # 下载jdk8
 
-sudo: false              # 开启基于容器的Travis CI任务，让编译效率更高。
+#sudo: false              # 开启基于容器的Travis CI任务，让编译效率更高。
+sudo: required            # Sudo-enabled  7.5G内存
 
 android:
   components:            # 配置信息
