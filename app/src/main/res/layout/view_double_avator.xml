@@ -4,7 +4,7 @@
     android:layout_height="40dp">
 
     <com.malalaoshi.android.core.image.MalaImageView
-        android:id="@+id/iv_right_avator"
+        android:id="@+id/iv_left_avator"
         android:src="@drawable/ic_default_teacher_avatar"
         android:background="@null"
         android:scaleType="fitStart"
@@ -13,7 +13,7 @@
         android:layout_alignParentRight="true"/>
 
     <com.malalaoshi.android.core.image.MalaImageView
-        android:id="@+id/iv_left_avator"
+        android:id="@+id/iv_right_avator"
         android:src="@drawable/ic_default_teacher_avatar"
         android:scaleType="fitEnd"
         android:layout_width="match_parent"

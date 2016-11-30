@@ -150,11 +150,40 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
     }
 
     private void openComment(final CommentViewHolder holder, final Course course) {
+        if (course.is_live()){
+            openLiveCourseComment(holder,course);
+        }else{
+            openNormalComment(holder,course);
+        }
+    }
+
+    private void openNormalComment(final CommentViewHolder holder, final Course course) {
         String teacherName = course.getTeacher() == null ? "" : course.getTeacher().getName();
         String teacherIcon = course.getTeacher() == null ? "" : course.getTeacher().getAvatar();
 
         CommentDialog commentDialog = CommentDialog
                 .newInstance(teacherName, teacherIcon, course.getSubject(), Long.valueOf(course.getId()),
+                        course.getComment());
+        commentDialog.SetOnCommentResultListener(new CommentDialog.OnCommentResultListener() {
+            @Override
+            public void onSuccess(Comment response) {
+                course.setComment(response);
+                setCommentedUI(holder, course);
+            }
+        });
+        if (fragmentManager != null) {
+            DialogUtils.showDialog(fragmentManager, commentDialog, "comment_dialog");
+        }
+    }
+
+    private void openLiveCourseComment(final CommentViewHolder holder, final Course course) {
+        String LecturerName = course.getLecturer() == null ? "" : course.getLecturer().getName();
+        String LecturerIcon = course.getLecturer() == null ? "" : course.getLecturer().getAvatar();
+        String assistName = course.getTeacher() == null ? "" : course.getTeacher().getName();
+        String assistIcon = course.getTeacher() == null ? "" : course.getTeacher().getAvatar();
+
+        CommentDialog commentDialog = CommentDialog
+                .newInstance(LecturerName, LecturerIcon,assistName,assistIcon, course.getSubject(), Long.valueOf(course.getId()),
                         course.getComment());
         commentDialog.SetOnCommentResultListener(new CommentDialog.OnCommentResultListener() {
             @Override

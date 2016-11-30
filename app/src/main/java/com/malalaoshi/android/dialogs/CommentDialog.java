@@ -29,6 +29,7 @@ import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.entity.Comment;
 import com.malalaoshi.android.network.Constants;
+import com.malalaoshi.android.ui.widgets.DoubleAvatarView;
 import com.malalaoshi.android.utils.MiscUtil;
 
 import org.json.JSONException;
@@ -49,15 +50,32 @@ public class CommentDialog extends DialogFragment {
     public interface OnCommentResultListener {
         void onSuccess(Comment response);
     }
+    private static String ARGS_DIALOG_COMMENT_TYPE = "comment type";
 
     private static String ARGS_DIALOG_TEACHER_NAME = "teacher name";
     private static String ARGS_DIALOG_TEACHER_AVATAR = "teacher avatar";
+
+    private static String ARGS_DIALOG_LECTURER_NAME = "lecturer name";
+    private static String ARGS_DIALOG_LECTURER_AVATAR = "lecturer avatar";
+
+    private static String ARGS_DIALOG_ASSIST_NAME = "assist name";
+    private static String ARGS_DIALOG_ASSIST_AVATAR = "assist avatar";
+
     private static String ARGS_DIALOG_COURSE_NAME = "course name";
     private static String ARGS_DIALOG_COMMENT = "comment";
     private static String ARGS_DIALOG_TIMESLOT = "timeslot";
 
+    private int commentType = 0;   //评价类型   0：一对一   1：双师
+
     private String teacherName;
-    private String teacherAvatarUrl;
+    private String teacherAvatar;
+
+    private String lecturerName;
+    private String lecturerAvatar;
+
+    private String assistName;
+    private String assistAvatar;
+
     private String courseName;
     private Long timeslot;
     private Comment comment;
@@ -66,6 +84,9 @@ public class CommentDialog extends DialogFragment {
 
     @Bind(R.id.iv_teacher_avater)
     MalaImageView teacherAvater;
+
+    @Bind(R.id.iv_live_course_avator)
+    DoubleAvatarView ivLiveCourseAvator;
 
     @Bind(R.id.tv_teacher_name)
     TextView tvTeacherName;
@@ -100,8 +121,25 @@ public class CommentDialog extends DialogFragment {
                                             Long timeslot, Comment comment) {
         CommentDialog f = new CommentDialog();
         Bundle args = new Bundle();
+        args.putInt(ARGS_DIALOG_COMMENT_TYPE,0);
         args.putString(ARGS_DIALOG_TEACHER_NAME, teacherName);
         args.putString(ARGS_DIALOG_TEACHER_AVATAR, teacherAvatarUrl);
+        args.putString(ARGS_DIALOG_COURSE_NAME, courseName);
+        args.putParcelable(ARGS_DIALOG_COMMENT, comment);
+        args.putLong(ARGS_DIALOG_TIMESLOT, timeslot);
+        f.setArguments(args);
+        return f;
+    }
+
+    public static CommentDialog newInstance(String lecturerName, String lecturerAvatarUrl, String assistName, String assistAvatarUrl,String courseName,
+                                            Long timeslot, Comment comment) {
+        CommentDialog f = new CommentDialog();
+        Bundle args = new Bundle();
+        args.putInt(ARGS_DIALOG_COMMENT_TYPE,1);
+        args.putString(ARGS_DIALOG_LECTURER_NAME, lecturerName);
+        args.putString(ARGS_DIALOG_LECTURER_AVATAR, lecturerAvatarUrl);
+        args.putString(ARGS_DIALOG_ASSIST_NAME, assistName);
+        args.putString(ARGS_DIALOG_ASSIST_AVATAR, assistAvatarUrl);
         args.putString(ARGS_DIALOG_COURSE_NAME, courseName);
         args.putParcelable(ARGS_DIALOG_COMMENT, comment);
         args.putLong(ARGS_DIALOG_TIMESLOT, timeslot);
@@ -113,11 +151,22 @@ public class CommentDialog extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //this.setCancelable(false);          // 设置点击屏幕Dialog不消失
-        teacherName = getArguments().getString(ARGS_DIALOG_TEACHER_NAME, "");
-        teacherAvatarUrl = getArguments().getString(ARGS_DIALOG_TEACHER_AVATAR, "");
-        courseName = getArguments().getString(ARGS_DIALOG_COURSE_NAME, "");
-        comment = getArguments().getParcelable(ARGS_DIALOG_COMMENT);
-        timeslot = getArguments().getLong(ARGS_DIALOG_TIMESLOT, 0L);
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            commentType = bundle.getInt(ARGS_DIALOG_COMMENT_TYPE);
+            if (commentType==0){
+                teacherName = bundle.getString(ARGS_DIALOG_TEACHER_NAME, "");
+                teacherAvatar = bundle.getString(ARGS_DIALOG_TEACHER_AVATAR, "");
+            }else{
+                lecturerName = bundle.getString(ARGS_DIALOG_LECTURER_NAME, "");
+                lecturerAvatar = bundle.getString(ARGS_DIALOG_LECTURER_AVATAR, "");
+                assistName = bundle.getString(ARGS_DIALOG_ASSIST_NAME, "");
+                assistAvatar = bundle.getString(ARGS_DIALOG_ASSIST_AVATAR, "");
+            }
+            courseName = bundle.getString(ARGS_DIALOG_COURSE_NAME, "");
+            comment = bundle.getParcelable(ARGS_DIALOG_COMMENT);
+            timeslot = bundle.getLong(ARGS_DIALOG_TIMESLOT, 0L);
+        }
         init();
         setStyle(DialogFragment.STYLE_NO_TITLE, 0);
     }
@@ -174,6 +223,16 @@ public class CommentDialog extends DialogFragment {
 
 
     private void initViews() {
+        if (commentType==0){
+            ivLiveCourseAvator.setVisibility(View.GONE);
+            teacherAvater.loadCircleImage(teacherAvatar, R.drawable.ic_default_teacher_avatar);
+            tvTeacherName.setText(teacherName);
+        }else{
+            teacherAvater.setVisibility(View.GONE);
+            tvTeacherName.setText(lecturerName);
+            ivLiveCourseAvator.setLeftCircleImage(lecturerAvatar, R.drawable.ic_default_teacher_avatar);
+            ivLiveCourseAvator.setRightCircleImage(assistAvatar, R.drawable.ic_default_teacher_avatar);
+        }
         //查看课程评价
         if (comment != null) {  //已评价
             StatReporter.commentPage(true);
@@ -227,8 +286,6 @@ public class CommentDialog extends DialogFragment {
             });
 
         }
-        teacherAvater.loadCircleImage(teacherAvatarUrl, R.drawable.ic_default_teacher_avatar);
-        tvTeacherName.setText(teacherName);
         tvCourse.setText(courseName);
     }
 
@@ -429,7 +486,7 @@ public class CommentDialog extends DialogFragment {
     }
 
     private void commentSucceed(Comment response) {
-        //跟新课表
+        //更新课表
         commentSuccess = true;
         //EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_RELOAD_TIMETABLE_DATA));
         MiscUtil.toast(R.string.comment_succeed);

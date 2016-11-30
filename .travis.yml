@@ -1,7 +1,8 @@
 language: android        # 声明构建语言环境
 jdk: oraclejdk8          # 下载jdk8
 
-sudo: false              # 开启基于容器的Travis CI任务，让编译效率更高。
+#sudo: false              # 开启基于容器的Travis CI任务，让编译效率更高。
+sudo: required            # Sudo-enabled  7.5G内存
 
 android:
   components:            # 配置信息
@@ -22,7 +23,7 @@ android:
   # - extra-android-m2repository
 
 
-before_install:    #解密私密文件签名文件等(这里主要解密keystore和gradl
+before_install:    #解密私密文件签名文件等(这里主要解密keystore和gradl)
  - openssl aes-256-cbc -K $encrypted_566122ccfbf2_key -iv $encrypted_566122ccfbf2_iv -in secrets.tar.enc -out secrets.tar -d
  - tar xvf secrets.tar
  #- openssl aes-256-cbc -K $encrypted_566122ccfbf2_key -iv $encrypted_566122ccfbf2_iv -in secrets.tar.enc -out secrets.tar -d   #解密私密文件签名文件等(这里主要解密keystore和gradle.properties)
