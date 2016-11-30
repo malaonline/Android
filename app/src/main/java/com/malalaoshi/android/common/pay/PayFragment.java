@@ -201,7 +201,7 @@ public class PayFragment extends Fragment implements View.OnClickListener {
                     EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_PAY_SUCCESS));
                     getOrderStatusFromOurServer();
                 } else if (result.equals("cancel")) {
-                    showPromptDialog(R.drawable.ic_pay_failed, "用户取消支付！", "知道了",null);
+                    //showPromptDialog(R.drawable.ic_pay_failed, "您已取消支付！", "知道了",null);
                 } else if (result.equals("invalid")) {
                     showPromptDialog(R.drawable.ic_pay_failed, "微信支付要先安装微信！", "知道了",null);
                 } else {
