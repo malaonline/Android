@@ -107,7 +107,7 @@ public class PayFragment extends Fragment implements View.OnClickListener {
         payView.setOnClickListener(this);
         if (resultEntity != null) {
             double value = Double.valueOf(resultEntity.getTo_pay()) * 0.01d;
-            totalView.setText(com.malalaoshi.android.utils.Number.subZeroAndDot(value));
+            totalView.setText("￥"+com.malalaoshi.android.utils.Number.subZeroAndDot(value));
         }
         return view;
     }

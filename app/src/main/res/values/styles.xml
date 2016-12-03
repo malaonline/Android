@@ -475,4 +475,26 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="pay_buttom_btn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_marginBottom">25dp</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@drawable/bg_blue_rectangle_btn</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_normal_high</item>
+    </style>
+
+    <style name="normal_bottom">
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/teacher_body_margin_bottom</item>
+        <item name="android:paddingTop">1px</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/color_gray_dadada</item>
+    </style>
 </resources>

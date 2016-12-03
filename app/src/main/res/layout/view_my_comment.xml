@@ -135,7 +135,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="11dp"
-            android:background="@drawable/bg_comment_valid_btn"
+            android:background="@drawable/bg_red_border_btn"
             android:gravity="center"
             android:text="去评价"
             android:textColor="@color/color_red_e26254"

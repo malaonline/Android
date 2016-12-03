@@ -140,65 +140,51 @@
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:visibility="visible"
+    <LinearLayout
         android:id="@+id/rl_operation"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:background="@color/color_white_ffffff">
+        style="@style/normal_bottom"
+        >
 
-        <View
-            android:id="@+id/view_line"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_gray_dadada" />
-
-        <TextView
-            android:id="@+id/tv_mount_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="5dp"
-            android:text="合计:"
-            android:textColor="@color/color_black_333333"
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/tv_cost_unit"
-            android:text="¥"
-            android:textColor="@color/color_red_e26254_e6"
-            android:textSize="13sp"
-            android:layout_toRightOf="@id/tv_mount_label"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="3dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_mount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="6dp"
-            android:layout_toRightOf="@+id/tv_cost_unit"
-            android:gravity="center"
-            android:text="0"
-            android:textColor="@color/color_red_e26254_e6"
-            android:textSize="13sp" />
-
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="合计:"
+                android:textColor="@color/color_black_333333"
+                android:textSize="@dimen/text_size_small_high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="5dp"
+                />
+            <TextView
+                android:id="@+id/tv_cost_unit"
+                android:text="¥"
+                android:textColor="@color/color_red_e26254"
+                android:textSize="@dimen/text_size_xlarge"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                tools:text="1024"
+                android:id="@+id/tv_mount"
+                android:textColor="@color/color_red_e26254"
+                android:textSize="@dimen/text_size_xlarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
         <TextView
             android:id="@+id/tv_submit"
-            android:visibility="visible"
-            android:layout_width="144dp"
-            android:layout_height="37dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/btn_confirm"
-            android:gravity="center"
             android:text="提交订单"
+            style="@style/LiveCourse_button"
+            android:textSize="@dimen/text_size_large_high"
             android:textColor="@color/color_white_ffffff"
-            android:textSize="@dimen/text_size_small" />
-    </RelativeLayout>
+            android:background="@drawable/bg_blue_rectangle_btn"/>
+    </LinearLayout>
+
 </FrameLayout>

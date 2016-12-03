@@ -3,7 +3,7 @@
     <corners android:radius="@dimen/corners_radius_small" />
     <!-- 填充 -->
     <solid
-        android:color="@color/white"/><!-- 填充的颜色 -->
+        android:color="@color/orange_red_light"/><!-- 填充的颜色 -->
     <!-- 描边 -->
     <stroke
         android:width="0.5dp"

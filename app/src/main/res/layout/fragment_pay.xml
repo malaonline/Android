@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white_f6f6f6"
-    android:paddingBottom="12dp"
-    tools:context=".fragments.main.MainFragment">
+    >
 
     <RelativeLayout
         android:id="@+id/rl_top"
@@ -209,17 +208,10 @@
         android:layout_height="0.5dp"
         android:layout_below="@id/rl_wx"
         android:background="@color/color_gray_e5e5e5" />
-
     <TextView
         android:id="@+id/tv_pay"
-        android:layout_width="match_parent"
-        android:layout_height="37dp"
+        style="@style/pay_buttom_btn"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:background="@drawable/pay_btn"
-        android:gravity="center"
-        android:text="支付"
-        android:textColor="@color/color_white_ffffff"
-        android:textSize="15dp" />
+        android:text="立即支付"
+        />
 </RelativeLayout>
