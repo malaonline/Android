@@ -22,7 +22,7 @@
         android:textColor="@color/color_blue_8dbede"
         android:textSize="@dimen/text_size_large"
         android:gravity="center"
-        android:background="@drawable/bg_blue_border_btn"
+        android:background="@drawable/bg_blue_border_circular_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:layout_width="164dp"

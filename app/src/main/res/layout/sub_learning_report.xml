@@ -96,7 +96,7 @@
             android:layout_height="37dp"
             android:layout_below="@id/ll_report"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/bg_blue_btn"
+            android:background="@drawable/bg_blue_angle_btn"
             android:gravity="center"
             android:text="查看我的学习报告"
             android:textColor="@color/white" />

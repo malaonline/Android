@@ -2,14 +2,15 @@
 <resources>
 
     <!--标准颜色-->
-
     <color name="orange_red">#E26254</color>
+    <color name="orange_red_deep">#D65D4F</color>
+    <color name="orange_red_light">#FCEFED</color>
     <color name="grass_green">#9EC379</color>
     <color name="grass_green_deep">#8eb567</color>
 
-    <color name="sky_blue_light">#9BC3E1</color>
-    <color name="sky_blue">#82B4D9</color>
     <color name="sky_blue_deep">#7FB2D8</color>
+    <color name="sky_blue">#84B3D7</color>
+    <color name="sky_blue_light">#9BC3E1</color>
     <color name="alice_blue_light">#F0F8FE</color>
 
     <color name="grey_black_deep">#333333</color>
@@ -20,7 +21,10 @@
     <color name="grey_light">#DBDBDB</color>
     <color name="white_smoke">#f2f2f2</color>
     <color name="white">#ffffff</color>
-    <color name="white_alpha60"></color>
+    <!--带透明的色值 alpha-->
+    <color name="white_alpha60">#99ffffff</color>
+
+
 
     <!-- 颜色的定义尽可能的少，干净。 -->
     <!--蓝色blue-->
