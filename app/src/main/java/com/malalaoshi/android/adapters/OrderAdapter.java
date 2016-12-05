@@ -149,7 +149,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
                 rlOrderId.setBackgroundColor(resources.getColor(R.color.color_blue_8fbcdd));
                 tvOrderStatus.setTextColor(resources.getColor(R.color.color_red_e26254));
                 tvOrderStatus.setText("待支付");
-                tvBuyCourse.setBackground(resources.getDrawable(R.drawable.bg_pay_order_btn));
+                tvBuyCourse.setBackground(resources.getDrawable(R.drawable.bg_red_corners_btn));
                 tvBuyCourse.setText("立即支付");
                 tvBuyCourse.setTextColor(resources.getColor(R.color.white));
             } else if ("p".equals(order.getStatus())) {
@@ -158,7 +158,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
                 rlOrderId.setBackgroundColor(view.getContext().getResources().getColor(R.color.color_blue_8fbcdd));
                 tvOrderStatus.setTextColor(resources.getColor(R.color.color_blue_8fbcdd));
                 tvOrderStatus.setText("支付成功");
-                tvBuyCourse.setBackground(resources.getDrawable(R.drawable.bg_buy_course_btn));
+                tvBuyCourse.setBackground(resources.getDrawable(R.drawable.bg_red_border_btn));
                 tvBuyCourse.setText("再次购买");
                 tvBuyCourse.setTextColor(resources.getColor(R.color.color_red_e26254));
             } else if ("r".equals(order.getStatus())) {
@@ -173,7 +173,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
                 rlOrderId.setBackgroundColor(view.getContext().getResources().getColor(R.color.color_gray_cfcfcf));
                 tvOrderStatus.setTextColor(resources.getColor(R.color.color_black_939393));
                 tvOrderStatus.setText("已关闭");
-                tvBuyCourse.setBackground(resources.getDrawable(R.drawable.bg_buy_course_btn));
+                tvBuyCourse.setBackground(resources.getDrawable(R.drawable.bg_red_border_btn));
                 tvBuyCourse.setText("重新购买");
                 tvBuyCourse.setTextColor(resources.getColor(R.color.color_red_e26254));
             }
@@ -207,7 +207,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
                 rlOrderId.setBackgroundColor(resources.getColor(R.color.color_blue_8fbcdd));
                 tvOrderStatus.setTextColor(resources.getColor(R.color.color_red_e26254));
                 tvOrderStatus.setText("订单待支付");
-                tvBuyCourse.setBackground(resources.getDrawable(R.drawable.bg_pay_order_btn));
+                tvBuyCourse.setBackground(resources.getDrawable(R.drawable.bg_red_corners_btn));
                 tvBuyCourse.setText("立即支付");
                 tvBuyCourse.setTextColor(resources.getColor(R.color.white));
             } else if ("p".equals(order.getStatus())) {

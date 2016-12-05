@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="37dp" />
-    <!-- 填充 -->
-    <solid
-        android:color="@color/white"/><!-- 填充的颜色 -->
-    <!-- 描边 -->
     <stroke
         android:width="0.5dp"
-        android:color="@color/sky_blue"
-        />
+        android:color="@color/color_blue_8fbcdd" />
 </shape>

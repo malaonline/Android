@@ -1,4 +1,5 @@
 <resources>
+
     <!-- 字体大小 -->
     <dimen name="text_size_cell">8sp</dimen>
     <dimen name="text_size_cell_high">9sp</dimen>
@@ -20,6 +21,15 @@
     <dimen name="text_size_biglarge_high">25sp</dimen>
     <dimen name="text_size_xbiglarge">26sp</dimen>
     <dimen name="text_size_xbiglarge_high">27sp</dimen>
+
+    <!--标准间距 spacing-->
+    <dimen name="layout_spacing_small">6dp</dimen>
+    <dimen name="layout_spacing_normal">12dp</dimen>
+    <dimen name="layout_spacing_large">18dp</dimen>
+    <dimen name="layout_spacing_large_high">24dp</dimen>
+
+    <dimen name="corners_radius_small">2dp</dimen>
+
 
     <dimen name="outside_padding">0dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->

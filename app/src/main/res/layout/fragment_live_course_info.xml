@@ -282,13 +282,7 @@
     </ScrollView>
 
     <LinearLayout
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/teacher_body_margin_bottom"
-        android:paddingTop="1px"
-        android:gravity="center_vertical"
-        android:background="@color/color_gray_dadada"
+        style="@style/normal_bottom"
         >
         <TextView
             android:id="@+id/tv_course_price"

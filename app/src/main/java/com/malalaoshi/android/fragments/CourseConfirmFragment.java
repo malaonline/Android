@@ -616,7 +616,7 @@ public class CourseConfirmFragment extends BaseFragment
      */
     private void calculateSum() {
         float sum = calculateCost();
-        amountView.setText("¥ " + String.format("%.2f", sum));
+        amountView.setText(String.format("%.2f", sum));
     }
 
     private void initGridView() {

@@ -112,7 +112,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
 
         holder.stateView.setText("已评");
         holder.stateView.setBackgroundResource(R.drawable.ic_commented);
-        holder.commentView.setBackgroundResource(R.drawable.bg_comment_done_btn);
+        holder.commentView.setBackgroundResource(R.drawable.bg_blue_border_btn);
         holder.commentView.setText("查看评价");
         holder.commentView.setTextColor(getColor(R.color.color_blue_82b4d9));
         holder.ratingbar.setVisibility(View.VISIBLE);
@@ -138,7 +138,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
         holder.stateView.setText("待评");
         holder.stateView.setBackgroundResource(R.drawable.ic_no_comment);
         holder.commentView.setText("去评价");
-        holder.commentView.setBackgroundResource(R.drawable.bg_comment_valid_btn);
+        holder.commentView.setBackgroundResource(R.drawable.bg_red_border_btn);
         holder.commentView.setTextColor(getColor(R.color.color_red_e26254));
         holder.ratingbar.setVisibility(View.GONE);
         holder.commentView.setOnClickListener(new View.OnClickListener() {

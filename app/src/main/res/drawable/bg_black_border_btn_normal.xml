@@ -7,6 +7,6 @@
     <!-- 描边 -->
     <stroke
         android:width="0.5dp"
-        android:color="@color/sky_blue"
+        android:color="@color/grey_black_light"
         />
 </shape>
