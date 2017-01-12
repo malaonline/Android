@@ -294,11 +294,10 @@
 
         <TextView
             android:id="@+id/tv_buy_course"
-            android:text="@string/live_course_buy"
             style="@style/LiveCourse_button"
             android:textSize="@dimen/text_size_large_high"
             android:textColor="@color/color_white_ffffff"
-            android:background="@drawable/bg_blue_rectangle_btn"/>
+            android:background="@drawable/bg_grey_rectangle_btn_disable"/>
     </LinearLayout>
 
 </FrameLayout>

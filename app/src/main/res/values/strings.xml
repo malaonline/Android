@@ -136,6 +136,8 @@
     <string name="live_course_disc">课程介绍</string>
     <string name="live_course_lecture">直播名师</string>
     <string name="live_course_buy">立即购买</string>
+    <string name="live_course_over">已结束</string>
+    <string name="live_course_full">已 满</string>
     <string name="live_course_contact_assist">联系助教</string>
     <string name="live_course_consultation_text">对课程有疑问？快电话咨询助教老师吧！</string>
 

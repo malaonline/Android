@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.MiscUtil;
 import com.malalaoshi.android.utils.Number;
 import com.malalaoshi.android.utils.StringUtil;
+
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -134,7 +137,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     }
 
     private void setEvent() {
-        tvBuyCourse.setOnClickListener(this);
+        //tvBuyCourse.setOnClickListener(this);
         ivAssistAvatar.setOnClickListener(this);
     }
 
@@ -211,6 +214,10 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                         }
                     }, false, false);
         } else if (!entity.isOk() && entity.getCode() == -3) {
+            //已满
+            tvBuyCourse.setOnClickListener(null);
+            tvBuyCourse.setText(getResources().getString(R.string.live_course_full));
+            tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_red_rectangle_btn_normal));
             DialogUtil.showPromptDialog(
                     getFragmentManager(), R.drawable.ic_timeallocate,
                     "报名人数已满，请重新选择直播班级!", "知道了", new PromptDialog.OnDismissListener() {
@@ -293,6 +300,30 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                 String str2 = String.format("%d次",liveCourse.getCourse_lessons());
                 StringUtil.setHumpText(tvCoursePrice.getContext(),tvCoursePrice,str1,R.style.LiveCoursePriceStyle,str2,R.style.LiveCourseStuNum);
             }
+
+            //判断时间
+            Long endTime = liveCourse.getCourse_end();
+
+            Long currentTime = CalendarUtils.getCurrentTimestamp();
+            Log.e("timeaaaa",endTime + " "+currentTime);
+            if (currentTime-endTime>=0){
+                //课程已结束
+                tvBuyCourse.setText(getResources().getString(R.string.live_course_over));
+                tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_grey_rectangle_btn_disable));
+                return;
+            }
+
+            //判断人数是否已满
+            if (liveCourse.getStudents_count()>=liveCourse.getRoom_capacity()){
+                //已满
+                tvBuyCourse.setText(getResources().getString(R.string.live_course_full));
+                tvBuyCourse.setTextColor(getResources().getColor(R.color.white_alpha60));
+                tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_red_rectangle_btn_normal));
+            }else{
+                tvBuyCourse.setText(getResources().getString(R.string.live_course_buy));
+                tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_blue_rectangle_btn));
+                tvBuyCourse.setOnClickListener(this);
+            }
         }
     }
 
@@ -304,7 +335,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
         private String courseId;
 
-        public LoadLiveCourseInfoRequest(LiveCourseInfoFragment fragment, String courseId) {
+        LoadLiveCourseInfoRequest(LiveCourseInfoFragment fragment, String courseId) {
             super(fragment);
             this.courseId = courseId;
         }
@@ -336,7 +367,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
         private CreateLiveCourseOrderEntity entity;
 
-        public CreateOrderRequest(LiveCourseInfoFragment liveCourseInfoFragment,
+        CreateOrderRequest(LiveCourseInfoFragment liveCourseInfoFragment,
                                   CreateLiveCourseOrderEntity entity) {
             super(liveCourseInfoFragment);
             this.entity = entity;
