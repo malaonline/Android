@@ -2,19 +2,19 @@ package com.malalaoshi.android.ui.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ListView;
+import android.widget.GridView;
 
 /**
  * Created by kang on 16/1/12.
  */
-public class ScrollListView extends ListView {
+public class NoScrollGridView extends GridView {
 
 
-    public ScrollListView(Context context, AttributeSet attrs) {
+    public NoScrollGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ScrollListView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public NoScrollGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

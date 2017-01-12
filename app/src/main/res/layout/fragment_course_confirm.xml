@@ -54,7 +54,7 @@
                 android:textColor="@color/color_black_333333"
                 android:textSize="15sp" />
 
-            <com.malalaoshi.android.ui.widgets.ScrollListView
+            <com.malalaoshi.android.ui.widgets.NoScrollListView
                 android:visibility="gone"
                 android:id="@+id/ll_place"
                 android:layout_width="match_parent"
@@ -190,7 +190,7 @@
                         android:src="@drawable/ic_down" />
                 </LinearLayout>
 
-                <com.malalaoshi.android.ui.widgets.ScrollListView
+                <com.malalaoshi.android.ui.widgets.NoScrollListView
                     android:id="@+id/lv_show_times"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
             </RelativeLayout>
 
 
-            <com.malalaoshi.android.ui.widgets.ScrollListView
+            <com.malalaoshi.android.ui.widgets.NoScrollListView
                 android:id="@+id/list_choice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

@@ -356,7 +356,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.malalaoshi.android.ui.widgets.ScrollListView
+        <com.malalaoshi.android.ui.widgets.NoScrollListView
             android:id="@+id/parent_teacher_detail_highscore_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

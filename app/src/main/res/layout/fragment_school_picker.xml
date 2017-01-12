@@ -45,7 +45,7 @@
             android:paddingBottom="@dimen/page_padding_small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <com.malalaoshi.android.ui.widgets.ScrollListView
+        <ListView
             android:id="@+id/gv_all_schools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

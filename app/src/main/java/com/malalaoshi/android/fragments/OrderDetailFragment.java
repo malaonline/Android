@@ -35,7 +35,7 @@ import com.malalaoshi.android.network.result.OkResult;
 import com.malalaoshi.android.utils.CalendarUtils;
 import com.malalaoshi.android.utils.ConversionUtils;
 import com.malalaoshi.android.utils.MiscUtil;
-import com.malalaoshi.android.ui.widgets.ScrollListView;
+import com.malalaoshi.android.ui.widgets.NoScrollListView;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -94,7 +94,7 @@ public class OrderDetailFragment extends BaseFragment {
     protected TextView tvTotalClassRighttext;
 
     @Bind(R.id.lv_show_times)
-    protected ScrollListView lvShowTimes;
+    protected NoScrollListView lvShowTimes;
 
     @Bind(R.id.rl_pay_way)
     protected RelativeLayout rlPayWay;

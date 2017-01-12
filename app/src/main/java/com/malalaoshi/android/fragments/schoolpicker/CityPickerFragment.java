@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
@@ -18,7 +19,6 @@ import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.entity.City;
 import com.malalaoshi.android.network.result.CityListResult;
 import com.malalaoshi.android.utils.MiscUtil;
-import com.malalaoshi.android.ui.widgets.ScrollListView;
 import com.malalaoshi.android.ui.widgets.SideBar;
 
 import java.util.List;
@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 public class CityPickerFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     @Bind(R.id.gv_all_cities)
-    protected ScrollListView gvAllCities;
+    protected ListView gvAllCities;
 
     @Bind(R.id.vt_tip_dialog)
     protected TextView vtTipDialog;
