@@ -314,9 +314,10 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
             }
 
             //判断人数是否已满
-            if (liveCourse.getRoom_capacity()>liveCourse.getStudents_count()){
+            if (liveCourse.getStudents_count()>=liveCourse.getRoom_capacity()){
                 //已满
                 tvBuyCourse.setText(getResources().getString(R.string.live_course_full));
+                tvBuyCourse.setTextColor(getResources().getColor(R.color.white_alpha60));
                 tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_red_rectangle_btn_normal));
             }else{
                 tvBuyCourse.setText(getResources().getString(R.string.live_course_buy));
