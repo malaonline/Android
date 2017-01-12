@@ -183,7 +183,7 @@
                     android:background="@color/color_gray_e0e0e0"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"/>
-                <com.malalaoshi.android.ui.widgets.ScrollListView
+                <com.malalaoshi.android.ui.widgets.NoScrollListView
                     android:id="@+id/lv_show_times"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"

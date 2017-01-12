@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,7 +24,6 @@ import com.malalaoshi.android.entity.City;
 import com.malalaoshi.android.entity.School;
 import com.malalaoshi.android.network.result.SchoolListResult;
 import com.malalaoshi.android.utils.MiscUtil;
-import com.malalaoshi.android.ui.widgets.ScrollListView;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class SchoolPickerFragment extends BaseFragment implements AdapterView.On
     protected TextView tvCity;
 
     @Bind(R.id.gv_all_schools)
-    protected ScrollListView gvAllSchools;
+    protected ListView gvAllSchools;
 
     protected SchoolPickerAdapter schoolPickerAdapter;
 
@@ -169,6 +170,7 @@ public class SchoolPickerFragment extends BaseFragment implements AdapterView.On
         }
         schools = response.getResults();
         if (schools!=null){
+            Log.e("school","schools:"+schools.size());
             schoolPickerAdapter.clear();
             schoolPickerAdapter.addAll(schools);
             schoolPickerAdapter.notifyDataSetChanged();

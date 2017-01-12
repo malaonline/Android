@@ -28,7 +28,7 @@ import com.malalaoshi.android.common.pay.PayActivity;
 import com.malalaoshi.android.common.pay.PayManager;
 import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.MiscUtil;
-import com.malalaoshi.android.ui.widgets.ScrollListView;
+import com.malalaoshi.android.ui.widgets.NoScrollListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class ConfirmOrderFragment extends BaseFragment implements View.OnClickLi
     protected TextView tvTotalHours;
 
     @Bind(R.id.lv_show_times)
-    protected ScrollListView lvShowTimes;
+    protected NoScrollListView lvShowTimes;
 
 
     @Bind(R.id.tv_mount)
