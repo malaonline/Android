@@ -43,7 +43,7 @@ android {
         applicationId "com.malalaoshi.android"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 15
+        versionCode 16
         versionName "3.3.2"
 
         // Enabling multidex support.
