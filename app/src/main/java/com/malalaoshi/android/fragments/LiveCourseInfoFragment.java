@@ -27,25 +27,26 @@ import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
 import com.malalaoshi.android.entity.CreateLiveCourseOrderEntity;
 import com.malalaoshi.android.entity.LiveCourse;
+import com.malalaoshi.android.listener.OnTitleBarClickListener;
 import com.malalaoshi.android.network.api.LiveCourseInfoApi;
 import com.malalaoshi.android.ui.dialogs.PromptDialog;
 import com.malalaoshi.android.utils.CalendarUtils;
 import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.MiscUtil;
 import com.malalaoshi.android.utils.Number;
+import com.malalaoshi.android.utils.ShareUtils;
 import com.malalaoshi.android.utils.StringUtil;
-
-import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.sharesdk.framework.ShareSDK;
 import de.greenrobot.event.EventBus;
 
 /**
  * Created by kang on 16/10/14.
  */
 
-public class LiveCourseInfoFragment extends BaseFragment implements View.OnClickListener {
+public class LiveCourseInfoFragment extends BaseFragment implements View.OnClickListener, OnTitleBarClickListener {
     public static String ARGS_COURSE_ID = "order_id";
     public static String ARGS_COURSE = "order info";
     private static int REQUEST_CODE_LOGIN = 1000;
@@ -120,6 +121,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_live_course_info, container, false);
         ButterKnife.bind(this, view);
+        ShareSDK.initSDK(getContext());
         initData();
         initViews();
         setEvent();
@@ -163,6 +165,14 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                 }
         }
 
+    }
+
+    private void showWxShare() {
+        if (liveCourse==null) return;
+        String title = String.format("%s 在麻辣老师为您讲授 %s",liveCourse.getLecturer_name(),liveCourse.getCourse_name());
+        String lectureImg = liveCourse.getLecturer_avatar();
+        String host = String.format(getString(R.string.api_host)+"/wechat/liveclasses/?liveclassesid=%d",liveCourse.getId());
+        ShareUtils.showWxShare(getContext(),title,"顶级名师直播授课，当地老师全程辅导，赶快加入我们吧！",lectureImg,host);
     }
 
     private void callAssistPhone() {
@@ -329,6 +339,16 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
     private void onLoadError() {
         MiscUtil.toast("班级信息加载失败!");
+    }
+
+    @Override
+    public void onTitleLeftClick() {
+
+    }
+
+    @Override
+    public void onTitleRightClick() {
+        showWxShare();
     }
 
     private static final class LoadLiveCourseInfoRequest extends BaseApiContext<LiveCourseInfoFragment, LiveCourse> {

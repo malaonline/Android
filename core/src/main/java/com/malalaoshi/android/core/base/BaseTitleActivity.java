@@ -1,9 +1,11 @@
 package com.malalaoshi.android.core.base;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import com.malalaoshi.android.core.R;
 import com.malalaoshi.android.core.view.TitleBarView;
@@ -82,6 +84,15 @@ public abstract class BaseTitleActivity extends BaseActivity implements TitleBar
         if (titleView != null) {
             titleView.setTitle(rid);
         }
+    }
+    public void setTitleViewLeftResource(int resId) {
+        Drawable drawable = getResources().getDrawable(resId);
+        titleView.setLeftImageDrawable(drawable);
+    }
+
+    public void setTitleViewRightResource(int resId){
+        titleView.setRightVisibility(View.VISIBLE);
+        titleView.setRightBackgroundResource(resId);
     }
 
 }
