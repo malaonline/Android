@@ -26,6 +26,7 @@ public class LiveCourse extends BaseEntity{
     private String assistant_phone;
     private String school_name;
     private String school_address;
+    private boolean is_paid;
 
     public String getCourse_name() {
         return course_name;
@@ -179,6 +180,13 @@ public class LiveCourse extends BaseEntity{
         this.school_address = school_address;
     }
 
+    public boolean is_paid() {
+        return is_paid;
+    }
+
+    public void setIs_paid(boolean is_paid) {
+        this.is_paid = is_paid;
+    }
 
     public LiveCourse() {
     }
@@ -211,6 +219,7 @@ public class LiveCourse extends BaseEntity{
         dest.writeString(this.assistant_phone);
         dest.writeString(this.school_name);
         dest.writeString(this.school_address);
+        dest.writeByte(this.is_paid ? (byte) 1 : (byte) 0);
     }
 
     protected LiveCourse(Parcel in) {
@@ -234,6 +243,7 @@ public class LiveCourse extends BaseEntity{
         this.assistant_phone = in.readString();
         this.school_name = in.readString();
         this.school_address = in.readString();
+        this.is_paid = in.readByte() != 0;
     }
 
     public static final Creator<LiveCourse> CREATOR = new Creator<LiveCourse>() {
