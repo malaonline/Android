@@ -235,7 +235,21 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                         public void onDismiss() {
                         }
                     }, false, false);
-        } else {
+        } else if (!entity.isOk() && entity.getCode() == -3) {
+            //已满
+            tvBuyCourse.setOnClickListener(null);
+            tvBuyCourse.setText(getResources().getString(R.string.live_course_paid));
+            tvBuyCourse.setTextColor(getResources().getColor(R.color.white_alpha60));
+            tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_red_rectangle_btn_normal));
+            DialogUtil.showPromptDialog(
+                    getFragmentManager(), R.drawable.ic_timeallocate,
+                    "您已购买过该课程，同一账户只能购买一次!", "知道了", new PromptDialog.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                        }
+                    }, false, false);
+        }
+        else {
             entity.setOrderType(OrderDef.ORDER_TYPE_LIVE_COURSE);
             launchPayActivity(entity);
         }
@@ -309,6 +323,15 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                 String str1 = String.format("￥%s",Number.subZeroAndDot(liveCourse.getCourse_fee().doubleValue() * 0.01d));
                 String str2 = String.format("%d次",liveCourse.getCourse_lessons());
                 StringUtil.setHumpText(tvCoursePrice.getContext(),tvCoursePrice,str1,R.style.LiveCoursePriceStyle,str2,R.style.LiveCourseStuNum);
+            }
+
+            //已经购买
+            if (liveCourse.is_paid()){
+                //已经购买
+                tvBuyCourse.setText(getResources().getString(R.string.live_course_paid));
+                tvBuyCourse.setTextColor(getResources().getColor(R.color.white_alpha60));
+                tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_red_rectangle_btn_normal));
+                return;
             }
 
             //判断时间
