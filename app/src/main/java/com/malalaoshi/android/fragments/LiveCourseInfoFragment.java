@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,6 +102,9 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
     private String courseId;
 
+    //页面数据获取方式
+    private boolean dataWay;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +136,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
     private void initViews() {
         if (liveCourse!=null){
-            updateUI();
+            setLiveCourse();
         }
     }
 
@@ -227,6 +229,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
             //已满
             tvBuyCourse.setOnClickListener(null);
             tvBuyCourse.setText(getResources().getString(R.string.live_course_full));
+            tvBuyCourse.setTextColor(getResources().getColor(R.color.white_alpha60));
             tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_red_rectangle_btn_normal));
             DialogUtil.showPromptDialog(
                     getFragmentManager(), R.drawable.ic_timeallocate,
@@ -235,12 +238,11 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                         public void onDismiss() {
                         }
                     }, false, false);
-        } else if (!entity.isOk() && entity.getCode() == -3) {
-            //已满
+        } else if (!entity.isOk() && entity.getCode() == -4) {
+            //已购买
             tvBuyCourse.setOnClickListener(null);
             tvBuyCourse.setText(getResources().getString(R.string.live_course_paid));
-            tvBuyCourse.setTextColor(getResources().getColor(R.color.white_alpha60));
-            tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_red_rectangle_btn_normal));
+            tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_grey_rectangle_btn_disable));
             DialogUtil.showPromptDialog(
                     getFragmentManager(), R.drawable.ic_timeallocate,
                     "您已购买过该课程，同一账户只能购买一次!", "知道了", new PromptDialog.OnDismissListener() {
@@ -250,6 +252,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                     }, false, false);
         }
         else {
+            tvBuyCourse.setOnClickListener(this);
             entity.setOrderType(OrderDef.ORDER_TYPE_LIVE_COURSE);
             launchPayActivity(entity);
         }
@@ -289,11 +292,12 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
     private void onLoadSuccess(LiveCourse response) {
         this.liveCourse = response;
-        updateUI();
+        setLiveCourse();
     }
 
-    private void updateUI() {
+    private void setLiveCourse() {
         if (liveCourse!=null){
+            tvBuyCourse.setOnClickListener(null);
             tvLiveCourseName.setText(liveCourse.getCourse_name());
             tvCourseType.setText(liveCourse.getRoom_capacity()+"人班");
             tvGradeCourse.setText(liveCourse.getCourse_grade());
@@ -329,8 +333,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
             if (liveCourse.is_paid()){
                 //已经购买
                 tvBuyCourse.setText(getResources().getString(R.string.live_course_paid));
-                tvBuyCourse.setTextColor(getResources().getColor(R.color.white_alpha60));
-                tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_red_rectangle_btn_normal));
+                tvBuyCourse.setBackground(getResources().getDrawable(R.drawable.bg_grey_rectangle_btn_disable));
                 return;
             }
 
@@ -338,7 +341,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
             Long endTime = liveCourse.getCourse_end();
 
             Long currentTime = CalendarUtils.getCurrentTimestamp();
-            Log.e("timeaaaa",endTime + " "+currentTime);
+
             if (currentTime-endTime>=0){
                 //课程已结束
                 tvBuyCourse.setText(getResources().getString(R.string.live_course_over));
@@ -433,7 +436,6 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
         @Override
         public void onApiFinished() {
-            get().tvBuyCourse.setOnClickListener(get());
         }
 
         @Override
