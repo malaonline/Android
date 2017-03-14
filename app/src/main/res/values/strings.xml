@@ -133,6 +133,7 @@
 
 
     <string name="live_course_registered">已报：</string>
+    <string name="live_course_unregistered">剩余名额：</string>
     <string name="live_course_disc">课程介绍</string>
     <string name="live_course_lecture">直播名师</string>
     <string name="live_course_buy">立即购买</string>

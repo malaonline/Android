@@ -65,8 +65,8 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     @Bind(R.id.tv_course_time)
     protected TextView tvCourseTime;
 
-    @Bind(R.id.tv_stu_count)
-    protected TextView tvStuCount;
+    @Bind(R.id.tv_stu_unregistered_count)
+    protected TextView tvStuUnregisteredCount;
 
     @Bind(R.id.tv_school)
     protected TextView tvSchool;
@@ -308,7 +308,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                 newPeriod = oldPeriod.replace(';','\n');
             }
             tvCourseTime.setText(newPeriod);
-            tvStuCount.setText(liveCourse.getStudents_count()+"人");
+            tvStuUnregisteredCount.setText((20-liveCourse.getStudents_count())+"人");
             tvSchool.setText(liveCourse.getSchool_name());
             tvAddress.setText(liveCourse.getSchool_address());
             tvCourseDisc.setText(liveCourse.getCourse_description());

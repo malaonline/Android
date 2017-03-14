@@ -95,7 +95,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:text="@string/live_course_registered"
+                        android:text="@string/live_course_unregistered"
                         android:drawableLeft="@drawable/ic_registered"
                         android:drawablePadding="@dimen/item_text_padding"
                         android:textColor="@color/color_black_636363"
@@ -104,7 +104,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:id="@+id/tv_stu_count"
+                        android:id="@+id/tv_stu_unregistered_count"
                         tools:text="14人"
                         android:textColor="@color/color_red_e26254"
                         android:textSize="@dimen/text_size_normal"

@@ -206,7 +206,7 @@
         <item name="android:paddingBottom">10dp</item>
     </style>
     <style name="mala.widget.schoollist.name.text"  parent="android:Widget.TextView">
-        <item name="android:textColor">@color/color_black_333333</item>
+        <item name="android:textColor">@color/color_black_636363</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_width">match_parent</item>

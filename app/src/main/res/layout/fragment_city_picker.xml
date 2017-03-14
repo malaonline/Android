@@ -6,14 +6,11 @@
     android:layout_height="match_parent">
         <ListView
             android:id="@+id/gv_all_cities"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="12dp"
-            android:paddingLeft="12dp"
             android:background="@color/white"
-            android:divider="@color/color_white_f6f6f6"
-            android:dividerHeight="0.5dp"
+            android:divider="@color/color_transparent_000000_00"
+            android:dividerHeight="0dp"
             android:scrollbars="none"/>
         <TextView
             android:id="@+id/vt_tip_dialog"
@@ -22,12 +19,14 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="#ffffffff"
+            android:background="@color/color_gray_d0d0d0"
             android:textSize="30.0dip"
             android:visibility="invisible" />
 
         <com.malalaoshi.android.ui.widgets.SideBar
             android:id="@+id/sidebar"
-            android:layout_width="30.0dip"
+            android:background="@color/color_white_ffffff_8e"
+            android:layout_width="25dp"
             android:layout_height="match_parent"
             android:layout_gravity="right|center" />
 </FrameLayout>
