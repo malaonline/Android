@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/mala.widget.schoollist.item"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
     android:orientation="vertical"
     >
+    <View
+        android:id="@+id/line"
+        android:layout_alignBottom="@+id/tv_category"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/color_gray_f2f2f2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
     <TextView
+        android:id="@+id/tv_category"
+        android:textColor="@color/color_black_636363"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@color/color_gray_f2f2f2"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        tools:text="A"/>
+
+    <TextView
+        android:layout_below="@+id/line"
         android:id="@+id/tv_name"
         tools:text="北京"
         style="@style/mala.widget.schoollist.name.text"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"/>
-</LinearLayout>
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:gravity="center_vertical"
+        android:layout_height="37dp"
+        android:paddingLeft="12dp"/>
+</RelativeLayout>

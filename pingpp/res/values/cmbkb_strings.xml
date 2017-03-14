@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="cmbkb_caption">CMB Safe Input</string>
-    <string name="cmbkb_finish">Finish</string>
-    <string name="cmbkb_more">More</string>
-    <string name="cmbkb_please_input">Please Input</string>
-    <string name="cmbkb_safe_input">Safe Input</string>
-    <string name="cmbkb_back">Back</string>
+    <string name="cmbkb_caption">招商银行安全输入</string>
+    <string name="cmbkb_finish">完成</string>
+    <string name="cmbkb_more">更多</string>
+    <string name="cmbkb_please_input">请输入</string>
+    <string name="cmbkb_safe_input">安全输入</string>
+    <string name="cmbkb_back">返回</string>
     <string name="cmbkb_publickey">填写自己的publickey</string>
-
+    
 </resources>
