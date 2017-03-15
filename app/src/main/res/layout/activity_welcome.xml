@@ -12,22 +12,12 @@
        android:src="@drawable/ic_splash"
        android:layout_width="match_parent"
        android:layout_height="match_parent" />
-   <TextView
-       android:text="@string/splash_message"
-       android:gravity="center"
-       android:textColor="@color/color_white_ffffff"
-       android:textSize="28sp"
-       android:layout_centerInParent="true"
-       android:layout_alignParentTop="true"
-       android:layout_marginTop="54dp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content" />
    <LinearLayout
        android:layout_alignParentBottom="true"
        android:layout_centerInParent="true"
        android:gravity="center"
        android:orientation="vertical"
-       android:layout_width="100dp"
+       android:layout_width="match_parent"
        android:layout_height="58dp">
       <ImageView
           android:scaleType="fitCenter"
