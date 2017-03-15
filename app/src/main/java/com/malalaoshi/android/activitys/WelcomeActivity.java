@@ -26,9 +26,9 @@ public class WelcomeActivity extends BaseActivity {
         mHandler.postDelayed(new MyRunnable(this),1500);
     }
 
-    static class MyRunnable implements Runnable{
+    private static class MyRunnable implements Runnable{
         private WeakReference<Activity> activitys;
-        public MyRunnable(Activity activity){
+        MyRunnable(Activity activity){
             activitys = new WeakReference<Activity>(activity);
         }
         @Override
