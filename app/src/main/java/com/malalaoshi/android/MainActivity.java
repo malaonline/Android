@@ -48,8 +48,8 @@ import de.greenrobot.event.EventBus;
 public class MainActivity extends BaseActivity implements FragmentGroupAdapter.IFragmentGroup, View.OnClickListener, ViewPagerIndicator.OnPageChangeListener, ScheduleFragment.OnClickEmptyCourse {
 
     public static String EXTRAS_PAGE_INDEX = "page index";
-    public static final int PAGE_INDEX_TEACHERS = 0;
-    public static final int PAGE_INDEX_LIVE_COURSE = 1;
+    public static final int PAGE_INDEX_LIVE_COURSE = 0;
+    public static final int PAGE_INDEX_TEACHERS = 1;
     public static final int PAGE_INDEX_COURSES = 2;
     public static final int PAGE_INDEX_MEMBER_SERVICE = 3;
     public static final int PAGE_INDEX_USER = 4;
@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     //位置相关权限
     private static final int PERMISSIONS_REQUEST_LOCATION = 0x07;
 
-    private int pageIndex = PAGE_INDEX_TEACHERS;
+    private int pageIndex = PAGE_INDEX_LIVE_COURSE;
 
     protected TextView tvChooseSchool;
 
@@ -216,7 +216,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     }
 
     private void initData() {
-        indicatorTabs.setTitles(new String[]{"一对一","双师直播","课表","会员专享","我的"});
+        indicatorTabs.setTitles(new String[]{"双师直播","一对一","课表","会员专享","我的"});
         FragmentGroupAdapter homeFragmentAdapter = new FragmentGroupAdapter(this, getSupportFragmentManager(), this);
         vpHome.setAdapter(homeFragmentAdapter);
         vpHome.setOffscreenPageLimit(4);//缓存页面
@@ -265,12 +265,12 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     private void setCurrentPagerTitle(int i) {
         switch (i) {
-            case PAGE_INDEX_TEACHERS:
+            case PAGE_INDEX_LIVE_COURSE:
                 tvChooseSchool.setVisibility(View.VISIBLE);
                 tvTitleText.setVisibility(View.GONE);
                 StatReporter.teacherListPage();
                 break;
-            case PAGE_INDEX_LIVE_COURSE:
+            case PAGE_INDEX_TEACHERS:
                 tvChooseSchool.setVisibility(View.VISIBLE);
                 tvTitleText.setVisibility(View.GONE);
                 StatReporter.teacherListPage();
@@ -315,11 +315,11 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         Fragment fragment = fragments.get(position);
         if (fragment == null) {
             switch (position) {
-                case PAGE_INDEX_TEACHERS:
-                    fragment = new MainFragment();
-                    break;
                 case PAGE_INDEX_LIVE_COURSE:
                     fragment = new LiveCourseFragment();
+                    break;
+                case PAGE_INDEX_TEACHERS:
+                    fragment = new MainFragment();
                     break;
                 case PAGE_INDEX_COURSES:
                     fragment = new ScheduleFragment();
@@ -395,8 +395,8 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     @Override
     public void onClickEmptyCourse(View v) {
-        setCurrentPagerTitle(PAGE_INDEX_TEACHERS);
-        vpHome.setCurrentItem(PAGE_INDEX_TEACHERS);
+        setCurrentPagerTitle(PAGE_INDEX_LIVE_COURSE);
+        vpHome.setCurrentItem(PAGE_INDEX_LIVE_COURSE);
     }
 
     private static final class LoadNoticeRequest extends BaseApiContext<MainActivity, NoticeMessage> {

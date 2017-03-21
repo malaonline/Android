@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.activitys.GalleryActivity;
 import com.malalaoshi.android.common.pay.PayActivity;
 import com.malalaoshi.android.common.pay.PayManager;
 import com.malalaoshi.android.common.pay.utils.OrderDef;
@@ -143,6 +144,7 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
     private void setEvent() {
         //tvBuyCourse.setOnClickListener(this);
         ivAssistAvatar.setOnClickListener(this);
+        icLeatureAvatar.setOnClickListener(this);
     }
 
     private void loadData() {
@@ -165,8 +167,20 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
                 if (liveCourse!=null){
                     callAssistPhone();
                 }
+                break;
+            case R.id.iv_leature_avatar:
+                if (liveCourse!=null) {
+                    lunchGallery(liveCourse.getLecturer_avatar());
+                }
+                break;
         }
 
+    }
+
+    private void lunchGallery(String url) {
+        Intent intent = new Intent(getContext(), GalleryActivity.class);
+        intent.putExtra(GalleryActivity.GALLERY_URLS, new String[]{url});
+        startActivity(intent);
     }
 
     private void showWxShare() {

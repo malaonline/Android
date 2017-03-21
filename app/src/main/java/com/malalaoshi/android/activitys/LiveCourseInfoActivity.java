@@ -52,7 +52,7 @@ public class LiveCourseInfoActivity extends BaseTitleActivity {
             }
             replaceFragment(fragment);
         }
-        setTitleViewRightResource(R.drawable.bitmap_share_black);
+        //setTitleViewRightResource(R.drawable.bitmap_share_black);
     }
 
     @Override

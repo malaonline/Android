@@ -135,7 +135,7 @@ public class MalaPushReceiver extends BroadcastReceiver {
 
     private void lunchMainPager(Context context, Bundle bundle) {
         Intent i = new Intent(context, MainActivity.class);
-        i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_TEACHERS);
+        i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_LIVE_COURSE);
         i.putExtras(bundle);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(i);
