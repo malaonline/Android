@@ -193,12 +193,14 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
         if (response == null) {
             if(adapter.getItemCount()<=0){
                 setLayout(LayoutType.REFRESH_FAILED);
+                setErrorViewText(getErrorString());
             }
             return;
         }
         if (EmptyUtils.isEmpty(response.getResults())) {
             adapter.clear();
             setLayout(LayoutType.EMPTY);
+            setEmptyViewText(getEmptyString());
         } else {
             setLayout(LayoutType.LIST);
             adapter.clear();
@@ -210,6 +212,12 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
         } else {
             refreshLayout.setLoadMoreEnable(true);
         }
+    }
+    protected String getEmptyString(){
+        return "没有数据";
+    }
+    protected String getErrorString(){
+        return "加载失败，请重试";
     }
 
     /**

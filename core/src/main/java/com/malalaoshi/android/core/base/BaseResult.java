@@ -47,7 +47,7 @@ public class BaseResult<T> {
     @Override
     public String toString() {
         return "BaseResult{" +
-                ", count=" + count +
+                "count=" + count +
                 ", next=" + next +
                 ", previous=" + previous +
                 ", results=" + results +

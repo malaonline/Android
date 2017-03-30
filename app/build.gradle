@@ -146,6 +146,9 @@ android {
             }
         }
     }
+    dexOptions{
+        javaMaxHeapSize "4g"
+    }
 }
 
 def initShareSdk(appId, appSecret) {
