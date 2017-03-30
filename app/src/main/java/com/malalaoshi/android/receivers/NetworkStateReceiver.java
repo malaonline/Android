@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.malalaoshi.android.MalaApplication;
 import com.malalaoshi.android.R;
@@ -25,11 +24,11 @@ public class NetworkStateReceiver extends BroadcastReceiver {
         MalaApplication.getInstance().setIsNetworkOk(success);
         if (!success) {
             String msg = context.getString(R.string.networt_disconnected);
-            Log.e(TAG, msg);
-            Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+//            Log.e(TAG, msg);
+//            Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
         } else {
             String msg = context.getString(R.string.networt_connected);
-            Log.i(TAG, msg);
+//            Log.i(TAG, msg);
 //            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
         }
     }

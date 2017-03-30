@@ -109,6 +109,11 @@ public class TeacherListFragment extends BaseRefreshFragment<TeacherListResult> 
     }
 
     @Override
+    protected String getEmptyString() {
+        return "当前老师正在上架中，敬请期待";
+    }
+
+    @Override
     protected void loadMoreFinish(TeacherListResult response) {
         super.loadMoreFinish(response);
         if (response != null) {

@@ -149,15 +149,15 @@
             android:textColor="@color/color_blue_8dbede"
             android:background="@drawable/bg_blue_border_tv_normal"
             android:gravity="center"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/home_margin_xxlarge"
-            android:layout_marginRight="@dimen/calendar_circle_radius"
             android:paddingTop="@dimen/teacher_list_card_corner_radius"
             android:paddingBottom="@dimen/teacher_list_card_corner_radius"
             android:paddingRight="@dimen/flow_textview_left_padding"
             android:paddingLeft="@dimen/flow_textview_left_padding"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_live_course"
+            android:layout_alignRight="@+id/tv_total_price"
+            android:layout_alignEnd="@+id/tv_total_price"/>
 
         <TextView
             android:id="@+id/tv_total_price"
