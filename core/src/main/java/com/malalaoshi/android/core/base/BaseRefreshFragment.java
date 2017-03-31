@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 
 import com.chanven.lib.cptr.PtrDefaultHandler;
 import com.chanven.lib.cptr.PtrFrameLayout;
@@ -28,6 +31,12 @@ import com.malalaoshi.android.core.view.RefreshHeaderView;
  * Created by tianwei on 3/5/16.
  */
 public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFragment {
+
+    private Animation mFloatingButtonShow;
+    private Animation mFloatingButtonHide;
+    private ImageButton ibFloatingTop;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager mLayoutManager;
 
     public enum LayoutType {
         REFRESH_FAILED,
@@ -58,6 +67,7 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.core__fragment_refresh_base, container, false);
+        initAnim();
         initView(view);
         view.postDelayed(new Runnable() {
             @Override
@@ -67,6 +77,11 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
         }, 100);
         afterCreateView();
         return view;
+    }
+
+    private void initAnim() {
+        mFloatingButtonShow = AnimationUtils.loadAnimation(getContext(),R.anim.floating_button_show);
+        mFloatingButtonHide = AnimationUtils.loadAnimation(getContext(), R.anim.floating_button_hide);
     }
 
     /**
@@ -115,7 +130,7 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
 
     @SuppressWarnings("unchecked")
     private void initView(View view) {
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         emptyView = (EmptyView) view.findViewById(R.id.view_empty);
         errorView = (ErrorView) view.findViewById(R.id.view_error);
         errorView.setOnClickListener(new View.OnClickListener() {
@@ -125,12 +140,56 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
             }
         });
         initRefresh(view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(mLayoutManager);
         adapter = createAdapter();
         recyclerView.setAdapter(new RecyclerAdapterWithHF(adapter));
+
+        ibFloatingTop = (ImageButton) view.findViewById(R.id.ib_floating_top);
+        ibFloatingTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.smoothScrollToPosition(0);
+            }
+        });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && mLayoutManager.findFirstVisibleItemPosition() == 0){
+                    floatingButtonHide();
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy < 0){
+                    floatingButtonShow();
+                }else if (dy > 0){
+                    floatingButtonHide();
+                }
+            }
+        });
+
     }
+
+    private void floatingButtonHide() {
+        if (ibFloatingTop.getVisibility() == View.VISIBLE){
+            ibFloatingTop.setVisibility(View.GONE);
+            ibFloatingTop.startAnimation(mFloatingButtonHide);
+        }
+    }
+
+    private void floatingButtonShow() {
+        if (ibFloatingTop.getVisibility() == View.GONE || ibFloatingTop.getVisibility() == View.INVISIBLE){
+                ibFloatingTop.setVisibility(View.VISIBLE);
+                ibFloatingTop.startAnimation(mFloatingButtonShow);
+        }
+    }
+
 
     private void initRefresh(View view) {
         refreshLayout = (PtrFrameLayout) view.findViewById(R.id.refresh);

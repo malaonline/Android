@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/core__list_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -21,14 +19,14 @@
     <include android:id="@+id/view_empty" layout="@layout/core__empty_view"/>
     <include android:id="@+id/view_error" layout="@layout/core__error_view"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_top"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:src="@drawable/core__selector_stick_top"
+    <ImageButton
+        android:id="@+id/ib_floating_top"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/core__selector_stick_top"
         android:layout_gravity="bottom|right"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:elevation="0dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="18dp"
+        android:visibility="gone"
         />
 </FrameLayout>

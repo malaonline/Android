@@ -76,7 +76,7 @@ after_deploy:                       # 部署到fir.im
 notifications:                      # 通知
   email:
     recipients:
-      - zhoukang@malalaoshi.com
+      - yandebo@malalaoshi.com
     on_success: change
     on_failure: always
   slack:
