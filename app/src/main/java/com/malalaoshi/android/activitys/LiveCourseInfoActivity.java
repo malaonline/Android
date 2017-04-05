@@ -14,6 +14,7 @@ import com.malalaoshi.android.fragments.LiveCourseInfoFragment;
 import com.malalaoshi.android.listener.OnTitleBarClickListener;
 
 /**
+ * 课程页
  * Created by kang on 16/10/14.
  */
 
@@ -52,7 +53,7 @@ public class LiveCourseInfoActivity extends BaseTitleActivity {
             }
             replaceFragment(fragment);
         }
-        //setTitleViewRightResource(R.drawable.bitmap_share_black);
+        setTitleViewRightResource(R.drawable.bitmap_share_black);
     }
 
     @Override
