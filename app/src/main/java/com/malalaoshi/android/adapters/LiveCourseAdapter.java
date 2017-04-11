@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.ViewHolder, LiveCourse> {
     private final int ITEM_TYPE_HEAD = 0;
     private final int ITEM_TYPE_ITEM = 1;
-    public LiveCourseAdapter(Context context) {
+    public  LiveCourseAdapter(Context context) {
         super(context);
     }
 

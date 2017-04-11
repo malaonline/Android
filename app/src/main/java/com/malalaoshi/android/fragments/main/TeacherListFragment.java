@@ -2,7 +2,6 @@ package com.malalaoshi.android.fragments.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,9 @@ import com.malalaoshi.android.adapters.TeacherAdapter;
 import com.malalaoshi.android.core.MalaContext;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.base.BaseRefreshFragment;
+import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.network.api.MoreTeacherListApi;
 import com.malalaoshi.android.network.api.TeacherListApi;
-import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.network.result.TeacherListResult;
 
 import de.greenrobot.event.EventBus;
@@ -153,7 +152,6 @@ public class TeacherListFragment extends BaseRefreshFragment<TeacherListResult> 
             case BusEvent.BUS_EVENT_RELOAD_TEACHERLIST_DATA:
             case BusEvent.BUS_EVENT_UPDATE_SCHOOL_SUCCESS:
                 refresh();
-                Log.d("TeacherListFragment","start loadDataBackground");
                 break;
         }
     }

@@ -103,7 +103,6 @@ public class ScheduleFragment extends BaseFragment {
                 break;
             case BusEvent.BUS_EVENT_BACKGROUND_LOAD_TIMETABLE_DATA:
                 loadDataBackground();
-                Log.d("ScheduleFragment","start loadDataBackground");
                 break;
         }
     }

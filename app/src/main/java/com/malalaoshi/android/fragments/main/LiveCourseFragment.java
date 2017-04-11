@@ -3,7 +3,6 @@ package com.malalaoshi.android.fragments.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,7 +101,6 @@ public class LiveCourseFragment extends BaseRefreshFragment<LiveCourseResult> {
         switch (event.getEventType()) {
             case BusEvent.BUS_EVENT_UPDATE_SCHOOL_SUCCESS:
                 refresh();
-                Log.d("LiveCourseFragment","start loadDataBackground");
                 break;
         }
     }
