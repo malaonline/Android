@@ -109,6 +109,10 @@ public class TeacherListFragment extends BaseRefreshFragment<TeacherListResult> 
 
     @Override
     protected String getEmptyString() {
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            return "当前暂未有匹配老师";
+        }
         return "当前老师正在上架中，敬请期待";
     }
 
