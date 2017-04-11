@@ -9,4 +9,6 @@
     <color name="core__title_text_color">#6c6c6c</color>
     <color name="core__text_color">#939393</color>
     <color name="core__list_background">#ededed</color>
+    <color name="core__stick_top_pressed">#cfcfcf</color>
+    <color name="core__stick_top_bord">#90C3DE</color>
 </resources>

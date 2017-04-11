@@ -12,12 +12,12 @@
 
     </FrameLayout>
 
-    <Button
+    <!--<Button
         android:id="@+id/teacher_filter_btn"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="42dp"
         android:layout_marginRight="42dp"
-        android:background="@drawable/filter_btn" />
+        android:background="@drawable/filter_btn" />-->
 </FrameLayout>
