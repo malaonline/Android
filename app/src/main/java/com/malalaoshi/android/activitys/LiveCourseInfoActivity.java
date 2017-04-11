@@ -13,6 +13,7 @@ import com.malalaoshi.android.fragments.LiveCourseInfoFragment;
 import com.malalaoshi.android.listener.OnTitleBarClickListener;
 
 /**
+ * 课程页
  * Created by kang on 16/10/14.
  */
 

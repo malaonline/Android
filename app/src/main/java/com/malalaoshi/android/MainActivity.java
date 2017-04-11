@@ -7,45 +7,54 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.malalaoshi.android.activitys.OrderListActivity;
+import com.malalaoshi.android.activitys.TeacherFilterActivity;
 import com.malalaoshi.android.activitys.schoolpicker.SchoolPickerActivity;
 import com.malalaoshi.android.adapters.FragmentGroupAdapter;
-import com.malalaoshi.android.fragments.main.LiveCourseFragment;
-import com.malalaoshi.android.network.api.NoticeMessageApi;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.usercenter.UserManager;
-import com.malalaoshi.android.ui.dialogs.PromptDialog;
+import com.malalaoshi.android.dialogs.MultiSelectFilterDialog;
 import com.malalaoshi.android.entity.City;
+import com.malalaoshi.android.entity.Grade;
 import com.malalaoshi.android.entity.NoticeMessage;
 import com.malalaoshi.android.entity.School;
+import com.malalaoshi.android.entity.Subject;
+import com.malalaoshi.android.entity.Tag;
 import com.malalaoshi.android.events.EventType;
 import com.malalaoshi.android.events.NoticeEvent;
-import com.malalaoshi.android.fragments.main.ScheduleFragment;
 import com.malalaoshi.android.fragments.MemberServiceFragment;
+import com.malalaoshi.android.fragments.main.LiveCourseFragment;
 import com.malalaoshi.android.fragments.main.MainFragment;
+import com.malalaoshi.android.fragments.main.ScheduleFragment;
 import com.malalaoshi.android.fragments.main.UserFragment;
-import com.malalaoshi.android.receivers.NetworkStateReceiver;
-import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.managers.LocManager;
-import com.malalaoshi.android.utils.PermissionUtil;
+import com.malalaoshi.android.network.api.NoticeMessageApi;
+import com.malalaoshi.android.receivers.NetworkStateReceiver;
+import com.malalaoshi.android.ui.dialogs.PromptDialog;
 import com.malalaoshi.android.ui.tabindicator.ViewPagerIndicator;
+import com.malalaoshi.android.utils.DialogUtil;
+import com.malalaoshi.android.utils.PermissionUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
+import static com.malalaoshi.android.core.MalaContext.getContext;
 
-public class MainActivity extends BaseActivity implements FragmentGroupAdapter.IFragmentGroup, View.OnClickListener, ViewPagerIndicator.OnPageChangeListener, ScheduleFragment.OnClickEmptyCourse {
+
+public class MainActivity extends BaseActivity implements FragmentGroupAdapter.IFragmentGroup, View.OnClickListener, ViewPagerIndicator.OnPageChangeListener, ScheduleFragment.OnClickEmptyCourse, MultiSelectFilterDialog.OnRightClickListener {
 
     public static String EXTRAS_PAGE_INDEX = "page index";
     public static final int PAGE_INDEX_LIVE_COURSE = 0;
@@ -79,6 +88,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     private long lastBackPressedTime;
 
     private boolean isResume = false;
+    private View ivFilterTeacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +146,8 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         tvChooseSchool = (TextView) findViewById(R.id.tv_choose_school);
 
         tvTitleText = (TextView) findViewById(R.id.tv_title_text);
+        ivFilterTeacher = findViewById(R.id.iv_title_filter_teacher);
+        ivFilterTeacher.setOnClickListener(this);
 
         indicatorTabs = (ViewPagerIndicator) findViewById(R.id.indicator_tabs);
         vpHome = (ViewPager) findViewById(R.id.viewpage);
@@ -237,6 +249,12 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                 schoolPicker();
                 StatReporter.ClickCityLocation();
                 break;
+            case R.id.iv_title_filter_teacher:
+                StatReporter.ClickTeacherFilter();
+                MultiSelectFilterDialog newFragment = MultiSelectFilterDialog.newInstance();
+                newFragment.setOnRightClickListener(this);
+                newFragment.show(getSupportFragmentManager(), MultiSelectFilterDialog.class.getName());
+                break;
         }
     }
 
@@ -269,17 +287,20 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                 tvChooseSchool.setVisibility(View.VISIBLE);
                 tvTitleText.setVisibility(View.GONE);
                 StatReporter.teacherListPage();
+                ivFilterTeacher.setVisibility(View.GONE);
                 break;
             case PAGE_INDEX_TEACHERS:
                 tvChooseSchool.setVisibility(View.VISIBLE);
                 tvTitleText.setVisibility(View.GONE);
                 StatReporter.teacherListPage();
+                ivFilterTeacher.setVisibility(View.VISIBLE);
                 break;
             case PAGE_INDEX_COURSES:
                 EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_BACKGROUND_LOAD_TIMETABLE_DATA));
                 tvChooseSchool.setVisibility(View.GONE);
                 tvTitleText.setVisibility(View.VISIBLE);
                 StatReporter.coursePage();
+                ivFilterTeacher.setVisibility(View.GONE);
                 break;
             case PAGE_INDEX_MEMBER_SERVICE:
                 EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_BACKGROUND_LOAD_REPORT_DATA));
@@ -292,6 +313,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                 tvChooseSchool.setVisibility(View.GONE);
                 tvTitleText.setVisibility(View.VISIBLE);
                 StatReporter.myPage();
+                ivFilterTeacher.setVisibility(View.GONE);
                 break;
         }
     }
@@ -397,6 +419,11 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     public void onClickEmptyCourse(View v) {
         setCurrentPagerTitle(PAGE_INDEX_LIVE_COURSE);
         vpHome.setCurrentItem(PAGE_INDEX_LIVE_COURSE);
+    }
+
+    @Override
+    public void OnRightClick(View v, Grade grade, Subject subject, ArrayList<Tag> tags) {
+        TeacherFilterActivity.open(this, grade, subject, tags);
     }
 
     private static final class LoadNoticeRequest extends BaseApiContext<MainActivity, NoticeMessage> {

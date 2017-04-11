@@ -18,7 +18,6 @@ import com.malalaoshi.android.utils.FragmentUtil;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class MainFragment extends BaseFragment implements MultiSelectFilterDialog.OnRightClickListener {
@@ -49,7 +48,7 @@ public class MainFragment extends BaseFragment implements MultiSelectFilterDialo
     }
 
     //筛选
-    @OnClick(R.id.teacher_filter_btn)
+//    @OnClick(R.id.teacher_filter_btn)
     public void onClickTeacherFilter() {
         StatReporter.ClickTeacherFilter();
         MultiSelectFilterDialog newFragment = MultiSelectFilterDialog.newInstance();
