@@ -107,14 +107,14 @@ public class TeacherListFragment extends BaseRefreshFragment<TeacherListResult> 
         }
     }
 
-    @Override
-    protected String getEmptyString() {
-        Bundle bundle = getArguments();
-        if (bundle != null){
-            return "当前暂未有匹配老师";
-        }
-        return "当前老师正在上架中，敬请期待";
-    }
+//    @Override
+//    protected String getEmptyString() {
+//        Bundle bundle = getArguments();
+//        if (bundle != null){
+//            return "当前暂未有匹配老师";
+//        }
+//        return "当前老师正在上架中，敬请期待";
+//    }
 
     @Override
     protected void loadMoreFinish(TeacherListResult response) {
@@ -135,6 +135,9 @@ public class TeacherListFragment extends BaseRefreshFragment<TeacherListResult> 
             gradeId = bundle.getLong(ARGS_GRADE_ID);
             subjectId = bundle.getLong(ARGS_SUBJECT_ID);
             tagIds = bundle.getLongArray(ARGS_TAGS_ID);
+            setEmptyViewText("当前暂未有匹配老师");
+        }else {
+            setEmptyViewText("当前老师正在上架中，敬请期待!");
         }
     }
 

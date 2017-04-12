@@ -252,14 +252,14 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
         if (response == null) {
             if(adapter.getItemCount()<=0){
                 setLayout(LayoutType.REFRESH_FAILED);
-                setErrorViewText(getErrorString());
+//                setErrorViewText(getErrorString());
             }
             return;
         }
         if (EmptyUtils.isEmpty(response.getResults())) {
             adapter.clear();
             setLayout(LayoutType.EMPTY);
-            setEmptyViewText(getEmptyString());
+//            setEmptyViewText(getEmptyString());
         } else {
             setLayout(LayoutType.LIST);
             adapter.clear();
