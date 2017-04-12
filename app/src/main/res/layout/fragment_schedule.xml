@@ -2,11 +2,13 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.chanven.lib.cptr.PtrFrameLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
@@ -24,19 +26,62 @@
         android:layout_marginBottom="42dp"
         android:layout_marginRight="42dp"
         android:background="@drawable/ic_rocket" />
-    <com.malalaoshi.android.ui.widgets.DefaultView
-        android:id="@+id/view_empty"
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-    <com.malalaoshi.android.ui.widgets.ListDefaultView
-        android:id="@+id/view_error"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         />
-    <com.malalaoshi.android.ui.widgets.DefaultView
-        android:id="@+id/view_unsigin_up"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         />
+        android:background="@color/main_bg"
+        >
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginTop="100dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            >
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="220dp"
+                android:gravity="center"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bg_circle_unpass"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bg_circle_unpass"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bg_circle_unpass"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_gradient_semicircle_blue_btn_bg"
+                android:text="立即登录"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="22dp"
+                android:paddingLeft="22dp"
+                android:textColor="@color/white"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="60dp"
+                />
+        </android.support.v7.widget.CardView>
+    </FrameLayout>
 </FrameLayout>

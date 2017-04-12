@@ -19,7 +19,6 @@ import com.chanven.lib.cptr.loadmore.OnLoadMoreListener;
 import com.chanven.lib.cptr.recyclerview.RecyclerAdapterWithHF;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.adapters.ScheduleAdapter;
-import com.malalaoshi.android.network.api.TimeTableApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.event.BusEvent;
@@ -32,12 +31,12 @@ import com.malalaoshi.android.entity.Course;
 import com.malalaoshi.android.entity.ScheduleCourse;
 import com.malalaoshi.android.entity.ScheduleDate;
 import com.malalaoshi.android.entity.ScheduleItem;
+import com.malalaoshi.android.network.api.TimeTableApi;
 import com.malalaoshi.android.network.result.CourseListResult;
-import com.malalaoshi.android.utils.AuthUtils;
-import com.malalaoshi.android.utils.CalendarUtils;
-import com.malalaoshi.android.utils.MiscUtil;
 import com.malalaoshi.android.ui.widgets.DefaultView;
 import com.malalaoshi.android.ui.widgets.ListDefaultView;
+import com.malalaoshi.android.utils.CalendarUtils;
+import com.malalaoshi.android.utils.MiscUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,7 +68,7 @@ public class ScheduleFragment extends BaseFragment {
 
     private DefaultView emptyView;
     private ListDefaultView errorView;
-    private DefaultView unsignupView;
+//    private DefaultView unsignupView;
     protected Button btnGoback;
 
     private String hostNextUrl;
@@ -147,12 +146,12 @@ public class ScheduleFragment extends BaseFragment {
             }
         });
 
-        unsignupView.setOnBtnClickListener(new DefaultView.OnBtnClickListener() {
-            @Override
-            public void onBtnClickListener(View view) {
-                AuthUtils.redirectLoginActivity(getContext());
-            }
-        });
+//        unsignupView.setOnBtnClickListener(new DefaultView.OnBtnClickListener() {
+//            @Override
+//            public void onBtnClickListener(View view) {
+//                AuthUtils.redirectLoginActivity(getContext());
+//            }
+//        });
     }
 
     private void refreshList() {
@@ -175,8 +174,8 @@ public class ScheduleFragment extends BaseFragment {
         emptyView.setText("您还没有课程哦!");
         emptyView.setButtonText("去报名");
 
-        unsignupView.setText("您还没有登录哦!");
-        unsignupView.setButtonText("去登录");
+//        unsignupView.setText("您还没有登录哦!");
+//        unsignupView.setButtonText("去登录");
         loadData();
     }
 
@@ -208,25 +207,25 @@ public class ScheduleFragment extends BaseFragment {
             case EMPTY:
                 emptyView.setVisibility(View.VISIBLE);
                 errorView.setVisibility(View.GONE);
-                unsignupView.setVisibility(View.GONE);
+//                unsignupView.setVisibility(View.GONE);
                 btnGoback.setVisibility(View.GONE);
                 break;
             case REFRESH_FAILED:
                 emptyView.setVisibility(View.GONE);
                 errorView.setVisibility(View.VISIBLE);
-                unsignupView.setVisibility(View.GONE);
+//                unsignupView.setVisibility(View.GONE);
                 btnGoback.setVisibility(View.GONE);
                 break;
             case LIST:
                 emptyView.setVisibility(View.GONE);
                 errorView.setVisibility(View.GONE);
-                unsignupView.setVisibility(View.GONE);
+//                unsignupView.setVisibility(View.GONE);
                 btnGoback.setVisibility(View.GONE);
                 break;
             case UNSIGNUP:
                 emptyView.setVisibility(View.GONE);
                 errorView.setVisibility(View.GONE);
-                unsignupView.setVisibility(View.VISIBLE);
+//                unsignupView.setVisibility(View.VISIBLE);
                 btnGoback.setVisibility(View.GONE);
                 break;
         }
@@ -236,7 +235,7 @@ public class ScheduleFragment extends BaseFragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         emptyView = (DefaultView) view.findViewById(R.id.view_empty);
         errorView = (ListDefaultView) view.findViewById(R.id.view_error);
-        unsignupView = (DefaultView) view.findViewById(R.id.view_unsigin_up);
+//        unsignupView = (DefaultView) view.findViewById(R.id.view_unsigin_up);
         btnGoback = (Button) view.findViewById(R.id.btn_goback);
         initRefresh(view);
         layoutManager = new LinearLayoutManager(getContext());
