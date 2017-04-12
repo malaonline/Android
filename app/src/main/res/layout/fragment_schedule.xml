@@ -30,8 +30,18 @@
         android:background="@drawable/ic_rocket"
         android:visibility="gone"/>
 
+    <com.malalaoshi.android.ui.widgets.DefaultView
+        android:id="@+id/view_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
     <com.malalaoshi.android.ui.widgets.ListDefaultView
         android:id="@+id/view_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <com.malalaoshi.android.ui.widgets.DefaultView
+        android:id="@+id/view_unsigin_up"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
