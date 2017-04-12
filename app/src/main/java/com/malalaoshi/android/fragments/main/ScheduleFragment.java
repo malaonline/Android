@@ -35,6 +35,7 @@ import com.malalaoshi.android.network.api.TimeTableApi;
 import com.malalaoshi.android.network.result.CourseListResult;
 import com.malalaoshi.android.ui.widgets.DefaultView;
 import com.malalaoshi.android.ui.widgets.ListDefaultView;
+import com.malalaoshi.android.utils.AuthUtils;
 import com.malalaoshi.android.utils.CalendarUtils;
 import com.malalaoshi.android.utils.MiscUtil;
 
@@ -68,7 +69,7 @@ public class ScheduleFragment extends BaseFragment {
 
     private DefaultView emptyView;
     private ListDefaultView errorView;
-//    private DefaultView unsignupView;
+    private DefaultView unsignupView;
     protected Button btnGoback;
 
     private String hostNextUrl;
@@ -146,12 +147,12 @@ public class ScheduleFragment extends BaseFragment {
             }
         });
 
-//        unsignupView.setOnBtnClickListener(new DefaultView.OnBtnClickListener() {
-//            @Override
-//            public void onBtnClickListener(View view) {
-//                AuthUtils.redirectLoginActivity(getContext());
-//            }
-//        });
+        unsignupView.setOnBtnClickListener(new DefaultView.OnBtnClickListener() {
+            @Override
+            public void onBtnClickListener(View view) {
+                AuthUtils.redirectLoginActivity(getContext());
+            }
+        });
     }
 
     private void refreshList() {
@@ -174,8 +175,8 @@ public class ScheduleFragment extends BaseFragment {
         emptyView.setText("您还没有课程哦!");
         emptyView.setButtonText("去报名");
 
-//        unsignupView.setText("您还没有登录哦!");
-//        unsignupView.setButtonText("去登录");
+        unsignupView.setText("您还没有登录哦!");
+        unsignupView.setButtonText("去登录");
         loadData();
     }
 
@@ -207,25 +208,25 @@ public class ScheduleFragment extends BaseFragment {
             case EMPTY:
                 emptyView.setVisibility(View.VISIBLE);
                 errorView.setVisibility(View.GONE);
-//                unsignupView.setVisibility(View.GONE);
+                unsignupView.setVisibility(View.GONE);
                 btnGoback.setVisibility(View.GONE);
                 break;
             case REFRESH_FAILED:
                 emptyView.setVisibility(View.GONE);
                 errorView.setVisibility(View.VISIBLE);
-//                unsignupView.setVisibility(View.GONE);
+                unsignupView.setVisibility(View.GONE);
                 btnGoback.setVisibility(View.GONE);
                 break;
             case LIST:
                 emptyView.setVisibility(View.GONE);
                 errorView.setVisibility(View.GONE);
-//                unsignupView.setVisibility(View.GONE);
+                unsignupView.setVisibility(View.GONE);
                 btnGoback.setVisibility(View.GONE);
                 break;
             case UNSIGNUP:
                 emptyView.setVisibility(View.GONE);
                 errorView.setVisibility(View.GONE);
-//                unsignupView.setVisibility(View.VISIBLE);
+                unsignupView.setVisibility(View.VISIBLE);
                 btnGoback.setVisibility(View.GONE);
                 break;
         }
