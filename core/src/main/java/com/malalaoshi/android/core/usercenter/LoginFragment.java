@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.malalaoshi.android.core.R;
 import com.malalaoshi.android.core.base.BaseFragment;
-import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.stat.StatReporter;
@@ -30,8 +29,6 @@ import com.malalaoshi.android.core.usercenter.entity.AuthUser;
 import com.malalaoshi.android.core.usercenter.entity.SendSms;
 import com.malalaoshi.android.core.utils.MiscUtil;
 import com.malalaoshi.android.core.view.MaClickableSpan;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Login in UI
@@ -53,8 +50,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.core__fragment_login, container, false);
-        initView(rootView);
+        View rootView = inflater.inflate(R.layout.core__fragment_login_v2, container, false);
+//        initView(rootView);
         return rootView;
     }
 
