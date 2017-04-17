@@ -31,3 +31,5 @@ gradle-app.setting
 logs/
 app/src/main/assets/ShareSDK.xml
 src/main/assets/
+#Keystore files
+*.jks
