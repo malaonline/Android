@@ -236,7 +236,7 @@ public class ScheduleFragment extends BaseFragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         emptyView = (DefaultView) view.findViewById(R.id.view_empty);
         errorView = (ListDefaultView) view.findViewById(R.id.view_error);
-//        unsignupView = (DefaultView) view.findViewById(R.id.view_unsigin_up);
+        unsignupView = (DefaultView) view.findViewById(R.id.view_unsigin_up);
         btnGoback = (Button) view.findViewById(R.id.btn_goback);
         initRefresh(view);
         layoutManager = new LinearLayoutManager(getContext());
