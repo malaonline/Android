@@ -1,14 +1,9 @@
 package com.malalaoshi.android.core.base;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.malalaoshi.android.core.stat.StatReporter;
-import com.malalaoshi.android.core.utils.DialogUtils;
 
 import cn.jpush.android.api.JPushInterface;
 
