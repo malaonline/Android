@@ -26,7 +26,7 @@ import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.core.utils.EmptyUtils;
-import com.malalaoshi.android.core.view.RefreshHeaderView;
+import com.malalaoshi.android.core.view.RefreshHeaderEffectView;
 import com.malalaoshi.android.entity.Course;
 import com.malalaoshi.android.entity.ScheduleCourse;
 import com.malalaoshi.android.entity.ScheduleDate;
@@ -249,7 +249,7 @@ public class ScheduleFragment extends BaseFragment {
     private void initRefresh(View view) {
         refreshLayout = (PtrFrameLayout) view.findViewById(R.id.refresh);
         //Header
-        RefreshHeaderView headerView = new RefreshHeaderView(getContext());
+        RefreshHeaderEffectView headerView = new RefreshHeaderEffectView(getContext());
         refreshLayout.setHeaderView(headerView);
         refreshLayout.addPtrUIHandler(headerView);
         refreshLayout.setKeepHeaderWhenRefresh(true);
