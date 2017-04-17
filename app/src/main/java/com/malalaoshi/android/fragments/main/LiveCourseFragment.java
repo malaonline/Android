@@ -59,7 +59,7 @@ public class LiveCourseFragment extends BaseRefreshFragment<LiveCourseResult> {
 
     @Override
     protected void afterCreateView() {
-
+        setEmptyViewText("当前课程正在开通中，敬请期待");
     }
 
     @Override
@@ -70,10 +70,10 @@ public class LiveCourseFragment extends BaseRefreshFragment<LiveCourseResult> {
         }
     }
 
-    @Override
-    protected String getEmptyString() {
-        return "当前课程正在开通中，敬请期待";
-    }
+//    @Override
+//    protected String getEmptyString() {
+//        return "当前课程正在开通中，敬请期待";
+//    }
 
     @Override
     protected void loadMoreFinish(LiveCourseResult response) {

@@ -29,11 +29,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.activitys.AboutActivity;
-import com.malalaoshi.android.activitys.CollcetionListActivity;
-import com.malalaoshi.android.activitys.OrderListActivity;
-import com.malalaoshi.android.network.api.PostAvatarApi;
-import com.malalaoshi.android.network.api.StudentInfoApi;
 import com.malalaoshi.android.activitys.CommentActivity;
+import com.malalaoshi.android.activitys.OrderListActivity;
+import com.malalaoshi.android.common.pay.coupon.CouponActivity;
 import com.malalaoshi.android.core.MalaContext;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.event.BusEvent;
@@ -47,16 +45,17 @@ import com.malalaoshi.android.core.usercenter.api.UserProfileApi;
 import com.malalaoshi.android.core.usercenter.entity.AddStudentName;
 import com.malalaoshi.android.core.usercenter.entity.UserProfile;
 import com.malalaoshi.android.core.utils.EmptyUtils;
-import com.malalaoshi.android.ui.dialogs.SingleChoiceDialog;
-import com.malalaoshi.android.ui.dialogs.PromptDialog;
-import com.malalaoshi.android.ui.dialogs.SingleEditDialog;
 import com.malalaoshi.android.entity.BaseEntity;
 import com.malalaoshi.android.entity.DoneModel;
 import com.malalaoshi.android.entity.User;
 import com.malalaoshi.android.events.EventType;
 import com.malalaoshi.android.events.NoticeEvent;
-import com.malalaoshi.android.common.pay.coupon.CouponActivity;
+import com.malalaoshi.android.network.api.PostAvatarApi;
+import com.malalaoshi.android.network.api.StudentInfoApi;
 import com.malalaoshi.android.network.result.UserListResult;
+import com.malalaoshi.android.ui.dialogs.PromptDialog;
+import com.malalaoshi.android.ui.dialogs.SingleChoiceDialog;
+import com.malalaoshi.android.ui.dialogs.SingleEditDialog;
 import com.malalaoshi.android.utils.AuthUtils;
 import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.ImageUtil;
@@ -476,7 +475,6 @@ public class UserFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("UserFragment", "onActivityResult:" + strAvatarLocPath);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_PICK_IMAGE:
