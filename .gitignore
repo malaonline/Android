@@ -22,6 +22,7 @@
 
 gradle.properties
 local.properties
+secrets.tar
 
 #.idea
 build
