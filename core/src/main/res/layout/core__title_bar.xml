@@ -10,7 +10,10 @@
         style="mala.widget.usercenter.title.text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 
     <ImageView
         android:id="@+id/iv_left"

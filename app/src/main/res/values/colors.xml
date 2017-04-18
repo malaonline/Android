@@ -57,6 +57,10 @@
     <color name="color_blue_e6f1fc">#E6F1FC</color>
     <color name="color_blue_bcd0de">#bcd0de</color>
     <color name="color_blue_74a1c2_4c">#4c74A1C2</color>
+    <color name="main_bg">#e7f1ff</color>
+    <color name="gradient_btn_bg_light_blue">#83b8ff</color>
+    <color name="gradient_btn_bg_dark_blue">#508fff</color>
+
     <!--黑色black-->
     <color name="color_black_000000_dc">#dc000000</color>
     <color name="color_black_5b6ba4">#5b6ba4</color>

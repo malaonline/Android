@@ -107,6 +107,9 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
     public void setTitle(String title) {
         titleView.setText(title);
     }
+    public void setTitleVisibility(int visibility){
+        titleView.setVisibility(visibility);
+    }
 
 
 }
