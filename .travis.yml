@@ -1,84 +1,56 @@
-language: android        # 声明构建语言环境
-jdk: oraclejdk8          # 下载jdk8
-
-#sudo: false              # 开启基于容器的Travis CI任务，让编译效率更高。
-sudo: required            # Sudo-enabled  7.5G内存
-
+language: android
+jdk: oraclejdk8
+sudo: false
 android:
-  components:            # 配置信息
-    - platform-tools
-    - tools
-  # The BuildTools version used by your project
-    - build-tools-25.0.2
-  # The SDK version used to compile your project
-  # - android-22
-    - android-25
-  # Additional components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - addon-google_apis-google-21
-    - extra-android-m2repository     # Android Support Repository
-    - extra-android-support          # Support Library
-  # - sys-img-armeabi-v7a-android-22
-  # - extra-android-m2repository
-
-
-before_install:    #解密私密文件签名文件等(这里主要解密keystore和gradl)
- - openssl aes-256-cbc -K $encrypted_566122ccfbf2_key -iv $encrypted_566122ccfbf2_iv -in secrets.tar.enc -out secrets.tar -d
- - tar xvf secrets.tar
- #- openssl aes-256-cbc -K $encrypted_566122ccfbf2_key -iv $encrypted_566122ccfbf2_iv -in secrets.tar.enc -out secrets.tar -d   #解密私密文件签名文件等(这里主要解密keystore和gradle.properties)
- #- tar xvf secrets.tar
- - chmod +x gradlew          # 改变gradlew的访问权限
- - gem install fir-cli       # 安装fir.im
-
-
-#before_script:
-  # Create and start emulator
-  #- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-  #- emulator -avd test -no-skin -no-audio -no-window &
-  #- android-wait-for-emulator
-  #- adb shell input keyevent 82 &
-
-
-script:                   # 编译任务
-  - ./gradlew assembleDevrelease
-  - ./gradlew assemblePrdrelease
-  - ./gradlew assembleStagerelease
-#script: ./buildbot.sh    # 运行编译脚本与上面的2选一
-
-
-#before_deploy:       # 部署之前
-  # 使用 mv 命令进行修改apk文件的名字
-  #- mv app/build/outputs/apk/app-parent-devrelease.apk app/build/outputs/apk/devrelease.apk
-
-
-deploy:                             # 部署到GitHub Release
-  provider: releases                # 部署到GitHub Release，除此之外，Travis CI还支持发布到fir.im、AWS、Google App Engine等
-  api_key:                          # 填写GitHub的token （Settings -> Personal access tokens -> Generate new token）
+  components:
+  - platform-tools
+  - tools
+  - build-tools-25.0.2
+  - android-25
+  - extra-google-google_play_services
+  - extra-google-m2repository
+  - addon-google_apis-google-21
+  - extra-android-m2repository
+  - extra-android-support
+before_install:
+#- openssl aes-256-cbc -K $encrypted_614d74e808da_key -iv $encrypted_614d74e808da_iv
+#  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+- openssl aes-256-cbc -K $encrypted_614d74e808da_key -iv $encrypted_614d74e808da_iv
+  -in mini_keystore.enc -out mini_keystore -d
+- openssl aes-256-cbc -K $encrypted_566122ccfbf2_key -iv $encrypted_566122ccfbf2_iv
+  -in secrets.tar.enc -out secrets.tar -d
+- tar xvf secrets.tar
+- chmod +x gradlew
+- gem install fir-cli
+script:
+- ./gradlew assembleDevrelease
+- ./gradlew assemblePrdrelease
+- ./gradlew assembleStagerelease
+deploy:
+  provider: releases
+  api_key:
     secure: $GITHUB_TOKENS
   file:
-     - app/build/outputs/apk/app-parent-devrelease.apk   # 部署文件路径
-     - app/build/outputs/apk/app-parent-prdrelease.apk   # 部署文件路径
-     - app/build/outputs/apk/app-parent-stagerelease.apk # 部署文件路径
-  skip_cleanup: true                # 设置为true以跳过清理,不然apk文件就会被清理
-  on:                               # 发布时机
-    tags: false                     # tags设置为true表示只有在有tag的情况下才部署
-    #all_branches: true
-
-
-after_deploy:                       # 部署到fir.im
- - fir p app/build/outputs/apk/app-parent-devrelease.apk -T $FIR_TOKENS -c "`git cat-file tag $TRAVIS_TAG`"
- - fir p app/build/outputs/apk/app-parent-prdrelease.apk -T $FIR_TOKENS -c "`git cat-file tag $TRAVIS_TAG`"
- - fir p app/build/outputs/apk/app-parent-stagerelease.apk -T $FIR_TOKENS -c "`git cat-file tag $TRAVIS_TAG`"
-
-
-
-notifications:                      # 通知
+    - app/build/outputs/apk/app-parent-devrelease.apk
+    - app/build/outputs/apk/app-parent-prdrelease.apk
+    - app/build/outputs/apk/app-parent-stagerelease.apk
+  skip_cleanup: true
+  on:
+#    repo: malaonline/Android
+#    branch: AN-521
+      tags: false
+after_deploy:
+- fir p app/build/outputs/apk/app-parent-devrelease.apk -T $FIR_TOKENS -c "`git cat-file
+  tag $TRAVIS_TAG`"
+- fir p app/build/outputs/apk/app-parent-prdrelease.apk -T $FIR_TOKENS -c "`git cat-file
+  tag $TRAVIS_TAG`"
+- fir p app/build/outputs/apk/app-parent-stagerelease.apk -T $FIR_TOKENS -c "`git
+  cat-file tag $TRAVIS_TAG`"
+notifications:
   email:
     recipients:
-      - yandebo@malalaoshi.com
+    - yandebo@malalaoshi.com
     on_success: change
     on_failure: always
   slack:
     secure: C+3cVS/ti5y4qUI4gpaIs5xRmKbUZQhY4Fu07mofeG5ld+uGYCf0v73EQYAFA0vqdWwSwlovxMSbEkKI9LyyZyERkyyq9RaJ7vgdKXctCXR9/nomtpAubR9DNvjKtOXkmOPfzqj2iarhV6q0mmQq/Wl0lJBH+psbzQt0v3Kz9bLCP82vbxoQA7WDvWHam0tzwsQ8bfTvzsgo8bppUrWrm+EGTHCSdlQ4GejPwHvCuGFQ3BZq4bf/R5odXfrBgkeYRBhAZV2QEjrqTTMJbWCG6Phk3wzLAG153+fvzh6WF7j5tctgY7/fyMN8WcaqrP1cdH45AQOLZfQ1V03iJOYfKNg5lR5NonTfEnmAGe6axANROFGellNlsd+zOnUD6eEs3iZs3hdBvz4U0W+o72rQDaYvSE5KpJ7Xw2yAx96kwuTCV9RMOcHzzJg4WCNr5GJt3z7/YZ6oFs7qFblm1/oCuL7IhNSsK/EVTWIH2MHevpXD0ORDA+gU9bt+B7eliqLPTC3Nzu9EkgBxxF615lfavmjD7lALuggm/qzGi0sUaaXhne4WDChNUKyO0za/hP5ZpCkR2lN+FgZKLQflSvbdsP/Y0HvPwRK2uA4aQHrHJp+bwcvVrV/8rxYzPLtGZi+wyrc1SzVBQ7JLg5EU98Sd3+9DWduPBWzOaK8CvmgOD20=
-
