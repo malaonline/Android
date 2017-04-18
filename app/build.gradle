@@ -6,9 +6,9 @@ android {
         release {
             try {
                 storeFile file(KEYSTORE_FILE_PATH)
-                storePassword KEYSTORE_PASSWORD
-                keyAlias "malalaoshi"
-                keyPassword KEY_PASSWORD
+                storePassword project.hasProperty("KEYSTORE_PASSWORD") ? KEYSTORE_PASSWORD : System.getenv("KEYSTORE_PASSWORD");
+                keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME");
+                keyPassword project.hasProperty("KEY_PASSWORD") ? KEY_PASSWORD : System.getenv("KEY_PASSWORD");
             }
             catch (ex) {
                 throw new InvalidUserDataException(
@@ -19,9 +19,9 @@ android {
         debug {
             try {
                 storeFile file(KEYSTORE_FILE_PATH)
-                storePassword KEYSTORE_PASSWORD
-                keyAlias "malalaoshi"
-                keyPassword KEY_PASSWORD
+                storePassword project.hasProperty("KEYSTORE_PASSWORD") ? KEYSTORE_PASSWORD : System.getenv("KEYSTORE_PASSWORD");
+                keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME");
+                keyPassword project.hasProperty("KEY_PASSWORD") ? KEY_PASSWORD : System.getenv("KEY_PASSWORD");
             }
             catch (ex) {
                 throw new InvalidUserDataException(

@@ -31,12 +31,14 @@ deploy:
   api_key:
     secure: $GITHUB_TOKENS
   file:
-  - app/build/outputs/apk/app-parent-devrelease.apk
-  - app/build/outputs/apk/app-parent-prdrelease.apk
-  - app/build/outputs/apk/app-parent-stagerelease.apk
+    - app/build/outputs/apk/app-parent-devrelease.apk
+    - app/build/outputs/apk/app-parent-prdrelease.apk
+    - app/build/outputs/apk/app-parent-stagerelease.apk
   skip_cleanup: true
   on:
-    tags: false
+#    repo: malaonline/Android
+#    branch: AN-521
+      tags: false
 after_deploy:
 - fir p app/build/outputs/apk/app-parent-devrelease.apk -T $FIR_TOKENS -c "`git cat-file
   tag $TRAVIS_TAG`"
