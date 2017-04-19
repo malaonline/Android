@@ -13,8 +13,8 @@ android:
   - extra-android-m2repository
   - extra-android-support
 before_install:
-- openssl aes-256-cbc -K $encrypted_614d74e808da_key -iv $encrypted_614d74e808da_iv
-  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+#- openssl aes-256-cbc -K $encrypted_614d74e808da_key -iv $encrypted_614d74e808da_iv
+#  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
 - openssl aes-256-cbc -K $encrypted_614d74e808da_key -iv $encrypted_614d74e808da_iv
   -in mini_keystore.enc -out mini_keystore -d
 - openssl aes-256-cbc -K $encrypted_566122ccfbf2_key -iv $encrypted_566122ccfbf2_iv
