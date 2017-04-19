@@ -12,9 +12,10 @@ android {
                 storePassword KEYSTORE_PASSWORD
                 keyAlias "malalaoshi"
                 keyPassword KEY_PASSWORD
+                println(KEYSTORE_FILE_PATH)
             }
             catch (ex) {
-                println(ex.cause)
+                ex.printStackTrace()
                 throw new InvalidUserDataException(
                         "You should define KEYSTORE_FILE_PATH, KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
             }
@@ -23,13 +24,14 @@ android {
         debug {
             try {
                 storeFile file(KEYSTORE_FILE_PATH)
+                println(KEYSTORE_FILE_PATH)
                 storePassword project.hasProperty("KEYSTORE_PASSWORD") ? KEYSTORE_PASSWORD : System.getenv("KEYSTORE_PASSWORD");
                 keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME");
                 keyPassword project.hasProperty("KEY_PASSWORD") ? KEY_PASSWORD : System.getenv("KEY_PASSWORD");
             }
             catch (ex) {
                 throw new InvalidUserDataException(
-                        "You should define KEYSTORE_FILE_PATH, KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+                        "DEBUG:You should define KEYSTORE_FILE_PATH, KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
             }
         }
 
