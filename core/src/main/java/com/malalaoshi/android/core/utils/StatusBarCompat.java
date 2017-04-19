@@ -3,16 +3,23 @@ package com.malalaoshi.android.core.utils;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
+import android.view.Display;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 /**
+ * 顶部状态栏和底部虚拟操作栏相关处理
  * Created by donald on 2017/4/13.
  */
 
@@ -72,6 +79,11 @@ public class StatusBarCompat {
         }
     }
 
+    /***
+     * 顶部状态栏高度
+     * @param context
+     * @return
+     */
     public static int getStatusBarHeight(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -80,6 +92,45 @@ public class StatusBarCompat {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    /***
+     * 获取底部虚拟操作栏高度
+     * @param activity
+     * @return
+     */
+    public static int getBottomStatusHeight(Activity activity) {
+        if (!isNavigationBarShow(activity)){
+            return 0;
+        }
+        Resources resources = activity.getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        int height = resources.getDimensionPixelSize(resourceId);
+        return height;
+    }
+
+    /***
+     * 判断是否显示底部虚拟操作栏
+     * @param activity
+     * @return true 显示
+     */
+    public static boolean isNavigationBarShow(Activity activity){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+            Display display = activity.getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            Point realSize = new Point();
+            display.getSize(size);
+            display.getRealSize(realSize);
+            return realSize.y != size.y;
+        }else {
+            boolean menu = ViewConfiguration.get(activity).hasPermanentMenuKey();
+            boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+            if (menu || back){
+                return false;
+            }else {
+                return true;
+            }
+        }
     }
 
 
