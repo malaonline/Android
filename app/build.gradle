@@ -10,7 +10,7 @@ android {
 //                keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME");
 //                keyPassword project.hasProperty("KEY_PASSWORD") ? KEY_PASSWORD : System.getenv("KEY_PASSWORD");
                 storePassword KEYSTORE_PASSWORD
-                keyAlias ALIAS_NAME
+                keyAlias "malalaoshi"
                 keyPassword KEY_PASSWORD
             }
             catch (ex) {
