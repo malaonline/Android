@@ -104,7 +104,7 @@ public class CouponListFragment extends BaseRefreshFragment<CouponResult> {
         adapter.setCanSelect(canSelect);
         adapter.setAmount(amount);
 
-        setEmptyViewText("您当前没有奖学金哦");
+        setEmptyViewText(getString(R.string.not_have_coupon));
         setEmptyViewIcon(R.drawable.ic_empty_coupon);
 
     }

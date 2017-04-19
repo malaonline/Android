@@ -176,4 +176,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="not_have_coupon">您当前没有奖学金哦!</string>
 </resources>

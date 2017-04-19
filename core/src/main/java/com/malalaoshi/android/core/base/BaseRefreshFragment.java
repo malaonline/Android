@@ -22,6 +22,7 @@ import com.malalaoshi.android.core.R;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.utils.EmptyUtils;
+import com.malalaoshi.android.core.utils.MiscUtil;
 import com.malalaoshi.android.core.view.EmptyView;
 import com.malalaoshi.android.core.view.ErrorView;
 import com.malalaoshi.android.core.view.RefreshHeaderEffectView;
@@ -253,6 +254,8 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
             if(adapter.getItemCount()<=0){
                 setLayout(LayoutType.REFRESH_FAILED);
 //                setErrorViewText(getErrorString());
+            }else {
+                MiscUtil.toast(R.string.network_error);
             }
             return;
         }
