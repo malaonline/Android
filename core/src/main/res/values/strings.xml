@@ -11,4 +11,5 @@
     <string name="get_verification_code">获取验证码</string>
     <string name="input_verification_code">请输入验证码</string>
     <string name="wrong_code">验证码错误</string>
+    <string name="network_error">网络不给力，稍后再试</string>
 </resources>
