@@ -1,5 +1,6 @@
 package com.malalaoshi.android.core.usercenter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -13,9 +14,11 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.malalaoshi.android.core.R;
@@ -37,6 +40,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public static final int RESULT_CODE_LOGIN_SUCCESS = 2;
     private int mKeyboardHeight;
     private int mStatusBarHeight;
+    private int mBottomStatusHeight;
+    private int mStatusHeight;
     private boolean isShowKeyboard;
     private FrameLayout mLlLoginRoot;
     private ViewTreeObserver.OnGlobalLayoutListener mGlobalLayoutListener;
@@ -55,6 +60,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private ImageView mIvLoginBack;
     private ImageView mIvLoginClearNum;
     private Handler mHandler;
+    private LinearLayout mLlLoginParent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +73,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        }
 //        mFlContainer = (FrameLayout) findViewById(R.id.fl_container);
         initView();
-        mStatusBarHeight = StatusBarCompat.getStatusBarHeight(this)+100;
+        mStatusBarHeight = StatusBarCompat.getStatusBarHeight(this);
+        mBottomStatusHeight = StatusBarCompat.getBottomStatusHeight(this);
+        mStatusHeight = mStatusBarHeight + mBottomStatusHeight;
         mHandler = new Handler(Looper.getMainLooper());
         initListener();
         initAnimation();
@@ -84,7 +92,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mTvLoginAgreement = (TextView) findViewById(R.id.tv_login_agreement);
         mIvLoginBack = (ImageView) findViewById(R.id.iv_login_back);
         mIvLoginClearNum = (ImageView) findViewById(R.id.iv_login_clear_num);
-
+        mLlLoginParent = (LinearLayout) findViewById(R.id.ll_login_parent);
     }
 
     private void initAnimation() {
@@ -102,16 +110,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 mLlLoginRoot.getWindowVisibleDisplayFrame(rect);
                 int screenHeight = mLlLoginRoot.getRootView().getHeight();
                 int heightDiff = screenHeight - (rect.bottom - rect.top);
-                if (mKeyboardHeight == 0 && heightDiff > mStatusBarHeight) {
-                    mKeyboardHeight = heightDiff - mStatusBarHeight;
+                if (mKeyboardHeight == 0 && heightDiff > mStatusHeight) {
+                    mKeyboardHeight = heightDiff - mStatusHeight;
                 }
                 if (isShowKeyboard) {
-                    if (heightDiff <= mStatusBarHeight) {
+                    if (heightDiff <= mStatusHeight) {
                         isShowKeyboard = false;
                         onHideKeyboard();
                     }
                 } else {
-                    if (heightDiff > mStatusBarHeight) {
+                    if (heightDiff > mStatusHeight) {
                         isShowKeyboard = true;
                         onShowKeyboard();
                     }
@@ -151,6 +159,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mIvLoginBack.setOnClickListener(this);
         mIvLoginClearNum.setOnClickListener(this);
         mTvLoginAgreement.setOnClickListener(this);
+        mLlLoginParent.setOnClickListener(this);
     }
 
     private void onShowKeyboard() {
@@ -199,6 +208,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         } else if (id == R.id.tv_login_agreement){
             startActivity(new Intent(this, UserProtocolActivity.class));
             StatReporter.userProtocol(getStatName());
+        } else if (id == R.id.ll_login_parent){
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()){
+                imm.hideSoftInputFromWindow(mLlLoginParent.getWindowToken(), 0);
+            }
         }
     }
 
