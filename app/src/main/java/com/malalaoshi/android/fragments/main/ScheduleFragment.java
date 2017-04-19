@@ -19,7 +19,6 @@ import com.chanven.lib.cptr.loadmore.OnLoadMoreListener;
 import com.chanven.lib.cptr.recyclerview.RecyclerAdapterWithHF;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.adapters.ScheduleAdapter;
-import com.malalaoshi.android.network.api.TimeTableApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.event.BusEvent;
@@ -27,17 +26,18 @@ import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.core.utils.EmptyUtils;
-import com.malalaoshi.android.core.view.RefreshHeaderView;
+import com.malalaoshi.android.core.view.RefreshHeaderEffectView;
 import com.malalaoshi.android.entity.Course;
 import com.malalaoshi.android.entity.ScheduleCourse;
 import com.malalaoshi.android.entity.ScheduleDate;
 import com.malalaoshi.android.entity.ScheduleItem;
+import com.malalaoshi.android.network.api.TimeTableApi;
 import com.malalaoshi.android.network.result.CourseListResult;
+import com.malalaoshi.android.ui.widgets.DefaultView;
+import com.malalaoshi.android.ui.widgets.ListDefaultView;
 import com.malalaoshi.android.utils.AuthUtils;
 import com.malalaoshi.android.utils.CalendarUtils;
 import com.malalaoshi.android.utils.MiscUtil;
-import com.malalaoshi.android.ui.widgets.DefaultView;
-import com.malalaoshi.android.ui.widgets.ListDefaultView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -103,7 +103,6 @@ public class ScheduleFragment extends BaseFragment {
                 break;
             case BusEvent.BUS_EVENT_BACKGROUND_LOAD_TIMETABLE_DATA:
                 loadDataBackground();
-                Log.d("ScheduleFragment","start loadDataBackground");
                 break;
         }
     }
@@ -250,7 +249,7 @@ public class ScheduleFragment extends BaseFragment {
     private void initRefresh(View view) {
         refreshLayout = (PtrFrameLayout) view.findViewById(R.id.refresh);
         //Header
-        RefreshHeaderView headerView = new RefreshHeaderView(getContext());
+        RefreshHeaderEffectView headerView = new RefreshHeaderEffectView(getContext());
         refreshLayout.setHeaderView(headerView);
         refreshLayout.addPtrUIHandler(headerView);
         refreshLayout.setKeepHeaderWhenRefresh(true);

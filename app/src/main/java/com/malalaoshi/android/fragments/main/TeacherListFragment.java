@@ -2,7 +2,6 @@ package com.malalaoshi.android.fragments.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,9 @@ import com.malalaoshi.android.adapters.TeacherAdapter;
 import com.malalaoshi.android.core.MalaContext;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.base.BaseRefreshFragment;
+import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.network.api.MoreTeacherListApi;
 import com.malalaoshi.android.network.api.TeacherListApi;
-import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.network.result.TeacherListResult;
 
 import de.greenrobot.event.EventBus;
@@ -108,6 +107,15 @@ public class TeacherListFragment extends BaseRefreshFragment<TeacherListResult> 
         }
     }
 
+//    @Override
+//    protected String getEmptyString() {
+//        Bundle bundle = getArguments();
+//        if (bundle != null){
+//            return "当前暂未有匹配老师";
+//        }
+//        return "当前老师正在上架中，敬请期待";
+//    }
+
     @Override
     protected void loadMoreFinish(TeacherListResult response) {
         super.loadMoreFinish(response);
@@ -127,6 +135,9 @@ public class TeacherListFragment extends BaseRefreshFragment<TeacherListResult> 
             gradeId = bundle.getLong(ARGS_GRADE_ID);
             subjectId = bundle.getLong(ARGS_SUBJECT_ID);
             tagIds = bundle.getLongArray(ARGS_TAGS_ID);
+            setEmptyViewText("当前暂未有匹配老师");
+        }else {
+            setEmptyViewText("当前老师正在上架中，敬请期待!");
         }
     }
 
@@ -148,7 +159,6 @@ public class TeacherListFragment extends BaseRefreshFragment<TeacherListResult> 
             case BusEvent.BUS_EVENT_RELOAD_TEACHERLIST_DATA:
             case BusEvent.BUS_EVENT_UPDATE_SCHOOL_SUCCESS:
                 refresh();
-                Log.d("TeacherListFragment","start loadDataBackground");
                 break;
         }
     }

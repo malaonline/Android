@@ -13,7 +13,9 @@
         android:background="@color/core__white"
         app:cusTitleText="麻辣老师用户协议"
         app:cusTitleTextColor="@color/core__title_text_color"
-        app:cusTitleTextSize="18sp" />
+        app:cusTitleTextSize="18sp"
+        app:cusLeftShow="true"
+        />
 
     <WebView
         android:id="@+id/webview"

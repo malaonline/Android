@@ -9,4 +9,12 @@
     <color name="core__title_text_color">#6c6c6c</color>
     <color name="core__text_color">#939393</color>
     <color name="core__list_background">#ededed</color>
+    <color name="core__stick_top_pressed">#cfcfcf</color>
+    <color name="core__stick_top_bord">#90C3DE</color>
+    <color name="core__colorPrimary">#73A4FC</color>
+    <color name="core__color_main_bg">#e7f1ff</color>
+    <color name="core__blue_focus">#78a8fe</color>
+    <color name="core__blue_unfocus">#8078a8fe</color>
+    <color name="gradient_btn_bg_dark_blue">#508fff</color>
+    <color name="gradient_btn_bg_light_blue">#83b8ff</color>
 </resources>

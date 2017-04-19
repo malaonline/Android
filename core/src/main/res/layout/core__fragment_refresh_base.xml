@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/core__list_background"
@@ -19,4 +18,15 @@
     </com.chanven.lib.cptr.PtrFrameLayout>
     <include android:id="@+id/view_empty" layout="@layout/core__empty_view"/>
     <include android:id="@+id/view_error" layout="@layout/core__error_view"/>
+
+    <ImageButton
+        android:id="@+id/ib_floating_top"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/core__selector_stick_top"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="18dp"
+        android:visibility="gone"
+        />
 </FrameLayout>

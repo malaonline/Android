@@ -113,7 +113,7 @@ public class TeacherFilterActivity extends BaseActivity implements TitleBarView.
         super.onStart();
         TeacherListFragment teacherListFragment = (TeacherListFragment) getSupportFragmentManager().findFragmentByTag(TeacherListFragment.class.getName());
         if (teacherListFragment!=null){
-            teacherListFragment.setEmptyViewText("请重新设定筛选条件!");
+            teacherListFragment.setEmptyViewText("当前暂未有匹配老师");
         }
     }
 

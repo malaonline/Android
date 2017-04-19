@@ -33,12 +33,12 @@ public class CouponListFragment extends BaseRefreshFragment<CouponResult> {
 
     private CouponAdapter adapter;
 
-    public CouponListFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    public CouponListFragment() {
     }
 
     @Override

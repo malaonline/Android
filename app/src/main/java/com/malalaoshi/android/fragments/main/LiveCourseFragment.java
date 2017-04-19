@@ -3,7 +3,6 @@ package com.malalaoshi.android.fragments.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +59,7 @@ public class LiveCourseFragment extends BaseRefreshFragment<LiveCourseResult> {
 
     @Override
     protected void afterCreateView() {
-
+        setEmptyViewText("当前课程正在开通中，敬请期待");
     }
 
     @Override
@@ -71,6 +70,11 @@ public class LiveCourseFragment extends BaseRefreshFragment<LiveCourseResult> {
         }
     }
 
+//    @Override
+//    protected String getEmptyString() {
+//        return "当前课程正在开通中，敬请期待";
+//    }
+
     @Override
     protected void loadMoreFinish(LiveCourseResult response) {
         super.loadMoreFinish(response);
@@ -78,6 +82,7 @@ public class LiveCourseFragment extends BaseRefreshFragment<LiveCourseResult> {
             nextUrl = response.getNext();
         }
     }
+
 
     @Nullable
     @Override
@@ -96,7 +101,6 @@ public class LiveCourseFragment extends BaseRefreshFragment<LiveCourseResult> {
         switch (event.getEventType()) {
             case BusEvent.BUS_EVENT_UPDATE_SCHOOL_SUCCESS:
                 refresh();
-                Log.d("LiveCourseFragment","start loadDataBackground");
                 break;
         }
     }
