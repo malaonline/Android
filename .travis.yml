@@ -1,6 +1,6 @@
 language: android
 jdk: oraclejdk8
-sudo: false
+sudo: required
 android:
   components:
   - platform-tools
@@ -15,8 +15,8 @@ android:
 before_install:
 - openssl aes-256-cbc -K $encrypted_614d74e808da_key -iv $encrypted_614d74e808da_iv
   -in secrets.tar.enc -out secrets.tar -d
-- rvm install 2.2.5
 - tar xvf secrets.tar
+#- rvm install 2.2.5
 - chmod +x gradlew
 - gem install fir-cli
 script:
@@ -27,9 +27,13 @@ deploy:
   provider: releases
   api_key:
     secure: OoBXOlglPZdCqvWxdaaPs7xq/eV+C9rV9G2TmNJnvMaUP+vpYUXDEvOGcdDfFtoqB6Rgaq0dCNwyU6e9MKs1PkyLC2Wp/raqratVPkg8siVTq9Xx6Nvocs2TVVK/oiI1msVKYHY0spvrtMvEe3XginEJowB/+KpIhnKYFKZYrsr5WL3XFTENucfcAjOIBfa0cbbyHUJAk0yO4mZ1jb+MHJjl8APai/kVuepugoZx8TqCSLY0+bj13VolR/7yT0t4f4NiVp/VAlv8AUCHb3WToogYarijJSzbgpmEs1RLu2JDIHu01V7rm5y+/evw/mc37HtnLqC/otkDSrIu3DkYocW9YE9+oIp278FxhpMLxt63PN2vRXwHLaVLPHITiuMF4XsSNbyGrqBcwh9++60nSV8Vo2BNBcq6EOoiCA3tlzCdY4DyTSOrtNXfvoe+FxGbD2VRapMgQFyYa+pRzE5mtGKITfAx8O3ZM6bat+Qfvtb+UPd2Lrj0P5YRm5xFI5plXLII5nQvo+SbeQwB/s5zJlgwedu2wE7eTRKrkZKUwQv8VrdMOenzpjE3VTYFu2upLMYIy+F/zCWV+HaEOrNI5AgA3jDWDKWzj6jucJQC+bmL0S1L/fvwj7Kqt3CbyD73PoyllKY/FBhMaZvFS8qranfvnCxbtEHW6F/SzsjxiM0=
-  file: 'app/build/outputs/apk/app-parent-devrelease.apk'
+  file:
+  - app/build/outputs/apk/app-parent-devrelease.apk
+  - app/build/outputs/apk/app-parent-prdrelease.apk
+  - app/build/outputs/apk/app-parent-stagerelease.apk
+  skip_cleanup: true
   on:
-    repo: malaonline/Android
+    tags: false
 after_deploy:
 - fir p app/build/outputs/apk/app-parent-devrelease.apk -T $FIR_TOKENS -c "`git cat-file
   tag $TRAVIS_TAG`"
