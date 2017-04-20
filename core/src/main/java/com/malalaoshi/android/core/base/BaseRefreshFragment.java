@@ -24,7 +24,7 @@ import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.core.view.EmptyView;
 import com.malalaoshi.android.core.view.ErrorView;
-import com.malalaoshi.android.core.view.RefreshHeaderView;
+import com.malalaoshi.android.core.view.RefreshHeaderEffectView;
 
 /**
  * Base fragment
@@ -194,7 +194,7 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
     private void initRefresh(View view) {
         refreshLayout = (PtrFrameLayout) view.findViewById(R.id.refresh);
         //Header
-        RefreshHeaderView headerView = new RefreshHeaderView(getContext());
+        RefreshHeaderEffectView headerView = new RefreshHeaderEffectView(getContext());
         refreshLayout.setHeaderView(headerView);
         refreshLayout.addPtrUIHandler(headerView);
         refreshLayout.setKeepHeaderWhenRefresh(true);
@@ -252,14 +252,14 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
         if (response == null) {
             if(adapter.getItemCount()<=0){
                 setLayout(LayoutType.REFRESH_FAILED);
-                setErrorViewText(getErrorString());
+//                setErrorViewText(getErrorString());
             }
             return;
         }
         if (EmptyUtils.isEmpty(response.getResults())) {
             adapter.clear();
             setLayout(LayoutType.EMPTY);
-            setEmptyViewText(getEmptyString());
+//            setEmptyViewText(getEmptyString());
         } else {
             setLayout(LayoutType.LIST);
             adapter.clear();

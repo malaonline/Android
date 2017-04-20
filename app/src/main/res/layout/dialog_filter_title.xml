@@ -20,12 +20,14 @@ android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_marginLeft="26dp"
             android:layout_marginRight="16dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="1dp"
+            android:background="@color/grey_light"
+            />
         <TextView
             android:id="@+id/filter_bar_title"
             android:layout_width="wrap_content"
@@ -35,12 +37,14 @@ android:layout_height="wrap_content"
             android:textColor="@color/color_black_939393"
             />
         <TextView
-            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="26dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="1dp"
+            android:background="@color/grey_light"
+            />
     </LinearLayout>
 
     <ImageView
