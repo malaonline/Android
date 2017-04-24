@@ -2,33 +2,56 @@ language: android
 jdk: oraclejdk8
 sudo: false
 android:
-  components:
-  - platform-tools
-  - tools
-  - build-tools-25.0.2
-  - android-25
-  - extra-google-google_play_services
-  - extra-google-m2repository
-  - addon-google_apis-google-21
-  - extra-android-m2repository
-  - extra-android-support
-before_install:
-#- openssl aes-256-cbc -K $encrypted_614d74e808da_key -iv $encrypted_614d74e808da_iv
-#  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
-- openssl aes-256-cbc -K $encrypted_614d74e808da_key -iv $encrypted_614d74e808da_iv
-  -in mini_keystore.enc -out mini_keystore -d
-- openssl aes-256-cbc -K $encrypted_566122ccfbf2_key -iv $encrypted_566122ccfbf2_iv
-  -in secrets.tar.enc -out secrets.tar -d
-- tar xvf secrets.tar
-- chmod +x gradlew
-- gem install fir-cli
-script:
-- ./gradlew assembleDevrelease
-- ./gradlew assemblePrdrelease
-- ./gradlew assembleStagerelease
-deploy:
-  provider: releases
-  api_key:
+  components:            # 配置信息
+    - platform-tools
+    - tools
+  # The BuildTools version used by your project
+    - build-tools-25.0.2
+  # The SDK version used to compile your project
+  # - android-22
+    - android-25
+  # Additional components
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - addon-google_apis-google-21
+    - extra-android-m2repository     # Android Support Repository
+    - extra-android-support          # Support Library
+  # - sys-img-armeabi-v7a-android-22
+  # - extra-android-m2repository
+
+
+before_install:    #解密私密文件签名文件等(这里主要解密keystore和gradl)
+ - openssl aes-256-cbc -K $encrypted_614d74e808da_key -iv $encrypted_614d74e808da_iv -in secrets.tar.enc -out secrets.tar -d
+ - tar xvf secrets.tar
+ #- openssl aes-256-cbc -K $encrypted_566122ccfbf2_key -iv $encrypted_566122ccfbf2_iv -in secrets.tar.enc -out secrets.tar -d   #解密私密文件签名文件等(这里主要解密keystore和gradle.properties)
+ #- tar xvf secrets.tar
+ - chmod +x gradlew          # 改变gradlew的访问权限
+ - gem install fir-cli       # 安装fir.im
+
+
+#before_script:
+  # Create and start emulator
+  #- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  #- emulator -avd test -no-skin -no-audio -no-window &
+  #- android-wait-for-emulator
+  #- adb shell input keyevent 82 &
+
+
+script:                   # 编译任务
+  - ./gradlew assembleDevrelease
+  - ./gradlew assemblePrdrelease
+  - ./gradlew assembleStagerelease
+#script: ./buildbot.sh    # 运行编译脚本与上面的2选一
+
+
+#before_deploy:       # 部署之前
+  # 使用 mv 命令进行修改apk文件的名字
+  #- mv app/build/outputs/apk/app-parent-devrelease.apk app/build/outputs/apk/devrelease.apk
+
+
+deploy:                             # 部署到GitHub Release
+  provider: releases                # 部署到GitHub Release，除此之外，Travis CI还支持发布到fir.im、AWS、Google App Engine等
+  api_key:                          # 填写GitHub的token （Settings -> Personal access tokens -> Generate new token）
     secure: $GITHUB_TOKENS
   file:
     - app/build/outputs/apk/app-parent-devrelease.apk

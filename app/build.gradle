@@ -18,7 +18,7 @@ android {
 
         debug {
             try {
-                storeFile file(KEYSTORE_FILE_PATH)
+                storeFile file(KEYSTORE_FILE_PATH1)
                 storePassword KEYSTORE_PASSWORD
                 keyAlias "malalaoshi"
                 keyPassword KEY_PASSWORD
