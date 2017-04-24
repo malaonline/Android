@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,7 @@ import com.malalaoshi.android.entity.ScheduleDate;
 import com.malalaoshi.android.entity.ScheduleItem;
 import com.malalaoshi.android.network.api.TimeTableApi;
 import com.malalaoshi.android.network.result.CourseListResult;
-import com.malalaoshi.android.ui.widgets.DefaultView;
+import com.malalaoshi.android.ui.widgets.CourseEmptyTipsView;
 import com.malalaoshi.android.ui.widgets.ListDefaultView;
 import com.malalaoshi.android.utils.AuthUtils;
 import com.malalaoshi.android.utils.CalendarUtils;
@@ -51,6 +50,9 @@ import de.greenrobot.event.EventBus;
  */
 public class ScheduleFragment extends BaseFragment {
 
+    private CourseEmptyTipsView mCetvCourseTips;
+    private LayoutType mLayoutType;
+
     public enum LayoutType {
         REFRESH_FAILED,
         LIST,
@@ -67,9 +69,9 @@ public class ScheduleFragment extends BaseFragment {
 
     private LinearLayoutManager layoutManager;
 
-    private DefaultView emptyView;
     private ListDefaultView errorView;
-    private DefaultView unsignupView;
+//    private DefaultView emptyView;
+//    private DefaultView unsignupView;
     protected Button btnGoback;
 
     private String hostNextUrl;
@@ -130,15 +132,24 @@ public class ScheduleFragment extends BaseFragment {
                 resetPosition();
             }
         });
-
-        emptyView.setOnBtnClickListener(new DefaultView.OnBtnClickListener() {
+        mCetvCourseTips.setOnClickListener(new CourseEmptyTipsView.OnClickListener() {
             @Override
-            public void onBtnClickListener(View view) {
-                if (onClickEmptyCourse!=null){
-                    onClickEmptyCourse.onClickEmptyCourse(view);
+            public void onClick() {
+                if (mLayoutType == LayoutType.UNSIGNUP){
+                    AuthUtils.redirectLoginActivity(getContext());
+                }else if (mLayoutType == LayoutType.EMPTY){
+                    onClickEmptyCourse.onClickEmptyCourse(null);
                 }
             }
         });
+//        emptyView.setOnBtnClickListener(new DefaultView.OnBtnClickListener() {
+//            @Override
+//            public void onBtnClickListener(View view) {
+//                if (onClickEmptyCourse!=null){
+//                    onClickEmptyCourse.onClickEmptyCourse(view);
+//                }
+//            }
+//        });
 
         errorView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,12 +158,12 @@ public class ScheduleFragment extends BaseFragment {
             }
         });
 
-        unsignupView.setOnBtnClickListener(new DefaultView.OnBtnClickListener() {
-            @Override
-            public void onBtnClickListener(View view) {
-                AuthUtils.redirectLoginActivity(getContext());
-            }
-        });
+//        unsignupView.setOnBtnClickListener(new DefaultView.OnBtnClickListener() {
+//            @Override
+//            public void onBtnClickListener(View view) {
+//                AuthUtils.redirectLoginActivity(getContext());
+//            }
+//        });
     }
 
     private void refreshList() {
@@ -172,11 +183,11 @@ public class ScheduleFragment extends BaseFragment {
     private void initData() {
         errorView.setText("加载失败了,点击刷新");
 
-        emptyView.setText("您还没有课程哦!");
-        emptyView.setButtonText("去报名");
-
-        unsignupView.setText("您还没有登录哦!");
-        unsignupView.setButtonText("去登录");
+//        emptyView.setText("您还没有课程哦!");
+//        emptyView.setButtonText("去报名");
+//
+//        unsignupView.setText("您还没有登录哦!");
+//        unsignupView.setButtonText("去登录");
         loadData();
     }
 
@@ -204,29 +215,40 @@ public class ScheduleFragment extends BaseFragment {
     }
 
     public void setLayout(LayoutType type) {
+        mLayoutType = type;
         switch (type) {
             case EMPTY:
-                emptyView.setVisibility(View.VISIBLE);
                 errorView.setVisibility(View.GONE);
-                unsignupView.setVisibility(View.GONE);
+//                emptyView.setVisibility(View.VISIBLE);
+//                unsignupView.setVisibility(View.GONE);
+                mCetvCourseTips.setBtnType(CourseEmptyTipsView.BtnType.SIGN);
+                mCetvCourseTips.setVisibility(View.VISIBLE);
                 btnGoback.setVisibility(View.GONE);
+                refreshLayout.setVisibility(View.GONE);
                 break;
             case REFRESH_FAILED:
-                emptyView.setVisibility(View.GONE);
                 errorView.setVisibility(View.VISIBLE);
-                unsignupView.setVisibility(View.GONE);
+//                emptyView.setVisibility(View.GONE);
+//                unsignupView.setVisibility(View.GONE);
+                mCetvCourseTips.setVisibility(View.GONE);
                 btnGoback.setVisibility(View.GONE);
+                refreshLayout.setVisibility(View.GONE);
                 break;
             case LIST:
-                emptyView.setVisibility(View.GONE);
+                refreshLayout.setVisibility(View.VISIBLE);
                 errorView.setVisibility(View.GONE);
-                unsignupView.setVisibility(View.GONE);
+//                emptyView.setVisibility(View.GONE);
+//                unsignupView.setVisibility(View.GONE);
+                mCetvCourseTips.setVisibility(View.GONE);
                 btnGoback.setVisibility(View.GONE);
                 break;
             case UNSIGNUP:
-                emptyView.setVisibility(View.GONE);
                 errorView.setVisibility(View.GONE);
-                unsignupView.setVisibility(View.VISIBLE);
+                refreshLayout.setVisibility(View.GONE);
+//                emptyView.setVisibility(View.GONE);
+//                unsignupView.setVisibility(View.VISIBLE);
+                mCetvCourseTips.setBtnType(CourseEmptyTipsView.BtnType.LOGIN);
+                mCetvCourseTips.setVisibility(View.VISIBLE);
                 btnGoback.setVisibility(View.GONE);
                 break;
         }
@@ -234,9 +256,10 @@ public class ScheduleFragment extends BaseFragment {
 
     private void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        emptyView = (DefaultView) view.findViewById(R.id.view_empty);
         errorView = (ListDefaultView) view.findViewById(R.id.view_error);
-        unsignupView = (DefaultView) view.findViewById(R.id.view_unsigin_up);
+//        emptyView = (DefaultView) view.findViewById(R.id.view_empty);
+//        unsignupView = (DefaultView) view.findViewById(R.id.view_unsigin_up);
+        mCetvCourseTips = (CourseEmptyTipsView) view.findViewById(R.id.cetv_course_empty);
         btnGoback = (Button) view.findViewById(R.id.btn_goback);
         initRefresh(view);
         layoutManager = new LinearLayoutManager(getContext());
@@ -429,7 +452,6 @@ public class ScheduleFragment extends BaseFragment {
         @Override
         public void onApiFinished() {
             super.onApiFinished();
-            Log.d("ScheduleFragment","loadDataBackground complete");
         }
     }
 
