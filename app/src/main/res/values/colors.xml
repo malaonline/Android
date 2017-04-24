@@ -164,6 +164,10 @@
     <color name="color_red_a34234">#a34234</color>
     <color name="color_red_e8413e">#e8413e</color>
     <color name="color_red_f16765">#f16765</color>
+    <color name="gradient_btn_bg_light_red">#fe8095</color>
+    <color name="gradient_btn_bg_dark_red">#fe436c</color>
+
+
     <!--粉色pink-->
     <color name="color_pink_edadd0">#EdAdd0</color>
     <color name="color_pink_f9b7b7">#f9b7b7</color>
