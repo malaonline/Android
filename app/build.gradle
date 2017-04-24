@@ -5,7 +5,7 @@ android {
     signingConfigs {
         release {
             try {
-                storeFile file(KEYSTORE_FILE_PATH1)
+                storeFile file(KEYSTORE_FILE_PATH)
                 storePassword KEYSTORE_PASSWORD
                 keyAlias "malalaoshi"
                 keyPassword KEY_PASSWORD
