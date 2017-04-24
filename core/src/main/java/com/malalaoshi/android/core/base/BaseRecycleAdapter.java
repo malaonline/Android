@@ -26,6 +26,7 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> e
     }
 
     public D getItem(int position) {
+        if (position < 0 || getItemCount() <= 0) return null;
         return dataList.get(position);
     }
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/tv_load_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="7dp"
+        />
+    <FrameLayout
+        android:id="@+id/fl_load_more_effect"
+        android:layout_width="wrap_content"
+        android:layout_height="112dp"
+        android:layout_gravity="center"
+        >
+        <FrameLayout
+            android:id="@+id/fl_load_more_planet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            >
+            <ImageView
+                android:id="@+id/iv_load_more_planet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/core__load_more_planet"
+                />
+            <ImageView
+                android:id="@+id/iv_load_more_projection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/core__load_more_projetion"
+                android:layout_gravity="center_horizontal"
+                />
+        </FrameLayout>
+        <ImageView
+            android:id="@+id/iv_load_more_lion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/core__load_more_lion"
+            android:layout_gravity="center_horizontal"
+            />
+
+    </FrameLayout>
+</LinearLayout>
