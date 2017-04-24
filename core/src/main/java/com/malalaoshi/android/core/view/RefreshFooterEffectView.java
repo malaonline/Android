@@ -1,7 +1,6 @@
 package com.malalaoshi.android.core.view;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -66,12 +65,10 @@ public class RefreshFooterEffectView implements ILoadMoreViewFactory {
             mShadowShowAnim = AnimationUtils.loadAnimation(context, R.anim.core__shadow_show);
             mPlanetShowAnim = AnimationUtils.loadAnimation(context, R.anim.core__planet_up_to_show);
             mTextShowAnim = AnimationUtils.loadAnimation(context, R.anim.core__text_alphoa_show);
-            Log.e("LoadMoreHandler", "initAnimation: "+mLionDownAnim);
 
             mLionDownAnim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-                    Log.e("LoadMoreHandler", "onAnimationStart: ");
                     mFlLoadMoreEffect.setVisibility(View.VISIBLE);
 
                 }
@@ -105,7 +102,6 @@ public class RefreshFooterEffectView implements ILoadMoreViewFactory {
             });
         }
         public void startAnimation(){
-            Log.e("LoadMoreHandler", "startAnimation: ");
             mIvLoadMoreLion.startAnimation(mLionDownAnim);
             mFlLoadMorePlanet.startAnimation(mPlanetShowAnim);
             mIvLoadMoreProjection.startAnimation(mShadowShowAnim);
@@ -116,7 +112,6 @@ public class RefreshFooterEffectView implements ILoadMoreViewFactory {
 
         @Override
         public void showNormal() {
-            Log.e("LoadMoreHandler", "showNormal: ");
             mTvLoadMore.setText(R.string.click_load_more);
             mFlLoadMoreEffect.setVisibility(View.GONE);
             mFootView.setOnClickListener(mLoadMoreListener);
@@ -124,7 +119,6 @@ public class RefreshFooterEffectView implements ILoadMoreViewFactory {
 
         @Override
         public void showLoading() {
-            Log.e("LoadMoreHandler", "showLoading: ");
             mTvLoadMore.setText(R.string.loading_more);
             mFlLoadMoreEffect.setVisibility(View.GONE);
         }
@@ -137,7 +131,6 @@ public class RefreshFooterEffectView implements ILoadMoreViewFactory {
 
         @Override
         public void showNomore() {
-            Log.e("LoadMoreHandler", "showNomore: ");
             mTvLoadMore.setText(R.string.no_more_content);
             mTvLoadMore.startAnimation(mLionDownAnim);
 
