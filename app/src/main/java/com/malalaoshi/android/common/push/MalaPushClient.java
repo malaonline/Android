@@ -37,7 +37,7 @@ public class MalaPushClient {
         JPushInterface.setAliasAndTags(MalaContext.getContext(), alias, tags, new TagAliasCallback() {
             @Override
             public void gotResult(int i, String s, Set<String> set) {
-                Log.d(TAG, "status code:" + i + " alias:" + s);
+                Log.e(TAG, "status code:" + i + " alias:" + s);
             }
         });
     }

@@ -22,4 +22,12 @@ public class NoticeMessage {
     public void setTocomment_num(Long tocomment_num) {
         this.tocomment_num = tocomment_num;
     }
+
+    @Override
+    public String toString() {
+        return "NoticeMessage{" +
+                "unpaid_num=" + unpaid_num +
+                ", tocomment_num=" + tocomment_num +
+                '}';
+    }
 }

@@ -440,6 +440,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         @Override
         public void onApiSuccess(@NonNull NoticeMessage noticeMessage) {
             if (noticeMessage != null && noticeMessage.getUnpaid_num() != null&&noticeMessage.getTocomment_num()!=null) {
+                Log.e("LoadNoticeRequest", "onApiSuccess: noticeMessage="+noticeMessage);
                 NoticeEvent noticeEvent = new NoticeEvent(EventType.BUS_EVENT_NOTICE_MESSAGE);
                 noticeEvent.setUnpayCount(noticeMessage.getUnpaid_num());
                 noticeEvent.setUncommentCount(noticeMessage.getTocomment_num());

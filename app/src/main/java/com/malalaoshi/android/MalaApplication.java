@@ -91,14 +91,14 @@ public class MalaApplication extends BaseApplication {
     @Override
     protected void onUserLogined() {
         //设置tag和别名(在登录和登出处需要添加设置别名)
-        Log.d(TAG, "用户登录后设置JPush别名uid:" + UserManager.getInstance().getUserId());
+        Log.e(TAG, "用户登录后设置JPush别名uid:" + UserManager.getInstance().getUserId());
         MalaPushClient.getInstance().setAliasAndTags(UserManager.getInstance().getUserId(), null);
     }
 
     @Override
     protected void onUserLogout() {
         //退出登录后,应该清空jpush别名,重置tags
-        Log.d(TAG, "用户退出登录后清空JPush别名uid:" + UserManager.getInstance().getUserId());
+        Log.e(TAG, "用户退出登录后清空JPush别名uid:" + UserManager.getInstance().getUserId());
         MalaPushClient.getInstance().setAliasAndTags(UserManager.getInstance().getUserId(), null);
     }
 }

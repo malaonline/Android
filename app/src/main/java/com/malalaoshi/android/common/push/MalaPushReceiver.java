@@ -201,5 +201,6 @@ public class MalaPushReceiver extends BroadcastReceiver {
     //send msg to MainActivity
     private void processCustomMessage(Context context, Bundle bundle) {
         //自定义消息处理
+        Log.e("MalaPushReceiver", "processCustomMessage: bundle="+bundle);
     }
 }
