@@ -17,4 +17,7 @@
     <color name="core__blue_unfocus">#8078a8fe</color>
     <color name="gradient_btn_bg_dark_blue">#508fff</color>
     <color name="gradient_btn_bg_light_blue">#83b8ff</color>
+    <color name="core__shadow_bg_blue">#c0ddff</color>
+    <color name="core__shadow_bg_red">#ffc8c8</color>
+
 </resources>

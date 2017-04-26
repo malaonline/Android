@@ -3,22 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <android.support.v7.widget.CardView
+    <FrameLayout
+        android:id="@+id/fl_course_empty"
         android:layout_width="match_parent"
         android:layout_height="366dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginRight="18dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="10dp"
         >
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/course_empty_tips"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -44,26 +43,39 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="#373a41"
-            android:text="要上的课程在这里"
+            android:text="温馨提醒上课通知"
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="44dp"
             android:layout_marginRight="24dp"
             />
-    </android.support.v7.widget.CardView>
-    <TextView
-        android:id="@+id/tv_login_sign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_immediately"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:background="@drawable/core__selector_gradient_semicircle_blue_btn_bg"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="44dp"
-        android:paddingRight="44dp"
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/fl_login_sign"
+        android:layout_width="160dp"
+        android:layout_height="42dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="42dp"
-        />
+        >
+        <TextView
+            android:id="@+id/tv_course_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/login_immediately"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:background="@drawable/selector_gradient_semicircle_blue_btn_bg"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/tv_course_sign"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/sign_immediately"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:background="@drawable/selector_gradient_semicircle_red_btn_bg"
+            android:gravity="center"
+            />
+    </FrameLayout>
 
 </LinearLayout>
