@@ -1,6 +1,8 @@
 package com.malalaoshi.android.core.usercenter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,11 +15,15 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hitomi.cslibrary.CrazyShadow;
+import com.hitomi.cslibrary.base.CrazyShadowDirection;
 import com.malalaoshi.android.core.R;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
@@ -26,6 +32,7 @@ import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.usercenter.api.VerifyCodeApi;
 import com.malalaoshi.android.core.usercenter.entity.AuthUser;
 import com.malalaoshi.android.core.usercenter.entity.SendSms;
+import com.malalaoshi.android.core.utils.DensityUtil;
 import com.malalaoshi.android.core.utils.MiscUtil;
 import com.malalaoshi.android.core.utils.StatusBarCompat;
 
@@ -37,6 +44,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public static final int RESULT_CODE_LOGIN_SUCCESS = 2;
     private int mKeyboardHeight;
     private int mStatusBarHeight;
+    private int mBottomStatusHeight;
+    private int mStatusHeight;
     private boolean isShowKeyboard;
     private FrameLayout mLlLoginRoot;
     private ViewTreeObserver.OnGlobalLayoutListener mGlobalLayoutListener;
@@ -55,6 +64,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private ImageView mIvLoginBack;
     private ImageView mIvLoginClearNum;
     private Handler mHandler;
+    private LinearLayout mLlLoginParent;
+    private FrameLayout mFlInputPhone;
+    private FrameLayout mFlInputCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +79,43 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        }
 //        mFlContainer = (FrameLayout) findViewById(R.id.fl_container);
         initView();
-        mStatusBarHeight = StatusBarCompat.getStatusBarHeight(this)+100;
+        initShadow();
+        mStatusBarHeight = StatusBarCompat.getStatusBarHeight(this);
+        mBottomStatusHeight = StatusBarCompat.getBottomStatusHeight(this);
+        mStatusHeight = mStatusBarHeight + mBottomStatusHeight;
         mHandler = new Handler(Looper.getMainLooper());
         initListener();
         initAnimation();
+    }
+
+    private void initShadow() {
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(DensityUtil.dip2px(this, 4))
+                .setBaseShadowColor(getResources().getColor(R.color.core__shadow_bg_blue))
+                .setBackground(Color.WHITE)
+                .setCorner(DensityUtil.dip2px(this, 4))
+                .setImpl(CrazyShadow.IMPL_DRAW)
+                .action(mFlInputPhone);
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(DensityUtil.dip2px(this, 4))
+                .setBaseShadowColor(getResources().getColor(R.color.core__shadow_bg_blue))
+                .setBackground(Color.WHITE)
+                .setCorner(DensityUtil.dip2px(this, 4))
+                .setImpl(CrazyShadow.IMPL_DRAW)
+                .action(mFlInputCode);
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(DensityUtil.dip2px(this, 4))
+                .setBaseShadowColor(getResources().getColor(R.color.core__shadow_bg_blue))
+                .setCorner(DensityUtil.dip2px(this, 20))
+                .setImpl(CrazyShadow.IMPL_WRAP)
+                .action(mtvLoginCommit);
+
     }
 
     private void initView() {
@@ -84,6 +129,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mTvLoginAgreement = (TextView) findViewById(R.id.tv_login_agreement);
         mIvLoginBack = (ImageView) findViewById(R.id.iv_login_back);
         mIvLoginClearNum = (ImageView) findViewById(R.id.iv_login_clear_num);
+        mLlLoginParent = (LinearLayout) findViewById(R.id.ll_login_parent);
+        mFlInputPhone = (FrameLayout) findViewById(R.id.fl_input_phone);
+        mFlInputCode = (FrameLayout) findViewById(R.id.fl_login_input_code);
 
     }
 
@@ -102,16 +150,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 mLlLoginRoot.getWindowVisibleDisplayFrame(rect);
                 int screenHeight = mLlLoginRoot.getRootView().getHeight();
                 int heightDiff = screenHeight - (rect.bottom - rect.top);
-                if (mKeyboardHeight == 0 && heightDiff > mStatusBarHeight) {
-                    mKeyboardHeight = heightDiff - mStatusBarHeight;
+                if (mKeyboardHeight == 0 && heightDiff > mStatusHeight) {
+                    mKeyboardHeight = heightDiff - mStatusHeight;
                 }
                 if (isShowKeyboard) {
-                    if (heightDiff <= mStatusBarHeight) {
+                    if (heightDiff <= mStatusHeight) {
                         isShowKeyboard = false;
                         onHideKeyboard();
                     }
                 } else {
-                    if (heightDiff > mStatusBarHeight) {
+                    if (heightDiff > mStatusHeight) {
                         isShowKeyboard = true;
                         onShowKeyboard();
                     }
@@ -151,6 +199,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mIvLoginBack.setOnClickListener(this);
         mIvLoginClearNum.setOnClickListener(this);
         mTvLoginAgreement.setOnClickListener(this);
+        mLlLoginParent.setOnClickListener(this);
     }
 
     private void onShowKeyboard() {
@@ -193,12 +242,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         } else if (id == R.id.iv_login_clear_num) {
             mEtInputPhone.setText("");
         } else if (id == R.id.tv_get_code) {
+            mEtInputCode.requestFocus();
             getCode();
         } else if (id == R.id.tv_login_commit){
             commit();
         } else if (id == R.id.tv_login_agreement){
             startActivity(new Intent(this, UserProtocolActivity.class));
             StatReporter.userProtocol(getStatName());
+        } else if (id == R.id.ll_login_parent){
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()){
+                imm.hideSoftInputFromWindow(mLlLoginParent.getWindowToken(), 0);
+            }
         }
     }
 
@@ -299,6 +354,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void fetchSucceeded() {
         MiscUtil.toast(R.string.get_code_succeed);
         mTvGetCode.setEnabled(false);
+        if (mHandler != null)
+            mHandler.removeCallbacksAndMessages(null);
         countdown(60);
     }
 
@@ -308,6 +365,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void countdown(final int time) {
         if (mHandler != null) {
             mTvGetCode.setText(getString(R.string.seconds_count_down, time));
+            mTvGetCode.setEnabled(false);
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {

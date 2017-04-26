@@ -25,6 +25,7 @@ import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.core.utils.MiscUtil;
 import com.malalaoshi.android.core.view.EmptyView;
 import com.malalaoshi.android.core.view.ErrorView;
+import com.malalaoshi.android.core.view.RefreshFooterEffectView;
 import com.malalaoshi.android.core.view.RefreshHeaderEffectView;
 
 /**
@@ -200,6 +201,7 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
         refreshLayout.addPtrUIHandler(headerView);
         refreshLayout.setKeepHeaderWhenRefresh(true);
         refreshLayout.setPullToRefresh(false);
+        refreshLayout.setFooterView(new RefreshFooterEffectView(getContext()));
         //这个会引起自动刷新刷新两次
         //refreshLayout.setEnabledNextPtrAtOnce(true);
         refreshLayout.setPtrHandler(new PtrHandler() {
@@ -255,6 +257,8 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
             if(adapter.getItemCount()<=0){
                 setLayout(LayoutType.REFRESH_FAILED);
 //                setErrorViewText(getErrorString());
+            }else {
+                MiscUtil.toast("网络不给力，稍后再试");
             }
             return;
         }
