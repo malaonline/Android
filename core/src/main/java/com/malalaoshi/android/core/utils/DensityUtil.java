@@ -1,4 +1,4 @@
-package com.malalaoshi.android.utils;
+package com.malalaoshi.android.core.utils;
 
 import android.content.Context;
 import android.content.res.Resources;

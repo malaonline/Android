@@ -16,7 +16,7 @@ import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.base.MalaBaseAdapter;
 import com.malalaoshi.android.core.image.glide.GlideUtils;
 import com.malalaoshi.android.core.view.TitleBarView;
-import com.malalaoshi.android.utils.DensityUtil;
+import com.malalaoshi.android.core.utils.DensityUtil;
 
 import java.util.Arrays;
 import java.util.List;
