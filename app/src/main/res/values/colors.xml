@@ -129,6 +129,7 @@
     <color name="color_transparent_ffffff_00">#00ffffff</color>
     <color name="color_transparent_000000_01">#01000000</color>
     <color name="color_transparent_000000_00">#00000000</color>
+    <color name="color_transparent_ffffff_80">#33ffffff</color>
     <!--青色Cyan-->
     <color name="color_cyan_67cfc8">#67cfc8</color>
     <color name="color_cyan_bfe7ca">#bfe7ca</color>

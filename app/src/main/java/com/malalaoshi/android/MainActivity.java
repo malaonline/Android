@@ -22,6 +22,7 @@ import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.usercenter.UserManager;
+import com.malalaoshi.android.core.utils.StatusBarCompat;
 import com.malalaoshi.android.dialogs.MultiSelectFilterDialog;
 import com.malalaoshi.android.entity.City;
 import com.malalaoshi.android.entity.Grade;
@@ -94,6 +95,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home);
+        StatusBarCompat.compat(this);
         init();
         //初始化定位
         initLocation();
