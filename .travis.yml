@@ -46,11 +46,9 @@ script:                   # 编译任务
   - ./gradlew assembleStagerelease
 #script: ./buildbot.sh    # 运行编译脚本与上面的2选一
 
-
 #before_deploy:       # 部署之前
   # 使用 mv 命令进行修改apk文件的名字
   #- mv app/build/outputs/apk/app-parent-devrelease.apk app/build/outputs/apk/devrelease.apk
-
 
 deploy:                             # 部署到GitHub Release
   provider: releases                # 部署到GitHub Release，除此之外，Travis CI还支持发布到fir.im、AWS、Google App Engine等
@@ -65,13 +63,10 @@ deploy:                             # 部署到GitHub Release
     tags: false                     # tags设置为true表示只有在有tag的情况下才部署
     #all_branches: true
 
-
 after_deploy:                       # 部署到fir.im
  - fir p app/build/outputs/apk/app-parent-devrelease.apk -T $FIR_TOKENS -c "`git cat-file tag $TRAVIS_TAG`"
  - fir p app/build/outputs/apk/app-parent-prdrelease.apk -T $FIR_TOKENS -c "`git cat-file tag $TRAVIS_TAG`"
  - fir p app/build/outputs/apk/app-parent-stagerelease.apk -T $FIR_TOKENS -c "`git cat-file tag $TRAVIS_TAG`"
-
-
 
 notifications:                      # 通知
   email:
