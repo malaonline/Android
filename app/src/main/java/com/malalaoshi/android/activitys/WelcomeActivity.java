@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.view.WindowManager;
 
 import com.malalaoshi.android.MainActivity;
 import com.malalaoshi.android.R;
@@ -22,7 +23,9 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        setContentView(R.layout.activity_splash);
+//        StatusBarCompat.compat(this, getResources().getColor(R.color.splash_status_bg));
         mHandler.postDelayed(new MyRunnable(this),1500);
     }
 
