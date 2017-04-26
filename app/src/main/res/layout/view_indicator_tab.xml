@@ -22,8 +22,8 @@
             android:layout_width="7dp"
             android:layout_height="7dp"
             android:scaleType="center"
-            android:src="@drawable/bg_circle_indicator"
-            android:visibility="invisible"
+            android:background="@drawable/bg_circle_indicator"
+            android:visibility="gone"
             />
     </LinearLayout>
     <View

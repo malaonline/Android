@@ -290,6 +290,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                 tvTitleText.setVisibility(View.GONE);
                 StatReporter.teacherListPage();
                 ivFilterTeacher.setVisibility(View.GONE);
+                indicatorTabs.setTabIndicatorVisibility(0, View.VISIBLE);
                 break;
             case PAGE_INDEX_TEACHERS:
                 tvChooseSchool.setVisibility(View.VISIBLE);

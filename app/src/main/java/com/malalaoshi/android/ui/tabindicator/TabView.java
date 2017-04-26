@@ -5,12 +5,14 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.core.utils.DensityUtil;
 
 import butterknife.ButterKnife;
 
@@ -20,6 +22,7 @@ import butterknife.ButterKnife;
  */
 public class TabView extends LinearLayout {
 
+    private final Context mContext;
     private TextView tvTabTitle;
     private ImageView ivTabIndicator;
     private View viewTabIndicator;
@@ -29,6 +32,7 @@ public class TabView extends LinearLayout {
 
     public TabView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
         View view = LayoutInflater.from(context).inflate(R.layout.view_indicator_tab,null);
         tvTabTitle = (TextView) view.findViewById(R.id.tv_tab_title);
         ivTabIndicator = (ImageView) view.findViewById(R.id.iv_tab_indicator);
@@ -53,6 +57,19 @@ public class TabView extends LinearLayout {
 
     public void  setTabIndicatorVisibility(int visibility){
         ivTabIndicator.setVisibility(visibility);
+    }
+    public void setTabIndicatorSrc(int imgId, int width, int height){
+        ViewGroup.LayoutParams layoutParams = ivTabIndicator.getLayoutParams();
+        layoutParams.width = DensityUtil.dip2px(mContext, width);
+        layoutParams.height = DensityUtil.dip2px(mContext, height);
+        ivTabIndicator.setLayoutParams(layoutParams);
+        ivTabIndicator.setBackground(getResources().getDrawable(imgId));
+    }
+    public void setIndicatorHot(){
+        setTabIndicatorSrc(R.drawable.hot, 20, 10);
+    }
+    public void setIndicatorRedDots(){
+        setTabIndicatorSrc(R.drawable.bg_circle_indicator, 7, 7);
     }
 
 
