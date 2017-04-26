@@ -1,9 +1,6 @@
-language: android        # 声明构建语言环境
-jdk: oraclejdk8          # 下载jdk8
-
-#sudo: false              # 开启基于容器的Travis CI任务，让编译效率更高。
-sudo: required            # Sudo-enabled  7.5G内存
-
+language: android
+jdk: oraclejdk8
+sudo: required
 android:
   components:            # 配置信息
     - platform-tools
@@ -71,9 +68,8 @@ after_deploy:                       # 部署到fir.im
 notifications:                      # 通知
   email:
     recipients:
-      - yandebo@malalaoshi.com
+    - yandebo@malalaoshi.com
     on_success: change
     on_failure: always
   slack:
     secure: C+3cVS/ti5y4qUI4gpaIs5xRmKbUZQhY4Fu07mofeG5ld+uGYCf0v73EQYAFA0vqdWwSwlovxMSbEkKI9LyyZyERkyyq9RaJ7vgdKXctCXR9/nomtpAubR9DNvjKtOXkmOPfzqj2iarhV6q0mmQq/Wl0lJBH+psbzQt0v3Kz9bLCP82vbxoQA7WDvWHam0tzwsQ8bfTvzsgo8bppUrWrm+EGTHCSdlQ4GejPwHvCuGFQ3BZq4bf/R5odXfrBgkeYRBhAZV2QEjrqTTMJbWCG6Phk3wzLAG153+fvzh6WF7j5tctgY7/fyMN8WcaqrP1cdH45AQOLZfQ1V03iJOYfKNg5lR5NonTfEnmAGe6axANROFGellNlsd+zOnUD6eEs3iZs3hdBvz4U0W+o72rQDaYvSE5KpJ7Xw2yAx96kwuTCV9RMOcHzzJg4WCNr5GJt3z7/YZ6oFs7qFblm1/oCuL7IhNSsK/EVTWIH2MHevpXD0ORDA+gU9bt+B7eliqLPTC3Nzu9EkgBxxF615lfavmjD7lALuggm/qzGi0sUaaXhne4WDChNUKyO0za/hP5ZpCkR2lN+FgZKLQflSvbdsP/Y0HvPwRK2uA4aQHrHJp+bwcvVrV/8rxYzPLtGZi+wyrc1SzVBQ7JLg5EU98Sd3+9DWduPBWzOaK8CvmgOD20=
-

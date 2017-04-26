@@ -2,6 +2,7 @@ package com.malalaoshi.android.core.usercenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hitomi.cslibrary.CrazyShadow;
+import com.hitomi.cslibrary.base.CrazyShadowDirection;
 import com.malalaoshi.android.core.R;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
@@ -29,6 +32,7 @@ import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.usercenter.api.VerifyCodeApi;
 import com.malalaoshi.android.core.usercenter.entity.AuthUser;
 import com.malalaoshi.android.core.usercenter.entity.SendSms;
+import com.malalaoshi.android.core.utils.DensityUtil;
 import com.malalaoshi.android.core.utils.MiscUtil;
 import com.malalaoshi.android.core.utils.StatusBarCompat;
 
@@ -61,6 +65,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private ImageView mIvLoginClearNum;
     private Handler mHandler;
     private LinearLayout mLlLoginParent;
+    private FrameLayout mFlInputPhone;
+    private FrameLayout mFlInputCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +79,43 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        }
 //        mFlContainer = (FrameLayout) findViewById(R.id.fl_container);
         initView();
+        initShadow();
         mStatusBarHeight = StatusBarCompat.getStatusBarHeight(this);
         mBottomStatusHeight = StatusBarCompat.getBottomStatusHeight(this);
         mStatusHeight = mStatusBarHeight + mBottomStatusHeight;
         mHandler = new Handler(Looper.getMainLooper());
         initListener();
         initAnimation();
+    }
+
+    private void initShadow() {
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(DensityUtil.dip2px(this, 4))
+                .setBaseShadowColor(getResources().getColor(R.color.core__shadow_bg_blue))
+                .setBackground(Color.WHITE)
+                .setCorner(DensityUtil.dip2px(this, 4))
+                .setImpl(CrazyShadow.IMPL_DRAW)
+                .action(mFlInputPhone);
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(DensityUtil.dip2px(this, 4))
+                .setBaseShadowColor(getResources().getColor(R.color.core__shadow_bg_blue))
+                .setBackground(Color.WHITE)
+                .setCorner(DensityUtil.dip2px(this, 4))
+                .setImpl(CrazyShadow.IMPL_DRAW)
+                .action(mFlInputCode);
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(DensityUtil.dip2px(this, 4))
+                .setBaseShadowColor(getResources().getColor(R.color.core__shadow_bg_blue))
+                .setCorner(DensityUtil.dip2px(this, 20))
+                .setImpl(CrazyShadow.IMPL_WRAP)
+                .action(mtvLoginCommit);
+
     }
 
     private void initView() {
@@ -93,6 +130,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mIvLoginBack = (ImageView) findViewById(R.id.iv_login_back);
         mIvLoginClearNum = (ImageView) findViewById(R.id.iv_login_clear_num);
         mLlLoginParent = (LinearLayout) findViewById(R.id.ll_login_parent);
+        mFlInputPhone = (FrameLayout) findViewById(R.id.fl_input_phone);
+        mFlInputCode = (FrameLayout) findViewById(R.id.fl_login_input_code);
+
     }
 
     private void initAnimation() {
@@ -202,6 +242,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         } else if (id == R.id.iv_login_clear_num) {
             mEtInputPhone.setText("");
         } else if (id == R.id.tv_get_code) {
+            mEtInputCode.requestFocus();
             getCode();
         } else if (id == R.id.tv_login_commit){
             commit();
@@ -313,6 +354,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void fetchSucceeded() {
         MiscUtil.toast(R.string.get_code_succeed);
         mTvGetCode.setEnabled(false);
+        if (mHandler != null)
+            mHandler.removeCallbacksAndMessages(null);
         countdown(60);
     }
 
@@ -322,6 +365,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void countdown(final int time) {
         if (mHandler != null) {
             mTvGetCode.setText(getString(R.string.seconds_count_down, time));
+            mTvGetCode.setEnabled(false);
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {

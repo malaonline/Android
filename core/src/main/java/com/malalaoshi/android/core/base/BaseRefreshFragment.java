@@ -253,6 +253,7 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
     protected void refreshFinish(T response) {
         refreshLayout.refreshComplete();
         if (response == null) {
+            MiscUtil.toast(R.string.network_error);
             if(adapter.getItemCount()<=0){
                 setLayout(LayoutType.REFRESH_FAILED);
 //                setErrorViewText(getErrorString());
