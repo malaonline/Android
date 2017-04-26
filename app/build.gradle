@@ -6,9 +6,9 @@ android {
         release {
             try {
                 storeFile file(KEYSTORE_FILE_PATH)
-                storePassword KEYSTORE_PASSWORD
-                keyAlias "malalaoshi"
-                keyPassword KEY_PASSWORD
+                storePassword project.hasProperty("KEYSTORE_PASSWORD") ? KEYSTORE_PASSWORD : System.getenv("KEYSTORE_PASSWORD");
+                keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME");
+                keyPassword project.hasProperty("KEY_PASSWORD") ? KEY_PASSWORD : System.getenv("KEY_PASSWORD");
             }
             catch (ex) {
                 throw new InvalidUserDataException(
@@ -19,9 +19,9 @@ android {
         debug {
             try {
                 storeFile file(KEYSTORE_FILE_PATH1)
-                storePassword KEYSTORE_PASSWORD
-                keyAlias "malalaoshi"
-                keyPassword KEY_PASSWORD
+                storePassword project.hasProperty("KEYSTORE_PASSWORD") ? KEYSTORE_PASSWORD : System.getenv("KEYSTORE_PASSWORD");
+                keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME");
+                keyPassword project.hasProperty("KEY_PASSWORD") ? KEY_PASSWORD : System.getenv("KEY_PASSWORD");
             }
             catch (ex) {
                 throw new InvalidUserDataException(
@@ -128,24 +128,24 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 
-//    project.afterEvaluate {
-//        //重置ShareSDK中appId和appSecret
-//        tasks.getByName('generateParentDevreleaseAssets') {
-//            it.doFirst {
-//                initShareSdk(PARENT_APP_ID_DEV,PARENT_APP_SECRET_DEV)
-//            }
-//        }
-//        tasks.getByName('generateParentStagereleaseAssets') {
-//            it.doFirst {
-//                initShareSdk(PARENT_APP_ID_STAGE,PARENT_APP_SECRET_STAGE)
-//            }
-//        }
-//        tasks.getByName('generateParentPrdreleaseAssets') {
-//            it.doFirst {
-//                initShareSdk(PARENT_APP_ID_RELEASE,PARENT_APP_SECRET_RELEASE)
-//            }
-//        }
-//    }
+    project.afterEvaluate {
+        //重置ShareSDK中appId和appSecret
+        tasks.getByName('generateParentDevreleaseAssets') {
+            it.doFirst {
+                initShareSdk(PARENT_APP_ID_DEV,PARENT_APP_SECRET_DEV)
+            }
+        }
+        tasks.getByName('generateParentStagereleaseAssets') {
+            it.doFirst {
+                initShareSdk(PARENT_APP_ID_STAGE,PARENT_APP_SECRET_STAGE)
+            }
+        }
+        tasks.getByName('generateParentPrdreleaseAssets') {
+            it.doFirst {
+                initShareSdk(PARENT_APP_ID_RELEASE,PARENT_APP_SECRET_RELEASE)
+            }
+        }
+    }
     dexOptions{
         javaMaxHeapSize "4g"
     }

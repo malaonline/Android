@@ -22,6 +22,7 @@
 
 gradle.properties
 local.properties
+mini_keystore
 secrets.tar
 
 #.idea

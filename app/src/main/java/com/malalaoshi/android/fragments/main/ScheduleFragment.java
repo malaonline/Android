@@ -1,11 +1,13 @@
 package com.malalaoshi.android.fragments.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +54,9 @@ public class ScheduleFragment extends BaseFragment {
 
     private CourseEmptyTipsView mCetvCourseTips;
     private LayoutType mLayoutType;
+//    private FrameLayout mFlCourseEmpty;
+//    private CrazyShadow mEmptyShadow;
+    private Context mContext;
 
     public enum LayoutType {
         REFRESH_FAILED,
@@ -82,11 +87,17 @@ public class ScheduleFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.fragment_schedule, container, false);
+        mContext = getContext();
         initView(contentView);
-        initData();
         setEvent();
         EventBus.getDefault().register(this);
         return contentView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initData();
     }
 
     @Override
@@ -98,7 +109,15 @@ public class ScheduleFragment extends BaseFragment {
     public void onEventMainThread(BusEvent event) {
         switch (event.getEventType()) {
             case BusEvent.BUS_EVENT_LOGOUT_SUCCESS:
+                mCetvCourseTips.setSignShadowVisibility(false);
+                mCetvCourseTips.setLoginShadowVisibility(true);
+                loadData();
+                break;
             case BusEvent.BUS_EVENT_LOGIN_SUCCESS:
+                mCetvCourseTips.setSignShadowVisibility(true);
+                mCetvCourseTips.setLoginShadowVisibility(false);
+                loadData();
+                break;
             case BusEvent.BUS_EVENT_RELOAD_TIMETABLE_DATA:
             case BusEvent.BUS_EVENT_PAY_SUCCESS:
                 loadData();
@@ -134,7 +153,7 @@ public class ScheduleFragment extends BaseFragment {
         });
         mCetvCourseTips.setOnClickListener(new CourseEmptyTipsView.OnClickListener() {
             @Override
-            public void onClick() {
+            public void onClick(View view) {
                 if (mLayoutType == LayoutType.UNSIGNUP){
                     AuthUtils.redirectLoginActivity(getContext());
                 }else if (mLayoutType == LayoutType.EMPTY){
@@ -255,11 +274,14 @@ public class ScheduleFragment extends BaseFragment {
     }
 
     private void initView(View view) {
+        Log.e("ScheduleFragment", "initView: ");
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         errorView = (ListDefaultView) view.findViewById(R.id.view_error);
-//        emptyView = (DefaultView) view.findViewById(R.id.view_empty);
+
+        //        emptyView = (DefaultView) view.findViewById(R.id.view_empty);
 //        unsignupView = (DefaultView) view.findViewById(R.id.view_unsigin_up);
         mCetvCourseTips = (CourseEmptyTipsView) view.findViewById(R.id.cetv_course_empty);
+
         btnGoback = (Button) view.findViewById(R.id.btn_goback);
         initRefresh(view);
         layoutManager = new LinearLayoutManager(getContext());
