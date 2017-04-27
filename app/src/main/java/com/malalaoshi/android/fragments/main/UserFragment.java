@@ -153,7 +153,6 @@ public class UserFragment extends BaseFragment {
             case BusEvent.BUS_EVENT_LOGIN_SUCCESS:
             case BusEvent.BUS_EVENT_UPDATE_USER_NAME_SUCCESS:
             case BusEvent.BUS_EVENT_BACKGROUND_LOAD_USERCENTER_DATA:
-                Log.d("UserFragment", "start loadData");
                 reloadData();
                 break;
 
@@ -436,14 +435,14 @@ public class UserFragment extends BaseFragment {
         CommentActivity.launch(getActivity());
     }
 
-    @OnClick(R.id.rl_user_schoolship)
+    @OnClick(R.id.ll_user_schoolship)
     public void OnClickUserSchoolShip(View view) {
         StatReporter.clickScholarship(getStatName());
         if (!checkLogin()) return;
         CouponActivity.launch(getActivity(), false);
     }
 
-    @OnClick(R.id.rl_about_mala)
+    @OnClick(R.id.ll_about_mala)
     public void OnClickAboutMala(View view) {
         StatReporter.aboutMalaTeacher();
         Intent intent = new Intent(getContext(), AboutActivity.class);
@@ -561,23 +560,25 @@ public class UserFragment extends BaseFragment {
 
     private void setUserLoginInInfo() {
         tvUserName.setText(UserManager.getInstance().getStuName());
+        tvUserName.setBackground(null);
         btnLogout.setVisibility(View.VISIBLE);
     }
 
     private void setUserLoginOutInfo() {
         tvUserName.setText("点击登录");
+        tvUserName.setBackgroundResource(R.drawable.selector_rim_edite_name_white);
         btnLogout.setVisibility(View.GONE);
     }
 
     private void setUserLoginInAvatar(String url) {
-        ivAvatar.loadCircleImage(url, R.drawable.ic_default_teacher_avatar);
+        ivAvatar.LoadCircleStrokeImage(url, R.drawable.ic_default_avatar);
         UserManager.getInstance().setAvatorUrl(url);
     }
 
 
     private void setUserLoginOutAvatar() {
         Glide.with(this)
-                .load(R.drawable.default_avatar)
+                .load(R.drawable.ic_default_avatar)
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .crossFade()

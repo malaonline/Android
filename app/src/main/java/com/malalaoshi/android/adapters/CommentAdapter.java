@@ -49,22 +49,22 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
             holder.ivLiveCourseAvator.setVisibility(View.VISIBLE);
             if (teacher!=null){
                 holder.teacherView.setText(lecturer.getName());
-                holder.ivLiveCourseAvator.setRightCircleImage(teacher.getAvatar(), R.drawable.ic_default_teacher_avatar);
-                holder.ivLiveCourseAvator.setLeftCircleImage(lecturer.getAvatar(), R.drawable.ic_default_teacher_avatar);
+                holder.ivLiveCourseAvator.setRightCircleImage(teacher.getAvatar(), R.drawable.ic_default_avatar);
+                holder.ivLiveCourseAvator.setLeftCircleImage(lecturer.getAvatar(), R.drawable.ic_default_avatar);
             }else{
                 holder.teacherView.setText("");
-                holder.ivLiveCourseAvator.setRightCircleImage("", R.drawable.ic_default_teacher_avatar);
-                holder.ivLiveCourseAvator.setLeftCircleImage("", R.drawable.ic_default_teacher_avatar);
+                holder.ivLiveCourseAvator.setRightCircleImage("", R.drawable.ic_default_avatar);
+                holder.ivLiveCourseAvator.setLeftCircleImage("", R.drawable.ic_default_avatar);
             }
         }else{
             holder.iconView.setVisibility(View.VISIBLE);
             holder.ivLiveCourseAvator.setVisibility(View.GONE);
             if (teacher!=null){
                 holder.teacherView.setText(teacher.getName());
-                holder.iconView.loadCircleImage(teacher.getAvatar(), R.drawable.ic_default_teacher_avatar);
+                holder.iconView.loadCircleImage(teacher.getAvatar(), R.drawable.ic_default_avatar);
             }else{
                 holder.teacherView.setText("");
-                holder.iconView.loadCircleImage("", R.drawable.ic_default_teacher_avatar);
+                holder.iconView.loadCircleImage("", R.drawable.ic_default_avatar);
             }
         }
 

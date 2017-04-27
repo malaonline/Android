@@ -328,14 +328,14 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
             tvCourseDisc.setText(liveCourse.getCourse_description());
             tvLecturer.setText(liveCourse.getLecturer_name());
             tvAssistName.setText("助教："+liveCourse.getAssistant_name());
-            ivAssistAvatar.loadCircleImage(liveCourse.getAssistant_avatar(),R.drawable.ic_default_teacher_avatar);
+            ivAssistAvatar.loadCircleImage(liveCourse.getAssistant_avatar(),R.drawable.ic_default_avatar);
             String oldBio = liveCourse.getLecturer_bio();
             String newBio = "";
             if (!EmptyUtils.isEmpty(oldBio)){
                 newBio = oldBio.replace(';','\n');
             }
             tvLectureHonorary.setText(newBio);
-            icLeatureAvatar.loadCircleImage(liveCourse.getLecturer_avatar(),R.drawable.ic_default_teacher_avatar);
+            icLeatureAvatar.loadCircleImage(liveCourse.getLecturer_avatar(),R.drawable.ic_default_avatar);
 
             if (liveCourse.getCourse_fee() != null) {
                 String str1 = String.format("￥%s",Number.subZeroAndDot(liveCourse.getCourse_fee().doubleValue() * 0.01d));
