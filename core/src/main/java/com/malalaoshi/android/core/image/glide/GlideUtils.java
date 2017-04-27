@@ -2,6 +2,7 @@ package com.malalaoshi.android.core.image.glide;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ public class GlideUtils {
     private static final int IMG_NORMAL = 0;
     private static final int IMG_CIRCLE = 1;
     private static final int IMG_BLUR = 2;
+    private static final int IMG_CIRCLE_STROKE = 3;
 
     /**
      * 如果请求过，从缓存拿到地址把图片取出来，不然还是用原地址取。
@@ -105,6 +107,13 @@ public class GlideUtils {
                     .centerCrop()
                     .crossFade()
                     .into(data.getImageView());
+        } else if (data.getType() == IMG_CIRCLE_STROKE){
+            builder.centerCrop()
+                    .placeholder(data.getDefImage())
+                    .bitmapTransform(new GlideCircleTransform(context, data.getBorderWidth(), data.getBorderColor()))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(data.getImageView());
+
         } else {
             builder.placeholder(data.getDefImage())
                     .error(data.getErrImage())
@@ -138,6 +147,15 @@ public class GlideUtils {
         model.setDefImage(defaultImg);
         model.setErrImage(defaultImg);
         load(model);
+    }
+    public static void loadCircleStrokeImage(Context context, String url, ImageView imageView, int borderWidth, int borderColor){
+        RequestModel model = new RequestModel(context, url, imageView, IMG_CIRCLE_STROKE);
+        model.setBorderWidth(borderWidth);
+        model.setBorderColor(borderColor);
+        load(model);
+    }
+    public static void loadCircleStrokeImage(Context context, String url, ImageView imageView){
+        loadCircleStrokeImage(context, url, imageView, 2, context.getResources().getColor(R.color.core__avatar_stroker));
     }
 
     public static void loadBlurImage(Context context, String url, ImageView imageView, int defaultImg) {
@@ -210,6 +228,24 @@ public class GlideUtils {
         private int defImage;
         private int errImage;
         private int type;
+        private int borderWidth = 2;
+        private int borderColor = Color.WHITE;
+
+        public int getBorderWidth() {
+            return borderWidth;
+        }
+
+        public void setBorderWidth(int borderWidth) {
+            this.borderWidth = borderWidth;
+        }
+
+        public int getBorderColor() {
+            return borderColor;
+        }
+
+        public void setBorderColor(int borderColor) {
+            this.borderColor = borderColor;
+        }
 
         public RequestModel(Context context, String url, ImageView imageView, int type) {
             setContext(context);

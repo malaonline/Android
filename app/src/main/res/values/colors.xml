@@ -169,6 +169,8 @@
     <color name="color_red_f16765">#f16765</color>
     <color name="gradient_btn_bg_light_red">#fe8095</color>
     <color name="gradient_btn_bg_dark_red">#fe436c</color>
+    <color name="gradient_tab_todo_bg_light_red">#ff60a7</color>
+    <color name="gradient_tab_todo_bg_dark_red">#fe091c</color>
 
 
     <!--粉色pink-->

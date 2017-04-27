@@ -19,5 +19,6 @@
     <color name="gradient_btn_bg_light_blue">#83b8ff</color>
     <color name="core__shadow_bg_blue">#c0ddff</color>
     <color name="core__shadow_bg_red">#ffc8c8</color>
+    <color name="core__avatar_stroker">#A5C6FF</color>
 
 </resources>

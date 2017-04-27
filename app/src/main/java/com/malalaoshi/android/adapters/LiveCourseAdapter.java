@@ -124,9 +124,9 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
             view.setOnClickListener(this);
             this.liveClass = liveClass;
             String imgUrl = liveClass.getLecturer_avatar();
-            ivLecturerAvator.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
+            ivLecturerAvator.loadCircleImage(imgUrl, R.drawable.ic_default_avatar);
             imgUrl = liveClass.getAssistant_avatar();
-            ivAssistAvator.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
+            ivAssistAvator.loadCircleImage(imgUrl, R.drawable.ic_default_avatar);
             setClassType(tvClassType, liveClass.getRoom_capacity()+"人班",position);
 
             tvLecturerName.setText(liveClass.getLecturer_name());

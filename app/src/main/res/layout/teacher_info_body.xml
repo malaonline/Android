@@ -78,7 +78,7 @@
                 android:layout_alignParentBottom="true"
                 android:padding="@dimen/avatar_border_width"
                 android:background="@drawable/bg_all_circle_white"
-                android:src="@drawable/ic_default_teacher_avatar"
+                android:src="@drawable/ic_default_avatar"
                 />
 
             <ImageView

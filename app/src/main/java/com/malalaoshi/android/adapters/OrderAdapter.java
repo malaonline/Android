@@ -25,7 +25,6 @@ import com.malalaoshi.android.entity.LiveCourse;
 import com.malalaoshi.android.entity.Order;
 import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.common.pay.api.DeleteOrderApi;
-import com.malalaoshi.android.fragments.OrderDetailFragment;
 import com.malalaoshi.android.network.result.OkResult;
 import com.malalaoshi.android.ui.widgets.DoubleAvatarView;
 import com.malalaoshi.android.utils.DialogUtil;
@@ -140,7 +139,7 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
             ivLiveCourseAvator.setVisibility(View.GONE);
             avater.setVisibility(View.VISIBLE);
             String imgUrl = order.getTeacher_avatar();
-            avater.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
+            avater.loadCircleImage(imgUrl, R.drawable.ic_default_avatar);
             //一对一：订单待支付（订单取消、立即支付） 支付成功（再次购买） 教师已下架 退款成功（重新购买） 审核中 订单已关闭（重新购买）
             Resources resources = view.getContext().getResources();
             if ("u".equals(order.getStatus())) {
@@ -195,8 +194,8 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
             if (liveCourse!=null){
                 String imgUrl1 = liveCourse.getLecturer_avatar();
                 String imgUrl2 = liveCourse.getAssistant_avatar();
-                ivLiveCourseAvator.setLeftCircleImage(imgUrl1, R.drawable.ic_default_teacher_avatar);
-                ivLiveCourseAvator.setRightCircleImage(imgUrl2, R.drawable.ic_default_teacher_avatar);
+                ivLiveCourseAvator.setLeftCircleImage(imgUrl1, R.drawable.ic_default_avatar);
+                ivLiveCourseAvator.setRightCircleImage(imgUrl2, R.drawable.ic_default_avatar);
             }
 
             //直播：订单待支付（订单取消、立即支付）  支付成功  订单已关闭（重新购买/无操作）  退款成功 审核中

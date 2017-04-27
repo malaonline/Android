@@ -225,13 +225,13 @@ public class CommentDialog extends DialogFragment {
     private void initViews() {
         if (commentType==0){
             ivLiveCourseAvator.setVisibility(View.GONE);
-            teacherAvater.loadCircleImage(teacherAvatar, R.drawable.ic_default_teacher_avatar);
+            teacherAvater.loadCircleImage(teacherAvatar, R.drawable.ic_default_avatar);
             tvTeacherName.setText(teacherName);
         }else{
             teacherAvater.setVisibility(View.GONE);
             tvTeacherName.setText(lecturerName);
-            ivLiveCourseAvator.setLeftCircleImage(lecturerAvatar, R.drawable.ic_default_teacher_avatar);
-            ivLiveCourseAvator.setRightCircleImage(assistAvatar, R.drawable.ic_default_teacher_avatar);
+            ivLiveCourseAvator.setLeftCircleImage(lecturerAvatar, R.drawable.ic_default_avatar);
+            ivLiveCourseAvator.setRightCircleImage(assistAvatar, R.drawable.ic_default_avatar);
         }
         //查看课程评价
         if (comment != null) {  //已评价

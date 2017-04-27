@@ -1,9 +1,11 @@
 package com.malalaoshi.android.core.image;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.malalaoshi.android.core.image.glide.GlideUtils;
 
 /**
@@ -47,5 +49,11 @@ public class MalaImageView extends ImageView {
 
     public void loadBlurImage(String url, int defImage) {
         GlideUtils.loadBlurImage(getContext(), url, this, defImage);
+    }
+    public void LoadCircleStrokeImage(String url, int defImage){
+        if (TextUtils.isEmpty(url)){
+            loadCircleImage(url,defImage);
+        }else
+            GlideUtils.loadCircleStrokeImage(getContext(), url, this);
     }
 }

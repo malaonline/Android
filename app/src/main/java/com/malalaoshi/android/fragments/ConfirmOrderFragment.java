@@ -153,7 +153,7 @@ public class ConfirmOrderFragment extends BaseFragment implements View.OnClickLi
         }
         tvMount.setText(strTopay);
         String imgUrl = order.getTeacher_avatar();
-        ivTeacherAvator.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
+        ivTeacherAvator.loadCircleImage(imgUrl, R.drawable.ic_default_avatar);
         startProcessDialog("正在加载数据···");
         loadData();
     }

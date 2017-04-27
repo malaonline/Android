@@ -295,7 +295,7 @@ public class OrderDetailFragment extends BaseFragment {
         tvSchool.setText(order.getSchool());
         tvAddress.setText(order.getSchool_address());
         String imgUrl = order.getTeacher_avatar();
-        ivTeacherAvator.loadCircleImage(imgUrl, R.drawable.ic_default_teacher_avatar);
+        ivTeacherAvator.loadCircleImage(imgUrl, R.drawable.ic_default_avatar);
         tvTotalHours.setText(order.getHours().toString());
 
         String strTopay = "金额异常";
@@ -419,8 +419,8 @@ public class OrderDetailFragment extends BaseFragment {
             tvCourseTimes.setText(liveCourse.getCourse_lessons()+"次");
             tvSchool.setText(order.getSchool());
             tvAddress.setText(order.getSchool_address());
-            ivLiveCourseAvator.setLeftCircleImage(liveCourse.getLecturer_avatar(),R.drawable.ic_default_teacher_avatar);
-            ivLiveCourseAvator.setRightCircleImage(liveCourse.getAssistant_avatar(),R.drawable.ic_default_teacher_avatar);
+            ivLiveCourseAvator.setLeftCircleImage(liveCourse.getLecturer_avatar(),R.drawable.ic_default_avatar);
+            ivLiveCourseAvator.setRightCircleImage(liveCourse.getAssistant_avatar(),R.drawable.ic_default_avatar);
         }
 
         String strTopay = "金额异常";

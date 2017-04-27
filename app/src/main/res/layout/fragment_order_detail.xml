@@ -106,7 +106,7 @@
                         android:visibility="gone"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:src="@drawable/ic_default_teacher_avatar"
+                        android:src="@drawable/ic_default_avatar"
                         android:layout_alignParentRight="true"
                         android:layout_above="@+id/tv_school"
                         />

@@ -213,7 +213,7 @@
                     android:id="@+id/iv_leature_avatar"
                     android:layout_below="@+id/tv_lecturer_name"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_default_teacher_avatar"
+                    android:src="@drawable/ic_default_avatar"
                     android:layout_width="@dimen/course_time_height"
                     android:layout_height="@dimen/course_time_height"
                     />
@@ -271,7 +271,7 @@
                     android:id="@+id/iv_assist_avatar"
                     android:layout_below="@+id/view_line_assist"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_default_teacher_avatar"
+                    android:src="@drawable/ic_default_avatar"
                     android:layout_margin="10dp"
                     android:layout_width="36dp"
                     android:layout_height="36dp"

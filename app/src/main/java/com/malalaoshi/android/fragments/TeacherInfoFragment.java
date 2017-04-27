@@ -416,7 +416,7 @@ public class TeacherInfoFragment extends BaseFragment  implements View.OnClickLi
             }
             //头像
             string = teacher.getAvatar();
-            mHeadPortrait.loadCircleImage(string, R.drawable.ic_default_teacher_avatar);
+            mHeadPortrait.loadCircleImage(string, R.drawable.ic_default_avatar);
             updateBlurImage(string);
 
             //性别

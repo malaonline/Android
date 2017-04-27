@@ -16,7 +16,7 @@
 
         <com.malalaoshi.android.core.image.MalaImageView
             android:id="@+id/iv_lecturer_avator"
-            android:src="@drawable/ic_default_teacher_avatar"
+            android:src="@drawable/ic_default_avatar"
             android:layout_width="@dimen/lecturer_avator_height"
             android:layout_height="@dimen/lecturer_avator_height"
             android:layout_marginTop="@dimen/body_head_text_size"
@@ -53,7 +53,7 @@
 
         <com.malalaoshi.android.core.image.MalaImageView
             android:id="@+id/iv_assist_avator"
-            android:src="@drawable/ic_default_teacher_avatar"
+            android:src="@drawable/ic_default_avatar"
             android:layout_width="@dimen/assist_avator_height"
             android:layout_height="@dimen/assist_avator_height"
             android:layout_alignParentRight="true"

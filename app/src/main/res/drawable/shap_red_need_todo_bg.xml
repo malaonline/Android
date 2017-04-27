@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="@color/gradient_tab_todo_bg_light_red"
+        android:endColor="@color/gradient_tab_todo_bg_dark_red"
+        android:angle="270"
+        />
+    <corners
+        android:topLeftRadius="90dp"
+        android:topRightRadius="180dp"
+        android:bottomRightRadius="180dp"
+        />
+</shape>
