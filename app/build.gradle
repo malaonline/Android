@@ -1,5 +1,19 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'android-apt'
 
+//ext.appVersionCode = 1
+//ext.appVersionName = "0.9.0"
+//ext.appReleaseDir = ""
+//
+//def loadProperties(){
+//    def proFile = file("../local.properties")
+//    Properties properties = new Properties()
+//    proFile.withInputStream { steam ->
+//        properties.load(steam)
+//    }
+//    appReleaseDir = properties.appReleaseDir
+//}
+//loadProperties()
 
 android {
     signingConfigs {
@@ -43,8 +57,8 @@ android {
         applicationId "com.malalaoshi.android"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 18
-        versionName "3.3.4"
+        versionCode 19
+        versionName "3.4.0"
 
         // Enabling multidex support.
         multiDexEnabled true
@@ -195,3 +209,9 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-Core-2.7.8.jar')
     compile files('libs/ShareSDK-Wechat-Moments-2.7.8.jar')
 }
+//apt {
+//    arguments {
+//        androidManifestFile variant.outputs[0].processResources.manifestFile
+//        resourcePackageName 'com.malalaoshi.android'
+//    }
+//}
