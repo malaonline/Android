@@ -2,7 +2,6 @@ package com.malalaoshi.android.core.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -86,17 +85,13 @@ public class RefreshHeaderEffectView extends FrameLayout implements PtrUIHandler
         this.status = status;
         switch (status){
             case RESET:
-                Log.e("RefreshHeaderEffectView", "setLayout: reset");
                 break;
             case REFRESH_PREPARE:
-                Log.e("RefreshHeaderEffectView", "setLayout: prepare");
                 break;
             case REFRESHING:
-                Log.e("RefreshHeaderEffectView", "setLayout: refreshing");
                 startAnim();
                 break;
             case FINISHED:
-                Log.e("RefreshHeaderEffectView", "setLayout: finished");
                 stopAnim();
                 break;
         }

@@ -180,6 +180,10 @@ public class ViewPagerIndicator extends ViewGroup {
         View childView = getChildAt(position);
         //设置选中
         if (childView instanceof TabView){
+            if (position == 0)
+                ((TabView) childView).setIndicatorHot();
+            else
+                ((TabView) childView).setIndicatorRedDots();
             ((TabView) childView).setTabIndicatorVisibility(visibility);
         }
     }

@@ -3,7 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    >
 
    <ImageView
        android:background="#7bbbff"
@@ -19,12 +22,15 @@
        android:orientation="vertical"
        android:layout_width="match_parent"
        android:layout_height="58dp">
+
       <ImageView
-          android:scaleType="fitCenter"
-          android:layout_centerInParent="true"
-          android:src="@drawable/ic_splash_logo"
+          android:id="@+id/imageView"
           android:layout_width="100dp"
-          android:layout_height="wrap_content" />
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:scaleType="fitCenter"
+          android:src="@drawable/ic_splash_logo"/>
+
       <TextView
           android:text="@string/copy_right"
           android:textColor="#c3c3c3"

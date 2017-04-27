@@ -4,6 +4,7 @@
     android:background="@color/main_color"
     android:layout_height="44dp" >
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,14 +18,20 @@
     <TextView
         android:id="@+id/tv_choose_school"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:drawableRight="@drawable/ic_choose_school"
+        android:drawableRight="@drawable/right_arrow"
         android:drawablePadding="5dp"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:background="@drawable/shape_semicircle_translucent"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        />
     <ImageView
         android:id="@+id/iv_title_filter_teacher"
         android:layout_width="20dp"
