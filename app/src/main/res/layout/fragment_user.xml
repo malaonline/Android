@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_gray_f2f2f2"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,9 +18,8 @@
             android:layout_height="@dimen/avatar_width"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="17dp"
-            android:padding="@dimen/avatar_border_width"
-            android:src="@drawable/ic_default_teacher_avatar"
-            android:background="@drawable/bg_all_circle_white"/>
+            android:src="@drawable/ic_default_avatar"
+            />
 
         <TextView
             android:id="@+id/tv_user_name"
@@ -28,10 +27,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:drawablePadding="2dp"
-            android:drawableRight="@drawable/ic_edit_name"
-            android:text=""
-            android:textColor="@color/color_blue_82b4d9"
-            android:textSize="@dimen/text_size_normal" />
+            android:drawableRight="@drawable/selector_edite_name"
+            android:textColor="@color/selector_name_white"
+            android:textSize="@dimen/text_size_large"
+            android:background="@drawable/selector_rim_edite_name_white"
+            android:lines="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -135,61 +140,68 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_user_schoolship"
+    <LinearLayout
+        android:id="@+id/ll_user_schoolship"
         style="@style/mala.widget.user.item"
         android:layout_marginTop="12dp"
-        android:background="@color/color_white_ffffff">
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        >
 
         <TextView
             style="@style/mala.widget.usercenter.item.text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="12dp"
-            android:gravity="center"
-            android:text="我的奖学金" />
+            android:gravity="left|center_vertical"
+            android:text="我的奖学金"
+            android:textSize="16sp"
+            />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
             android:scaleType="center"
             android:src="@drawable/ic_more_info" />
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_about_mala"
+    <LinearLayout
+        android:id="@+id/ll_about_mala"
         style="@style/mala.widget.user.item"
-        android:layout_marginTop="12dp"
-        android:background="@color/color_white_ffffff">
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
+        >
 
         <TextView
             style="@style/mala.widget.usercenter.item.text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="12dp"
-            android:gravity="center"
-            android:text="关于麻辣老师" />
+            android:gravity="left|center_vertical"
+            android:text="关于麻辣老师"
+            android:textSize="16sp"
+            />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
             android:scaleType="center"
             android:src="@drawable/ic_more_info" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_height="47dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
         android:layout_marginTop="22dp"
-        android:background="@drawable/logout_btn"
+        android:background="@drawable/selector_gradient_semicircle_blue_btn_bg"
         android:text="退出登录"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_large" />
+        android:textSize="@dimen/text_size_xlarge" />
 </LinearLayout>
