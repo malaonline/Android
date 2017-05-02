@@ -133,6 +133,7 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
                 tvDay.setTextColor(resources.getColor(R.color.color_black_939393));
                 tvWeek.setTextColor(resources.getColor(R.color.color_black_939393));
                 rlSchedule.setBackgroundResource(R.drawable.bg_corner_normal);
+                tvCourseComment.setVisibility(View.VISIBLE);
             } else {
                 if (CalendarUtils.compareCurrentDate(start) == 0) {
                     tvDay.setTextColor(resources.getColor(R.color.color_blue_6bd2e5));
@@ -142,6 +143,7 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
                     tvWeek.setTextColor(resources.getColor(R.color.color_black_333333));
                 }
                 rlSchedule.setBackgroundResource(R.drawable.bg_corner_blue);
+                tvCourseComment.setVisibility(View.INVISIBLE);
 
             }
             tvGradeCourse.setText(data.getGrade() + " " + data.getSubject());
