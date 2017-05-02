@@ -4,7 +4,7 @@ android {
     signingConfigs {
         release {
             try {
-                storeFile file(KEYSTORE_FILE_PATH1)
+                storeFile file(KEYSTORE_FILE_PATH)
                 storePassword project.hasProperty("KEYSTORE_PASSWORD") ? KEYSTORE_PASSWORD : System.getenv("KEYSTORE_PASSWORD");
                 keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME");
                 keyPassword project.hasProperty("KEY_PASSWORD") ? KEY_PASSWORD : System.getenv("KEY_PASSWORD");
