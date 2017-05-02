@@ -1,8 +1,7 @@
 package com.malalaoshi.android.utils;
 
 import android.content.Context;
-
-import com.malalaoshi.android.R;
+import android.support.annotation.DrawableRes;
 
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -27,6 +26,18 @@ public class ShareUtils {
         oks.setTitle(title);
         oks.setText(content);
         oks.setImageUrl(imgUrl);
+        oks.setUrl(redirectUrl);
+        // 启动分享GUI
+        oks.show(context);
+    }
+    public static void showWxShare(Context context, String title, String content, @DrawableRes int resId, String redirectUrl ) {
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        oks.setTitle(title);
+        oks.setText(content);
+//      oks.setImagePath(imgPath);
+//        oks.setViewToShare(view);
         oks.setUrl(redirectUrl);
         // 启动分享GUI
         oks.show(context);

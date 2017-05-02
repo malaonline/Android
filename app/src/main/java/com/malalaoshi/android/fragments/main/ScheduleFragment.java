@@ -50,7 +50,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by kang on 16/6/29.
  */
-public class ScheduleFragment extends BaseFragment {
+public class ScheduleFragment extends BaseFragment{
 
     private CourseEmptyTipsView mCetvCourseTips;
     private LayoutType mLayoutType;
@@ -183,6 +183,8 @@ public class ScheduleFragment extends BaseFragment {
 //                AuthUtils.redirectLoginActivity(getContext());
 //            }
 //        });
+//        ((ScheduleAdapter)adapter).setOnCommentClickListener(this);
+        ((ScheduleAdapter)adapter).setFragmentManager(getFragmentManager());
     }
 
     private void refreshList() {
@@ -567,6 +569,17 @@ public class ScheduleFragment extends BaseFragment {
         }
         return tempDatas;
     }
+//    @Override
+//    public void click(int type) {
+//        switch (type){
+//            case TYPE_CLICK_COMMENT:
+//                break;
+//            case TYPE_CLICK_BROWE:
+//                break;
+//            case TYPE_CLICK_OBSOLETE:
+//                break;
+//        }
+//    }
 
     @Override
     public String getStatName() {

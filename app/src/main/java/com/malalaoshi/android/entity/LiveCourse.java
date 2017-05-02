@@ -257,4 +257,30 @@ public class LiveCourse extends BaseEntity{
             return new LiveCourse[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "LiveCourse{" +
+                "course_name='" + course_name + '\'' +
+                ", course_start=" + course_start +
+                ", course_end=" + course_end +
+                ", course_period='" + course_period + '\'' +
+                ", course_fee=" + course_fee +
+                ", course_lessons=" + course_lessons +
+                ", course_grade='" + course_grade + '\'' +
+                ", course_description='" + course_description + '\'' +
+                ", room_capacity=" + room_capacity +
+                ", students_count=" + students_count +
+                ", lecturer_name='" + lecturer_name + '\'' +
+                ", lecturer_title='" + lecturer_title + '\'' +
+                ", lecturer_bio='" + lecturer_bio + '\'' +
+                ", lecturer_avatar='" + lecturer_avatar + '\'' +
+                ", assistant_name='" + assistant_name + '\'' +
+                ", assistant_avatar='" + assistant_avatar + '\'' +
+                ", assistant_phone='" + assistant_phone + '\'' +
+                ", school_name='" + school_name + '\'' +
+                ", school_address='" + school_address + '\'' +
+                ", is_paid=" + is_paid +
+                '}';
+    }
 }

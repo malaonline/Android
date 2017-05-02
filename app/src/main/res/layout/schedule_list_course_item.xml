@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
         <LinearLayout
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -66,16 +66,32 @@
                 style="@style/schedule_text_style"
                 android:drawableLeft="@drawable/ic_avatar_icon_black"
                 android:drawablePadding="5dp"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                />
             <TextView
                 tools:text="助教：欧阳娜娜"
                 android:id="@+id/tv_teacher_assist"
                 style="@style/schedule_text_style"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:lines="1"
+                android:layout_marginLeft="10dp"
+                />
+            <TextView
+                android:id="@+id/tv_course_comment"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="评价已过期"
+                android:lines="1"
+                android:layout_gravity="end"
+                />
         </LinearLayout>
         <TextView
             tools:text="10:00-12:00"

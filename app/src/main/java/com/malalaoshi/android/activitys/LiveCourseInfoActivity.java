@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseTitleActivity;
 import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.entity.LiveCourse;
@@ -52,7 +53,7 @@ public class LiveCourseInfoActivity extends BaseTitleActivity {
             }
             replaceFragment(fragment);
         }
-//        setTitleViewRightResource(R.drawable.bitmap_share_black);
+        setTitleViewRightResource(R.drawable.bitmap_share_black);
     }
 
     @Override
