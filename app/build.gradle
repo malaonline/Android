@@ -1,25 +1,10 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'android-apt'
-
-//ext.appVersionCode = 1
-//ext.appVersionName = "0.9.0"
-//ext.appReleaseDir = ""
-//
-//def loadProperties(){
-//    def proFile = file("../local.properties")
-//    Properties properties = new Properties()
-//    proFile.withInputStream { steam ->
-//        properties.load(steam)
-//    }
-//    appReleaseDir = properties.appReleaseDir
-//}
-//loadProperties()
 
 android {
     signingConfigs {
         release {
             try {
-                storeFile file(KEYSTORE_FILE_PATH)
+                storeFile file(KEYSTORE_FILE_PATH1)
                 storePassword project.hasProperty("KEYSTORE_PASSWORD") ? KEYSTORE_PASSWORD : System.getenv("KEYSTORE_PASSWORD");
                 keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME");
                 keyPassword project.hasProperty("KEY_PASSWORD") ? KEY_PASSWORD : System.getenv("KEY_PASSWORD");
@@ -209,9 +194,3 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-Core-2.7.8.jar')
     compile files('libs/ShareSDK-Wechat-Moments-2.7.8.jar')
 }
-//apt {
-//    arguments {
-//        androidManifestFile variant.outputs[0].processResources.manifestFile
-//        resourcePackageName 'com.malalaoshi.android'
-//    }
-//}

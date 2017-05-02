@@ -185,10 +185,16 @@ public class LiveCourseInfoFragment extends BaseFragment implements View.OnClick
 
     private void showWxShare() {
         if (liveCourse==null) return;
-        String title = String.format("%s 在麻辣老师为您讲授 %s",liveCourse.getLecturer_name(),liveCourse.getCourse_name());
-        String lectureImg = liveCourse.getLecturer_avatar();
-        String host = String.format(getString(R.string.api_host)+"/wechat/liveclasses/?liveclassesid=%d",liveCourse.getId());
-        ShareUtils.showWxShare(getContext(),title,"顶级名师直播授课，当地老师全程辅导，赶快加入我们吧！",lectureImg,host);
+        String title = String.format("%s在麻辣老师为您讲授%s",liveCourse.getLecturer_name(),liveCourse.getCourse_name());
+        String lectureImg;
+        String api_host = getString(R.string.api_host);
+        if (api_host.startsWith("http://dev")){
+            lectureImg = "https://s3.cn-north-1.amazonaws.com.cn/dev-static/web/images/ad/ic_launcher.png";
+        }else {
+            lectureImg = "https://s3.cn-north-1.amazonaws.com.cn/mala-static/web/images/ad/ic_launcher.png";
+        }
+        String host = String.format(api_host+"/wechat/order/course_choosing/?step=live_class_page&liveclassid=%d",liveCourse.getId());
+        ShareUtils.showWxShare(getContext(),title,"顶级名师直播授课，当地老师全程辅导，赶快加入我们吧",lectureImg,host);
     }
 
     private void callAssistPhone() {
