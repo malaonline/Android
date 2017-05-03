@@ -405,6 +405,12 @@ public class OrderDetailFragment extends BaseFragment {
                     drawable.getMinimumHeight());
             tvPayWay.setCompoundDrawables(drawable,null,null,null);
             tvPayWay.setText("微信扫码");
+        }else if (PayManager.Pay.wx_num_qr.name().equals(order.getCharge_channel())){
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_wx_pay);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                    drawable.getMinimumHeight());
+            tvPayWay.setCompoundDrawables(drawable,null,null,null);
+            tvPayWay.setText("微信公众号");
         }
     }
 

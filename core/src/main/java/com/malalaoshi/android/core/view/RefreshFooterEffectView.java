@@ -1,6 +1,8 @@
 package com.malalaoshi.android.core.view;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,12 +18,27 @@ import com.malalaoshi.android.core.R;
  * Created by donald on 2017/4/20.
  */
 
-public class RefreshFooterEffectView implements ILoadMoreViewFactory {
+public class RefreshFooterEffectView extends View implements ILoadMoreViewFactory {
 
-    private final Context mContext;
-    private final LoadMoreHandler mLoadMoreHandler;
+    private Context mContext;
+    private LoadMoreHandler mLoadMoreHandler;
 
     public RefreshFooterEffectView(Context context) {
+        super(context);
+        init(context);
+    }
+
+    public RefreshFooterEffectView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
+
+    public RefreshFooterEffectView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context);
+    }
+
+    private void init(Context context){
         mContext = context;
         mLoadMoreHandler = new LoadMoreHandler();
     }

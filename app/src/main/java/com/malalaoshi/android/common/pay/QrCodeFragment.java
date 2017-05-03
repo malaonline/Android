@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.google.zxing.WriterException;
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.common.pay.utils.OrderDef;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
@@ -100,11 +99,28 @@ public class QrCodeFragment extends BaseFragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qr_code, container, false);
         ButterKnife.bind(this, view);
+
         init();
-        initData();
+        if (PayManager.Pay.wx_pub_qr.name().equals(payChannel)){
+            initData();
+        }
+        //        initData();
         setEvent();
+        ViewGroup parent = (ViewGroup) view.getParent();
+        if (parent != null){
+            parent.removeView(view);
+        }
         return view;
     }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (getUserVisibleHint()){
+//            Log.e("QrCodeFragment", "setUserVisibleHint: "+payChannel);
+//            initData();
+//        }
+//    }
 
     private void setEvent() {
         tvReload.setOnClickListener(this);
@@ -118,7 +134,7 @@ public class QrCodeFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
-    private void initData() {
+    public void initData() {
         loadData();
     }
 
@@ -157,7 +173,6 @@ public class QrCodeFragment extends BaseFragment implements View.OnClickListener
             drawableId = R.drawable.ic_ali_pay;
             qrUrl = charge.getCredential().getAlipay_qr();
         }
-        Log.e("QRCODE", qrUrl);
         setQrCode(qrUrl,drawableId);
     }
 

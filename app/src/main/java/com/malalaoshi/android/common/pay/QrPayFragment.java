@@ -9,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +34,8 @@ import com.malalaoshi.android.ui.dialogs.PromptDialog;
 import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.MiscUtil;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,9 +62,10 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
     private DialogFragment pendingDialog;
 
     //具体数据内容页面
-    private Map<Integer, Fragment> fragments = new HashMap<>();
+    private List<Fragment> fragments = new ArrayList<>();
     private CreateCourseOrderResultEntity resultEntity;
     private boolean isBackAction = false;
+    private FragmentGroupAdapter mFragmentAdapter;
 
     @Override
     public String getStatName() {
@@ -87,6 +89,8 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
         Bundle bundle = getArguments();
         if (bundle != null) {
             resultEntity = (CreateCourseOrderResultEntity) bundle.getSerializable(ARG_ORDER_INFO);
+            fragments.add(QrCodeFragment.newInstance(resultEntity, PayManager.Pay.wx_pub_qr.name()));
+            fragments.add(QrCodeFragment.newInstance(resultEntity, PayManager.Pay.alipay_qr.name()));
         }
     }
     
@@ -113,13 +117,32 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
     }
 
     void init(){
-        FragmentGroupAdapter fragmentAdapter = new FragmentGroupAdapter(getContext(), getFragmentManager(), this);
-        fragmentAdapter.setGetPageTitleListener(this);
-        vpQr.setAdapter(fragmentAdapter);
-        vpQr.setOffscreenPageLimit(2);//缓存页面
+        mFragmentAdapter = new FragmentGroupAdapter(getContext(), getFragmentManager(), this);
+        mFragmentAdapter.setGetPageTitleListener(this);
+        vpQr.setAdapter(mFragmentAdapter);
+        vpQr.setOffscreenPageLimit(0);//缓存页面
         vpQr.setCurrentItem(0);
         //TabLayout加载viewpager
         tabLayout.setupWithViewPager(vpQr);
+
+        vpQr.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                Log.e("QrPayFragment", "onPageScrolled: position="+position+",positionOffset="+positionOffset+",positionOffsetPixels="+positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                QrCodeFragment fragment = (QrCodeFragment) mFragmentAdapter.getItem(position);
+                if (fragment != null){
+                    fragment.initData();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
     @Override
@@ -128,10 +151,10 @@ public class QrPayFragment extends BaseFragment implements FragmentGroupAdapter.
         if (fragment == null) {
             switch (position) {
                 case 0:
-                    fragment = new QrCodeFragment().newInstance(resultEntity, PayManager.Pay.wx_pub_qr.name());
+                    fragment = QrCodeFragment.newInstance(resultEntity, PayManager.Pay.wx_pub_qr.name());
                     break;
                 case 1:
-                    fragment = new QrCodeFragment().newInstance(resultEntity, PayManager.Pay.alipay_qr.name());
+                    fragment = QrCodeFragment.newInstance(resultEntity, PayManager.Pay.alipay_qr.name());
                     break;
             }
         }

@@ -1,5 +1,7 @@
 package com.malalaoshi.android.common.pay.api;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.malalaoshi.android.core.network.api.BaseApi;
 import com.malalaoshi.android.entity.CreateChargeEntity;
@@ -23,6 +25,7 @@ public class FetchChargeApi extends BaseApi {
         ObjectMapper mapper = new ObjectMapper();
         final JSONObject json;
         json = new JSONObject(mapper.writeValueAsString(entity));
+        Log.e("FetchChargeApi", "getCharge: json="+json);
         final String url = String.format(URL_CREATE_COURSE_ORDER, orderId);
         return httpPatch(url, json.toString(), String.class);
     }
