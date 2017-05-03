@@ -117,4 +117,21 @@ public class CreateCourseOrderResultEntity extends CreateCourseOrderEntity {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "CreateCourseOrderResultEntity{" +
+                "orderType=" + orderType +
+                ", live_class=" + live_class +
+                ", order_id='" + order_id + '\'' +
+                ", parent='" + parent + '\'' +
+                ", id='" + id + '\'' +
+                ", total='" + total + '\'' +
+                ", price='" + price + '\'' +
+                ", status='" + status + '\'' +
+                ", to_pay=" + to_pay +
+                ", ok=" + ok +
+                ", code=" + code +
+                '}';
+    }
 }

@@ -34,7 +34,11 @@ public class PayManager {
         /**
          * 微信扫码支付渠道
          */
-        wx_pub_qr
+        wx_pub_qr,
+        /**
+         * 微信公众号支付
+         * */
+        wx_num_qr
     }
 
     private static final class Holder {
@@ -79,7 +83,7 @@ public class PayManager {
         if (null == charge) {
             return;
         }
-        Log.d("charge", charge);
+        Log.e("PayManager", "pay: charge="+charge);
         Intent intent = new Intent(activity, PaymentActivity.class);
         intent.putExtra(PaymentActivity.EXTRA_CHARGE, charge);
         activity.startActivityForResult(intent, REQUEST_CODE_PAYMENT);

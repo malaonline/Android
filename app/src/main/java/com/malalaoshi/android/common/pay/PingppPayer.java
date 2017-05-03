@@ -1,5 +1,7 @@
 package com.malalaoshi.android.common.pay;
 
+import android.util.Log;
+
 import com.malalaoshi.android.entity.CreateChargeEntity;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
 import com.malalaoshi.android.entity.JsonBodyBase;
@@ -22,6 +24,7 @@ public class PingppPayer implements Payer {
         CreateChargeEntity chargeEntity = new CreateChargeEntity();
         chargeEntity.setAction("pay");
         chargeEntity.setChannel(channel);
+        Log.e("PingppPayer", "createOrderInfo: channel="+channel);
         return new FetchChargeApi().getCharge(orderId, chargeEntity);
     }
 }

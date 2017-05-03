@@ -1,13 +1,12 @@
 package com.malalaoshi.android.core.network.api;
 
-import android.util.Log;
-
 import com.malalaoshi.android.core.MalaContext;
 import com.malalaoshi.android.core.R;
 import com.malalaoshi.android.core.network.Constants;
 import com.malalaoshi.android.core.usercenter.UserManager;
 import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.core.utils.JsonUtil;
+import com.malalaoshi.android.core.utils.LogUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,10 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -32,6 +28,7 @@ import okhttp3.Response;
  * Created by tianwei on 3/27/16.
  */
 public abstract class BaseApi {
+    private static final String TAG = BaseApi.class.getSimpleName();
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -89,7 +86,8 @@ public abstract class BaseApi {
         addHeaders(builder);
         okhttp3.Response response = getHttpClient().newCall(builder.build()).execute();
         String back = response.body().string();
-        Log.d("response",back);
+//        Log.d("response",back);
+        LogUtils.e(TAG,"http", back);
         checkAuthError(response, back);
         //String类型直接返回
         if (cls.isAssignableFrom(String.class)) {
@@ -100,7 +98,7 @@ public abstract class BaseApi {
 
     protected <T> T httpGet(String url, final Class<T> cls) throws Exception {
         final Request.Builder builder = new Request.Builder().url(getUrl(url));
-        Log.d("request","request url:"+url);
+        LogUtils.e(TAG,"httpGet", url);
         return http(builder, cls);
     }
 
@@ -117,6 +115,7 @@ public abstract class BaseApi {
         final Request.Builder builder = new okhttp3.Request.Builder()
                 .url(getUrl(url))
                 .patch(body);
+//        Log.e("BaseApi", "httpPatch: url="+url);
         return http(builder, cls);
     }
 
