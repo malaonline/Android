@@ -6,8 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,14 +20,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.network.api.CommentApi;
-import com.malalaoshi.android.network.api.PostCommentApi;
 import com.malalaoshi.android.core.image.MalaImageView;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.entity.Comment;
 import com.malalaoshi.android.network.Constants;
+import com.malalaoshi.android.network.api.CommentApi;
+import com.malalaoshi.android.network.api.PostCommentApi;
 import com.malalaoshi.android.ui.widgets.DoubleAvatarView;
 import com.malalaoshi.android.utils.MiscUtil;
 
@@ -46,6 +45,8 @@ import butterknife.OnClick;
  * Created by kang on 16/3/2.
  */
 public class CommentDialog extends DialogFragment {
+
+    private boolean isInputShow =  false;
 
     public interface OnCommentResultListener {
         void onSuccess(Comment response);
@@ -185,7 +186,8 @@ public class CommentDialog extends DialogFragment {
             public boolean onKey(DialogInterface arg0, int keyCode, KeyEvent arg2) {
                 // TODO Auto-generated method stub 返回键关闭dialog
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    dismiss();
+//                    if (!checkoutInputManager())
+                        dismiss();
                     return true;
                 }
                 return false;
@@ -207,7 +209,7 @@ public class CommentDialog extends DialogFragment {
                     lastY = location[1];
                 }
                 int diff = location[1] - lastY;
-                Log.i("CommentDialog11", "layout height:" + diff + " x" + location[0] + " y" + location[1]);
+//                Log.i("CommentDialog11", "layout height:" + diff + " x" + location[0] + " y" + location[1]);
                 if (diff > 0) {
                     setCommentLayout(false);
                 } else if (diff < 0) {
@@ -249,7 +251,7 @@ public class CommentDialog extends DialogFragment {
         } else {
             StatReporter.commentPage(false);
             this.setCancelable(false);          // 设置点击屏幕Dialog不消失
-            tvSubmit.setEnabled(false);
+//            tvSubmit.setEnabled(false);
             //评价课程
             llContent.setVisibility(View.VISIBLE);
             llLoading.setVisibility(View.GONE);
@@ -260,30 +262,30 @@ public class CommentDialog extends DialogFragment {
 
             ratingbar.setIsIndicator(false);
 
-            editComment.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            editComment.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                    checkSubmitButtonStatus();
+//
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable s) {
+//
+//                }
+//            });
 
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    checkSubmitButtonStatus();
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                @Override
-                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                    checkSubmitButtonStatus();
-                }
-            });
+//            ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+//                @Override
+//                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+//                    checkSubmitButtonStatus();
+//                }
+//            });
 
         }
         tvCourse.setText(courseName);
@@ -347,7 +349,7 @@ public class CommentDialog extends DialogFragment {
         llLoading.setVisibility(View.VISIBLE);
         llContent.setVisibility(View.GONE);
         llLoadFail.setVisibility(View.GONE);
-        tvSubmit.setEnabled(false);
+//        tvSubmit.setEnabled(false);
     }
 
     private void updateLoadSuccessedUI() {
@@ -399,6 +401,18 @@ public class CommentDialog extends DialogFragment {
         } catch (Exception e) {
         } finally {
         }
+    }
+    public boolean checkoutInputManager(){
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        Log.e("CommentDialog", "checkoutInputManager: "+imm.isActive(editComment));
+        if (imm.isActive(editComment) && isInputShow){
+            editComment.clearFocus();
+            tvSubmit.requestFocus();
+            imm.hideSoftInputFromWindow(editComment.getWindowToken(), 0);
+            isInputShow = false;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -471,8 +485,16 @@ public class CommentDialog extends DialogFragment {
             dismiss();
             return;
         }
-        String content = editComment.getText().toString();
         float score = ratingbar.getRating();
+        if (score == 0.0){
+            MiscUtil.toast(R.string.rate_the_course);
+            return;
+        }
+        String content = editComment.getText().toString();
+        if (TextUtils.isEmpty(content)){
+            MiscUtil.toast(R.string.write_few_reviews);
+            return;
+        }
         JSONObject json = new JSONObject();
         try {
             json.put(Constants.TIMESLOT, timeslot);

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.chanven.lib.cptr.PtrDefaultHandler;
 import com.chanven.lib.cptr.PtrFrameLayout;
@@ -56,6 +57,7 @@ public class ScheduleFragment extends BaseFragment{
 //    private FrameLayout mFlCourseEmpty;
 //    private CrazyShadow mEmptyShadow;
     private Context mContext;
+    private TextView mTvError;
 
     public enum LayoutType {
         REFRESH_FAILED,
@@ -169,7 +171,7 @@ public class ScheduleFragment extends BaseFragment{
 //            }
 //        });
 
-        errorView.setOnClickListener(new View.OnClickListener() {
+        mTvError.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshList();
@@ -201,7 +203,7 @@ public class ScheduleFragment extends BaseFragment{
     }
 
     private void initData() {
-        errorView.setText("加载失败了,点击刷新");
+//        errorView.setText("加载失败了,点击刷新");
 
 //        emptyView.setText("您还没有课程哦!");
 //        emptyView.setButtonText("去报名");
@@ -277,7 +279,7 @@ public class ScheduleFragment extends BaseFragment{
     private void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         errorView = (ListDefaultView) view.findViewById(R.id.view_error);
-
+        mTvError = (TextView) view.findViewById(R.id.tv_error_txt);
         //        emptyView = (DefaultView) view.findViewById(R.id.view_empty);
 //        unsignupView = (DefaultView) view.findViewById(R.id.view_unsigin_up);
         mCetvCourseTips = (CourseEmptyTipsView) view.findViewById(R.id.cetv_course_empty);

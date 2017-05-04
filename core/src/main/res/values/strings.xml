@@ -16,4 +16,8 @@
     <string name="click_load_more">点击加载更多</string>
     <string name="load_error_retry">加载失败，点击重试!</string>
     <string name="no_more_content">没有更多内容啦~</string>
+    <string name="login_immediately">立即登录</string>
+    <string name="sign_immediately">立即报名</string>
+    <string name="rate_the_course">请给课程打个分吧</string>
+    <string name="write_few_reviews">请给课程写几句评价吧</string>
 </resources>
