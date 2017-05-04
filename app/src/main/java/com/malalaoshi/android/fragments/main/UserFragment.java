@@ -561,12 +561,14 @@ public class UserFragment extends BaseFragment {
     private void setUserLoginInInfo() {
         tvUserName.setText(UserManager.getInstance().getStuName());
         tvUserName.setBackground(null);
+        tvUserName.setCompoundDrawables(null, null, getResources().getDrawable(R.drawable.selector_edite_name), null);
         btnLogout.setVisibility(View.VISIBLE);
     }
 
     private void setUserLoginOutInfo() {
         tvUserName.setText("点击登录");
         tvUserName.setBackgroundResource(R.drawable.selector_rim_edite_name_white);
+        tvUserName.setCompoundDrawables(null, null, null, null);
         btnLogout.setVisibility(View.GONE);
     }
 

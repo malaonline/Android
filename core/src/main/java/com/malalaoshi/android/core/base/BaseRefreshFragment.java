@@ -137,7 +137,7 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         emptyView = (EmptyView) view.findViewById(R.id.view_empty);
         errorView = (ErrorView) view.findViewById(R.id.view_error);
-        errorView.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.tv_error_txt   ).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 autoRefresh();

@@ -9,13 +9,25 @@
         android:id="@+id/iv_error_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/core__ic_data_empty"/>
+        android:src="@drawable/core__network_error"/>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="网络出错了~"/>
     <TextView
         android:id="@+id/tv_error_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="加载失败了，点击刷新"
-        android:textColor="@color/core__text_color"
-        android:textSize="@dimen/core__text_size_normal_x"/>
+        android:layout_marginTop="36dp"
+        android:text="点击重试"
+        android:textColor="@color/color_blue_82b4d9_f2"
+        android:textSize="@dimen/core__text_size_normal_x"
+        android:background="@drawable/core__selector_browse_comments"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        />
 </LinearLayout>

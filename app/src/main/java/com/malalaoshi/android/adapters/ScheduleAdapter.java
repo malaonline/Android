@@ -247,7 +247,7 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
 
     private void setBrowseCommentUI(final ItemViewHolder holder){
         TextView tvCourseComment = holder.tvCourseComment;
-        tvCourseComment.setBackgroundResource(R.drawable.selector_browse_comments);
+        tvCourseComment.setBackgroundResource(R.drawable.core__selector_browse_comments);
         tvCourseComment.setText("查看评价");
         tvCourseComment.setTextColor(getColor(R.color.color_blue_82b4d9_f2));
     }

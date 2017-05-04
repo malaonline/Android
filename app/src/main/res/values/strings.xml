@@ -107,6 +107,7 @@
 
     <string name="load_timetable_info_failed">课程表下载失败!</string>
 
+
     <!--Html.fromHtml("<font size=\"3\" color=\"red\">今天天气好吗？</font><font size=\"3\" color=\"green\">挺好的</font>"-->
     <string name="qr_code_pay_tip">
         <font color="#636363">家长完成支付后 点击</font>
@@ -176,6 +177,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="login_immediately">立即登录</string>
-    <string name="sign_immediately">立即报名</string>
+
 </resources>
