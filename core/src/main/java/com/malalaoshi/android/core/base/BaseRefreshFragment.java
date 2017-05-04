@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +39,8 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
     private ImageButton ibFloatingTop;
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
+    protected int mItemTotalCount;
+    private RefreshFooterEffectView mFooterView;
 
     public enum LayoutType {
         REFRESH_FAILED,
@@ -173,16 +174,19 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
                     floatingButtonShow();
                 }else if (dy > 0){
                     floatingButtonHide();
-                }
-                int lastVisibleItemPosition = mLayoutManager.findLastCompletelyVisibleItemPosition();
-                Log.e("BaseRefreshFragment", "onScrolled: lastVisibleItemPosition="+lastVisibleItemPosition);
-                Log.e("BaseRefreshFragment", "onScrolled: ItemTotalCount="+adapter.getItemTotalCount());
-                if (lastVisibleItemPosition == (adapter.getItemTotalCount() + 1)){
-                    Log.e("BaseRefreshFragment", "onScrolled: "+adapter.getItemCount());
+                    int lastVisibleItemPosition = mLayoutManager.findLastCompletelyVisibleItemPosition();
+                    showFooter(lastVisibleItemPosition);
                 }
             }
         });
 
+    }
+
+    protected void showFooter(int lastVisibleItemPosition) {
+        if (lastVisibleItemPosition == mItemTotalCount - 1){
+            recyclerView.smoothScrollToPosition(mItemTotalCount);
+            mFooterView.startAnimation();
+        }
     }
 
     private void floatingButtonHide() {
@@ -208,7 +212,8 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
         refreshLayout.addPtrUIHandler(headerView);
         refreshLayout.setKeepHeaderWhenRefresh(true);
         refreshLayout.setPullToRefresh(false);
-        refreshLayout.setFooterView(new RefreshFooterEffectView(getContext()));
+        mFooterView = new RefreshFooterEffectView(getContext());
+        refreshLayout.setFooterView(mFooterView);
         //这个会引起自动刷新刷新两次
         //refreshLayout.setEnabledNextPtrAtOnce(true);
         refreshLayout.setPtrHandler(new PtrHandler() {
@@ -277,7 +282,8 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
             setLayout(LayoutType.LIST);
             adapter.clear();
             adapter.addData(response.getResults());
-            adapter.setItemTotalCount(response.getCount());
+//            adapter.setItemTotalCount(response.getCount());
+            mItemTotalCount = response.getCount()+getStableItem();
         }
 
         if (EmptyUtils.isEmpty(response.getNext())) {
@@ -286,6 +292,11 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
             refreshLayout.setLoadMoreEnable(true);
         }
     }
+
+    protected int getStableItem() {
+        return 0;
+    }
+
     protected String getEmptyString(){
         return "没有数据";
     }

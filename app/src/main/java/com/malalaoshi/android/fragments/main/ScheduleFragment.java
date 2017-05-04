@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -276,7 +275,6 @@ public class ScheduleFragment extends BaseFragment{
     }
 
     private void initView(View view) {
-        Log.e("ScheduleFragment", "initView: ");
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         errorView = (ListDefaultView) view.findViewById(R.id.view_error);
 
