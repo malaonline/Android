@@ -110,4 +110,9 @@ public class LiveCourseFragment extends BaseRefreshFragment<LiveCourseResult> {
     public String getStatName() {
         return "双师直播";
     }
+
+    @Override
+    protected int getStableItem() {
+        return 1;
+    }
 }

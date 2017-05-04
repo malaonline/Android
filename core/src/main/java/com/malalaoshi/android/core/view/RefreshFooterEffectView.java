@@ -1,8 +1,6 @@
 package com.malalaoshi.android.core.view;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,25 +16,25 @@ import com.malalaoshi.android.core.R;
  * Created by donald on 2017/4/20.
  */
 
-public class RefreshFooterEffectView extends View implements ILoadMoreViewFactory {
+public class RefreshFooterEffectView implements ILoadMoreViewFactory {
 
     private Context mContext;
     private LoadMoreHandler mLoadMoreHandler;
 
     public RefreshFooterEffectView(Context context) {
-        super(context);
+//        super(context);
         init(context);
     }
 
-    public RefreshFooterEffectView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
-    }
-
-    public RefreshFooterEffectView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context);
-    }
+//    public RefreshFooterEffectView(Context context, @Nullable AttributeSet attrs) {
+//        super(context, attrs);
+//        init(context);
+//    }
+//
+//    public RefreshFooterEffectView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+//        super(context, attrs, defStyleAttr);
+//        init(context);
+//    }
 
     private void init(Context context){
         mContext = context;
@@ -49,7 +47,7 @@ public class RefreshFooterEffectView extends View implements ILoadMoreViewFactor
         private ImageView mIvLoadMoreProjection;
         private ImageView mIvLoadMoreLion;
         private FrameLayout mFlLoadMorePlanet;
-        private FrameLayout mFlLoadMoreEffect;
+        public FrameLayout mFlLoadMoreEffect;
         private View mFootView;
         private View.OnClickListener mLoadMoreListener;
         private Animation mLionDownAnim;
@@ -93,6 +91,7 @@ public class RefreshFooterEffectView extends View implements ILoadMoreViewFactor
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     mTvLoadMore.startAnimation(mTextShowAnim);
+                    mTvLoadMore.setVisibility(View.VISIBLE);
                     mIvLoadMoreLion.startAnimation(mLionShrinkAnim);
                 }
 
@@ -119,6 +118,7 @@ public class RefreshFooterEffectView extends View implements ILoadMoreViewFactor
             });
         }
         public void startAnimation(){
+            mTvLoadMore.setVisibility(View.INVISIBLE);
             mIvLoadMoreLion.startAnimation(mLionDownAnim);
             mFlLoadMorePlanet.startAnimation(mPlanetShowAnim);
             mIvLoadMoreProjection.startAnimation(mShadowShowAnim);
@@ -149,8 +149,6 @@ public class RefreshFooterEffectView extends View implements ILoadMoreViewFactor
         @Override
         public void showNomore() {
             mTvLoadMore.setText(R.string.no_more_content);
-            mTvLoadMore.startAnimation(mLionDownAnim);
-
             mFlLoadMoreEffect.setVisibility(View.VISIBLE);
 //            startAnimation();
 
@@ -166,7 +164,8 @@ public class RefreshFooterEffectView extends View implements ILoadMoreViewFactor
     public ILoadMoreView madeLoadMoreView() {
         return mLoadMoreHandler;
     }
-    public void click(){
-        mLoadMoreHandler.startAnimation();
+    public void startAnimation(){
+        if (mLoadMoreHandler != null && mLoadMoreHandler.mFlLoadMoreEffect != null && mLoadMoreHandler.mFlLoadMoreEffect.getVisibility() == View.VISIBLE)
+            mLoadMoreHandler.startAnimation();
     }
 }

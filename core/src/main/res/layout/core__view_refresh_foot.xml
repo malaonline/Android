@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="112dp"
         android:layout_gravity="center"
+        android:visibility="gone"
         >
         <FrameLayout
             android:id="@+id/fl_load_more_planet"
