@@ -1,8 +1,10 @@
 package com.malalaoshi.android.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +13,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.activitys.CourseConfirmActivity;
 import com.malalaoshi.android.activitys.OrderInfoActivity;
 import com.malalaoshi.android.common.pay.PayActivity;
+import com.malalaoshi.android.common.pay.api.DeleteOrderApi;
 import com.malalaoshi.android.common.pay.utils.OrderDef;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.image.MalaImageView;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
-import com.malalaoshi.android.activitys.CourseConfirmActivity;
 import com.malalaoshi.android.core.utils.EmptyUtils;
 import com.malalaoshi.android.entity.CreateCourseOrderResultEntity;
 import com.malalaoshi.android.entity.LiveCourse;
 import com.malalaoshi.android.entity.Order;
 import com.malalaoshi.android.entity.Subject;
-import com.malalaoshi.android.common.pay.api.DeleteOrderApi;
 import com.malalaoshi.android.network.result.OkResult;
 import com.malalaoshi.android.ui.widgets.DoubleAvatarView;
 import com.malalaoshi.android.utils.DialogUtil;
@@ -284,8 +286,26 @@ public class OrderAdapter extends BaseRecycleAdapter<OrderAdapter.ViewHolder, Or
         protected void onClickCancelOrder() {
             if (order.getId() != null) {
                 //取消订单
-                startProcessDialog("正在取消订单...");
-                ApiExecutor.exec(new CancelCourseOrderRequest(this, order.getId() + ""));
+                // TODO: 2017/5/5 添加dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("确认取消订单吗？");
+                builder.setNegativeButton("暂不取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+                });
+                builder.setPositiveButton("取消订单", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startProcessDialog("正在取消订单...");
+                        ApiExecutor.exec(new CancelCourseOrderRequest(ViewHolder.this, order.getId() + ""));
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+
             } else {
                 MiscUtil.toast("订单id错误!");
             }

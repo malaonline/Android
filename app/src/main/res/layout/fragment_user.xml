@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="165dp"
-        android:background="@drawable/ic_user_bg"
+        android:layout_height="133dp"
+        android:background="@color/color_blue_6A93F3"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -26,117 +26,129 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@drawable/selector_rim_edite_name_white"
             android:drawablePadding="2dp"
             android:drawableRight="@drawable/selector_edite_name"
-            android:textColor="@color/selector_name_white"
-            android:textSize="@dimen/text_size_large"
-            android:background="@drawable/selector_rim_edite_name_white"
             android:lines="1"
-            android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/selector_name_white"
+            android:textSize="@dimen/text_size_large"
             />
     </LinearLayout>
 
+    <com.malalaoshi.android.ui.widgets.WaveView
+        android:id="@+id/wave_view"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/color_blue_6A93F3"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="116dp"
+        android:layout_height="134dp"
         android:background="@color/white"
+        android:gravity="center_vertical"
         >
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/iv_my_collection"
-                android:layout_marginTop="13dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_my_collection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_my_collection"
-                android:layout_marginTop="17dp"
-                android:layout_below="@id/iv_my_collection"
-                android:textColor="@color/color_black_636363"
-                android:textSize="@dimen/text_size_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_my_collection"/>
+
+            <TextView
+                android:id="@+id/tv_my_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_my_collection"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="17dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="我的收藏" />
+                android:text="我的收藏"
+                android:textColor="@color/color_black_636363"
+                android:textSize="@dimen/text_size_normal"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/iv_my_orders"
-                android:layout_marginTop="13dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_my_orders"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_my_orders"
-                android:layout_below="@id/iv_my_orders"
-                android:layout_marginTop="17dp"
-                android:textColor="@color/color_black_636363"
-                android:textSize="@dimen/text_size_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_my_orders"/>
+
+            <TextView
+                android:id="@+id/tv_my_orders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_my_orders"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="17dp"
                 android:gravity="center"
-                android:text="我的订单" />
+                android:text="我的订单"
+                android:textColor="@color/color_black_636363"
+                android:textSize="@dimen/text_size_normal"/>
 
             <ImageView
                 android:id="@+id/tv_unpaid_orders"
-                android:layout_toRightOf="@id/tv_my_orders"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="-12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_unpaid_orders"
+                android:layout_marginLeft="-12dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/tv_my_orders"
                 android:scaleType="centerInside"
-                android:visibility="invisible" />
+                android:src="@drawable/ic_unpaid_orders"
+                android:visibility="invisible"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/iv_my_comment"
-                android:layout_marginTop="13dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_my_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_my_comment"/>
+
             <TextView
                 android:id="@+id/tv_my_comment"
-                android:layout_below="@id/iv_my_comment"
-                android:layout_marginTop="17dp"
-                android:textColor="@color/color_black_636363"
-                android:textSize="@dimen/text_size_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/iv_my_comment"
                 android:layout_centerInParent="true"
+                android:layout_marginTop="17dp"
                 android:gravity="center"
-                android:text="我的评价" />
+                android:text="我的评价"
+                android:textColor="@color/color_black_636363"
+                android:textSize="@dimen/text_size_normal"/>
+
             <ImageView
                 android:id="@+id/tv_uncomment_course"
-                android:layout_toRightOf="@id/tv_my_comment"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="-12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_uncomment_course"
+                android:layout_marginLeft="-12dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/tv_my_comment"
                 android:scaleType="centerInside"
-                android:visibility="invisible" />
+                android:src="@drawable/ic_uncomment_course"
+                android:visibility="invisible"/>
         </RelativeLayout>
     </LinearLayout>
 
@@ -144,16 +156,16 @@
         android:id="@+id/ll_user_schoolship"
         style="@style/mala.widget.user.item"
         android:layout_marginTop="12dp"
-        android:orientation="horizontal"
         android:background="@android:color/white"
+        android:orientation="horizontal"
         >
 
         <TextView
             style="@style/mala.widget.usercenter.item.text"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="12dp"
+            android:layout_weight="1"
             android:gravity="left|center_vertical"
             android:text="我的奖学金"
             android:textSize="16sp"
@@ -164,7 +176,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="16dp"
             android:scaleType="center"
-            android:src="@drawable/ic_more_info" />
+            android:src="@drawable/ic_more_info"/>
     </LinearLayout>
 
     <LinearLayout
@@ -177,9 +189,9 @@
         <TextView
             style="@style/mala.widget.usercenter.item.text"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="12dp"
+            android:layout_weight="1"
             android:gravity="left|center_vertical"
             android:text="关于麻辣老师"
             android:textSize="16sp"
@@ -190,7 +202,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="16dp"
             android:scaleType="center"
-            android:src="@drawable/ic_more_info" />
+            android:src="@drawable/ic_more_info"/>
     </LinearLayout>
 
     <Button
@@ -203,5 +215,5 @@
         android:background="@drawable/selector_gradient_semicircle_blue_btn_bg"
         android:text="退出登录"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_xlarge" />
+        android:textSize="@dimen/text_size_xlarge"/>
 </LinearLayout>
