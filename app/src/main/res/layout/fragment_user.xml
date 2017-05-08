@@ -42,7 +42,7 @@
     <com.malalaoshi.android.ui.widgets.WaveView
         android:id="@+id/wave_view"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="30dp"
         android:background="@color/color_blue_6A93F3"
         />
 

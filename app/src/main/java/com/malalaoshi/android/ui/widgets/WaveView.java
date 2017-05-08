@@ -27,6 +27,9 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 
+/**
+ * 波浪动效
+ */
 public class WaveView extends View {
     /**
      * +------------------------+
@@ -43,8 +46,8 @@ public class WaveView extends View {
      * |                        |  |
      * +------------------------+__|____
      */
-    private static final float DEFAULT_AMPLITUDE_RATIO = 0.25f;
-    private static final float DEFAULT_WATER_LEVEL_RATIO = 0.4f;
+    private static final float DEFAULT_AMPLITUDE_RATIO = 0.2f;
+    private static final float DEFAULT_WATER_LEVEL_RATIO = 0.5f;
     private static final float DEFAULT_WAVE_LENGTH_RATIO = 1.0f;
     private static final float DEFAULT_WAVE_SHIFT_RATIO = 0.0f;
 
