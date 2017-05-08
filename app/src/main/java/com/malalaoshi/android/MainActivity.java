@@ -167,7 +167,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
 
     private void initViews() {
         setCurrentPager(pageIndex);
-        tvChooseSchool.setText("校区:"+UserManager.getInstance().getSchool());
+        tvChooseSchool.setText(UserManager.getInstance().getSchool());
     }
 
     void setCurrentPager(int index){
@@ -279,7 +279,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
         if (SchoolPickerActivity.RESULT_CODE_SCHOOL_CITY==resultCode&&data!=null){
             //更新老师列表数据
             EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_UPDATE_SCHOOL_SUCCESS));
-            tvChooseSchool.setText("校区:"+UserManager.getInstance().getSchool());
+            tvChooseSchool.setText(UserManager.getInstance().getSchool());
         }
     }
 

@@ -56,12 +56,14 @@ import com.malalaoshi.android.network.result.UserListResult;
 import com.malalaoshi.android.ui.dialogs.PromptDialog;
 import com.malalaoshi.android.ui.dialogs.SingleChoiceDialog;
 import com.malalaoshi.android.ui.dialogs.SingleEditDialog;
+import com.malalaoshi.android.ui.widgets.WaveView;
 import com.malalaoshi.android.utils.AuthUtils;
 import com.malalaoshi.android.utils.DialogUtil;
 import com.malalaoshi.android.utils.ImageUtil;
 import com.malalaoshi.android.utils.MiscUtil;
 import com.malalaoshi.android.utils.PermissionUtil;
 import com.malalaoshi.android.utils.StringUtil;
+import com.malalaoshi.android.utils.WaveHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -101,6 +103,9 @@ public class UserFragment extends BaseFragment {
     @Bind(R.id.btn_logout)
     protected Button btnLogout;
 
+    @Bind(R.id.wave_view)
+    protected WaveView mWaveView;
+
     private String strUserName;
 
     private String strAvatarLocPath;
@@ -120,6 +125,7 @@ public class UserFragment extends BaseFragment {
             }
         }
     };
+    private WaveHelper mWaveHelper;
 
     @Nullable
     @Override
@@ -183,6 +189,7 @@ public class UserFragment extends BaseFragment {
     }
 
     private void initViews() {
+        mWaveHelper = new WaveHelper(mWaveView);
         loadLocalViews();
     }
 
@@ -561,14 +568,14 @@ public class UserFragment extends BaseFragment {
     private void setUserLoginInInfo() {
         tvUserName.setText(UserManager.getInstance().getStuName());
         tvUserName.setBackground(null);
-        tvUserName.setCompoundDrawables(null, null, getResources().getDrawable(R.drawable.selector_edite_name), null);
+        tvUserName.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.selector_edite_name), null);
         btnLogout.setVisibility(View.VISIBLE);
     }
 
     private void setUserLoginOutInfo() {
         tvUserName.setText("点击登录");
         tvUserName.setBackgroundResource(R.drawable.selector_rim_edite_name_white);
-        tvUserName.setCompoundDrawables(null, null, null, null);
+        tvUserName.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         btnLogout.setVisibility(View.GONE);
     }
 
@@ -704,4 +711,15 @@ public class UserFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mWaveHelper.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mWaveHelper.cancel();
+    }
 }
