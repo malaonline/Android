@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/tv_topic_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="17dp"
+        android:drawableTop="@drawable/ic_wrong_topic"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="@string/your_topic_will_show_here"
+        android:textColor="@color/color_black_a0a3ab"
+        android:textSize="@dimen/text_size_normal"/>
+
+    <LinearLayout
+        android:id="@+id/ll_topic_submit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:background="@drawable/selector_gradient_semicircle_blue_btn_bg"
+        android:gravity="center"
+        >
+        <ProgressBar
+            android:id="@+id/pb_retry_loading"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            />
+        <TextView
+            android:id="@+id/tv_topic_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/look_over_the_sample_of_topic"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_xlarge"
+            />
+    </LinearLayout>
+
+</LinearLayout>

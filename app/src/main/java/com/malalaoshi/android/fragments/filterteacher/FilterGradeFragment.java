@@ -152,7 +152,7 @@ public class FilterGradeFragment extends Fragment {
 
     @OnItemClick(R.id.filter_grages_list1)
     public void onPrimaryItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //parent.get
+        //parent.getSubject
         dealItemClick(parent, 1, view, position);
     }
 

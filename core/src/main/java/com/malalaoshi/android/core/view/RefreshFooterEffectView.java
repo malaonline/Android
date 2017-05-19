@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.AnticipateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,18 +23,18 @@ public class RefreshFooterEffectView implements ILoadMoreViewFactory {
     private LoadMoreHandler mLoadMoreHandler;
 
     public RefreshFooterEffectView(Context context) {
-//        super(context);
+//        super(mContext);
         init(context);
     }
 
-//    public RefreshFooterEffectView(Context context, @Nullable AttributeSet attrs) {
-//        super(context, attrs);
-//        init(context);
+//    public RefreshFooterEffectView(Context mContext, @Nullable AttributeSet attrs) {
+//        super(mContext, attrs);
+//        init(mContext);
 //    }
 //
-//    public RefreshFooterEffectView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-//        super(context, attrs, defStyleAttr);
-//        init(context);
+//    public RefreshFooterEffectView(Context mContext, @Nullable AttributeSet attrs, int defStyleAttr) {
+//        super(mContext, attrs, defStyleAttr);
+//        init(mContext);
 //    }
 
     private void init(Context context){
@@ -75,6 +76,7 @@ public class RefreshFooterEffectView implements ILoadMoreViewFactory {
         private void initAnimation() {
             Context context = MalaContext.getContext();
             mLionDownAnim = AnimationUtils.loadAnimation(context, R.anim.core__lion_down_to_show);
+            mLionDownAnim.setInterpolator(new AnticipateInterpolator());
             mLionRevertAnim = AnimationUtils.loadAnimation(context, R.anim.core__lion_revert);
             mLionShrinkAnim = AnimationUtils.loadAnimation(context, R.anim.core__lion_shrink);
             mShadowShowAnim = AnimationUtils.loadAnimation(context, R.anim.core__shadow_show);

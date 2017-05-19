@@ -147,3 +147,6 @@
 -dontwarn com.mob.**
 -dontwarn cn.sharesdk.**
 -dontwarn **.R$*
+
+-dontwarn java.lang.invoke.*
+-dontwarn **$$Lambda$*

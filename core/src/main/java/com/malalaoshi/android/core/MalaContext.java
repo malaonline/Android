@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Mala context
+ * Mala mContext
  * Created by tianwei on 16-2-1.
  */
 public class MalaContext {

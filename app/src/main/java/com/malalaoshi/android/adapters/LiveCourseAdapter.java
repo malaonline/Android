@@ -38,10 +38,10 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
         LiveCourseAdapter.ViewHolder holder = null;
         View view = null;
         if (viewType==ITEM_TYPE_HEAD){
-            view = LayoutInflater.from(context).inflate(R.layout.view_banner_item, parent, false);
+            view = LayoutInflater.from(mContext).inflate(R.layout.view_banner_item, parent, false);
             holder = new BannerViewHolder(view);
         }else{
-            view = LayoutInflater.from(context).inflate(R.layout.liveclass_list_item, parent, false);
+            view = LayoutInflater.from(mContext).inflate(R.layout.liveclass_list_item, parent, false);
             holder = new ItemViewHolder(view);
         }
         view.setTag(holder);

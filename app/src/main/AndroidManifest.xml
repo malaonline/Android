@@ -202,6 +202,12 @@
             android:name=".activitys.LiveCourseIntroduceActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
+        <activity android:name=".activitys.WrongTopicActivity"
+            android:launchMode="singleTop"
+            />
+        <activity android:name=".activitys.WrongTopicDetailActivity"
+            android:launchMode="singleTop"
+            />
 
         <receiver
             android:name=".receivers.NetworkStateReceiver"
@@ -343,7 +349,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- Required  . Enable it you can get statistics data with channel -->
+        <!-- Required  . Enable it you can getSubject statistics data with channel -->
         <meta-data
             android:name="JPUSH_CHANNEL"
             android:value="developer-default" />

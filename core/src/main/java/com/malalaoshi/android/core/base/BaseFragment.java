@@ -2,6 +2,7 @@ package com.malalaoshi.android.core.base;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import com.malalaoshi.android.core.stat.StatReporter;
  */
 public abstract class BaseFragment extends Fragment {
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
+    protected Context mContext;
 
     public abstract String getStatName();
 
@@ -37,6 +39,7 @@ public abstract class BaseFragment extends Fragment {
             }
             ft.commit();
         }
+        mContext = getContext();
     }
 
     @Override
@@ -102,7 +105,6 @@ public abstract class BaseFragment extends Fragment {
             progressDialog.hide();
         }
     }
-
 
 
 }

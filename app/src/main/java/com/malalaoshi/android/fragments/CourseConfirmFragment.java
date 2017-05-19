@@ -480,7 +480,7 @@ public class CourseConfirmFragment extends BaseFragment
         }
         entity.setWeekly_time_slots(list);
 
-        //Context context, Order order, long hours,String weeklyTimeSlots,long teacherId
+        //Context mContext, Order order, long hours,String weeklyTimeSlots,long teacherId
         Order order = new Order();
         order.setTeacher(String.valueOf(teacher));
         order.setTeacher_name(teacherName);
@@ -914,7 +914,7 @@ public class CourseConfirmFragment extends BaseFragment
 
         @Override
         public void onApiSuccess(@NonNull CoursePriceListResult response) {
-            //response = JsonUtil.parseData(R.raw.pricelist,CoursePriceListResult.class,get().getContext());
+            //response = JsonUtil.parseData(R.raw.pricelist,CoursePriceListResult.class,getSubject().getContext());
             if (response.getResults() != null) {
                 get().onLoadCoursePricesSuccess(response);
             } else {

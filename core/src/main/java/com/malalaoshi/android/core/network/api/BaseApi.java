@@ -98,7 +98,7 @@ public abstract class BaseApi {
 
     protected <T> T httpGet(String url, final Class<T> cls) throws Exception {
         final Request.Builder builder = new Request.Builder().url(getUrl(url));
-        LogUtils.e(TAG,"httpGet", url);
+        LogUtils.e(TAG, "httpGet", url);
         return http(builder, cls);
     }
 

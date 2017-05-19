@@ -55,9 +55,9 @@ public class RefreshHeaderEffectView extends FrameLayout implements PtrUIHandler
         setupView(context);
     }
 
-//    public RefreshEffectView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-//        super(context, attrs, defStyleAttr, defStyleRes);
-//        setupView(context);
+//    public RefreshEffectView(Context mContext, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+//        super(mContext, attrs, defStyleAttr, defStyleRes);
+//        setupView(mContext);
 //    }
 
 

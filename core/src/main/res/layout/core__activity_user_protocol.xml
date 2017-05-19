@@ -15,6 +15,7 @@
         app:cusTitleTextColor="@color/core__title_text_color"
         app:cusTitleTextSize="18sp"
         app:cusLeftShow="true"
+        app:cusLeftBackgroud="@drawable/core__ic_black_back"
         />
 
     <WebView

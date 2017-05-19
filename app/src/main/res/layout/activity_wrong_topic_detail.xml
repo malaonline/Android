@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/main_bg"
+    >
+    <com.malalaoshi.android.core.view.TitleBarView
+        android:id="@+id/tbv_topic_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/core__title_bar_height"
+        android:background="@color/main_color"
+        app:cusTitleText="错题详情页"
+        app:cusTitleTextColor="@color/white"
+        app:cusTitleTextSize="@dimen/text_size_xlarge"
+        app:cusLeftShow="true"
+        app:cusLeftBackgroud="@drawable/core__white_btn"
+        />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_topic_detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>

@@ -34,7 +34,7 @@ public final class CouponAdapter extends BaseRecycleAdapter<CouponAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.view_coupon_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.view_coupon_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         view.setTag(holder);
         return holder;
@@ -113,7 +113,7 @@ public final class CouponAdapter extends BaseRecycleAdapter<CouponAdapter.ViewHo
             return;
         }
         if (amount < entity.getMini_total_price()) {
-            com.malalaoshi.android.core.utils.MiscUtil.toast("订单金额不符合使用条件");
+            MiscUtil.toast("订单金额不符合使用条件");
             return;
         }
         for (int i = 0; i < getItemCount(); i++) {

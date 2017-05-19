@@ -68,7 +68,7 @@ public class SimpleMonthAdapter extends RecyclerView.Adapter<SimpleMonthAdapter.
         int year;
 
         month = (firstMonth + (position % MONTHS_IN_YEAR)) % MONTHS_IN_YEAR;
-        //year = position / MONTHS_IN_YEAR - (calendar.get(Calendar.YEAR)- firstYear) + calendar.get(Calendar.YEAR);
+        //year = position / MONTHS_IN_YEAR - (calendar.getSubject(Calendar.YEAR)- firstYear) + calendar.getSubject(Calendar.YEAR);
         year = firstYear + (position+ firstMonth)/MONTHS_IN_YEAR;
         v.reuse();
 
@@ -115,7 +115,7 @@ public class SimpleMonthAdapter extends RecyclerView.Adapter<SimpleMonthAdapter.
     @Override
     public int getItemCount()
     {
-        //int itemCount = (calendar.get(Calendar.YEAR)- firstYear) * MONTHS_IN_YEAR  - firstMonth + 1 + calendar.get(Calendar.MONTH) + MONTHS_IN_YEAR;//MONTHS_IN_YEAR*3;
+        //int itemCount = (calendar.getSubject(Calendar.YEAR)- firstYear) * MONTHS_IN_YEAR  - firstMonth + 1 + calendar.getSubject(Calendar.MONTH) + MONTHS_IN_YEAR;//MONTHS_IN_YEAR*3;
         return 3 * MONTHS_IN_YEAR;
     }
 

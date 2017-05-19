@@ -37,10 +37,11 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
     private Animation mFloatingButtonShow;
     private Animation mFloatingButtonHide;
     private ImageButton ibFloatingTop;
-    private RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
     protected int mItemTotalCount;
     private RefreshFooterEffectView mFooterView;
+    protected View mView;
 
     public enum LayoutType {
         REFRESH_FAILED,
@@ -51,7 +52,7 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
     public abstract String getStatName();
 
     //刷新容器
-    private PtrFrameLayout refreshLayout;
+    protected PtrFrameLayout refreshLayout;
 
     private BaseRecycleAdapter adapter;
 
@@ -70,17 +71,17 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.core__fragment_refresh_base, container, false);
+        mView = inflater.inflate(R.layout.core__fragment_refresh_base, container, false);
         initAnim();
-        initView(view);
-        view.postDelayed(new Runnable() {
+        initView(mView);
+        mView.postDelayed(new Runnable() {
             @Override
             public void run() {
                 autoRefresh();
             }
         }, 100);
         afterCreateView();
-        return view;
+        return mView;
     }
 
     private void initAnim() {
@@ -116,16 +117,24 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
             case EMPTY:
                 emptyView.setVisibility(View.VISIBLE);
                 errorView.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
                 break;
             case REFRESH_FAILED:
                 emptyView.setVisibility(View.GONE);
                 errorView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
                 break;
             case LIST:
+                recyclerView.setVisibility(View.VISIBLE);
                 emptyView.setVisibility(View.GONE);
                 errorView.setVisibility(View.GONE);
                 break;
         }
+        setShadow();
+    }
+
+    protected void setShadow() {
+
     }
 
     public BaseRecycleAdapter getAdapter() {
@@ -137,7 +146,7 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         emptyView = (EmptyView) view.findViewById(R.id.view_empty);
         errorView = (ErrorView) view.findViewById(R.id.view_error);
-        view.findViewById(R.id.tv_error_txt   ).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.tv_error_txt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 autoRefresh();
@@ -240,7 +249,7 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
      * 刷新开始
      */
     protected void onRefreshBegin() {
-        setLayout(LayoutType.LIST);
+//        setLayout(LayoutType.LIST);
         ApiExecutor.exec(new RefreshTask<T>(this));
     }
 

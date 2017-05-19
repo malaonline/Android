@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+    <TextView
+        android:id="@+id/tv_topic_subject"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:text="数"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:background="@color/grass_green"
+        />
+    <TextView
+        android:id="@+id/tv_topic_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="31题"
+        android:textColor="@color/grass_green"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        />
+
+</LinearLayout>

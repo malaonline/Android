@@ -29,7 +29,7 @@ public class TeacherAdapter extends BaseRecycleAdapter<TeacherAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.teacher_list_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.teacher_list_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         view.setTag(holder);
         return holder;

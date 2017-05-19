@@ -148,6 +148,10 @@ android {
     dexOptions{
         javaMaxHeapSize "4g"
     }
+//    compileOptions {
+//        targetCompatibility JavaVersion.VERSION_1_8
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 def initShareSdk(appId, appSecret) {

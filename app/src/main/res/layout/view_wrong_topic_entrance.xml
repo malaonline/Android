@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    >
+
+    <TextView
+        android:id="@+id/tv_topic_student_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:text="Hi, 同学:"
+        android:textSize="@dimen/text_size_normal"
+        android:textColor="@color/color_black_a0a3ab"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_topic_subjects"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:nestedScrollingEnabled="false"
+        />
+
+</LinearLayout>

@@ -124,7 +124,7 @@ public class CalendarUtils {
             // 或者用 Date 来初始化 Calendar 对象
             calendar.setTime(date);
            /* calendarDay = new SimpleMonthAdapter.CalendarDay();
-            calendarDay.setDayOfBegin(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));*/
+            calendarDay.setDayOfBegin(calendar.getSubject(Calendar.YEAR), calendar.getSubject(Calendar.MONTH) + 1, calendar.getSubject(Calendar.DAY_OF_MONTH));*/
         } catch (ParseException e) {
             e.printStackTrace();
         }

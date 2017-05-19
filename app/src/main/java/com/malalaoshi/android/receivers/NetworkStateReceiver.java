@@ -25,11 +25,11 @@ public class NetworkStateReceiver extends BroadcastReceiver {
         if (!success) {
             String msg = context.getString(R.string.networt_disconnected);
 //            Log.e(TAG, msg);
-//            Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+//            Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
         } else {
             String msg = context.getString(R.string.networt_connected);
 //            Log.i(TAG, msg);
-//            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
         }
     }
 

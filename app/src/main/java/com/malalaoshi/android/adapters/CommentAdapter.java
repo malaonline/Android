@@ -35,7 +35,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
 
     @Override
     public CommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.view_my_comment, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.view_my_comment, parent, false);
         return new CommentViewHolder(view);
     }
 
@@ -198,7 +198,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
     }
 
     private int getColor(int rid) {
-        return context.getResources().getColor(rid);
+        return mContext.getResources().getColor(rid);
     }
 
     public void setFragmentManager(FragmentManager fragmentManager) {

@@ -1,7 +1,6 @@
 package com.malalaoshi.android.fragments;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,18 +13,24 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chanven.lib.cptr.PtrClassicFrameLayout;
+import com.chanven.lib.cptr.PtrDefaultHandler;
+import com.chanven.lib.cptr.PtrFrameLayout;
+import com.chanven.lib.cptr.PtrHandler;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.activitys.MemberActivity;
-import com.malalaoshi.android.network.api.LearningReportApi;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.event.BusEvent;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
 import com.malalaoshi.android.core.network.api.BaseApiContext;
 import com.malalaoshi.android.core.usercenter.UserManager;
+import com.malalaoshi.android.core.view.RefreshHeaderEffectView;
+import com.malalaoshi.android.core.view.ShadowHelper;
 import com.malalaoshi.android.entity.Report;
 import com.malalaoshi.android.entity.Subject;
-import com.malalaoshi.android.report.ReportActivity;
+import com.malalaoshi.android.network.api.LearningReportApi;
 import com.malalaoshi.android.network.result.ReportListResult;
+import com.malalaoshi.android.report.ReportActivity;
 import com.malalaoshi.android.utils.AuthUtils;
 
 import java.util.List;
@@ -42,7 +47,7 @@ import de.greenrobot.event.EventBus;
 
 public class MemberServiceFragment extends BaseFragment implements View.OnClickListener {
 
-    AnimationDrawable refreshAnimation = null;
+//    AnimationDrawable refreshAnimation = null;
 
     @Bind(R.id.ll_refresh_refreshing)
     protected LinearLayout llRefreshRefreshing;
@@ -54,7 +59,7 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
     protected TextView tvRefreshRefreshing;
 
     @Bind(R.id.sub_non_learning_report)
-    protected RelativeLayout rlNonLearningReport;
+    protected View rlNonLearningReport;
 
     @Bind(R.id.sub_learning_report)
     protected RelativeLayout rlLearningReport;
@@ -76,6 +81,8 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
 
     @Bind(R.id.tv_report_submit)
     protected TextView tvReportSubmit;
+    @Bind(R.id.ptr_member_rooter)
+    PtrClassicFrameLayout mPtrMemberRooter;
 
     enum EnumReportStatus {
         LOGIN, LOGIN_FAILED, NOT_SIGN_IN, NOT_SIGN_UP, EMPTY_REPORT, REPORT
@@ -91,6 +98,12 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
         ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
         initView();
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mPtrMemberRooter.autoRefresh();
+            }
+        }, 100);
         initData();
         setEvent();
         return view;
@@ -100,6 +113,7 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
+        ButterKnife.unbind(this);
     }
 
     private void setEvent() {
@@ -111,7 +125,37 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
     }
 
     private void initView() {
-        refreshAnimation = (AnimationDrawable) ivRefreshRefreshing.getDrawable();
+//        refreshAnimation = (AnimationDrawable) ivRefreshRefreshing.getDrawable();
+        RefreshHeaderEffectView headerView = new RefreshHeaderEffectView(getContext());
+        mPtrMemberRooter.setHeaderView(headerView);
+        mPtrMemberRooter.addPtrUIHandler(headerView);
+        mPtrMemberRooter.setKeepHeaderWhenRefresh(true);
+        mPtrMemberRooter.setPullToRefresh(false);
+        //这个会引起自动刷新刷新两次
+        //refreshLayout.setEnabledNextPtrAtOnce(true);
+        mPtrMemberRooter.setPtrHandler(new PtrHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                MemberServiceFragment.this.onRefreshBegin();
+            }
+        });
+        ShadowHelper.setDrawShadow(mContext, rlNonLearningReport);
+//        new CrazyShadow.Builder()
+//                .setContext(mContext)
+//                .setDirection(CrazyShadowDirection.ALL)
+//                .setShadowRadius(DensityUtil.dip2px(mContext, 4))
+//                .setCorner(DensityUtil.dip2px(mContext, 4))
+//                .setBaseShadowColor(getResources().getColor(R.color.core__shadow_bg_blue))
+//                .setImpl(CrazyShadow.IMPL_WRAP)
+//                .action(rlNonLearningReport);
+    }
+
+    private void onRefreshBegin() {
     }
 
     private void loadData() {
@@ -119,15 +163,15 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
             showNotSignInView();
         } else {
             showLoadingView();
-            ApiExecutor.exec(new FetchReportRequest(this,0));
+            ApiExecutor.exec(new FetchReportRequest(this, 0));
         }
     }
 
-    private void loadDataBackground(){
+    private void loadDataBackground() {
         if (!UserManager.getInstance().isLogin()) {
             showNotSignInView();
         } else {
-            ApiExecutor.exec(new FetchReportRequest(this,1));
+            ApiExecutor.exec(new FetchReportRequest(this, 1));
         }
     }
 
@@ -139,7 +183,7 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
                 reloadData();
                 break;
             case BusEvent.BUS_EVENT_BACKGROUND_LOAD_REPORT_DATA:
-                Log.d("MemberServiceFragment","start loadDataBackground");
+                Log.d("MemberServiceFragment", "start loadDataBackground");
                 loadDataBackground();
                 break;
         }
@@ -203,25 +247,26 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
         rlLearningReport.setVisibility(View.GONE);
         llRefreshRefreshing.setVisibility(View.VISIBLE);
         llRefreshRefreshing.setOnClickListener(null);
-        ivRefreshRefreshing.setImageDrawable(refreshAnimation);
-        refreshAnimation.start();
+//        ivRefreshRefreshing.setImageDrawable(refreshAnimation);
+//        refreshAnimation.start();
         tvRefreshRefreshing.setText("正在加载数据···");
         reportStatus = EnumReportStatus.LOGIN;
     }
 
     private void showLoadFailedView() {
-        refreshAnimation.stop();
+//        refreshAnimation.stop();
         rlNonLearningReport.setVisibility(View.GONE);
         rlLearningReport.setVisibility(View.GONE);
         llRefreshRefreshing.setVisibility(View.VISIBLE);
         llRefreshRefreshing.setOnClickListener(this);
-        ivRefreshRefreshing.setImageDrawable(getResources().getDrawable(R.mipmap.ic_loading_animation_01));
+        ivRefreshRefreshing.setImageDrawable(getResources().getDrawable(R.drawable.ic_wrong_topic));
         tvRefreshRefreshing.setText("加载失败,点击重试!");
         reportStatus = EnumReportStatus.LOGIN_FAILED;
     }
 
     private void showNotSignInView() {
-        refreshAnimation.stop();
+        mPtrMemberRooter.refreshComplete();
+//        refreshAnimation.stop();
         rlNonLearningReport.setVisibility(View.VISIBLE);
         rlLearningReport.setVisibility(View.GONE);
         llRefreshRefreshing.setVisibility(View.GONE);
@@ -231,7 +276,7 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
     }
 
     private void showEmptyReportView() {
-        refreshAnimation.stop();
+//        refreshAnimation.stop();
         rlNonLearningReport.setVisibility(View.VISIBLE);
         rlLearningReport.setVisibility(View.GONE);
         llRefreshRefreshing.setVisibility(View.GONE);
@@ -241,7 +286,7 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
     }
 
     private void showReportView(Report report) {
-        refreshAnimation.stop();
+//        refreshAnimation.stop();
         rlNonLearningReport.setVisibility(View.GONE);
         rlLearningReport.setVisibility(View.VISIBLE);
         llRefreshRefreshing.setVisibility(View.GONE);
@@ -285,7 +330,7 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
     private static final class FetchReportRequest extends BaseApiContext<MemberServiceFragment, ReportListResult> {
         private int requestType;  //1:后台更新,获取数据才更新UI
 
-        public FetchReportRequest(MemberServiceFragment memberServiceFragment,int requestType) {
+        public FetchReportRequest(MemberServiceFragment memberServiceFragment, int requestType) {
             super(memberServiceFragment);
             this.requestType = requestType;
         }
@@ -302,7 +347,7 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
 
         @Override
         public void onApiFailure(Exception exception) {
-            if (requestType!=1){
+            if (requestType != 1) {
                 get().showLoadFailedView();
             }
         }
@@ -310,7 +355,6 @@ public class MemberServiceFragment extends BaseFragment implements View.OnClickL
         @Override
         public void onApiFinished() {
             super.onApiFinished();
-            Log.d("MemberServiceFragment","loadDataBackground complete");
         }
     }
 

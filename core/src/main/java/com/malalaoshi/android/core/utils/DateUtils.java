@@ -88,4 +88,8 @@ public class DateUtils {
             return "";
         }
     }
+    public static String format(long ms){
+        SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm");
+        return format.format(ms*1000);
+    }
 }
