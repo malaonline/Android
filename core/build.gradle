@@ -1,4 +1,20 @@
+//buildscript {
+//    repositories {
+//        mavenCentral()
+//    }
+//
+//    dependencies {
+//        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
+//    }
+//}
+//
+//// Required because retrolambda is on maven central
+//repositories {
+//    mavenCentral()
+//}
+
 apply plugin: 'com.android.library'
+//apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 25
@@ -12,6 +28,13 @@ android {
         multiDexEnabled true
 
     }
+//    retrolambda {
+//        javaVersion JavaVersion.VERSION_1_7
+//        jvmArgs '-arg1', '-arg2'
+//        defaultMethods false
+//        incremental true
+//    }
+
     buildTypes {
         debug {
             manifestPlaceholders = [jpush_key: PARENT_JPUSH_KEY_DEBUG]
@@ -21,6 +44,11 @@ android {
             manifestPlaceholders = [jpush_key: PARENT_JPUSH_KEY_RELEASE]
         }
     }
+
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 dependencies {

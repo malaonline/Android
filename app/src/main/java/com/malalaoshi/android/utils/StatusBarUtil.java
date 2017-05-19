@@ -389,7 +389,7 @@ public class StatusBarUtil {
     /**
      * 获取状态栏高度
      *
-     * @param context context
+     * @param context mContext
      * @return 状态栏高度
      */
     private static int getStatusBarHeight(Context context) {

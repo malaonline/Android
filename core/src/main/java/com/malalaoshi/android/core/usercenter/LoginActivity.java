@@ -2,7 +2,6 @@ package com.malalaoshi.android.core.usercenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,8 +21,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hitomi.cslibrary.CrazyShadow;
-import com.hitomi.cslibrary.base.CrazyShadowDirection;
 import com.malalaoshi.android.core.R;
 import com.malalaoshi.android.core.base.BaseActivity;
 import com.malalaoshi.android.core.network.api.ApiExecutor;
@@ -32,9 +29,9 @@ import com.malalaoshi.android.core.stat.StatReporter;
 import com.malalaoshi.android.core.usercenter.api.VerifyCodeApi;
 import com.malalaoshi.android.core.usercenter.entity.AuthUser;
 import com.malalaoshi.android.core.usercenter.entity.SendSms;
-import com.malalaoshi.android.core.utils.DensityUtil;
 import com.malalaoshi.android.core.utils.MiscUtil;
 import com.malalaoshi.android.core.utils.StatusBarCompat;
+import com.malalaoshi.android.core.view.ShadowHelper;
 
 /**
  * 手机号登录
@@ -89,32 +86,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void initShadow() {
-        new CrazyShadow.Builder()
-                .setContext(this)
-                .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(DensityUtil.dip2px(this, 4))
-                .setBaseShadowColor(getResources().getColor(R.color.core__shadow_bg_blue))
-                .setBackground(Color.WHITE)
-                .setCorner(DensityUtil.dip2px(this, 4))
-                .setImpl(CrazyShadow.IMPL_DRAW)
-                .action(mFlInputPhone);
-        new CrazyShadow.Builder()
-                .setContext(this)
-                .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(DensityUtil.dip2px(this, 4))
-                .setBaseShadowColor(getResources().getColor(R.color.core__shadow_bg_blue))
-                .setBackground(Color.WHITE)
-                .setCorner(DensityUtil.dip2px(this, 4))
-                .setImpl(CrazyShadow.IMPL_DRAW)
-                .action(mFlInputCode);
-        new CrazyShadow.Builder()
-                .setContext(this)
-                .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(DensityUtil.dip2px(this, 4))
-                .setBaseShadowColor(getResources().getColor(R.color.core__shadow_bg_blue))
-                .setCorner(DensityUtil.dip2px(this, 20))
-                .setImpl(CrazyShadow.IMPL_WRAP)
-                .action(mtvLoginCommit);
+        ShadowHelper.setDrawShadow(this, mFlInputPhone);
+        ShadowHelper.setDrawShadow(this, mFlInputCode);
+//        ShadowHelper.setDrawShadow(this, 4, mtvLoginCommit);
+//        new CrazyShadow.Builder()
+//                .setContext(this)
+//                .setDirection(CrazyShadowDirection.ALL)
+//                .setShadowRadius(DensityUtil.dip2px(this, 4))
+//                .setBaseShadowColor(getResources().getColor(R.color.main_color))
+//                .setCorner(DensityUtil.dip2px(this, 20))
+//                .setImpl(CrazyShadow.IMPL_WRAP)
+//                .action(mtvLoginCommit);
 
     }
 
@@ -167,8 +149,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
         };
         mLlLoginRoot.getViewTreeObserver().addOnGlobalLayoutListener(mGlobalLayoutListener);
-
-
         mEtInputPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -49,4 +49,15 @@ public class Report {
     public void setTotal_nums(Integer total_nums) {
         this.total_nums = total_nums;
     }
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "subject_id=" + subject_id +
+                ", purchased=" + purchased +
+                ", supported=" + supported +
+                ", right_nums=" + right_nums +
+                ", total_nums=" + total_nums +
+                '}';
+    }
 }

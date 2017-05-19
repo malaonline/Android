@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="member_services_item">
+        <item>自习陪读</item>
+        <item>学习报告</item>
+        <item>心理辅导</item>
+        <item>特色讲座</item>
+        <item>考前串讲</item>
+        <item>错题本</item>
+        <item>SPPS测评</item>
+        <item>敬请期待</item>
+    </string-array>
+</resources>

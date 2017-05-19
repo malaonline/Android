@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.malalaoshi.android.core.view.TitleBarView
+        android:id="@+id/tbv_wrong_topic_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/core__title_bar_height"
+        android:background="@color/main_color"
+        app:cusTitleText="错题本"
+        app:cusTitleTextColor="@color/white"
+        app:cusTitleTextSize="@dimen/text_size_xlarge"
+        app:cusLeftBackgroud="@drawable/core__white_btn"
+        app:cusLeftShow="true"
+        />
+    <TextView
+        android:id="@+id/tv_topic_list_title_num"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="科目：英语 10"
+        android:textSize="@dimen/text_size_large"
+        android:textColor="@color/color_black_373a41"
+        android:drawableRight="@drawable/ic_choose_school"
+        android:drawablePadding="5dp"
+        />
+    <FrameLayout
+        android:id="@+id/fl_wrong_topic_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bg"
+        android:paddingRight="4dp"
+        android:paddingLeft="4dp"
+        >
+
+    </FrameLayout>
+
+</LinearLayout>

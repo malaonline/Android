@@ -3,7 +3,7 @@ package com.malalaoshi.android.core.network.api;
 import java.lang.ref.WeakReference;
 
 /**
- * Base api context
+ * Base api mContext
  * Created by tianwei on 4/17/16.
  */
 public abstract class BaseApiContext<V, T> implements ApiContext<T> {

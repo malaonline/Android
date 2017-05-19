@@ -260,7 +260,7 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
 
 
     public int getColor(int resId){
-        return context.getResources().getColor(resId);
+        return mContext.getResources().getColor(resId);
     }
 
 

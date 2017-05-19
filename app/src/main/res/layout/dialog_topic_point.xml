@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:scrollbarThumbVertical="@drawable/shape_scroll_bar"
+        android:background="@drawable/bg_white_border_btn_normal"
+        android:scrollbarSize="2dp"
+        android:overScrollMode="never"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="31dp"
+            android:paddingRight="31dp"
+            android:layout_marginTop="25dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.课前"
+                android:textSize="@dimen/text_size_xxlarge"
+                android:textColor="@color/color_black_373a41"
+                android:drawableTop="@drawable/ic_before_class"
+                android:gravity="center"
+                android:drawablePadding="5dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看错题本案例"
+                android:textColor="@color/color_black_a0a3ab"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_in_class"
+                android:layout_marginTop="12dp"
+                android:text="2.课中"
+                android:textSize="@dimen/text_size_xxlarge"
+                android:textColor="@color/color_black_373a41"
+                android:gravity="center"
+                android:drawablePadding="5dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学生通过pad答题，点击提交.同步App可以根据登录手机号匹配传送给错题本，实时查看."
+                android:textColor="@color/color_black_a0a3ab"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_after_class"
+                android:layout_marginTop="12dp"
+                android:text="3.课后"
+                android:textSize="@dimen/text_size_xxlarge"
+                android:textColor="@color/color_black_373a41"
+                android:gravity="center"
+                android:drawablePadding="5dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学生在App里会对课程中打错的题进行二次复习，温故知新，云端存储。不受地域、设备限制，实现个性化复习."
+                android:textColor="@color/color_black_a0a3ab"
+                android:layout_marginBottom="30dp"
+                />
+
+
+        </LinearLayout>
+    </ScrollView>
+    <ImageView
+        android:id="@+id/iv_topic_dialog_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/topic_dialog_close"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="41dp"
+        />
+
+</LinearLayout>

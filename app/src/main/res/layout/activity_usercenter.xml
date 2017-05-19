@@ -145,7 +145,7 @@
             android:layout_marginTop="12dp"
             android:gravity="center"
             android:textColor="@color/color_black_939393"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
     </LinearLayout>
 </merge>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include
+        android:id="@+id/ll_wrong_topic_error_rooter"
+        layout="@layout/view_wrong_topic_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        />
+
+    <include
+        android:id="@+id/ll_wrong_topic_entrance_rooter"
+        layout="@layout/view_wrong_topic_entrance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_wrong_topic_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/where_are_wrong_topic_comes"
+        android:textColor="@color/core_selector_enable_blue"
+        />
+
+</FrameLayout>

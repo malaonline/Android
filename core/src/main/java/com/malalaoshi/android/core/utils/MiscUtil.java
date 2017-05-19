@@ -1,7 +1,10 @@
 package com.malalaoshi.android.core.utils;
 
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
@@ -71,5 +74,11 @@ public class MiscUtil {
     public static int px2dp(float pxValue) {
         final float scale = MalaContext.getContext().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+    public static Drawable getDrawable(@DrawableRes int resID){
+        return MalaContext.getContext().getResources().getDrawable(resID);
+    }
+    public static int getColor(@ColorRes int resId){
+        return MalaContext.getContext().getResources().getColor(resId);
     }
 }

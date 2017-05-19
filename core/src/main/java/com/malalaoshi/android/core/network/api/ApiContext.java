@@ -3,7 +3,7 @@ package com.malalaoshi.android.core.network.api;
 import android.support.annotation.NonNull;
 
 /**
- * Api context
+ * Api mContext
  * Created by tianwei on 4/17/16.
  */
 public interface ApiContext<T> {

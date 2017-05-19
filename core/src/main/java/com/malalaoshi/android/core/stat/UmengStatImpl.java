@@ -36,14 +36,14 @@ public class UmengStatImpl implements StatProxy {
     @Override
     public void onStart(Context context) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "onStart, context=" + context);
+            Log.d(TAG, "onStart, mContext=" + context);
         }
     }
 
     @Override
     public void onStop(Context context) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "onStop, context=" + context);
+            Log.d(TAG, "onStop, mContext=" + context);
         }
     }
 
@@ -72,7 +72,7 @@ public class UmengStatImpl implements StatProxy {
     @Override
     public void onResume(Context context) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "onResume, context=" + context);
+            Log.d(TAG, "onResume, mContext=" + context);
         }
         contextRef = new WeakReference<>(context);
         MobclickAgent.onResume(context.getApplicationContext());
@@ -81,7 +81,7 @@ public class UmengStatImpl implements StatProxy {
     @Override
     public void onPause(Context context) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "onPause, context=" + context);
+            Log.d(TAG, "onPause, mContext=" + context);
         }
         MobclickAgent.onPause(context.getApplicationContext());
     }

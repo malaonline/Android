@@ -29,3 +29,5 @@
 -keep public class * extends android.preference.Preference
 -keep public class com.android.vending.licensing.ILicensingService
 -keep class * implements java.io.Serializable { *;}
+-dontwarn java.lang.invoke.*
+-dontwarn **$$Lambda$*

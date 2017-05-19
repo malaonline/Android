@@ -33,11 +33,11 @@ public class MalaPushReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
         if (EmptyUtils.isEmpty(action)){
-            Log.w(TAG,"jpush action is null");
+            Log.e(TAG,"jpush action is null");
             return;
         }
         Bundle bundle = intent.getExtras();
-        Log.d(TAG, "action:" + action + ", extras:" + printBundle(bundle));
+        Log.e(TAG, "action:" + action + ", extras:" + printBundle(bundle));
 
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(action)) {
             String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);

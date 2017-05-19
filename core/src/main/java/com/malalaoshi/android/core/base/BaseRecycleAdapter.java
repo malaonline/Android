@@ -12,14 +12,15 @@ import java.util.List;
  */
 public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> extends RecyclerView.Adapter<T> {
 
-    protected Context context;
+    protected Context mContext;
 
-    private List<D> dataList;
+    protected List<D> dataList;
     private int mItemTotalCount;
+    protected OnItemClickListener mListener;
 
     public BaseRecycleAdapter(Context context) {
         dataList = new ArrayList<>();
-        this.context = context;
+        this.mContext = context;
     }
 
     public List<D> getDataList() {
@@ -27,7 +28,7 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> e
     }
 
     public D getItem(int position) {
-        if (position < 0 || getItemCount() <= 0) return null;
+        if (position < 0 || getItemCount() <= 0 || position >= getItemCount()) return null;
         return dataList.get(position);
     }
 
@@ -51,6 +52,11 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> e
         dataList.addAll(0,data);
         notifyDataSetChanged();
     }
+    public void resetData(List<D> data){
+        dataList.clear();
+        dataList.addAll(data);
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
@@ -63,5 +69,8 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> e
 
     public int getItemTotalCount() {
         return mItemTotalCount;//返回请求服务器获取的总条目数
+    }
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
     }
 }

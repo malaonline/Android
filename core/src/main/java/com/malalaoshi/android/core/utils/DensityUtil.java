@@ -29,7 +29,7 @@ public class DensityUtil {
         DisplayMetrics dm = resources.getDisplayMetrics();
         return dm.widthPixels;
 
-       /* WindowManager wm = (WindowManager) context
+       /* WindowManager wm = (WindowManager) mContext
                 .getSystemService(Context.WINDOW_SERVICE);
         return wm.getDefaultDisplay().getWidth();*/
     }
@@ -39,7 +39,7 @@ public class DensityUtil {
         DisplayMetrics dm = resources.getDisplayMetrics();
         return dm.heightPixels;
 
-        /*WindowManager wm = (WindowManager) context
+        /*WindowManager wm = (WindowManager) mContext
                 .getSystemService(Context.WINDOW_SERVICE);
         return wm.getDefaultDisplay().getHeight();*/
     }

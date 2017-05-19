@@ -32,6 +32,7 @@ import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.entity.Tag;
 import com.malalaoshi.android.events.EventType;
 import com.malalaoshi.android.events.NoticeEvent;
+import com.malalaoshi.android.fragments.MemberExclusiveServiceFragment;
 import com.malalaoshi.android.fragments.MemberServiceFragment;
 import com.malalaoshi.android.fragments.main.LiveCourseFragment;
 import com.malalaoshi.android.fragments.main.MainFragment;
@@ -310,6 +311,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                 tvChooseSchool.setVisibility(View.GONE);
                 tvTitleText.setVisibility(View.VISIBLE);
                 StatReporter.memberServicePage();
+                ivFilterTeacher.setVisibility(View.GONE);
                 break;
             case PAGE_INDEX_USER:
                 EventBus.getDefault().post(new BusEvent(BusEvent.BUS_EVENT_BACKGROUND_LOAD_USERCENTER_DATA));
@@ -351,7 +353,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                     ((ScheduleFragment)fragment).setOnClickEmptyCourse(this);
                     break;
                 case PAGE_INDEX_MEMBER_SERVICE:
-                    fragment = new MemberServiceFragment();
+                    fragment = new MemberExclusiveServiceFragment();
                     break;
                 case PAGE_INDEX_USER:
                     fragment = new UserFragment();

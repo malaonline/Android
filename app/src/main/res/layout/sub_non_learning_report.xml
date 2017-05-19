@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:visibility="gone">
-    <RelativeLayout
-        android:layout_width="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/tv_report_prompt"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/white"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp">
+        android:layout_marginTop="24dp"
+        android:drawablePadding="10dp"
+        android:drawableTop="@drawable/ic_leaning_report_icon"
+        android:layout_gravity="center"
+        android:text="@string/report_only_support_math"
+        android:textColor="@color/color_black_a0a3ab"
+        android:textSize="@dimen/text_size_normal"/>
 
-        <TextView
-            android:id="@+id/tv_report_prompt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
-            android:drawablePadding="10dp"
-            android:drawableTop="@drawable/ic_leaning_report_icon"
-            android:gravity="center"
-            android:text="您还未报名,先看看其他样本报告吧"
-            android:textColor="@color/color_blue_4da3d9"
-            android:textSize="@dimen/text_size_small" />
+    <TextView
+        android:id="@+id/tv_report_submit"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/selector_gradient_semicircle_blue_btn_bg"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="@string/look_the_report_samples"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        />
 
-        <TextView
-            android:id="@+id/tv_report_submit"
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:layout_below="@id/tv_report_prompt"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="19dp"
-            android:background="@drawable/bg_blue_angle_btn"
-            android:gravity="center"
-            android:text="登录"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

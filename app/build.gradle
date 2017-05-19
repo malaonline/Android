@@ -42,8 +42,8 @@ android {
         applicationId "com.malalaoshi.android"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 19
-        versionName "3.4.0"
+        versionCode 20
+        versionName "3.5.0"
 
         // Enabling multidex support.
         multiDexEnabled true
@@ -148,6 +148,10 @@ android {
     dexOptions{
         javaMaxHeapSize "4g"
     }
+//    compileOptions {
+//        targetCompatibility JavaVersion.VERSION_1_8
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 def initShareSdk(appId, appSecret) {

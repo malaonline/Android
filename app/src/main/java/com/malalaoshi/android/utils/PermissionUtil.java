@@ -37,9 +37,9 @@ public class PermissionUtil {
 
     public static void requestPermissions(final Fragment fragment, final List<String> permissions, final int requestCode ) {
        if (permissions.size()>0){
-           /* if (!fragment.shouldShowRequestPermissionRationale(permissions.get(i))) {
+           /* if (!fragment.shouldShowRequestPermissionRationale(permissions.getSubject(i))) {
 
-                showMessageOKCancel(context, message,
+                showMessageOKCancel(mContext, message,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -54,9 +54,9 @@ public class PermissionUtil {
 
     public static void requestPermissions(Activity activity,  final List<String> permissions, final int requestCode) {
         if (permissions.size()>0){
-           /* if (!ActivityCompat.shouldShowRequestPermissionRationale(activity ,permissions.get(i))) {
+           /* if (!ActivityCompat.shouldShowRequestPermissionRationale(activity ,permissions.getSubject(i))) {
 
-                showMessageOKCancel(context,message,
+                showMessageOKCancel(mContext,message,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

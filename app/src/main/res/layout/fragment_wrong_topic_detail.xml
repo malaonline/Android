@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="vertical"
+    android:scrollbarThumbVertical="@drawable/shape_scroll_bar"
+    android:scrollbarSize="4dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="14dp"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_topic_detail_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:text="动词不定式"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/color_gray_8f929b"
+                android:background="@drawable/shape_gray_semicircle_hollow_bg"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_topic_detail_idex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:lines="1"
+                android:text="1/5"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_size_large"
+                />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_topic_detail_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="【描述】动词不定式作定语在高考中最高频度的考点就是关于不定式与被修饰词之间的逻辑关系的考察，更具体地说，就是考察被修饰词与不定式中的动词是构成主谓关系还是动宾关系以及构成动宾关系时是否应该用被动体的问题。"
+            android:textColor="@color/color_black_a0a3ab"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/main_bg"
+            android:layout_marginTop="18dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_topic_detail_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="1. We're having a meeting in half an hour. The decision ______at the meeting will influence the future of our company."
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@color/color_black_373a41"
+            android:lineSpacingExtra="6dp"
+            android:letterSpacing="0.02"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_topic_detail_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:overScrollMode="never"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/main_bg"
+            android:layout_marginTop="28dp"
+            />
+        <TextView
+            android:id="@+id/tv_topic_detail_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@color/main_color"
+            android:text="【试题解析】 答案A"
+            android:layout_marginTop="16dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_topic_detail_analysis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="动词不定式作定语的一个基本规律就是不定式中描述的总是一个未来发生的动作或状态，如果是已经发生的动作或正在发生的动作往往就用到过去分词作定语或现在分词做定语。学习不定式作定语时的另外一个重点就是要关注被修饰词与不定式之间的逻辑关系。动词不定式的用法和功能很多，学习者还可以参考本站文章：动词不定式与动名词的区别；不定式做补语的用法与高考考点；高考动词不定式的考察方向一览。"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/color_gray_8f929b"
+            android:textSize="@dimen/text_size_normal"
+            />
+
+
+    </LinearLayout>
+</ScrollView>
