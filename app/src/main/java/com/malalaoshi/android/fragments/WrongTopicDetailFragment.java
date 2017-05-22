@@ -98,8 +98,8 @@ public class WrongTopicDetailFragment extends BaseFragment {
             String[] options = new String[]{ "A", "B", "C", "D", "E", "F", "G", "H", "I",
                     "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
                     "W", "X", "Y", "Z"};
-            mAnswerAdapter.resetData(optionList);
             mAnswerAdapter.setSelected(solution);
+            mAnswerAdapter.resetData(optionList);
             mTvTopicDetailAnalysis.setText(question.getExplanation());
             for (int i = 0; i < optionList.size(); i++) {
                 if (optionList.get(i).getId() ==  solution){

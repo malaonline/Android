@@ -133,6 +133,9 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
         setShadow();
     }
 
+    /**
+     * 设置卡片阴影
+     */
     protected void setShadow() {
 
     }

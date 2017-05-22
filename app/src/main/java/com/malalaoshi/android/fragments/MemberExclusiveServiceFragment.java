@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import com.chanven.lib.cptr.PtrDefaultHandler;
 import com.chanven.lib.cptr.PtrFrameLayout;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.activitys.MemberActivity;
+import com.malalaoshi.android.activitys.WrongTopicDetailActivity;
 import com.malalaoshi.android.adapters.MemberServiceAdapter;
 import com.malalaoshi.android.core.base.BaseFragment;
 import com.malalaoshi.android.core.base.OnItemClickListener;
@@ -29,6 +29,8 @@ import com.malalaoshi.android.entity.LayoutStatusEnum;
 import com.malalaoshi.android.entity.MemberService;
 import com.malalaoshi.android.entity.Report;
 import com.malalaoshi.android.entity.TopicSubject;
+import com.malalaoshi.android.entity.WrongTopic;
+import com.malalaoshi.android.entity.WrongTopicSamples;
 import com.malalaoshi.android.listener.EntranceClickListener;
 import com.malalaoshi.android.network.api.LearningReportApi;
 import com.malalaoshi.android.network.api.WrongTopicApi;
@@ -129,7 +131,9 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
 
             @Override
             public void lookSample() {
-
+                List<WrongTopic> wrongTopics = new ArrayList<>();
+                WrongTopicSamples.getSamples(wrongTopics);
+                WrongTopicDetailActivity.launch(mContext, wrongTopics.size(), 0, wrongTopics);
             }
         });
         mLrevLearningReport.setClickListener(new EntranceClickListener() {
@@ -141,7 +145,6 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
             @Override
             public void retry() {
                 ApiExecutor.exec(mFetchReportRequest);
-                Log.e("MemberExclusiveService", "retry: ");
             }
 
             @Override
@@ -212,7 +215,9 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
             setLayout(LayoutStatusEnum.LOGOUT);
         }else {
             ApiExecutor.exec(new FetchReportRequest(this, 0));
-            ApiExecutor.exec(new FetchTopicRequest(this, 0));
+            if (mFetchTopicRequest == null)
+                mFetchTopicRequest = new FetchTopicRequest(this, 0);
+            ApiExecutor.exec(mFetchTopicRequest);
         }
     }
     private void setLayout(LayoutStatusEnum status){
@@ -245,13 +250,13 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
 
         @Override
         public void onApiSuccess(@NonNull ReportListResult response) {
-            get().dealReport(response);
+            get().dealReport(null);
         }
 
         @Override
         public void onApiFailure(Exception exception) {
             if (mRequestType != 1){
-                get().mLrevLearningReport.setLayout(LayoutStatusEnum.ERROR);
+                get().mLrevLearningReport.setLayout(LayoutStatusEnum.NORMAL);
             }
         }
 
@@ -279,7 +284,7 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
 
         @Override
         public void onApiSuccess(@NonNull WrongTopicResult response) {
-            get().dealTopic(response);
+            get(). dealTopic(response);
         }
 
         @Override
@@ -297,6 +302,10 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
     }
 
     private void dealTopic(WrongTopicResult response) {
+        if (response == null){
+            mWtevWrongTopic.setLayout(LayoutStatusEnum.ERROR);
+            return;
+        }
         WrongTopicResult.ExerciseMistakesBean mistakes = response.getExercise_mistakes();
         if (mistakes != null){
             mWtevWrongTopic.setStudent("Hi "+mistakes.getSchool()+" "+mistakes.getStudent()+"同学：");
@@ -322,6 +331,10 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
 
 
     private void dealReport(ReportListResult response) {
+        if (response == null){
+            mLrevLearningReport.setLayout(LayoutStatusEnum.EMPTY);
+            return;
+        }
         List<Report> reports = response.getResults();
         if (reports != null && reports.size() > 0) {
             Report report = null;

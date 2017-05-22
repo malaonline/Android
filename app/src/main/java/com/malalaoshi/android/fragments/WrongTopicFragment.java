@@ -60,7 +60,7 @@ public class WrongTopicFragment extends BaseRefreshFragment<WrongTopicList> impl
 
     @Override
     protected void afterCreateView() {
-
+        setEmptyViewText("目前科目暂没有题目哦～");
     }
 
     @Override
@@ -109,11 +109,5 @@ public class WrongTopicFragment extends BaseRefreshFragment<WrongTopicList> impl
         List<WrongTopic> wrongTopics = (List<WrongTopic>) o;
         if (wrongTopics == null || wrongTopics.size() <= 0) return;
         WrongTopicDetailActivity.launch(mContext, mItemTotalCount, position, wrongTopics);
-//        Intent intent = new Intent(mContext, WrongTopicDetailActivity.class);
-//        intent.putExtra("item_total_count", mItemTotalCount);
-//        intent.putExtra("selected_item", position);
-//        intent.putExtra("wrong_topic", (Serializable) wrongTopics);
-//        mContext.startActivity(intent);
-
     }
 }

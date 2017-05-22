@@ -80,6 +80,7 @@ public class LearningReportEntranceView extends FrameLayout implements View.OnCl
         mTvReportSubmit = ButterKnife.findById(mReportErrorView, R.id.tv_topic_submit);
         mPbRetryLoading = ButterKnife.findById(mReportErrorView, R.id.pb_retry_loading);
         ButterKnife.findById(mReportErrorView, R.id.ll_topic_submit).setOnClickListener(this);
+        ButterKnife.findById(mReportEntranceView, R.id.tv_open_learning_report).setOnClickListener(this);
         mTvReportPrompt.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_leaning_report_icon), null, null);
         addView(mReportEntranceView);
         addView(mReportErrorView);
@@ -133,12 +134,20 @@ public class LearningReportEntranceView extends FrameLayout implements View.OnCl
     @Override
     public void onClick(View v) {
         if (mListener == null) return;
-        if (mCurrentStatus == EMPTY) {
-            mListener.lookSample();
-        } else if (mCurrentStatus == ERROR) {
-            setLayout(LOADING);
-            mListener.retry();
+        switch (v.getId()){
+            case R.id.tv_open_learning_report:
+                mListener.lookSample();
+                break;
+            case R.id.ll_topic_submit:
+                if (mCurrentStatus == EMPTY) {
+                    mListener.lookSample();
+                } else if (mCurrentStatus == ERROR) {
+                    setLayout(LOADING);
+                    mListener.retry();
+                }
+                break;
         }
+
     }
 
     public LayoutStatusEnum getCurrentStatus() {

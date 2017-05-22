@@ -36,4 +36,76 @@
         <item>课前与老师一对一交流,规划辅导方案</item>
         <item>学生顾问解答您对"麻辣老师",师资力量规划等一切问题</item>
     </array>
+
+    <!--题型-->
+    <array name="topic_group_title">
+        <item>关系代词</item>
+        <item>实义动词的过去分词</item>
+        <item>情景交际</item>
+        <item>基数词</item>
+        <item>take短语应用</item>
+    </array>
+    <!--描述-->
+    <array name="topic_group_description">
+        <item>2016临沂中考试题。  Sweet wormwood 青蒿是我国常见的植物。屠呦呦是用植物的特殊力量拯救数百万生命的女人。</item>
+        <item>2016咸宁中考真题。题干表达表达第三十一届奥运会，注意序数词考法；以及what 引导的感叹句用法。</item>
+        <item>2015沈阳中考试题。</item>
+        <item>2016天津中考试题。李明将要16岁了。他的父母将为了他的16岁生日举行聚会。</item>
+        <item>陕西省2013年中考英语试题</item>
+    </array>
+    <!--题目-->
+    <array name="topic_question_title">
+        <item>Sweet wormwood （青蒿）is a common plant in China．Tu Youyou is the ______used the plant\'s special power to save millions of lives．</item>
+        <item>The__________Brazil\'s Olympic games will be held on August 5. _________exciting news for the long summer vacation! </item>
+        <item>______ Hello, Joyce, you are busy. Can I give you a hand? —Thanks very much,______ I can manage. </item>
+        <item>Li Ming will be ______．His parents are going to have a party for his ___________ birthday．</item>
+        <item>To keep healthy, many people___every day.  </item>
+    </array>
+    <!--答案 字母的ASCII码-->
+    <array name="topic_question_solution">
+        <item>66</item>
+        <item>66</item>
+        <item>68</item>
+        <item>65</item>
+        <item>68</item>
+    </array>
+    <!--解析-->
+    <array name="topic_question_explanation">
+        <item>根据语境，used the plant\'s special power to save millions of lives。可知其缺少主语的定语从句，故可排除答案C，D。又从句的先行词为woman（女人）是指人，故可排除答案A，故选B。</item>
+        <item>考查序数词和感叹句。thirty-one 是基数词为\“三十一\”； thirty-first 为序数词为“第三十一”，题干表达第三十一届奥运会，故第一个序数词；感叹句为“What + 不可数名词/名词性短语（+ 主谓）”或“How + 形容词（+ 主谓）”因此正确答案为B。</item>
+        <item>考查情景交际。句意：“——你好，乔伊斯，你很忙。我可以帮你吗？”“——非常感谢，我自己能行”。如果不需要帮忙，习惯可以这么回答：Thanks very much, but I can manage.（非常感谢，但我自己可以应付）如果需要帮忙，可以这么回答：Oh, that would be good. Thanks a lot.（哦，那太好了，太感谢了）。故选D。</item>
+        <item>根据Li Ming will be…可知本句是描述李明的年龄，表示年龄用基数词，故第一个空用sixteen。根据第二个空后的birthday（单数名词），可知其前需要序数词</item>
+        <item>本题考察take相关短语的辨析。take a shower洗澡，take pride in…对…感到自豪，take a look看看，take exercise参加锻炼。 take after与某人相像，take down拆卸；记录，take off脱下；起飞，take place发生；举行，take the place of代替。故选D。</item>
+    </array>
+    <array name="topic_question_options_1">
+        <item>which</item>
+        <item>who</item>
+        <item>whose</item>
+        <item>/</item>
+    </array>
+    <array name="topic_question_options_2">
+        <item>thirty-one; How a</item>
+        <item>thirty-first; What</item>
+        <item>thirty-first; What an </item>
+        <item>thirty-one; How</item>
+    </array>
+    <array name="topic_question_options_3">
+        <item>and</item>
+        <item>or</item>
+        <item>so</item>
+        <item>but</item>
+    </array>
+    <array name="topic_question_options_4">
+        <item>sixteen； sixteenth</item>
+        <item>sixteenth； sixteenth</item>
+        <item>sixteen； sixteen</item>
+        <item>sixteenth； sixteen</item>
+    </array>
+    <array name="topic_question_options_5">
+        <item>take a shower</item>
+        <item>take pride</item>
+        <item>take a look </item>
+        <item>take exercise</item>
+    </array>
+
 </resources>

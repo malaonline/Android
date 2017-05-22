@@ -33,6 +33,7 @@
             android:id="@+id/pb_retry_loading"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:visibility="gone"
             />
         <TextView
             android:id="@+id/tv_topic_submit"

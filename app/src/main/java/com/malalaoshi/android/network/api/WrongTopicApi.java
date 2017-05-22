@@ -1,7 +1,5 @@
 package com.malalaoshi.android.network.api;
 
-import android.util.Log;
-
 import com.malalaoshi.android.core.network.api.BaseApi;
 import com.malalaoshi.android.entity.WrongTopicList;
 import com.malalaoshi.android.network.result.WrongTopicResult;
@@ -25,12 +23,10 @@ public class WrongTopicApi extends BaseApi{
     }
     public WrongTopicList getTopics(int subjectId) throws Exception{
         String url = URL_GET_TOPICS + "?subject="+subjectId;
-        Log.e("WrongTopicApi", "getTopics: "+url);
         return httpGet(url, WrongTopicList.class);
     }
 
     public WrongTopicList getMoreTopic(String url) throws Exception {
-        Log.e("WrongTopicApi", "getMoreTopic: "+url);
         return httpGet(url, WrongTopicList.class);
     }
 }
