@@ -86,7 +86,7 @@ public abstract class BaseApi {
         addHeaders(builder);
         okhttp3.Response response = getHttpClient().newCall(builder.build()).execute();
         String back = response.body().string();
-//        Log.d("response",back);
+        //        Log.d("response",back);
         LogUtils.e(TAG,"http", back);
         checkAuthError(response, back);
         //String类型直接返回
