@@ -312,7 +312,7 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
         }
         WrongTopicResult.ExerciseMistakesBean mistakes = response.getExercise_mistakes();
         if (mistakes != null){
-            mWtevWrongTopic.setStudent("Hi "+mistakes.getSchool()+" "+mistakes.getStudent()+"同学：");
+            mWtevWrongTopic.setStudent("Hi,"+mistakes.getSchool()+" "+mistakes.getStudent()+"同学：");
             WrongTopicResult.ExerciseMistakesBean.NumbersBean numbers = mistakes.getNumbers();
             if (numbers != null){
                 ArrayList<TopicSubject> topicSubjects = new ArrayList<>();
