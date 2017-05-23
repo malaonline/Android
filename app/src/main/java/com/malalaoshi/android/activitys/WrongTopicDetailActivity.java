@@ -82,7 +82,6 @@ public class WrongTopicDetailActivity extends BaseActivity implements TitleBarVi
             mTopics.clear();
         }
         List<WrongTopic> results = response.getResults();
-        Log.e("WrongTopicDetail", "dealResponse: results="+results.size());
         mNextUrl = response.getNext();
         if (results == null) return;
         mTopics.addAll(results);
