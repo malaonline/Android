@@ -76,7 +76,7 @@ public class WrongTopicActivity extends BaseActivity implements TitleBarView.OnT
 
     @Override
     protected String getStatName() {
-        return "错题本";
+        return "我的错题";
     }
 
     @OnClick(R.id.tv_topic_list_title_num)
