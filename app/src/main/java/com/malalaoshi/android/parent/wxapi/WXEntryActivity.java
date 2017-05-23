@@ -6,7 +6,7 @@
  * Copyright (c) 2013年 mob.com. All rights reserved.
  */
 
-package com.malalaoshi.android.activitys.wxapi;
+package com.malalaoshi.android.parent.wxapi;
 
 import android.content.Intent;
 import android.widget.Toast;
