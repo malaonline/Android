@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="学生在App里会对课程中打错的题进行二次复习，温故知新，云端存储。不受地域、设备限制，实现个性化复习."
+                android:text="学生在App里会对课程中答错的题进行二次复习，温故知新，云端存储。不受地域、设备限制，实现个性化复习."
                 android:textColor="@color/color_black_a0a3ab"
                 android:layout_marginBottom="30dp"
                 />

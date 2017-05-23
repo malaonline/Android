@@ -8,11 +8,6 @@
 
 package cn.sharesdk.onekeyshare;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -21,15 +16,22 @@ import android.graphics.Bitmap.CompressFormat;
 import android.os.Handler.Callback;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.mob.tools.utils.R;
+import com.mob.tools.utils.UIHandler;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import cn.sharesdk.framework.CustomPlatform;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.Platform.ShareParams;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
-
-import com.mob.tools.utils.R;
-import com.mob.tools.utils.UIHandler;
 
 /** 快捷分享的主题样式的实现父类 */
 public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Callback {
@@ -328,6 +330,7 @@ public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Ca
 				} else {
 					Toast.makeText(context, resOrName, Toast.LENGTH_SHORT).show();
 				}
+				Log.e("OnekeyShareThemeImpl", "handleMessage: "+resOrName);
 				return false;
 			}
 		});
@@ -371,6 +374,7 @@ public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Ca
 	}
 
 	public final boolean handleMessage(Message msg) {
+		Log.e("OnekeyShareThemeImpl", "handleMessage: "+msg.arg1);
 		switch (msg.arg1) {
 			case 1: {
 				// 成功

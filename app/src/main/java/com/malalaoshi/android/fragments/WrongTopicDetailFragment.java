@@ -20,6 +20,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by donald on 2017/5/10.
@@ -66,6 +67,7 @@ public class WrongTopicDetailFragment extends BaseFragment {
         mSelectedItem = arguments.getInt(SELECTED_ITEM);
         mTotalCount = arguments.getInt(ITEM_TOTAL_COUNT);
         mWrongTopic = (WrongTopic) arguments.getSerializable(WRONG_TOPIC);
+        EventBus.getDefault().register(this);
     }
 
     @Nullable
@@ -84,6 +86,10 @@ public class WrongTopicDetailFragment extends BaseFragment {
 
         mRvTopicDetailAnswer.setAdapter(mAnswerAdapter);
         if (mWrongTopic == null) return;
+        setup();
+    }
+
+    private void setup() {
         WrongTopic.QuestionGroup question_group = mWrongTopic.getQuestion_group();
         if (question_group != null) {
             mTvTopicDetailType.setText(question_group.getTitle());
@@ -111,6 +117,11 @@ public class WrongTopicDetailFragment extends BaseFragment {
         }
     }
 
+    public void onEventMainThread(List<WrongTopic> wrongTopics){
+        mWrongTopic = wrongTopics.get(mSelectedItem);
+        setup();
+    }
+
     @Override
     public String getStatName() {
         return "错题详情";
@@ -120,5 +131,6 @@ public class WrongTopicDetailFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
 }

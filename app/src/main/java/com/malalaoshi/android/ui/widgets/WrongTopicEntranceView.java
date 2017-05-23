@@ -109,12 +109,14 @@ public class WrongTopicEntranceView extends FrameLayout implements View.OnClickL
             case LOGOUT:
                 mTvTopicPrompt.setText(R.string.login_to_look_topic_report);
                 mTvTopicSubmit.setText(R.string.login_immeditely);
+                mTvTopicPoint.setVisibility(GONE);
                 setErrorStatus();
                 break;
             case EMPTY:
                 mTvTopicPrompt.setText(R.string.your_topic_will_show_here);
                 mTvTopicSubmit.setText(R.string.look_over_the_sample_of_topic);
                 setErrorStatus();
+                mTvTopicPoint.setVisibility(VISIBLE);
                 break;
             case ERROR:
                 mTvTopicPrompt.setText(R.string.wrong_topics_fetch_fail);
@@ -124,6 +126,7 @@ public class WrongTopicEntranceView extends FrameLayout implements View.OnClickL
                 mEntranceView.setVisibility(GONE);
                 mErrorView.setVisibility(VISIBLE);
                 mTvTopicSubmit.setEnabled(true);
+                mTvTopicPoint.setVisibility(VISIBLE);
                 break;
             case LOADING:
                 mTvTopicPrompt.setText(R.string.wrong_topics_fetch_fail);
@@ -135,6 +138,7 @@ public class WrongTopicEntranceView extends FrameLayout implements View.OnClickL
                 mEntranceView.setVisibility(VISIBLE);
                 mErrorView.setVisibility(GONE);
                 mTvTopicPrompt.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_wrong_topic),null, null);
+                mTvTopicPoint.setVisibility(VISIBLE);
                 break;
         }
     }

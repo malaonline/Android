@@ -372,7 +372,7 @@
         </activity>
         <!--微信分享回调 -->
         <activity
-            android:name=".activitys.wxapi.WXEntryActivity"
+            android:name=".parent.wxapi.WXEntryActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"

@@ -11,6 +11,6 @@ public class LogUtils {
     private static boolean DEBUG = true;
     public static void e(String TAG, Object method, Object msg){
         if (DEBUG)
-            Log.e(TAG, method + ": " + msg);
+            Log.e(TAG, method +""+ msg);
     }
 }

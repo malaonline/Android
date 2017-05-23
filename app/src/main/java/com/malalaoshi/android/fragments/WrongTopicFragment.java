@@ -1,8 +1,11 @@
 package com.malalaoshi.android.fragments;
 
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.hitomi.cslibrary.CrazyShadow;
+import com.malalaoshi.android.activitys.WrongTopicActivity;
 import com.malalaoshi.android.activitys.WrongTopicDetailActivity;
 import com.malalaoshi.android.adapters.WrongTopicAdapter;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
@@ -47,15 +50,21 @@ public class WrongTopicFragment extends BaseRefreshFragment<WrongTopicList> impl
 
     @Override
     protected WrongTopicList refreshRequest() throws Exception {
+        if (mSubjectId == -1){
+            WrongTopicActivity activity = (WrongTopicActivity) getActivity();
+            if (activity != null){
+                mSubjectId = activity.getSubjectId();
+            }
+        }
         mWrongTopicApi = new WrongTopicApi();
         return mWrongTopicApi.getTopics(mSubjectId);
     }
 
     @Override
     protected WrongTopicList loadMoreRequest() throws Exception {
-        if (mWrongTopicApi == null)
-            mWrongTopicApi = new WrongTopicApi();
-        return mWrongTopicApi.getMoreTopic(mNextUrl);
+        Log.e("WrongTopicFragment", "loadMoreRequest: "+mNextUrl);
+        if (TextUtils.isEmpty(mNextUrl)) return null;
+        return new WrongTopicApi().getMoreTopic(mNextUrl);
     }
 
     @Override
@@ -66,6 +75,7 @@ public class WrongTopicFragment extends BaseRefreshFragment<WrongTopicList> impl
     @Override
     protected void refreshFinish(WrongTopicList response) {
         super.refreshFinish(response);
+
         if (response != null) {
             mNextUrl = response.getNext();
         }
@@ -74,6 +84,7 @@ public class WrongTopicFragment extends BaseRefreshFragment<WrongTopicList> impl
     @Override
     protected void loadMoreFinish(WrongTopicList response) {
         super.loadMoreFinish(response);
+        Log.e("WrongTopicFragment", "refreshFinish: response="+response);
         if (response != null) {
             mNextUrl = response.getNext();
         }
@@ -108,6 +119,6 @@ public class WrongTopicFragment extends BaseRefreshFragment<WrongTopicList> impl
     public void onClick(Object o, int position) {
         List<WrongTopic> wrongTopics = (List<WrongTopic>) o;
         if (wrongTopics == null || wrongTopics.size() <= 0) return;
-        WrongTopicDetailActivity.launch(mContext, mItemTotalCount, position, wrongTopics);
+        WrongTopicDetailActivity.launch(mContext, mItemTotalCount, position, wrongTopics, mSubjectId);
     }
 }

@@ -133,7 +133,7 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
             public void lookSample() {
                 List<WrongTopic> wrongTopics = new ArrayList<>();
                 WrongTopicSamples.getSamples(wrongTopics);
-                WrongTopicDetailActivity.launch(mContext, wrongTopics.size(), 0, wrongTopics);
+                WrongTopicDetailActivity.launch(mContext, wrongTopics.size(), 0, wrongTopics, -1);
             }
         });
         mLrevLearningReport.setClickListener(new EntranceClickListener() {
@@ -169,6 +169,8 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
             mLrevLearningReport.setLayout(LayoutStatusEnum.LOGOUT);
         } else {
             setLayout(LayoutStatusEnum.LOADING);
+            isReportFinished = false;
+            isTopicFinished = false;
             ApiExecutor.exec(mFetchTopicRequest);
             ApiExecutor.exec(mFetchReportRequest);
         }
@@ -257,6 +259,8 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
         public void onApiFailure(Exception exception) {
             if (mRequestType != 1){
                 get().mLrevLearningReport.setLayout(LayoutStatusEnum.NORMAL);
+            }else {
+                get().mLrevLearningReport.setLayout(LayoutStatusEnum.EMPTY);
             }
         }
 
