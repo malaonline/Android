@@ -30,7 +30,6 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by donald on 2017/5/10.
@@ -63,14 +62,13 @@ public class WrongTopicDetailActivity extends BaseActivity implements TitleBarVi
         setContentView(R.layout.activity_wrong_topic_detail);
         ButterKnife.bind(this);
         StatusBarCompat.compat(this);
-        EventBus.getDefault().register(this);
         initIntent();
         mTbvTopicDetailTitle.setOnTitleBarClickListener(this);
         mAdapter = new FragmentGroupAdapter(this, getSupportFragmentManager(), this);
         mVpTopicDetailContent.setAdapter(mAdapter);
         ShadowHelper.setDrawShadow(this, 8, mVpTopicDetailContent);
         mVpTopicDetailContent.setCurrentItem(mSelectedItem);
-        loadData();
+//        loadData();
     }
 
     private void loadData() {
