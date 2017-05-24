@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/core__title_bar_height"
         android:background="@color/main_color"
-        app:cusTitleText="错题本"
+        app:cusTitleText="我的错题"
         app:cusTitleTextColor="@color/white"
         app:cusTitleTextSize="@dimen/text_size_xlarge"
         app:cusLeftBackgroud="@drawable/core__white_btn"

@@ -226,7 +226,7 @@
 
         <!-- 微信支付 -->
         <activity-alias
-            android:name="com.malalaoshi.android.parent.wxapi.WXPayEntryActivity"
+            android:name="com.malalaoshi.android.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:targetActivity="com.pingplusplus.android.PaymentActivity" />
 
@@ -372,7 +372,7 @@
         </activity>
         <!--微信分享回调 -->
         <activity
-            android:name=".activitys.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"

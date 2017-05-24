@@ -45,7 +45,7 @@ public class LearningReportEntranceView extends FrameLayout implements View.OnCl
     @Bind(R.id.tv_subject)
     TextView mTvSubject;
     private View mReportErrorView;
-    private View mReportEntranceView;
+//    private View mReportEntranceView;
     private LayoutStatusEnum mCurrentStatus = NORMAL;
     private EntranceClickListener mListener;
     private ProgressBar mPbRetryLoading;
@@ -75,14 +75,14 @@ public class LearningReportEntranceView extends FrameLayout implements View.OnCl
 
     private void init(Context context) {
         mReportErrorView = View.inflate(context, R.layout.view_wrong_topic_error, null);
-        mReportEntranceView = View.inflate(context, R.layout.view_learning_report_entrance, null);
+//        mReportEntranceView = View.inflate(context, R.layout.view_learning_report_entrance, null);
         mTvReportPrompt = ButterKnife.findById(mReportErrorView, R.id.tv_topic_prompt);
         mTvReportSubmit = ButterKnife.findById(mReportErrorView, R.id.tv_topic_submit);
         mPbRetryLoading = ButterKnife.findById(mReportErrorView, R.id.pb_retry_loading);
         ButterKnife.findById(mReportErrorView, R.id.ll_topic_submit).setOnClickListener(this);
-        ButterKnife.findById(mReportEntranceView, R.id.tv_open_learning_report).setOnClickListener(this);
+//        ButterKnife.findById(mReportEntranceView, R.id.tv_open_learning_report).setOnClickListener(this);
         mTvReportPrompt.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_leaning_report_icon), null, null);
-        addView(mReportEntranceView);
+//        addView(mReportEntranceView);
         addView(mReportErrorView);
     }
 
@@ -98,8 +98,8 @@ public class LearningReportEntranceView extends FrameLayout implements View.OnCl
                 mTvReportPrompt.setText(R.string.report_only_support_math);
                 mTvReportSubmit.setText(R.string.look_the_report_samples);
                 mTvReportPrompt.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_leaning_report_icon), null, null);
-                mReportEntranceView.setVisibility(GONE);
-                mReportErrorView.setVisibility(VISIBLE);
+//                mReportEntranceView.setVisibility(GONE);
+//                mReportErrorView.setVisibility(VISIBLE);
                 mPbRetryLoading.setVisibility(GONE);
                 mTvReportSubmit.setEnabled(true);
                 break;
@@ -108,8 +108,8 @@ public class LearningReportEntranceView extends FrameLayout implements View.OnCl
                 mTvReportPrompt.setText(R.string.learning_report_fetch_fail);
                 mTvReportSubmit.setText(R.string.retry_fetch);
                 mTvReportPrompt.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_leaning_report_icon_error), null, null);
-                mReportEntranceView.setVisibility(GONE);
-                mReportErrorView.setVisibility(VISIBLE);
+//                mReportEntranceView.setVisibility(GONE);
+//                mReportErrorView.setVisibility(VISIBLE);
                 mPbRetryLoading.setVisibility(GONE);
                 mTvReportSubmit.setEnabled(true);
                 break;
@@ -121,8 +121,9 @@ public class LearningReportEntranceView extends FrameLayout implements View.OnCl
             case NORMAL:
                 setVisibility(VISIBLE);
                 mTvReportPrompt.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_leaning_report_icon), null, null);
-                mReportEntranceView.setVisibility(VISIBLE);
-                mReportErrorView.setVisibility(GONE);
+//                mReportEntranceView.setVisibility(VISIBLE);
+//                mReportErrorView.setVisibility(GONE);
+                mPbRetryLoading.setVisibility(GONE);
                 break;
         }
     }

@@ -2,7 +2,6 @@ package com.malalaoshi.android.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +72,6 @@ public class WrongTopicAdapter extends BaseRecycleAdapter<WrongTopicAdapter.Wron
 
         public void setup(WrongTopic topic, int position) {
             if (topic == null) return;
-            Log.e("WrongTopicViewHolder", "setup: topic=" + topic);
             WrongTopic.QuestionGroup question_group = topic.getQuestion_group();
             if (question_group != null) {
                 mTvTopicGroupName.setText(question_group.getTitle());

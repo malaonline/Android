@@ -177,16 +177,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="your_topic_will_show_here">你课中答错的题目会出现在这里哦！</string>
+    <string name="your_topic_will_show_here">你课中答错的题目会出现在这里哦</string>
     <string name="look_over_the_sample_of_topic">查看错题本样本</string>
     <string name="wrong_topics_fetch_fail">错题本数据获取失败</string>
     <string name="retry_fetch">重新获取</string>
     <string name="loading">正在加载</string>
-    <string name="report_only_support_math">学习报告目前只支持数学科目！</string>
+    <string name="report_only_support_math">学习报告目前只支持数学科目</string>
     <string name="look_the_report_samples">查看学习报告样本</string>
     <string name="learning_report_fetch_fail">学习报告数据获取失败</string>
     <string name="where_are_wrong_topic_comes">错题哪里来?</string>
-    <string name="login_to_look_topic_report">登录可查看错题本和学习报告哦！</string>
+    <string name="login_to_look_topic_report">登录可查看错题本和学习报告哦</string>
     <string name="login_immeditely">立即登录</string>
     <string name="member_exclusive">会员专享</string>
 

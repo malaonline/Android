@@ -76,7 +76,7 @@ public class WrongTopicActivity extends BaseActivity implements TitleBarView.OnT
 
     @Override
     protected String getStatName() {
-        return "错题本";
+        return "我的错题";
     }
 
     @OnClick(R.id.tv_topic_list_title_num)
@@ -102,12 +102,17 @@ public class WrongTopicActivity extends BaseActivity implements TitleBarView.OnT
         mPosition = position;
         TopicSubject topicSubject = mSubjects.get(position);
         mTvTopicListTitleNum.setText("科目："+ topicSubject.getSubject()+" "+topicSubject.getTopicNum());
-        mWrongTopicFragment.setSubject(topicSubject.getId());
+        mId = topicSubject.getId();
+        mWrongTopicFragment.setSubject(mId);
     }
-    public  static void launch(Context context, int position, List<TopicSubject> sujects){
+    public  static void launch(Context context, int position, List<TopicSubject> subjects){
         Intent intent = new Intent(context, WrongTopicActivity.class);
         intent.putExtra(SELECTED_POSITION, position);
-        intent.putExtra(TOPIC_SUBJECT_LIST, (Serializable)sujects);
+        intent.putExtra(TOPIC_SUBJECT_LIST, (Serializable)subjects);
         context.startActivity(intent);
+    }
+
+    public int getSubjectId() {
+        return mId;
     }
 }
