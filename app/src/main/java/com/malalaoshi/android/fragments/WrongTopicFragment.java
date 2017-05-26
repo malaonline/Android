@@ -1,7 +1,6 @@
 package com.malalaoshi.android.fragments;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.hitomi.cslibrary.CrazyShadow;
@@ -62,7 +61,6 @@ public class WrongTopicFragment extends BaseRefreshFragment<WrongTopicList> impl
 
     @Override
     protected WrongTopicList loadMoreRequest() throws Exception {
-        Log.e("WrongTopicFragment", "loadMoreRequest: "+mNextUrl);
         if (TextUtils.isEmpty(mNextUrl)) return null;
         return new WrongTopicApi().getMoreTopic(mNextUrl);
     }
@@ -75,16 +73,17 @@ public class WrongTopicFragment extends BaseRefreshFragment<WrongTopicList> impl
     @Override
     protected void refreshFinish(WrongTopicList response) {
         super.refreshFinish(response);
-
         if (response != null) {
             mNextUrl = response.getNext();
+        }else {
+            mWrongTopicAdapter.clear();
+            setLayout(LayoutType.REFRESH_FAILED);
         }
     }
 
     @Override
     protected void loadMoreFinish(WrongTopicList response) {
         super.loadMoreFinish(response);
-        Log.e("WrongTopicFragment", "refreshFinish: response="+response);
         if (response != null) {
             mNextUrl = response.getNext();
         }

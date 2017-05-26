@@ -281,8 +281,6 @@ public abstract class BaseRefreshFragment<T extends BaseResult> extends BaseFrag
             if(adapter.getItemCount()<=0){
                 setLayout(LayoutType.REFRESH_FAILED);
 //                setErrorViewText(getErrorString());
-            }else {
-                MiscUtil.toast("网络不给力，稍后再试");
             }
             return;
         }
