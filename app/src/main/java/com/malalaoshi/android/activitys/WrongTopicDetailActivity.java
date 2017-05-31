@@ -22,6 +22,8 @@ import com.malalaoshi.android.entity.WrongTopic;
 import com.malalaoshi.android.entity.WrongTopicList;
 import com.malalaoshi.android.fragments.WrongTopicDetailFragment;
 import com.malalaoshi.android.network.api.WrongTopicApi;
+import com.malalaoshi.android.ui.widgets.GuidePage;
+import com.malalaoshi.android.ui.widgets.GuidePageManager;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -59,9 +61,7 @@ public class WrongTopicDetailActivity extends BaseActivity implements TitleBarVi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wrong_topic_detail);
-        ButterKnife.bind(this);
-        StatusBarCompat.compat(this);
+        initView();
         initIntent();
         mTbvTopicDetailTitle.setOnTitleBarClickListener(this);
         mAdapter = new FragmentGroupAdapter(this, getSupportFragmentManager(), this);
@@ -69,6 +69,21 @@ public class WrongTopicDetailActivity extends BaseActivity implements TitleBarVi
         ShadowHelper.setDrawShadow(this, 8, mVpTopicDetailContent);
         mVpTopicDetailContent.setCurrentItem(mSelectedItem);
 //        loadData();
+    }
+
+    private void initView() {
+        setContentView(R.layout.activity_wrong_topic_detail);
+        ButterKnife.bind(this);
+        StatusBarCompat.compat(this);
+        if (GuidePageManager.hasNotShowed(this, WrongTopicDetailActivity.class.getSimpleName())){
+            new GuidePage.Builder(this)
+                    .setLayoutId(R.layout.view_topic_detail_guide_page)
+                    .setKnowViewId(R.id.iv_guide_page)
+                    .setPageTag(WrongTopicDetailActivity.class.getSimpleName())
+                    .setCloseOnTouchOutside(true)
+                    .builder()
+                    .apply();
+        }
     }
 
     private void loadData() {

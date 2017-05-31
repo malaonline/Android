@@ -472,4 +472,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     protected String getStatName() {
         return "家长主界面";
     }
+    public int getCurrentPage(){
+        return pageIndex;
+    }
 }

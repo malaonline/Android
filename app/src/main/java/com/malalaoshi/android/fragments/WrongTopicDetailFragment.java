@@ -122,6 +122,7 @@ public class WrongTopicDetailFragment extends BaseFragment {
         setup();
     }
 
+
     @Override
     public String getStatName() {
         return "错题详情";
