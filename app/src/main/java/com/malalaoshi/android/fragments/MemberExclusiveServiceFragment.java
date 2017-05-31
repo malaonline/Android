@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,15 +98,15 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
             public void run() {
                 mPtrMemberRefresh.autoRefresh();
             }
-        },100);
+        }, 100);
         mFetchTopicRequest = new FetchTopicRequest(this, 0);
         mFetchReportRequest = new FetchReportRequest(this, 1);
     }
 
     private void initMemberService() {
         String[] titles = getResources().getStringArray(R.array.member_services_item);
-        int[] iconIds = new int[]{R.drawable.ic_with_read,R.drawable.ic_learning_report,R.drawable.ic_counseling, R.drawable.ic_lectures,
-                R.drawable.ic_exam_explain,R.drawable.ic_mistake,R.drawable.ic_spps_evaluation,R.drawable.ic_expect_more};
+        int[] iconIds = new int[]{R.drawable.ic_with_read, R.drawable.ic_learning_report, R.drawable.ic_counseling, R.drawable.ic_lectures,
+                R.drawable.ic_exam_explain, R.drawable.ic_mistake, R.drawable.ic_spps_evaluation, R.drawable.ic_expect_more};
         mServices = new ArrayList<>();
         for (int i = 0; i < titles.length; i++) {
             mServices.add(new MemberService(titles[i], iconIds[i]));
@@ -169,7 +168,7 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
     }
 
     private void request() {
-        if (!UserManager.getInstance().isLogin()){
+        if (!UserManager.getInstance().isLogin()) {
             mPtrMemberRefresh.refreshComplete();
             mWtevWrongTopic.setLayout(LayoutStatusEnum.LOGOUT);
             mLrevLearningReport.setLayout(LayoutStatusEnum.LOGOUT);
@@ -204,7 +203,7 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
 
     public void onEventMainThread(BusEvent event) {
         int eventType = event.getEventType();
-        if (eventType == BusEvent.BUS_EVENT_LOGIN_SUCCESS){
+        if (eventType == BusEvent.BUS_EVENT_LOGIN_SUCCESS) {
             mLrevLearningReport.setVisibility(View.VISIBLE);
         }
         switch (eventType) {
@@ -220,24 +219,27 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
     }
 
     private void loadDataBackground() {
-        if (!UserManager.getInstance().isLogin()){
+        if (!UserManager.getInstance().isLogin()) {
             setLayout(LayoutStatusEnum.LOGOUT);
-        }else {
+        } else {
             ApiExecutor.exec(new FetchReportRequest(this, 0));
             if (mFetchTopicRequest == null)
                 mFetchTopicRequest = new FetchTopicRequest(this, 0);
             ApiExecutor.exec(mFetchTopicRequest);
         }
     }
-    private void setLayout(LayoutStatusEnum status){
+
+    private void setLayout(LayoutStatusEnum status) {
         mWtevWrongTopic.setLayout(status);
         mLrevLearningReport.setLayout(status);
     }
+
     private void showReportView(Report report) {
         mLrevLearningReport.setLayout(LayoutStatusEnum.NORMAL);
         mLrevLearningReport.setReport(report);
 
     }
+
     private void showTopicView(ArrayList<TopicSubject> topicSubject) {
         mWtevWrongTopic.setSubjects(topicSubject);
     }
@@ -264,12 +266,12 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
 
         @Override
         public void onApiFailure(Exception exception) {
-            if (mRequestType != 1){
+            if (mRequestType != 1) {
                 get().mLrevLearningReport.setLayout(LayoutStatusEnum.NORMAL);
-            }else {
+            } else {
                 get().mLrevLearningReport.setLayout(LayoutStatusEnum.EMPTY);
             }
-            if (get().isShowToast){
+            if (get().isShowToast) {
                 MiscUtil.toast(R.string.network_error);
             }
         }
@@ -277,11 +279,12 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
         @Override
         public void onApiFinished() {
             get().isReportFinished = true;
-            if (get().isTopicFinished){
+            if (get().isTopicFinished) {
                 get().mPtrMemberRefresh.refreshComplete();
             }
         }
     }
+
     private static final class FetchTopicRequest extends BaseApiContext<MemberExclusiveServiceFragment, WrongTopicResult> {
 
         private final int mRequestType;
@@ -310,36 +313,37 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
         @Override
         public void onApiFinished() {
             get().isTopicFinished = true;
-            if (get().isReportFinished){
+            if (get().isReportFinished) {
                 get().mPtrMemberRefresh.refreshComplete();
             }
         }
     }
 
     private void dealTopic(WrongTopicResult response) {
-        if (response == null){
-            if (mMistakes == null){
+        if (response == null) {
+            if (mMistakes == null) {
                 mWtevWrongTopic.setLayout(LayoutStatusEnum.ERROR);
-            }else {
-                MiscUtil.toast(R.string.network_error);
+            } else {
+                if (isResumed()){
+                    MiscUtil.toast(R.string.network_error);
+                }
             }
             return;
         }
         WrongTopicResult.ExerciseMistakesBean latestMistakes = response.getExercise_mistakes();
-        Log.e("MemberExclusiveService", "dealTopic: "+latestMistakes);
-        if (latestMistakes != null){
-            if (mMistakes != null){
+        if (latestMistakes != null) {
+            if (mMistakes != null) {
                 int total = mMistakes.getNumbers().getTotal();
                 int latestTotal = latestMistakes.getNumbers().getTotal();
-                if (latestTotal > total){
-                    MiscUtil.toast("新增"+(latestTotal - total)+"题");
+                if (latestTotal > total && isResumed()) {
+                    MiscUtil.toast("新增" + (latestTotal - total) + "题");
                 }
 
             }
             mMistakes = latestMistakes;
             setupTopic(mMistakes);
-        }else {
-            if (mMistakes == null){
+        } else {
+            if (mMistakes == null) {
                 mWtevWrongTopic.setLayout(LayoutStatusEnum.ERROR);
             }
         }
@@ -347,30 +351,37 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
 
     private void setupTopic(WrongTopicResult.ExerciseMistakesBean mistakes) {
         String school = mistakes.getSchool();
-        if (school.length() > 5){
-            school = school.substring(0, 5) + "...";
+        int length = school.length();
+        if (length > 7) {
+            school = school.substring(0, 5) + "...校区";
+        } else if (!school.endsWith("校区")) {
+            if (length > 5) {
+                school = school.substring(0, 5) + "...校区";
+            } else {
+                school = school + "校区";
+            }
         }
-        mWtevWrongTopic.setStudent("Hi,"+school+" "+ mistakes.getStudent()+"同学：");
+        mWtevWrongTopic.setStudent("Hi," + school + " " + mistakes.getStudent() + "同学：");
         WrongTopicResult.ExerciseMistakesBean.NumbersBean numbers = mistakes.getNumbers();
-        if (numbers != null){
+        if (numbers != null) {
             ArrayList<TopicSubject> topicSubjects = new ArrayList<>();
             int english = numbers.getEnglish();
             int math = numbers.getMath();
-            if (english <= 0 && math <= 0){
+            if (english <= 0 && math <= 0) {
                 mWtevWrongTopic.setLayout(LayoutStatusEnum.EMPTY);
-            }else {
+            } else {
                 topicSubjects.add(new TopicSubject("英语", english, 2));
                 topicSubjects.add(new TopicSubject("数学", math, 1));
             }
             showTopicView(topicSubjects);
-        }else {
+        } else {
             mWtevWrongTopic.setLayout(LayoutStatusEnum.EMPTY);
         }
     }
 
 
     private void dealReport(ReportListResult response) {
-        if (response == null){
+        if (response == null) {
             mLrevLearningReport.setLayout(LayoutStatusEnum.EMPTY);
             return;
         }
@@ -398,6 +409,7 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
     public String getStatName() {
         return "会员专享";
     }
+
 
     @Override
     public void onDestroyView() {
