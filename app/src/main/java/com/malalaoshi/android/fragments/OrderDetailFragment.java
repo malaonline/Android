@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -381,6 +382,7 @@ public class OrderDetailFragment extends BaseFragment {
         if (order==null){
             return;
         }
+        Log.e("OrderDetailFragment", "setPayChannel: "+order.getCharge_channel());
         if (PayManager.Pay.alipay.name().equals(order.getCharge_channel())){
             Drawable drawable = getResources().getDrawable(R.drawable.ic_ali_pay);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(),
@@ -405,7 +407,7 @@ public class OrderDetailFragment extends BaseFragment {
                     drawable.getMinimumHeight());
             tvPayWay.setCompoundDrawables(drawable,null,null,null);
             tvPayWay.setText("微信扫码");
-        }else if (PayManager.Pay.wx_num_qr.name().equals(order.getCharge_channel())){
+        }else if (PayManager.Pay.wx_pub_mala.name().equals(order.getCharge_channel())){
             Drawable drawable = getResources().getDrawable(R.drawable.ic_wx_pay);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(),
                     drawable.getMinimumHeight());

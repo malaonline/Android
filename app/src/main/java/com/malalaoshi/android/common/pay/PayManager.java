@@ -38,7 +38,7 @@ public class PayManager {
         /**
          * 微信公众号支付
          * */
-        wx_num_qr
+        wx_pub_mala
     }
 
     private static final class Holder {

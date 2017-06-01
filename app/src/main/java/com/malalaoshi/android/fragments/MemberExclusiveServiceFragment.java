@@ -208,6 +208,11 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
         }
         switch (eventType) {
             case BusEvent.BUS_EVENT_LOGOUT_SUCCESS:
+                mPtrMemberRefresh.refreshComplete();
+                mWtevWrongTopic.setLayout(LayoutStatusEnum.LOGOUT);
+                mLrevLearningReport.setLayout(LayoutStatusEnum.LOGOUT);
+                mMistakes = null;
+                break;
             case BusEvent.BUS_EVENT_LOGIN_SUCCESS:
             case BusEvent.BUS_EVENT_PAY_SUCCESS:
                 request();
@@ -223,9 +228,7 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
             setLayout(LayoutStatusEnum.LOGOUT);
         } else {
             ApiExecutor.exec(new FetchReportRequest(this, 0));
-            if (mFetchTopicRequest == null)
-                mFetchTopicRequest = new FetchTopicRequest(this, 0);
-            ApiExecutor.exec(mFetchTopicRequest);
+            ApiExecutor.exec(new FetchTopicRequest(this, 0));
         }
     }
 
@@ -335,7 +338,7 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
             if (mMistakes != null) {
                 int total = mMistakes.getNumbers().getTotal();
                 int latestTotal = latestMistakes.getNumbers().getTotal();
-                if (latestTotal > total && isResumed()) {
+                if (latestTotal > total && isResumed() && getUserVisibleHint()) {
                     MiscUtil.toast("新增" + (latestTotal - total) + "题");
                 }
 
