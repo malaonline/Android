@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.hitomi.cslibrary.CrazyShadow;
+import com.malalaoshi.android.R;
 import com.malalaoshi.android.activitys.WrongTopicActivity;
 import com.malalaoshi.android.activitys.WrongTopicDetailActivity;
 import com.malalaoshi.android.adapters.WrongTopicAdapter;
@@ -68,6 +69,7 @@ public class WrongTopicFragment extends BaseRefreshFragment<WrongTopicList> impl
     @Override
     protected void afterCreateView() {
         setEmptyViewText("目前科目暂没有题目哦～");
+        setEmptyViewIcon(R.drawable.ic_wrong_topic_empty);
     }
 
     @Override
