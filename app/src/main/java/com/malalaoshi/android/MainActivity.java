@@ -231,10 +231,10 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
     }
 
     private void initData() {
-        indicatorTabs.setTitles(new String[]{"双师直播","一对一","课表","会员专享","我的"});
+        indicatorTabs.setTitles(new String[]{"双师直播","一对一","课表","错题本","我的"});
         FragmentGroupAdapter homeFragmentAdapter = new FragmentGroupAdapter(this, getSupportFragmentManager(), this);
         vpHome.setAdapter(homeFragmentAdapter);
-        vpHome.setOffscreenPageLimit(4);//缓存页面
+        vpHome.setOffscreenPageLimit(0);//缓存页面
     }
 
     @Override
