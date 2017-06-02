@@ -57,7 +57,6 @@ import de.greenrobot.event.EventBus;
 
 public class MemberExclusiveServiceFragment extends BaseFragment {
 
-
     @Bind(R.id.wtev_wrong_topic)
     WrongTopicEntranceView mWtevWrongTopic;
     @Bind(R.id.lrev_learning_report)
@@ -341,7 +340,6 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
                 if (latestTotal > total && isResumed() && getUserVisibleHint()) {
                     MiscUtil.toast("新增" + (latestTotal - total) + "题");
                 }
-
             }
             mMistakes = latestMistakes;
             setupTopic(mMistakes);
