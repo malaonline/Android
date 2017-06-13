@@ -287,12 +287,12 @@
 
     <style name="LiveCoursePriceStyle">
         <item name="android:textSize">@dimen/text_size_xxlarge</item>
-        <item name="android:textColor">@color/color_red_e26254</item>
+        <item name="android:textColor">@color/color_red_fe3059</item>
     </style>
 
     <style name="LiveCourseStuNum">
         <item name="android:textSize">@dimen/text_size_normal</item>
-        <item name="android:textColor">@color/color_red_e26254</item>
+        <item name="android:textColor">@color/color_red_fe3059</item>
     </style>
 
     <style name="Widget.GifMoviewView" parent="@android:style/Widget"/>

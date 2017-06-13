@@ -254,4 +254,22 @@ public class CalendarUtils {
     public static Long getCurrentTimestamp() {
         return System.currentTimeMillis()/1000;
     }
+    public static int getMonth(long second){
+        Calendar calendar = timestampToCalendar(second);
+        return calendar.get(Calendar.MONTH);
+    }
+    public static int getYear(long seconds){
+        Calendar calendar = timestampToCalendar(seconds);
+        return calendar.get(Calendar.YEAR);
+    }
+
+    public static long getSecondTime(String date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return format.parse(date).getTime()/1000;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

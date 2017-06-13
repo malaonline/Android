@@ -580,7 +580,7 @@ public class UserFragment extends BaseFragment {
     }
 
     private void setUserLoginInAvatar(String url) {
-        ivAvatar.LoadCircleStrokeImage(url, R.drawable.ic_default_avatar);
+        ivAvatar.loadCircleStrokeImage(url, R.drawable.ic_default_avatar);
         UserManager.getInstance().setAvatorUrl(url);
     }
 

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout
+        android:id="@+id/ll_course_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="13dp"
+            android:paddingLeft="11dp"
+            android:paddingRight="56dp"
+            android:paddingTop="13dp"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:id="@+id/tv_course_subject"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:maxEms="1"
+                />
+
+            <TextView
+                android:id="@+id/tv_course_season"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/shape_blue_frame_bg"
+                android:gravity="center"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:textColor="@color/core__blue_74a5fc"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_course_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:lines="1"
+                android:textColor="@color/color_black_373a41"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_course_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:textColor="@color/color_black_373a41"
+                />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="139dp"
+            android:background="@color/color_blue_75a6fc"
+            >
+
+            <com.malalaoshi.android.core.image.MalaImageView
+                android:id="@+id/iv_course_teacher_avatar"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:id="@+id/tv_course_teacher_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_course_teacher_avatar"
+                android:lines="1"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_marginRight="5dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_course_teacher_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_course_teacher_name"
+                android:layout_toLeftOf="@id/iv_course_teacher_avatar"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:maxEms="8"
+                android:textColor="@color/white"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"/>
+
+
+            <com.malalaoshi.android.core.image.MalaImageView
+                android:id="@+id/iv_course_assistant_avatar"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_gravity="bottom"
+                android:scaleType="centerCrop"
+                android:layout_toRightOf="@id/iv_course_teacher_avatar"
+                android:layout_alignBottom="@id/iv_course_teacher_avatar"
+                android:layout_marginLeft="-10dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_course_assistant_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="88dp"
+                android:lines="1"
+                android:textColor="@color/white"
+                android:layout_toRightOf="@id/iv_course_assistant_avatar"
+                android:layout_marginLeft="5dp"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_course_class_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/color_black_a0a3ab"
+                />
+
+            <TextView
+                android:id="@+id/tv_course_student_grade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/color_black_a0a3ab"
+                android:layout_marginLeft="10dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_course_price"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textSize="20sp"
+                android:textColor="@color/color_red_fe3059"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_course_status"
+        android:layout_width="50dp"
+        android:layout_height="36dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        />
+
+</FrameLayout>
