@@ -33,6 +33,7 @@ public class LiveCourseFragment extends BaseRefreshFragment<LiveCourseResult> {
     }
 
     public void refresh(){
+        recyclerView.scrollToPosition(0);
         MalaContext.postOnMainThread(new Runnable() {
             @Override
             public void run() {

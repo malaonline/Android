@@ -217,6 +217,8 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
             mTvCourseTitle.setText(courseNames[0]);
             if (courseNames.length >= 2) {
                 mTvCourseSubtitle.setText(TextUtils.isEmpty(courseNames[1]) ? "" : "(" + courseNames[1]);
+            }else {
+                mTvCourseSubtitle.setText("");
             }
             mTvCourseTeacherName.setText(liveClass.getLecturer_name());
             mTvCourseTeacherTitle.setText(liveClass.getLecturer_title());
@@ -243,10 +245,10 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
             String courseSubject = liveClass.getCourse_subject();
             if (!TextUtils.isEmpty(courseSubject)) {
                 mTvCourseSubject.setText(courseSubject.charAt(0) + "");
-                if ("数学".equals(courseSubject)) {
+                if ("英语".equals(courseSubject)) {
                     mTvCourseSubject.setTextColor(MiscUtil.getColor(R.color.color_green_99d03b));
                     mTvCourseSubject.setBackgroundResource(R.drawable.shape_green_frame_bg);
-                } else if ("英语".equals(courseSubject)) {
+                } else if ("数学".equals(courseSubject)) {
                     mTvCourseSubject.setTextColor(MiscUtil.getColor(R.color.color_purple_b790ff));
                     mTvCourseSubject.setBackgroundResource(R.drawable.shape_purple_frame_bg);
                 }
