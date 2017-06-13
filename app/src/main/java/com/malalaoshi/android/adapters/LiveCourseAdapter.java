@@ -217,6 +217,8 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
             mTvCourseTitle.setText(courseNames[0]);
             if (courseNames.length >= 2) {
                 mTvCourseSubtitle.setText(TextUtils.isEmpty(courseNames[1]) ? "" : "(" + courseNames[1]);
+            }else {
+                mTvCourseSubtitle.setText("");
             }
             mTvCourseTeacherName.setText(liveClass.getLecturer_name());
             mTvCourseTeacherTitle.setText(liveClass.getLecturer_title());
