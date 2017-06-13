@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.adapters.FragmentGroupAdapter;
@@ -128,7 +127,6 @@ public class WrongTopicDetailActivity extends BaseActivity implements TitleBarVi
 
     @Override
     public Fragment createFragment(int position) {
-        Log.e("WrongTopicDetail", "createFragment: ");
         WrongTopicDetailFragment detailFragment = mFragments.get(position);
         if (detailFragment == null){
             WrongTopic topic = null;
