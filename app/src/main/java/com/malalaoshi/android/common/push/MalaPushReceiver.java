@@ -115,9 +115,19 @@ public class MalaPushReceiver extends BroadcastReceiver {
             lunchMainPager(context, bundle);
         } else if (MalaPushDef.PUSH_NOTIFICATION_LIVE_COURSE_ACTIVITY.equals(pushExtra.getType())) {
             lunchLiveCourseList(context, bundle);
+        } else if (MalaPushDef.PUSH_NOTIFICATION_WRONG_TOPIC.equals(pushExtra.getType())){
+            lunchWrongTopic(context, bundle);
         } else {
             Log.e(TAG, "Undefined notification type!");
         }
+    }
+
+    private void lunchWrongTopic(Context context, Bundle bundle) {
+        Intent i = new Intent(context, MainActivity.class);
+        i.putExtra(MainActivity.EXTRAS_PAGE_INDEX, MainActivity.PAGE_INDEX_MEMBER_SERVICE);
+        i.putExtras(bundle);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        context.startActivity(i);
     }
 
     private void lunchLiveCourseList(Context context, Bundle bundle) {

@@ -42,8 +42,8 @@ android {
         applicationId "com.malalaoshi.android"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 20
-        versionName "3.5.0"
+        versionCode 21
+        versionName "3.6.0"
 
         // Enabling multidex support.
         multiDexEnabled true
@@ -56,7 +56,7 @@ android {
             minifyEnabled false
             zipAlignEnabled false
             manifestPlaceholders = [jpush_key: PARENT_JPUSH_KEY_DEBUG]
-            buildConfigField("String", "API_HOST", "\"" + DEV_SERVER + "\"")
+            buildConfigField("String", "API_HOST", "\"" + PRD_SERVER + "\"")
             resValue("string", "api_host", "\"" + DEV_SERVER + "\"")
             resValue("string", "build_type", "debug")
         }

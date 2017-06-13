@@ -3,6 +3,7 @@ package com.malalaoshi.android.core.image.glide;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.annotation.ColorRes;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.malalaoshi.android.core.R;
+import com.malalaoshi.android.core.utils.MiscUtil;
 import com.orhanobut.hawk.Hawk;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
@@ -148,14 +150,14 @@ public class GlideUtils {
         model.setErrImage(defaultImg);
         load(model);
     }
-    public static void loadCircleStrokeImage(Context context, String url, ImageView imageView, int borderWidth, int borderColor){
+    public static void loadCircleStrokeImage(Context context, String url, ImageView imageView, int borderWidth, @ColorRes int borderColor){
         RequestModel model = new RequestModel(context, url, imageView, IMG_CIRCLE_STROKE);
         model.setBorderWidth(borderWidth);
-        model.setBorderColor(borderColor);
+        model.setBorderColor(MiscUtil.getColor(borderColor));
         load(model);
     }
     public static void loadCircleStrokeImage(Context context, String url, ImageView imageView){
-        loadCircleStrokeImage(context, url, imageView, 2, context.getResources().getColor(R.color.core__avatar_stroker));
+        loadCircleStrokeImage(context, url, imageView, 2, R.color.core__avatar_stroker);
     }
 
     public static void loadBlurImage(Context context, String url, ImageView imageView, int defaultImg) {

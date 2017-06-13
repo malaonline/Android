@@ -56,6 +56,26 @@ public class ShadowHelper {
                 .action(view);
         return shadow;
     }
+    /**
+     * 设置阴影，使用默认背景 draw方式，必须设置背景颜色 默认白色
+     * @param context
+     * @param corner 圆角值
+     * @param view 需要设置阴影的view
+     */
+    public static CrazyShadow setDrawShadow(Context context, View view,int corner){
+        corner = MiscUtil.dp2px(corner);
+        CrazyShadow shadow = new CrazyShadow.Builder()
+                .setContext(context)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(mRadius)
+                .setBaseShadowColor(mShadowColor)
+                .setBackground(Color.TRANSPARENT)
+                .setCorner(corner)
+                .setImpl(CrazyShadow.IMPL_DRAW)
+                .action(view);
+        return shadow;
+    }
+
 
     /***
      * 设置阴影，使用默认背景和圆角
@@ -90,6 +110,21 @@ public class ShadowHelper {
                 .setImpl(CrazyShadow.IMPL_WRAP)
                 .action(view);
     }
+    /**
+     * 以wrap的方式设置阴影， 默认背景和圆角 不需要设置背景颜色
+     * @param context
+     * @param view
+     */
+    public static void setWrapShadow(Context context, View view, int corner){
+        new CrazyShadow.Builder()
+                .setContext(context)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(mRadius)
+                .setBaseShadowColor(mShadowColor)
+                .setCorner(corner)
+                .setImpl(CrazyShadow.IMPL_WRAP)
+                .action(view);
+    }
 
     /***
      * 以float的方式设置阴影， 默认背景和圆角 不需要设置背景颜色
@@ -107,4 +142,5 @@ public class ShadowHelper {
                 .setImpl(CrazyShadow.IMPL_FLOAT)
                 .action(view);
     }
+
 }
