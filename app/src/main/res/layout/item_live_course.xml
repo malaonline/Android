@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <LinearLayout
         android:id="@+id/ll_course_info"
@@ -73,12 +74,15 @@
             android:background="@color/color_blue_75a6fc"
             >
 
-            <com.malalaoshi.android.core.image.MalaImageView
+            <com.malalaoshi.android.ui.widgets.CircleImageView
                 android:id="@+id/iv_course_teacher_avatar"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 android:layout_centerInParent="true"
                 android:scaleType="centerCrop"
+                app:civ_border_width="3dp"
+                app:civ_border_color="@color/color_white_ffffff_88"
+                app:civ_border_overlay="true"
                 />
 
             <TextView
@@ -109,7 +113,7 @@
                 android:layout_marginTop="5dp"/>
 
 
-            <com.malalaoshi.android.core.image.MalaImageView
+            <com.malalaoshi.android.ui.widgets.CircleImageView
                 android:id="@+id/iv_course_assistant_avatar"
                 android:layout_width="53dp"
                 android:layout_height="53dp"
@@ -118,6 +122,9 @@
                 android:layout_toRightOf="@id/iv_course_teacher_avatar"
                 android:layout_alignBottom="@id/iv_course_teacher_avatar"
                 android:layout_marginLeft="-10dp"
+                app:civ_border_width="3dp"
+                app:civ_border_color="@color/color_white_ffffff_88"
+                app:civ_border_overlay="true"
                 />
 
             <TextView

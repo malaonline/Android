@@ -34,11 +34,11 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.core.image.MalaImageView;
 
-public class CircleImageView extends ImageView {
+public class CircleImageView extends MalaImageView {
 
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
