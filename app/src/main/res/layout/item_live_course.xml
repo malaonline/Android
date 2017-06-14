@@ -81,7 +81,7 @@
                 android:layout_centerInParent="true"
                 android:scaleType="centerCrop"
                 app:civ_border_width="3dp"
-                app:civ_border_color="@color/color_white_ffffff_88"
+                app:civ_border_color="@color/core__avatar_stroke_c4dbfb"
                 app:civ_border_overlay="true"
                 />
 
@@ -123,8 +123,8 @@
                 android:layout_alignBottom="@id/iv_course_teacher_avatar"
                 android:layout_marginLeft="-10dp"
                 app:civ_border_width="3dp"
-                app:civ_border_color="@color/color_white_ffffff_88"
-                app:civ_border_overlay="true"
+                app:civ_border_color="@color/core__avatar_stroke_c4dbfb"
+                app:civ_border_overlay="false"
                 />
 
             <TextView
