@@ -19,6 +19,7 @@ import com.malalaoshi.android.core.image.MalaImageView;
 import com.malalaoshi.android.core.utils.MiscUtil;
 import com.malalaoshi.android.core.view.ShadowHelper;
 import com.malalaoshi.android.entity.LiveCourse;
+import com.malalaoshi.android.ui.widgets.CircleImageView;
 import com.malalaoshi.android.utils.CalendarUtils;
 import com.malalaoshi.android.utils.Number;
 import com.malalaoshi.android.utils.StringUtil;
@@ -182,11 +183,11 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
         @Bind(R.id.tv_course_status)
         TextView mTvCourseStatus;
         @Bind(R.id.iv_course_teacher_avatar)
-        MalaImageView mIvCourseTeacherAvatar;
+        CircleImageView mIvCourseTeacherAvatar;
         @Bind(R.id.tv_course_teacher_name)
         TextView mTvCourseTeacherName;
         @Bind(R.id.iv_course_assistant_avatar)
-        MalaImageView mIvCourseAssistantAvatar;
+        CircleImageView mIvCourseAssistantAvatar;
         @Bind(R.id.tv_course_assistant_name)
         TextView mTvCourseAssistantName;
         @Bind(R.id.tv_course_class_time)
@@ -222,8 +223,8 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
             }
             mTvCourseTeacherName.setText(liveClass.getLecturer_name());
             mTvCourseTeacherTitle.setText(liveClass.getLecturer_title());
-            mIvCourseTeacherAvatar.loadCircleStrokeImage(liveClass.getLecturer_avatar(), R.drawable.ic_default_avatar, R.color.core__avatar_stroke_c4dbfb);
-            mIvCourseAssistantAvatar.loadCircleStrokeImage(liveClass.getAssistant_avatar(), R.drawable.ic_default_avatar, R.color.core__avatar_stroke_c4dbfb);
+            mIvCourseTeacherAvatar.loadImage(liveClass.getLecturer_avatar(), R.drawable.ic_default_avatar);
+            mIvCourseAssistantAvatar.loadImage(liveClass.getAssistant_avatar(), R.drawable.ic_default_avatar);
             mTvCourseAssistantName.setText(String.format("助教 %s", liveClass.getAssistant_name()));
             mTvCourseClassTime.setText(CalendarUtils.formatMonthAndDay(liveClass.getCourse_start()) + "-"
                     + CalendarUtils.formatMonthAndDay(liveClass.getCourse_end()));
