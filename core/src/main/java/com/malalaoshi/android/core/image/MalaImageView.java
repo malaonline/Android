@@ -60,6 +60,6 @@ public class MalaImageView extends ImageView {
         if (TextUtils.isEmpty(url)){
             loadCircleImage(url,defImage);
         }else
-            GlideUtils.loadCircleStrokeImage(getContext(), url, this, 5, borderColor);
+            GlideUtils.loadCircleStrokeImage(getContext(), url, this, 3, borderColor);
     }
 }
