@@ -2,17 +2,20 @@ package com.malalaoshi.android.core.image;
 
 import android.content.Context;
 import android.support.annotation.ColorRes;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.malalaoshi.android.core.image.glide.GlideUtils;
+import com.malalaoshi.android.core.utils.MiscUtil;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * 麻辣ImageView
  * Created by tianwei on 8/21/16.
  */
-public class MalaImageView extends ImageView {
+public class MalaImageView extends AppCompatImageView {
 
     public MalaImageView(Context context) {
         super(context);
@@ -61,5 +64,8 @@ public class MalaImageView extends ImageView {
             loadCircleImage(url,defImage);
         }else
             GlideUtils.loadCircleStrokeImage(getContext(), url, this, 3, borderColor);
+    }
+    public void loadRoundedImage(String url){
+        GlideUtils.loadCustomImage(getContext(), url, this, new RoundedCornersTransformation(getContext(), MiscUtil.dp2px(6), 0));
     }
 }

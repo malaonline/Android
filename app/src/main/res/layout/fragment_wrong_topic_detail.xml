@@ -6,7 +6,7 @@
     android:fillViewport="true"
     android:overScrollMode="never"
     android:scrollbars="vertical"
-    android:scrollbarThumbVertical="@drawable/shape_scroll_bar"
+    android:scrollbarThumbVertical="@drawable/shape_scroll_bar_blue_bg"
     android:scrollbarSize="4dp"
     >
     <LinearLayout

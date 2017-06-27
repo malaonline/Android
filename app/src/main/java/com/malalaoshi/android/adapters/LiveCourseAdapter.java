@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hitomi.cslibrary.draw.RoundRectShadowDrawable;
 import com.malalaoshi.android.R;
+import com.malalaoshi.android.activitys.LiveCourseDetailActivity;
 import com.malalaoshi.android.activitys.LiveCourseInfoActivity;
 import com.malalaoshi.android.activitys.LiveCourseIntroduceActivity;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
@@ -334,7 +335,8 @@ public class LiveCourseAdapter extends BaseRecycleAdapter<LiveCourseAdapter.View
         @Override
         public void onClick(View v) {
             if (mLiveClass != null && mLiveClass.getId() != null) {
-                LiveCourseInfoActivity.open(this.itemView.getContext(), mLiveClass);
+//                LiveCourseInfoActivity.open(this.itemView.getContext(), mLiveClass);
+                LiveCourseDetailActivity.launch(itemView.getContext(), mLiveClass);
             }
         }
     }

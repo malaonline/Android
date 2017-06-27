@@ -208,6 +208,9 @@
         <activity android:name=".activitys.WrongTopicDetailActivity"
             android:launchMode="singleTop"
             />
+        <activity android:name=".activitys.LiveCourseDetailActivity"
+            android:launchMode="singleTop"
+            />
 
         <receiver
             android:name=".receivers.NetworkStateReceiver"

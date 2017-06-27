@@ -107,5 +107,16 @@
         <item>take a look </item>
         <item>take exercise</item>
     </array>
+    <array name="course_service_item">
+        <item>名师授课</item>
+        <item>私教辅导</item>
+        <item>互动答题器</item>
+        <item>随时看回放</item>
+        <item>考试检测</item>
+        <item>标准化讲义</item>
+        <item>实时播放</item>
+        <item>学习家长会</item>
+        <item>额外网络学习</item>
+    </array>
 
 </resources>

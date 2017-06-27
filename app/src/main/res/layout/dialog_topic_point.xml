@@ -9,7 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="420dp"
-        android:scrollbarThumbVertical="@drawable/shape_scroll_bar"
+        android:scrollbarThumbVertical="@drawable/shape_scroll_bar_blue_bg"
         android:background="@drawable/bg_white_border_btn_normal"
         android:scrollbarSize="2dp"
         android:overScrollMode="never"
