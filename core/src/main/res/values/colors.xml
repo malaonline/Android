@@ -182,6 +182,7 @@
     <color name="gradient_tab_todo_bg_light_red">#ff60a7</color>
     <color name="gradient_tab_todo_bg_dark_red">#fe091c</color>
     <color name="color_red_fe3059">#fe3059</color>
+    <color name="color_red_f9151b">#f9151b</color>
 
 
     <!--粉色pink-->

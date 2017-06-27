@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -35,6 +37,7 @@ public class GlideUtils {
     private static final int IMG_CIRCLE = 1;
     private static final int IMG_BLUR = 2;
     private static final int IMG_CIRCLE_STROKE = 3;
+    private static final int IMG_CUSTOM = 4;
 
     /**
      * 如果请求过，从缓存拿到地址把图片取出来，不然还是用原地址取。
@@ -109,13 +112,18 @@ public class GlideUtils {
                     .centerCrop()
                     .crossFade()
                     .into(data.getImageView());
-        } else if (data.getType() == IMG_CIRCLE_STROKE){
+        } else if (data.getType() == IMG_CIRCLE_STROKE) {
             builder.centerCrop()
                     .placeholder(data.getDefImage())
                     .bitmapTransform(new GlideCircleTransform(context, data.getBorderWidth(), data.getBorderColor()))
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(data.getImageView());
 
+        } else if (data.getType() == IMG_CUSTOM) {
+            builder.bitmapTransform(new CenterCrop(context), data.getTransformation())
+                    .placeholder(data.getDefImage())
+                    .error(data.getErrImage())
+                    .into(data.getImageView());
         } else {
             builder.placeholder(data.getDefImage())
                     .error(data.getErrImage())
@@ -150,14 +158,22 @@ public class GlideUtils {
         model.setErrImage(defaultImg);
         load(model);
     }
-    public static void loadCircleStrokeImage(Context context, String url, ImageView imageView, int borderWidth, @ColorRes int borderColor){
+
+    public static void loadCircleStrokeImage(Context context, String url, ImageView imageView, int borderWidth, @ColorRes int borderColor) {
         RequestModel model = new RequestModel(context, url, imageView, IMG_CIRCLE_STROKE);
         model.setBorderWidth(borderWidth);
         model.setBorderColor(MiscUtil.getColor(borderColor));
         load(model);
     }
-    public static void loadCircleStrokeImage(Context context, String url, ImageView imageView){
+
+    public static void loadCircleStrokeImage(Context context, String url, ImageView imageView) {
         loadCircleStrokeImage(context, url, imageView, 2, R.color.core__avatar_stroker);
+    }
+
+    public static void loadCustomImage(Context context, String url, ImageView imageView, Transformation transformation) {
+        RequestModel model = new RequestModel(context, url, imageView, transformation);
+        model.setType(IMG_CUSTOM);
+        load(model);
     }
 
     public static void loadBlurImage(Context context, String url, ImageView imageView, int defaultImg) {
@@ -167,7 +183,7 @@ public class GlideUtils {
         load(model);
     }
 
-    public static void loadBitmapImage(final Context context,final String url,final ImageView imageView,final int defImage,final int errImage) {
+    public static void loadBitmapImage(final Context context, final String url, final ImageView imageView, final int defImage, final int errImage) {
         String urlStr = url;
         // cacheKey是去掉了参数的url
         final String cacheKey = getCacheUrl(urlStr);
@@ -191,7 +207,7 @@ public class GlideUtils {
             return;
         }
 
-        BitmapRequestBuilder<String,Bitmap> builder = Glide.with(context)
+        BitmapRequestBuilder<String, Bitmap> builder = Glide.with(context)
                 .load(finalRequestUrl)
                 .asBitmap()
                 .listener(new RequestListener<String, Bitmap>() {
@@ -201,7 +217,7 @@ public class GlideUtils {
                             //缓存加载失败了，再请求一次
                             Log.d("MALA", "load cache image failed");
                             Hawk.remove(cacheKey);
-                            loadBitmapImage(context,url,imageView,defImage,errImage);
+                            loadBitmapImage(context, url, imageView, defImage, errImage);
                         }
                         return false;
                     }
@@ -232,6 +248,15 @@ public class GlideUtils {
         private int type;
         private int borderWidth = 2;
         private int borderColor = Color.WHITE;
+        private Transformation mTransformation;
+
+        public Transformation getTransformation() {
+            return mTransformation;
+        }
+
+        public void setTransformation(Transformation transformation) {
+            mTransformation = transformation;
+        }
 
         public int getBorderWidth() {
             return borderWidth;
@@ -254,6 +279,13 @@ public class GlideUtils {
             setUrl(url);
             setImageView(imageView);
             setType(type);
+        }
+
+        public RequestModel(Context context, String url, ImageView imageView, Transformation transformation) {
+            setContext(context);
+            setUrl(url);
+            setImageView(imageView);
+            setTransformation(transformation);
         }
 
         public Context getContext() {

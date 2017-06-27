@@ -284,20 +284,21 @@
     <LinearLayout
         style="@style/normal_bottom"
         >
+
         <TextView
             android:id="@+id/tv_course_price"
-            tools:text="￥480/16次"
             style="@style/LiveCourse_button"
-            android:textSize="@dimen/text_size_xxlarge"
+            android:background="@color/color_white_ffffff"
             android:textColor="@color/color_red_e26254"
-            android:background="@color/color_white_ffffff"/>
+            android:textSize="@dimen/text_size_xxlarge"
+            tools:text="￥480/16次"/>
 
         <TextView
             android:id="@+id/tv_buy_course"
             style="@style/LiveCourse_button"
-            android:textSize="@dimen/text_size_large_high"
+            android:background="@drawable/bg_grey_rectangle_btn_disable"
             android:textColor="@color/color_white_ffffff"
-            android:background="@drawable/bg_grey_rectangle_btn_disable"/>
+            android:textSize="@dimen/text_size_large_high"/>
     </LinearLayout>
 
 </FrameLayout>

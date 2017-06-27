@@ -116,6 +116,7 @@ public class ShadowHelper {
      * @param view
      */
     public static void setWrapShadow(Context context, View view, int corner){
+        corner = MiscUtil.dp2px(corner);
         new CrazyShadow.Builder()
                 .setContext(context)
                 .setDirection(CrazyShadowDirection.ALL)

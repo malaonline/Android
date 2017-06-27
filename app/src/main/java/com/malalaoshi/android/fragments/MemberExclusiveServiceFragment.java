@@ -95,7 +95,8 @@ public class MemberExclusiveServiceFragment extends BaseFragment {
         view.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mPtrMemberRefresh.autoRefresh();
+                if (mPtrMemberRefresh != null)
+                    mPtrMemberRefresh.autoRefresh();
             }
         }, 100);
         mFetchTopicRequest = new FetchTopicRequest(this, 0);

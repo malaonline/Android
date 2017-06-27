@@ -15,8 +15,8 @@ public class LiveCourse extends BaseEntity{
     private Long course_lessons;
     private String course_grade;
     private String course_description;
-    private Long room_capacity;
-    private Long students_count;
+    private int room_capacity;
+    private int students_count;
     private String lecturer_name;
     private String lecturer_title;
     private String lecturer_bio;
@@ -101,19 +101,19 @@ public class LiveCourse extends BaseEntity{
         this.course_description = course_description;
     }
 
-    public Long getRoom_capacity() {
+    public int getRoom_capacity() {
         return room_capacity;
     }
 
-    public void setRoom_capacity(Long room_capacity) {
+    public void setRoom_capacity(int room_capacity) {
         this.room_capacity = room_capacity;
     }
 
-    public Long getStudents_count() {
+    public int getStudents_count() {
         return students_count;
     }
 
-    public void setStudents_count(Long students_count) {
+    public void setStudents_count(int students_count) {
         this.students_count = students_count;
     }
 
@@ -242,8 +242,8 @@ public class LiveCourse extends BaseEntity{
         this.course_lessons = (Long) in.readValue(Long.class.getClassLoader());
         this.course_grade = in.readString();
         this.course_description = in.readString();
-        this.room_capacity = (Long) in.readValue(Long.class.getClassLoader());
-        this.students_count = (Long) in.readValue(Long.class.getClassLoader());
+        this.room_capacity = (int) in.readValue(Long.class.getClassLoader());
+        this.students_count = (int) in.readValue(Long.class.getClassLoader());
         this.lecturer_name = in.readString();
         this.lecturer_title = in.readString();
         this.lecturer_bio = in.readString();

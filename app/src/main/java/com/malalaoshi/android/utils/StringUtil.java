@@ -6,7 +6,6 @@ import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
 import android.widget.TextView;
 
-import com.malalaoshi.android.R;
 import com.malalaoshi.android.entity.BaseEntity;
 
 import java.util.List;

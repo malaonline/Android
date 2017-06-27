@@ -33,7 +33,6 @@ import com.malalaoshi.android.entity.Tag;
 import com.malalaoshi.android.events.EventType;
 import com.malalaoshi.android.events.NoticeEvent;
 import com.malalaoshi.android.fragments.MemberExclusiveServiceFragment;
-import com.malalaoshi.android.fragments.MemberServiceFragment;
 import com.malalaoshi.android.fragments.main.LiveCourseFragment;
 import com.malalaoshi.android.fragments.main.MainFragment;
 import com.malalaoshi.android.fragments.main.ScheduleFragment;
