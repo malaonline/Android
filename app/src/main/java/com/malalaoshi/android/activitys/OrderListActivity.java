@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseActivity;
+import com.malalaoshi.android.core.utils.StatusBarCompat;
 import com.malalaoshi.android.core.view.TitleBarView;
 import com.malalaoshi.android.fragments.OrderListFragment;
 import com.malalaoshi.android.utils.FragmentUtil;
@@ -25,6 +26,7 @@ public class OrderListActivity extends BaseActivity implements TitleBarView.OnTi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         ButterKnife.bind(this);
+        StatusBarCompat.compat(this);
         initViews(savedInstanceState);
         titleView.setOnTitleBarClickListener(this);
     }

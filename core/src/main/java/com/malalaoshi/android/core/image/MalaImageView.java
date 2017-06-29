@@ -59,11 +59,11 @@ public class MalaImageView extends AppCompatImageView {
         }else
             GlideUtils.loadCircleStrokeImage(getContext(), url, this);
     }
-    public void loadCircleStrokeImage(String url, int defImage, @ColorRes int borderColor){
+    public void loadCircleStrokeImage(String url, int defImage, @ColorRes int borderColor, int borderWidth){
         if (TextUtils.isEmpty(url)){
             loadCircleImage(url,defImage);
         }else
-            GlideUtils.loadCircleStrokeImage(getContext(), url, this, 3, borderColor);
+            GlideUtils.loadCircleStrokeImage(getContext(), url, this, borderWidth, borderColor);
     }
     public void loadRoundedImage(String url){
         GlideUtils.loadCustomImage(getContext(), url, this, new RoundedCornersTransformation(getContext(), MiscUtil.dp2px(6), 0));

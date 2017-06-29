@@ -81,7 +81,7 @@ public class MixtureTextView extends RelativeLayout {
         //just for text
         if (mText == null)
         {
-            mText = "11";
+            mText = "介绍";
         }
 
         //get text

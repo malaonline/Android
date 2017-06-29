@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
@@ -46,6 +47,7 @@ public class GlideCircleTransform extends BitmapTransformation {
     private Bitmap circleCrop(BitmapPool pool, Bitmap source) {
         if (source == null) return null;
         int size = Math.min(source.getWidth(), source.getHeight()) - (mBorderWidth / 2);
+        Log.e("GlideCircleTransform", "circleCrop: "+size);
         int x = (source.getWidth() - size) / 2;
         int y = (source.getHeight() - size) / 2;
         // TODO this could be acquired from the pool too
