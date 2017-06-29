@@ -1,13 +1,12 @@
 package com.malalaoshi.android.fragments;
 
 import com.malalaoshi.android.R;
-import com.malalaoshi.android.adapters.OrderAdapter;
-import com.malalaoshi.android.network.api.MoreOrderListApi;
-import com.malalaoshi.android.network.api.OrderListApi;
+import com.malalaoshi.android.adapters.MyOrderAdapter;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.base.BaseRefreshFragment;
+import com.malalaoshi.android.network.api.MoreOrderListApi;
+import com.malalaoshi.android.network.api.OrderListApi;
 import com.malalaoshi.android.network.result.OrderListResult;
-
 
 /**
  * Created by kang on 16/5/5.
@@ -15,7 +14,7 @@ import com.malalaoshi.android.network.result.OrderListResult;
 public class OrderListFragment extends BaseRefreshFragment<OrderListResult>{
     private String nextUrl;
 
-    private OrderAdapter adapter;
+    private MyOrderAdapter adapter;
 
     public static OrderListFragment newInstance() {
         OrderListFragment f = new OrderListFragment();
@@ -24,7 +23,7 @@ public class OrderListFragment extends BaseRefreshFragment<OrderListResult>{
 
     @Override
     protected BaseRecycleAdapter createAdapter() {
-        adapter = new OrderAdapter(getContext());
+        adapter = new MyOrderAdapter(getContext());
         return adapter;
     }
 

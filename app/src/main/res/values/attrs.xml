@@ -106,4 +106,12 @@
         <attr name="progress_value" format="float"/>
         <attr name="progress_max_value" format="float"/>
     </declare-styleable>
+    <declare-styleable name="DoubleImageView">
+        <attr name="div_bigImgSize" format="dimension"/>
+        <attr name="div_smallImgSize" format="dimension"/>
+        <attr name="div_bigBorderWidth" format="dimension"/>
+        <attr name="div_smallBorderWidth" format="dimension"/>
+        <attr name="div_bigBorderColor" format="color"/>
+        <attr name="div_smallBorderColor" format="color"/>
+    </declare-styleable>
 </resources>

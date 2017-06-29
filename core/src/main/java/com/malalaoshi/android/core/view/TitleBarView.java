@@ -47,10 +47,10 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
         int rightTextColor = typedArray.getColor(R.styleable.CustomTitleBar_cusRightTextColor, 0x82b4d9);
         Drawable rightBackground = typedArray.getDrawable(R.styleable.CustomTitleBar_cusRightBackgroud);
         String rightText = typedArray.getString(R.styleable.CustomTitleBar_cusRightText);
-        float rightTextSize = typedArray.getDimension(R.styleable.CustomTitleBar_cusRightTextSize, 36);
+        float rightTextSize = typedArray.getDimensionPixelSize(R.styleable.CustomTitleBar_cusRightTextSize, 16);
         boolean rightShow = typedArray.getBoolean(R.styleable.CustomTitleBar_cusRightShow, true);
 
-        float titleTextSize = typedArray.getDimension(R.styleable.CustomTitleBar_cusTitleTextSize, 48);
+        float titleTextSize = typedArray.getDimensionPixelSize(R.styleable.CustomTitleBar_cusTitleTextSize, 18);
         int titleTextColor = typedArray.getColor(R.styleable.CustomTitleBar_cusTitleTextColor, 0x333333);
         String title = typedArray.getString(R.styleable.CustomTitleBar_cusTitleText);
         typedArray.recycle();

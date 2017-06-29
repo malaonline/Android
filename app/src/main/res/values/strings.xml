@@ -190,5 +190,6 @@
     <string name="login_immeditely">立即登录</string>
     <string name="member_exclusive">会员专享</string>
     <string name="network_error_pull_to_refresh_again">网络不给力，尝试下拉刷新</string>
+    <string name="total">共&#12288;&#12288;计：¥</string>
 
 </resources>

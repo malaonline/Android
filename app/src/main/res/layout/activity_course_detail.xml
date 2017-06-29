@@ -16,6 +16,7 @@
         app:cusLeftShow="true"
         app:cusRightShow="true"
         app:cusTitleText="课程页"
+        app:cusTitleTextSize="18sp"
         />
 
     <FrameLayout
@@ -236,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginRight="6dp"
                         android:overScrollMode="never"
                         android:scrollbars="none"
                         />
@@ -259,7 +260,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="15dp"
-                        android:text="课程服务"
+                        android:text="课程介绍"
                         android:textColor="@color/color_black_373a41"
                         android:textSize="16sp"
                         />
@@ -399,12 +400,13 @@
                         android:id="@+id/tv_course_detail_assistant_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="15dp"
-                        android:text="直播名师"
+                        android:layout_marginTop="14dp"
+                        android:text="联系助教"
                         android:textColor="@color/color_black_373a41"
                         android:textSize="16sp"
-                        />
+                        android:layout_alignParentTop="true"
+                        android:layout_alignLeft="@+id/view_course_detail_assistant"
+                        android:layout_alignStart="@+id/view_course_detail_assistant"/>
 
                     <View
                         android:id="@+id/view_course_detail_assistant"
@@ -435,7 +437,7 @@
                         android:layout_marginBottom="18dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="7dp"
-                        android:text="对课程有疑问，快打电话咨询助教老师吧！"
+                        android:text="对课程有疑问？快打电话咨询助教老师吧！"
                         />
 
                     <ImageView

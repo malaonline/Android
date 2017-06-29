@@ -62,6 +62,7 @@
     <color name="gradient_btn_bg_light_blue">#83b8ff</color>
     <color name="gradient_btn_bg_dark_blue">#508fff</color>
     <color name="main_color">#73a4fc</color>
+    <color name="main_color_33">#3373a4fc</color>
     <color name="splash_status_bg">#66a4f3</color>
     <color name="color_blue_75a6fc">#75a6fc</color>
 
@@ -119,6 +120,8 @@
     <color name="color_gray_eeeeee">#eeeeee</color>
     <color name="color_gray_8f929b">#8f929b</color>
     <color name="color_gray_979797">#979797</color>
+    <color name="color_gray_dcdcdc">#dcdcdc</color>
+    <color name="color_gray_dcdcdc_66">#66dcdcdc</color>
     <!--白色white-->
     <color name="color_white_f5f5f5">#f5f5f5</color>
     <color name="color_white_ffffff_88">#88ffffff</color>
@@ -182,7 +185,9 @@
     <color name="gradient_tab_todo_bg_light_red">#ff60a7</color>
     <color name="gradient_tab_todo_bg_dark_red">#fe091c</color>
     <color name="color_red_fe3059">#fe3059</color>
+    <color name="color_red_fe3059_33">#33fe3059</color>
     <color name="color_red_f9151b">#f9151b</color>
+    <color name="color_red_fa2b30">#fa2b30</color>
 
 
     <!--粉色pink-->
@@ -216,6 +221,7 @@
     <color name="core__shadow_bg_red">#ffc8c8</color>
     <color name="core__avatar_stroker">#A5C6FF</color>
     <color name="color_black_a0a3ab">#a0a3ab</color>
+    <color name="color_black_a0a3ab_4c">#4ca0a3ab</color>
     <color name="core__avatar_stroke_c4dbfb">#C4DBFB</color>
 
 </resources>
