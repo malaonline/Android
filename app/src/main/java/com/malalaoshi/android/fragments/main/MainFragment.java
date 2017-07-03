@@ -1,6 +1,7 @@
 package com.malalaoshi.android.fragments.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 public class MainFragment extends BaseFragment implements MultiSelectFilterDialog.OnRightClickListener {
 
     public static MainFragment newInstance() {
+        Log.e("MainFragment", "newInstance: ");
         MainFragment f = new MainFragment();
         return f;
     }
@@ -42,8 +44,12 @@ public class MainFragment extends BaseFragment implements MultiSelectFilterDialo
 
     private void initViews(Bundle savedInstanceState) {
         if (savedInstanceState==null){
-            TeacherListFragment fragment = TeacherListFragment.newInstance();
-            FragmentUtil.openFragment(R.id.id_content, getChildFragmentManager(), null, fragment, TeacherListFragment.class.getName());
+            TeacherListFragment fragment;
+            fragment = (TeacherListFragment) getChildFragmentManager().findFragmentByTag(TeacherListFragment.class.getName());
+            if (fragment == null){
+                fragment = TeacherListFragment.newInstance();
+                FragmentUtil.openFragment(R.id.id_content, getChildFragmentManager(), null, fragment, TeacherListFragment.class.getName());
+            }
         }
     }
 

@@ -94,7 +94,7 @@
             android:layout_gravity="center_vertical|right"
             android:layout_marginRight="16dp"
             app:div_bigBorderColor="@color/main_color"
-            app:div_bigBorderWidth="4dp"
+            app:div_bigBorderWidth="3dp"
             app:div_bigImgSize="67dp"
             app:div_smallBorderColor="@color/main_color"
             app:div_smallBorderWidth="2dp"

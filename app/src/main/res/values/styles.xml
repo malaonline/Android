@@ -10,7 +10,9 @@
         <item name="colorPrimary">@color/color_blue_8fbcdd</item>
         <item name="colorPrimaryDark">@color/color_transparent_ffffff_00</item>
         <item name="colorAccent">@color/color_blue_8fbcdd</item>
-        <item name="selectableItemBackgroundGeneral">@drawable/selectable_item_background_general_light</item>
+        <item name="selectableItemBackgroundGeneral">
+            @drawable/selectable_item_background_general_light
+        </item>
         <item name="android:listDivider">@drawable/dividerdecoration</item>
     </style>
 
@@ -22,6 +24,7 @@
     <style name="ShareTheme.notAnimation" parent="android:Theme.Translucent.NoTitleBar">
         <item name="android:windowAnimationStyle">@style/notAnimation</item>
     </style>
+
     <style name="notAnimation">
         <item name="android:activityOpenEnterAnimation">@null</item>
         <item name="android:activityOpenExitAnimation">@null</item>
@@ -42,11 +45,11 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="AppWidget" parent="Theme.AppCompat.Light" />
+    <style name="AppWidget" parent="Theme.AppCompat.Light"/>
 
     <style name="AppWidget.ShadowGap">
         <item name="android:layout_width">match_parent</item>
@@ -205,7 +208,8 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
     </style>
-    <style name="mala.widget.schoollist.name.text"  parent="android:Widget.TextView">
+
+    <style name="mala.widget.schoollist.name.text" parent="android:Widget.TextView">
         <item name="android:textColor">@color/color_black_636363</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:gravity">center_vertical</item>
@@ -214,6 +218,7 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
     </style>
+
     <style name="mala.widget.schoollist.address.text" parent="android:Widget.TextView">
         <item name="android:textColor">@color/color_black_636363</item>
         <item name="android:textSize">@dimen/text_size_small</item>
@@ -254,6 +259,7 @@
         <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
         <item name="android:minHeight">40dip</item>
         <item name="android:maxHeight">40dip</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <!-- 评价星 -->
@@ -263,7 +269,7 @@
         <item name="android:maxHeight">13dip</item>
     </style>
 
-    <style name="AppWidget.indicator" >
+    <style name="AppWidget.indicator">
         <item name="ci_animator">@anim/indicator_no_animator</item>
         <item name="ci_drawable">@drawable/selected_indicator_radius</item>
         <item name="ci_drawable_unselected">@drawable/unselected_indicator_radius</item>
@@ -313,12 +319,14 @@
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:layout_marginBottom">6dp</item>
     </style>
+
     <style name="LiveCourse_Card_line">
         <item name="android:layout_margin">6dp</item>
         <item name="android:layout_height">0.5dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/color_gray_dadada</item>
     </style>
+
     <style name="LiveCourse_Card_content">
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:layout_marginTop">6dp</item>
@@ -338,11 +346,13 @@
         <item name="android:textColor">@color/color_black_6c6c6c</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
+
     <style name="schedule_text_style_light">
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textColor">@color/color_black_939393</item>
     </style>
+
     <style name="schedule_icontext_style" parent="schedule_text_style">
         <item name="android:drawablePadding">5dp</item>
     </style>
@@ -380,7 +390,7 @@
     </style>
 
 
-    <style name="order_detail_button" >
+    <style name="order_detail_button">
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
@@ -498,4 +508,16 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@color/color_gray_dadada</item>
     </style>
+
+    <style name="dialog_common_style" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
 </resources>

@@ -83,7 +83,7 @@
         android:id="@+id/iv_topic_dialog_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/topic_dialog_close"
+        android:src="@drawable/round_dialog_close"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="41dp"
         />

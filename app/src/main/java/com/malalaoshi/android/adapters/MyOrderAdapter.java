@@ -125,7 +125,7 @@ public class MyOrderAdapter extends BaseRecycleAdapter<MyOrderAdapter.OrderViewH
                 case "u"://待支付
                     mViewOrderItemDivide.setVisibility(View.VISIBLE);
                     mLlOrderItemOperate.setVisibility(View.VISIBLE);
-                    mTvOrderItemStatus.setText("未支付");
+                    mTvOrderItemStatus.setText("订单待支付");
                     mLlOrderItemRoot.setBackground(MiscUtil.getDrawable(R.drawable.bg_order_item_red));
                     mTvOrderItemCancel.setVisibility(View.VISIBLE);
                     mTvOrderItemBuy.setTextColor(MiscUtil.getColor(R.color.color_red_fe3059));
