@@ -358,6 +358,7 @@ public class MainActivity extends BaseActivity implements FragmentGroupAdapter.I
                     fragment = new UserFragment();
                     break;
             }
+            fragments.put(position, fragment);
         }
         return fragment;
     }
