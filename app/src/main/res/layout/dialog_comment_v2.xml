@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_border_btn_normal"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="评价"
+            android:textColor="@color/color_black_373a41"
+            android:textSize="@dimen/core__text_size_xxlarge"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/main_bg"
+            />
+
+        <com.malalaoshi.android.ui.widgets.DoubleImageView
+            android:id="@+id/div_comment_dialog_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:div_bigBorderColor="@color/main_color"
+            app:div_bigBorderWidth="3dp"
+            app:div_bigImgSize="80dp"
+            app:div_smallBorderColor="@color/main_color"
+            app:div_smallBorderWidth="2dp"
+            app:div_smallImgSize="48dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_comment_dialog_teacher_course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="五年级奥数培优班"
+            android:textColor="@color/color_black_a0a3ab"
+            />
+
+        <RatingBar
+            android:id="@+id/rb_comment_dialog_score"
+            style="@style/mala.ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="10dp"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1"
+            />
+
+        <EditText
+            android:id="@+id/et_comment_dialog_input"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_rectangle_gray_bg"
+            android:freezesText="true"
+            android:gravity="top"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textSize="@dimen/core__text_size_large"
+            android:textColor="@color/color_black_333333"
+            android:lineSpacingExtra="6dp"
+            android:hint="@string/please_comment"
+            />
+
+        <TextView
+            android:id="@+id/tv_comment_dialog_commit"
+            android:layout_width="120dp"
+            android:layout_height="34dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/selector_semicircle_blue_frame_btn_bg"
+            android:gravity="center"
+            android:text="提交"
+            android:textColor="@drawable/selector_text_color_gray"
+            android:textSize="@dimen/core__text_size_xxlarge"
+            android:enabled="false"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_comment_dialog_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/round_dialog_close"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="20dp"
+        />
+
+</LinearLayout>

@@ -287,7 +287,7 @@ public class LiveCourseDetailActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_course_detail_call, R.id.tv_course_detail_buy})
+    @OnClick({R.id.iv_course_detail_call, R.id.tv_course_detail_buy, R.id.iv_course_detail_teacher_avatar})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_course_detail_call:
@@ -296,7 +296,17 @@ public class LiveCourseDetailActivity extends BaseActivity {
             case R.id.tv_course_detail_buy:
                 buyCourse();
                 break;
+            case R.id.iv_course_detail_teacher_avatar:
+                if (mLiveCourse!=null) {
+                    lunchGallery(mLiveCourse.getLecturer_avatar());
+                }
+                break;
         }
+    }
+    private void lunchGallery(String url) {
+        Intent intent = new Intent(this, GalleryActivity.class);
+        intent.putExtra(GalleryActivity.GALLERY_URLS, new String[]{url});
+        startActivity(intent);
     }
 
     private void callAssistPhone() {

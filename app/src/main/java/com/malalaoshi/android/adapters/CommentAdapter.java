@@ -14,11 +14,9 @@ import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
 import com.malalaoshi.android.core.image.MalaImageView;
 import com.malalaoshi.android.core.utils.DateUtils;
-import com.malalaoshi.android.core.utils.DialogUtils;
-import com.malalaoshi.android.dialogs.CommentDialog;
-import com.malalaoshi.android.entity.Comment;
 import com.malalaoshi.android.entity.Course;
 import com.malalaoshi.android.entity.Teacher;
+import com.malalaoshi.android.ui.dialogs.CommentDialog;
 import com.malalaoshi.android.ui.widgets.DoubleAvatarView;
 
 /**
@@ -162,18 +160,19 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
         String teacherIcon = course.getTeacher() == null ? "" : course.getTeacher().getAvatar();
 
         CommentDialog commentDialog = CommentDialog
-                .newInstance(teacherName, teacherIcon, course.getSubject(), Long.valueOf(course.getId()),
+                .newInstance(mContext, teacherName, teacherIcon, course.getSubject(), Long.valueOf(course.getId()),
                         course.getComment());
-        commentDialog.SetOnCommentResultListener(new CommentDialog.OnCommentResultListener() {
-            @Override
-            public void onSuccess(Comment response) {
-                course.setComment(response);
-                setCommentedUI(holder, course);
-            }
-        });
-        if (fragmentManager != null) {
-            DialogUtils.showDialog(fragmentManager, commentDialog, "comment_dialog");
-        }
+//        commentDialog.setOnCommentResultListener(new CommentDialog.OnCommentResultListener() {
+//            @Override
+//            public void onSuccess(Comment response) {
+//                course.setComment(response);
+//                setCommentedUI(holder, course);
+//            }
+//        });
+//        if (fragmentManager != null) {
+//            DialogUtils.showDialog(fragmentManager, commentDialog, "comment_dialog");
+//        }
+        commentDialog.show();
     }
 
     private void openLiveCourseComment(final CommentViewHolder holder, final Course course) {
@@ -183,18 +182,19 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
         String assistIcon = course.getTeacher() == null ? "" : course.getTeacher().getAvatar();
 
         CommentDialog commentDialog = CommentDialog
-                .newInstance(LecturerName, LecturerIcon,assistName,assistIcon, course.getSubject(), Long.valueOf(course.getId()),
+                .newInstance(mContext, LecturerName, LecturerIcon,assistName,assistIcon, course.getSubject(), Long.valueOf(course.getId()),
                         course.getComment());
-        commentDialog.SetOnCommentResultListener(new CommentDialog.OnCommentResultListener() {
-            @Override
-            public void onSuccess(Comment response) {
-                course.setComment(response);
-                setCommentedUI(holder, course);
-            }
-        });
-        if (fragmentManager != null) {
-            DialogUtils.showDialog(fragmentManager, commentDialog, "comment_dialog");
-        }
+//        commentDialog.setOnCommentResultListener(new CommentDialog.OnCommentResultListener() {
+//            @Override
+//            public void onSuccess(Comment response) {
+//                course.setComment(response);
+//                setCommentedUI(holder, course);
+//            }
+//        });
+//        if (fragmentManager != null) {
+//            DialogUtils.showDialog(fragmentManager, commentDialog, "comment_dialog");
+//        }
+        commentDialog.show();
     }
 
     private int getColor(int rid) {
