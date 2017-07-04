@@ -7,20 +7,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.malalaoshi.android.R;
 import com.malalaoshi.android.core.base.BaseRecycleAdapter;
-import com.malalaoshi.android.core.utils.DialogUtils;
-import com.malalaoshi.android.dialogs.CommentDialog;
 import com.malalaoshi.android.entity.Comment;
 import com.malalaoshi.android.entity.Course;
 import com.malalaoshi.android.entity.ScheduleCourse;
 import com.malalaoshi.android.entity.ScheduleDate;
 import com.malalaoshi.android.entity.ScheduleItem;
+import com.malalaoshi.android.ui.dialogs.CommentDialog;
 import com.malalaoshi.android.utils.CalendarUtils;
+import com.malalaoshi.android.utils.StringUtil;
 
 import java.util.Calendar;
 
@@ -95,8 +95,8 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
         TextView tvDay;
         @Bind(R.id.tv_week)
         TextView tvWeek;
-        @Bind(R.id.rl_schedule)
-        RelativeLayout rlSchedule;
+        @Bind(R.id.fl_schedule)
+        FrameLayout flSchedule;
         @Bind(R.id.tv_grade_course)
         TextView tvGradeCourse;
         @Bind(R.id.tv_teacher_name)
@@ -130,46 +130,35 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
             Calendar start = CalendarUtils.timestampToCalendar(data.getStart());
             Calendar end = CalendarUtils.timestampToCalendar(data.getEnd());
             if (data.is_passed()) {
-                tvDay.setTextColor(resources.getColor(R.color.color_black_939393));
-                tvWeek.setTextColor(resources.getColor(R.color.color_black_939393));
-                rlSchedule.setBackgroundResource(R.drawable.bg_corner_normal);
                 tvCourseComment.setVisibility(View.VISIBLE);
             } else {
-                if (CalendarUtils.compareCurrentDate(start) == 0) {
-                    tvDay.setTextColor(resources.getColor(R.color.color_blue_6bd2e5));
-                    tvWeek.setTextColor(resources.getColor(R.color.color_blue_6bd2e5));
-                } else {
-                    tvDay.setTextColor(resources.getColor(R.color.color_black_333333));
-                    tvWeek.setTextColor(resources.getColor(R.color.color_black_333333));
-                }
-                rlSchedule.setBackgroundResource(R.drawable.bg_corner_blue);
                 tvCourseComment.setVisibility(View.INVISIBLE);
-
             }
             tvGradeCourse.setText(data.getGrade() + " " + data.getSubject());
             tvClassPosition.setText(data.getSchool());
             tvAdress.setText(data.getSchool_address());
             if (start != null && end != null) {
                 if (((ScheduleCourse) scheduleItem).isFirstCourseOfDay()) {
-                    tvDay.setText(start.get(Calendar.DAY_OF_MONTH) + "");
+                    int day = start.get(Calendar.DAY_OF_MONTH);
+                    String dayStr = day > 10 ? day + "" : "0" + day;
+                    tvDay.setText(dayStr);
                     tvWeek.setText(CalendarUtils.getWeekBytimestamp(data.getStart()));
                 } else {
                     tvDay.setText("");
                     tvWeek.setText("");
                 }
-                tvClassTime.setText(CalendarUtils.formatTime(start) + "-" + CalendarUtils.formatTime(end));
+                StringUtil.setCourseInfo(tvClassTime, "上课时间：" + CalendarUtils.formatTime(start) + "-" + CalendarUtils.formatTime(end));
             } else {
                 tvDay.setText("");
                 tvWeek.setText("");
                 tvClassTime.setText("");
             }
 
+            StringUtil.setCourseInfo(tvTeacherName, "教师姓名：" + data.getLecturer().getName());
             if (data.is_live()) {
-                tvTeacherName.setText(data.getLecturer().getName());
                 tvTeacherAssist.setText("助教:" + data.getTeacher().getName());
                 ivLiveCourseIcon.setVisibility(View.VISIBLE);
             } else {
-                tvTeacherName.setText(data.getTeacher().getName());
                 tvTeacherAssist.setText("");
                 ivLiveCourseIcon.setVisibility(View.GONE);
             }
@@ -178,29 +167,35 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
             tvCourseComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!data.is_expired()){
+                    if (!data.is_expired()) {
                         showCommentDialog(ItemViewHolder.this, data);
                     }
                 }
             });
-            if (comment != null) {
-                setBrowseCommentUI(this);
+            if (data.is_expired()) {
+                tvCourseComment.setBackgroundResource(0);
+                tvCourseComment.setText("评价已过期");
+                tvCourseComment.setTextColor(resources.getColor(R.color.color_gray_cdcdcd));
+                ivLiveCourseIcon.setBackgroundResource(R.drawable.tab_schedule_double_teachers_gray);
+                flSchedule.setBackgroundResource(R.drawable.shape_top_radiu_gray);
             } else {
-                if (data.is_expired()) {
-                    tvCourseComment.setBackgroundResource(R.drawable.shape_comment_obsolete);
-                    tvCourseComment.setText("评价已过期");
-                    tvCourseComment.setTextColor(resources.getColor(R.color.grey_black_light));
+                ivLiveCourseIcon.setBackgroundResource(R.drawable.tab_schedule_double_teachers_yellow);
+                flSchedule.setBackgroundResource(R.drawable.shape_top_radiu_blue);
+                if (comment != null) {
+                    setBrowseCommentUI(this);
                 } else {
                     setGotoCommentUI(this);
                 }
             }
+
+
         }
     }
 
     private void showCommentDialog(ItemViewHolder holder, Course course) {
-        if (course.is_live()){
+        if (course.is_live()) {
             showLiveCourseComment(holder, course);
-        }else {
+        } else {
             showNormalComment(holder, course);
         }
     }
@@ -210,56 +205,55 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
         String teacherIcon = course.getTeacher() == null ? "" : course.getTeacher().getAvatar();
 
         CommentDialog commentDialog = CommentDialog
-                .newInstance(teacherName, teacherIcon, course.getSubject(), Long.valueOf(course.getId()),
+                .newInstance(mContext, teacherName, teacherIcon, course.getSubject(), Long.valueOf(course.getId()),
                         course.getComment());
-        commentDialog.SetOnCommentResultListener(new CommentDialog.OnCommentResultListener() {
+        commentDialog.setOnCommentResultListener(new CommentDialog.OnCommentResultListener() {
             @Override
             public void onSuccess(Comment response) {
                 course.setComment(response);
                 setBrowseCommentUI(holder);
             }
         });
-        if (fragmentManager != null) {
-            DialogUtils.showDialog(fragmentManager, commentDialog, "comment_dialog");
-        }
+        commentDialog.show();
+
     }
 
-    private void showLiveCourseComment(final ItemViewHolder holder,final Course course) {
+    private void showLiveCourseComment(final ItemViewHolder holder, final Course course) {
         String LecturerName = course.getLecturer() == null ? "" : course.getLecturer().getName();
         String LecturerIcon = course.getLecturer() == null ? "" : course.getLecturer().getAvatar();
         String assistName = course.getTeacher() == null ? "" : course.getTeacher().getName();
         String assistIcon = course.getTeacher() == null ? "" : course.getTeacher().getAvatar();
 
         CommentDialog commentDialog = CommentDialog
-                .newInstance(LecturerName, LecturerIcon,assistName,assistIcon, course.getSubject(), Long.valueOf(course.getId()),
+                .newInstance(mContext, LecturerName, LecturerIcon, assistName, assistIcon, course.getSubject(), Long.valueOf(course.getId()),
                         course.getComment());
-        commentDialog.SetOnCommentResultListener(new CommentDialog.OnCommentResultListener() {
+        commentDialog.setOnCommentResultListener(new CommentDialog.OnCommentResultListener() {
             @Override
             public void onSuccess(Comment response) {
                 course.setComment(response);
                 setBrowseCommentUI(holder);
             }
         });
-        if (fragmentManager != null) {
-            DialogUtils.showDialog(fragmentManager, commentDialog, "comment_dialog");
-        }
+        commentDialog.show();
     }
 
-    private void setBrowseCommentUI(final ItemViewHolder holder){
+    private void setBrowseCommentUI(final ItemViewHolder holder) {
         TextView tvCourseComment = holder.tvCourseComment;
-        tvCourseComment.setBackgroundResource(R.drawable.core__selector_browse_comments);
+        tvCourseComment.setBackgroundResource(R.drawable.selector_semicircle_blue_frame_btn_bg);
         tvCourseComment.setText("查看评价");
-        tvCourseComment.setTextColor(getColor(R.color.color_blue_82b4d9_f2));
+        tvCourseComment.setTextColor(getColor(R.color.main_color));
+
     }
-    private void setGotoCommentUI(final ItemViewHolder holder){
+
+    private void setGotoCommentUI(final ItemViewHolder holder) {
         TextView tvCourseComment = holder.tvCourseComment;
-        tvCourseComment.setBackgroundResource(R.drawable.selector_goto_comment);
+        tvCourseComment.setBackgroundResource(R.drawable.selector_semicircle_red_frame_btn_bg);
         tvCourseComment.setText("去评价");
-        tvCourseComment.setTextColor(getColor(R.color.color_red_e26254));
+        tvCourseComment.setTextColor(getColor(R.color.color_red_fe3059));
     }
 
 
-    public int getColor(int resId){
+    public int getColor(int resId) {
         return mContext.getResources().getColor(resId);
     }
 
@@ -271,7 +265,7 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
         public ItemDateViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            tvData = (TextView) mView.findViewById(R.id.tv_date);
+            //            tvData = (TextView) mView.findViewById(R.id.tv_date);
         }
 
         @Override
@@ -288,7 +282,7 @@ public class ScheduleAdapter extends BaseRecycleAdapter<ScheduleAdapter.ParentVi
                     }
                 }
             }
-            tvData.setText(data);
+            //            tvData.setText(data);
         }
 
     }

@@ -257,8 +257,8 @@
     <!-- 评价星 -->
     <style name="mala.ratingbar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
-        <item name="android:minHeight">40dip</item>
-        <item name="android:maxHeight">40dip</item>
+        <item name="android:minHeight">24dip</item>
+        <item name="android:maxHeight">24dip</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -342,9 +342,9 @@
 
     <style name="schedule_text_style">
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">@dimen/text_size_small_high</item>
-        <item name="android:textColor">@color/color_black_6c6c6c</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">18dp</item>
     </style>
 
     <style name="schedule_text_style_light">
