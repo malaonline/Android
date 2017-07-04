@@ -3,9 +3,12 @@ package com.malalaoshi.android.utils;
 import android.content.Context;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.TextAppearanceSpan;
 import android.widget.TextView;
 
+import com.malalaoshi.android.R;
+import com.malalaoshi.android.core.utils.MiscUtil;
 import com.malalaoshi.android.entity.BaseEntity;
 
 import java.util.List;
@@ -78,4 +81,11 @@ public class StringUtil {
         styledText.setSpan(new TextAppearanceSpan(context, style2Id), text.indexOf("/")+1, text.length() , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(styledText, TextView.BufferType.SPANNABLE);
     }
+    public static void setCourseInfo(TextView textView, String text){
+            SpannableString spannableString = new SpannableString(text);
+            spannableString.setSpan(new ForegroundColorSpan(MiscUtil.getColor(R.color.color_black_a0a3ab)), 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(MiscUtil.getColor(R.color.color_black_333333)), 5, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            textView.setText(spannableString);
+    }
+
 }

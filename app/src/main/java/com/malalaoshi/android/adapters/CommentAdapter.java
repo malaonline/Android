@@ -74,7 +74,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
             setNoCommentUI(holder, course);
         }
         holder.gradeView.setText(course.getGrade() + " " + course.getSubject());
-        holder.dateView.setText(formatCourseDate(course.getStart()));
+//        holder.dateView.setText(formatCourseDate(course.getStart()));
         holder.timeView.setText(formatCourseTime(course.getStart(), course.getEnd()));
         holder.locationView.setText(course.getSchool());
         holder.tvAddress.setText(course.getSchool_address());
@@ -209,7 +209,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
         private TextView teacherView;
         private TextView gradeView;
         private TextView timeView;
-        private TextView dateView;
+//        private TextView dateView;
         private TextView locationView;
         private TextView tvAddress;
         private TextView stateView;
@@ -222,7 +222,7 @@ public class CommentAdapter extends BaseRecycleAdapter<CommentAdapter.CommentVie
             teacherView = (TextView) view.findViewById(R.id.tv_teacher);
             gradeView = (TextView) view.findViewById(R.id.tv_grade);
             timeView = (TextView) view.findViewById(R.id.tv_time);
-            dateView = (TextView) view.findViewById(R.id.tv_date);
+//            dateView = (TextView) view.findViewById(R.id.tv_date);
             locationView = (TextView) view.findViewById(R.id.tv_location);
             tvAddress = (TextView) view.findViewById(R.id.tv_address);
             stateView = (TextView) view.findViewById(R.id.tv_status);

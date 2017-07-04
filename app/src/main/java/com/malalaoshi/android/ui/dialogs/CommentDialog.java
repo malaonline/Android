@@ -109,8 +109,10 @@ public class CommentDialog extends BaseDialog {
             mRbCommentDialogScore.setIsIndicator(true);
             mEtCommentDialogInput.setFocusableInTouchMode(false);
             mEtCommentDialogInput.setCursorVisible(false);
+            mTvCommentDialogCommit.setText("查看评价");
         } else {
             StatReporter.commentPage(false);
+            mTvCommentDialogCommit.setText("提交");
             mRbCommentDialogScore.setIsIndicator(false);
             mEtCommentDialogInput.setFocusableInTouchMode(true);
             mEtCommentDialogInput.setCursorVisible(true);

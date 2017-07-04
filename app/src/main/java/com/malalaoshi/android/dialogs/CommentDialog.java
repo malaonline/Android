@@ -175,7 +175,7 @@ public class CommentDialog extends DialogFragment {
     private void init() {
     }
 
-    public void SetOnCommentResultListener(OnCommentResultListener listener) {
+    public void setOnCommentResultListener(OnCommentResultListener listener) {
         resutListener = listener;
     }
 

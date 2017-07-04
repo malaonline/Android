@@ -111,6 +111,7 @@
                 android:layout_toRightOf="@id/tv_my_orders"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_unpaid_orders"
+                android:visibility="invisible"
                 />
         </RelativeLayout>
 

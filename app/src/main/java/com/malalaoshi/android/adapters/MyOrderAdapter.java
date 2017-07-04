@@ -33,6 +33,7 @@ import com.malalaoshi.android.entity.Subject;
 import com.malalaoshi.android.network.result.OkResult;
 import com.malalaoshi.android.ui.widgets.DoubleImageView;
 import com.malalaoshi.android.utils.DialogUtil;
+import com.malalaoshi.android.utils.StringUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -97,8 +98,8 @@ public class MyOrderAdapter extends BaseRecycleAdapter<MyOrderAdapter.OrderViewH
             mOrder = order;
             itemView.setOnClickListener(this);
             mTvOrderItemId.setText("订单编号：" + order.getOrder_id());
-            setText(mTvOrderItemCourseName, "课程名称：" + order.getGrade() + order.getSubject());
-            setText(mTvOrderItemAddress, "上课地点：" + order.getSchool());
+            StringUtil.setCourseInfo(mTvOrderItemCourseName, "课程名称：" + order.getGrade() + order.getSubject());
+            mTvOrderItemAddress.setText(order.getSchool());
             String price = mContext.getString(R.string.total) + String.format("%.2f", order.getTo_pay() * 0.01d);
             SpannableString spannableString = new SpannableString(price);
             spannableString.setSpan(new ForegroundColorSpan(MiscUtil.getColor(R.color.color_red_fe3059)), 5, price.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -112,7 +113,7 @@ public class MyOrderAdapter extends BaseRecycleAdapter<MyOrderAdapter.OrderViewH
                 mTvOrderItemTeacherName.setVisibility(View.GONE);
             } else {
                 mTvOrderItemTeacherName.setVisibility(View.VISIBLE);
-                setText(mTvOrderItemTeacherName, "教师姓名：" + order.getTeacher_name());
+                StringUtil.setCourseInfo(mTvOrderItemTeacherName, "教师姓名：" + order.getTeacher_name());
                 mDivOrderItemAvatar.loadImg(order.getTeacher_avatar(), "", DoubleImageView.LOAD_SIGNLE_BIG);
             }
             setWithStatus();
@@ -245,13 +246,6 @@ public class MyOrderAdapter extends BaseRecycleAdapter<MyOrderAdapter.OrderViewH
 
         private void stopProcessDialog() {
             DialogUtil.stopProcessDialog();
-        }
-
-        public void setText(TextView textView, String text) {
-            SpannableString spannableString = new SpannableString(text);
-            spannableString.setSpan(new ForegroundColorSpan(MiscUtil.getColor(R.color.color_black_a0a3ab)), 0, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            spannableString.setSpan(new ForegroundColorSpan(MiscUtil.getColor(R.color.color_black_333333)), 5, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            textView.setText(spannableString);
         }
 
         @Override

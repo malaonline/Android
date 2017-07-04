@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/ll_order_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:lines="1"
+                tool:text="欧阳娜娜"
                 />
 
             <TextView
@@ -69,13 +71,28 @@
                 android:lines="1"
                 />
 
-            <TextView
-                android:id="@+id/tv_order_item_address"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:lines="1"
-                />
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上课地点："
+                    android:textColor="@color/color_black_a0a3ab"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_order_item_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_black_333333"
+                    tool:text="山东临沂蓝山一号店山东临沂蓝山一号店"
+                    />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_order_item_total_price"
