@@ -12,7 +12,9 @@
         app:cusTitleText="@string/pay"
         app:cusLeftBackgroud="@drawable/core__back_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/main_color"
+        >
     </com.malalaoshi.android.core.view.TitleBarView>
     <View
         android:layout_width="match_parent"

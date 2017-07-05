@@ -493,7 +493,7 @@
         <item name="android:layout_marginLeft">24dp</item>
         <item name="android:layout_marginRight">24dp</item>
         <item name="android:layout_marginTop">10dp</item>
-        <item name="android:background">@drawable/bg_blue_rectangle_btn</item>
+        <item name="android:background">@drawable/selector_gradient_semicircle_blue_btn_bg</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_size_normal_high</item>

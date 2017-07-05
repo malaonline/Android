@@ -2,23 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white_f6f6f6"
+    android:background="@color/main_bg"
     >
 
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_white_ffffff">
+        android:layout_marginTop="6dp"
+        android:background="@color/color_white_ffffff"
+        android:padding="10dp"
+        >
 
         <TextView
             style="@style/mala.widget.title.text.small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:text="应付金额" />
 
         <TextView
@@ -26,11 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
             android:text="¥0.00"
-            android:textColor="@color/color_red_e36a5d"
+            android:textColor="@color/color_red_fe3059"
             android:textSize="14sp" />
 
     </RelativeLayout>
@@ -40,17 +36,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_top"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="6dp"
         android:text="选择支付方式"
         android:textColor="@color/color_black_6c6c6c"
-        android:textSize="13sp" />
+        android:textSize="10sp" />
 
     <RelativeLayout
         android:id="@+id/rl_ali"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:layout_below="@id/tv_pay_type"
         android:background="@color/color_white_ffffff"
         android:paddingLeft="16dp"
@@ -95,23 +91,19 @@
             android:layout_centerVertical="true"
             android:scaleType="center"
             android:src="@drawable/ic_check_out" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/color_gray_e5e5e5" />
     </RelativeLayout>
 
 
     <RelativeLayout
         android:id="@+id/rl_wx"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:layout_below="@id/rl_ali"
         android:background="@color/color_white_ffffff"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingRight="16dp"
+        android:layout_marginTop="0.5dp"
+        >
 
         <ImageView
             android:id="@+id/iv_wx"
@@ -156,11 +148,13 @@
     <RelativeLayout
         android:id="@+id/rl_qr"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:layout_below="@id/rl_wx"
         android:background="@color/color_white_ffffff"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingRight="16dp"
+        android:layout_marginTop="0.5dp"
+        >
 
         <ImageView
             android:id="@+id/iv_qr"
@@ -203,11 +197,7 @@
             android:src="@drawable/ic_check_out" />
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/rl_wx"
-        android:background="@color/color_gray_e5e5e5" />
+
     <TextView
         android:id="@+id/tv_pay"
         style="@style/pay_buttom_btn"
